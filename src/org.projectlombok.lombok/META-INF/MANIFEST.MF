@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Lombok
+Bundle-SymbolicName: org.projectlombok.lombok
+Bundle-Version: 1.0.0
+Bundle-ClassPath: lombok-1.16.6.jar
+Export-Package: lombok,
+ lombok.delombok.ant,
+ lombok.experimental,
+ lombok.extern.apachecommons,
+ lombok.extern.java,
+ lombok.extern.log4j,
+ lombok.extern.slf4j,
+ lombok.launch
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

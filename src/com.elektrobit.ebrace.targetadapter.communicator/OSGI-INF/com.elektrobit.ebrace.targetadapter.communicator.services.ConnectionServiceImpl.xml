@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetadapter.communicator.services.ConnectionServiceImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService"/>
+      <provide interface="com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnectionDownListener"/>
+      <provide interface="com.elektrobit.ebrace.targetadapter.communicator.api.SendMessageToTargetService"/>
+      <provide interface="com.elektrobit.ebrace.core.preferences.listener.UserInteractionPreferencesListener"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ResetListener"/>
+   </service>
+   <reference bind="bindTargetConnectionFactory" cardinality="0..n" interface="com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnectionFactory" name="TargetConnectionFactory" policy="dynamic" unbind="unbindTargetConnectionFactory"/>
+   <implementation class="com.elektrobit.ebrace.targetadapter.communicator.services.ConnectionServiceImpl"/>
+</scr:component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.core.tracefile.internal.LoadFileServiceImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.tracefile.api.LoadFileService"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataListener"/>
+   </service>
+   <reference bind="bindImporterRegistry" cardinality="1..1" interface="com.elektrobit.ebrace.core.importerregistry.api.ImporterRegistry" name="ImporterRegistry" policy="static" unbind="unbindImporterRegistry"/>
+   <reference bind="bindResetNotifier" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ResetNotifier" name="ResetNotifier" policy="static" unbind="unbindResetNotifier"/>
+   <reference bind="bindResourcesModelManager" cardinality="1..1" interface="com.elektrobit.ebrace.resources.api.manager.ResourcesModelManager" name="ResourcesModelManager" policy="static" unbind="unbindResourcesModelManager"/>
+   <reference bind="bindUserInteractionPreferences" cardinality="1..1" interface="com.elektrobit.ebrace.core.preferences.api.UserInteractionPreferences" name="UserInteractionPreferences" policy="static" unbind="unbindUserInteractionPreferences"/>
+   <reference bind="bindUserMessageLogger" cardinality="1..1" interface="com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger" name="UserMessageLogger" policy="static" unbind="unbindUserMessageLogger"/>
+   <implementation class="com.elektrobit.ebrace.core.tracefile.internal.LoadFileServiceImpl"/>
+</scr:component>

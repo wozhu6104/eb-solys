@@ -1,0 +1,27 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package com.elektrobit.ebrace.core.interactor.api.analysisTimespan;
+
+import com.elektrobit.ebrace.core.interactor.api.common.BaseUseCase;
+
+public interface AnalysisTimespanInteractionUseCase extends BaseUseCase
+{
+    public void increaseAnalysisTimespan();
+
+    public void decreaseAnalysisTimespan();
+
+    /**
+     * Set analysis timespan in seconds.
+     * 
+     * @param text
+     *            Number of seconds as text, can be followed by "s"
+     */
+    public void setAnalysisTimespan(String textSeconds);
+}

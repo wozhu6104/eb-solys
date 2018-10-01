@@ -1,0 +1,271 @@
+import com.elektrobit.ebrace.core.targetdata.api.ModelElement
+import com.elektrobit.ebrace.core.targetdata.api.runtime.eventhandling.RuntimeEvent
+import com.elektrobit.ebrace.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel
+import com.elektrobit.ebrace.core.targetdata.api.runtime.eventhandling.ProtoMessageValue
+import com.elektrobit.ebrace.core.targetdata.api.timemarker.TimeMarker
+import com.elektrobit.ebrace.script.external.RaceScriptContext
+import java.util.List
+
+class RaceScriptBase
+{
+    // Allows the access to the extension methods from the native API
+    extension RaceScriptContext ctx
+ 
+    /**
+       Initialize Context
+    */
+    new(RaceScriptContext _ctx) {
+ 
+        ctx = _ctx
+    }
+	
+	/**
+     * SCRIPT API - BASICS
+     */
+     
+	/**
+     * Gets all channel names
+     */
+	def getAllChannelNames() {
+		allChannels.map[name]
+	}
+
+	/**
+       * Gets all channel names, which start with a certain prefix
+       @param prefix Given channel prefix 
+    */
+	def getAllChannelNames(String prefix) {
+		allChannelNames.filter[startsWith(prefix)]
+	}
+
+	/**
+       * Gets a certain channel by a given channel name
+       @param channelName Given channel name
+    */
+	def getChannel(String channelName) {
+		allChannels.filter[name.equals(channelName)].head
+	}
+
+	/**
+       * Gets a list of channels by given channel names
+       @param channelNames Given list of channel names
+       */
+	def getChannels(List<String> channelNames) {
+		allChannels.filter[channelNames.contains(name)].toList
+	}
+
+	/**
+       * Gets a list of channels by a given prefix
+       @param preifx  Given channel prefix
+    */
+	def getChannelsByPrefix(String prefix) {
+		prefix.allChannelNames.toList.channels
+	}
+
+	/**
+       * Adds a new runtime event to a channel
+       @param channel The channel where the event should be added
+       @param timestamp The time-stamp of added event
+       @param value The value. Must be of same type as the channel type  
+    */
+	def <T> addEvent(RuntimeEventChannel<T> channel, long timestamp, T value) {
+		channel.addEvent(timestamp, null, value)
+	}
+
+	private def <T> addEvent(RuntimeEventChannel<T> channel, long timestamp, ModelElement modelElement, T value) {
+		channel.addEventToChannel(timestamp, value, modelElement)
+	}
+
+	/**
+       * Gets all events from a given channel
+       @param The given channel
+       */
+	def getEvents(RuntimeEventChannel<?> channel) {
+		channel.allEventsFromChannel
+	}
+
+	/**
+     * Get all events from given channels
+     @param The list of given channels
+     */
+	def getEvents(List<RuntimeEventChannel<?>> channels) {
+		channels.allEventsFromChannels
+	}
+
+
+	/**
+	 * Filters all events from a certain channel name
+	 * @param events A list of events
+	 * @param channel The channel name
+	 */
+	def filterByChannelName(List<RuntimeEvent<?>> events, String channel) {
+		events.filter[runtimeEventChannel.name.equals(channel)]
+	}
+
+	/**
+	 * Filters all events from channel names with a certain prefix
+	 * @param events A list of events
+	 * @param channel The channel name prefix
+	 */
+	def filterByChannelNames(List<RuntimeEvent<?>> events, String prefix) {
+		events.filter[runtimeEventChannel.name.startsWith(prefix)]
+	}
+
+	/**
+	 * Gets the Channel Name from a certain event
+	 * @param event An event
+	 * @return The channel name of the event
+	 */
+	def getChannelName(RuntimeEvent<?> event) {
+		event.runtimeEventChannel.name
+	}
+
+	/**
+	 * Returns all channels which match the given regular expression
+	 * @param regex The regular expression as String
+	 * @return All channels matching the regular expression
+	 */
+	def getChannelsByRegex(String regex)
+	{ 
+		allChannels.filter[name.matches(regex)] 
+	} 
+
+	/**
+	 * Get a marker by a given name
+	 * @param mname The marker name
+	 * @return The marker
+	 */
+	def getTimemarker(String mname) {
+		allTimemarkers.filter[name.equals(mname)].head
+	}
+
+	/**
+     * Creates a marker based on a given event
+     * @param event The event from which the marker is created
+     * @param name The marker name
+     * @return A new marker
+     */
+	def createTimemarker(RuntimeEvent<?> event, String name) {
+		event.timestamp.createTimemarker(name)
+	}
+
+	/**
+     * Removes a marker by a given name
+     * @param name The marker name
+     */
+	def removeTimemarker(String name) {
+		name.timemarker.removeTimemarker
+	}
+
+	/**
+     * Removes all markers 
+     */
+	def removeAllTimemarkers() {						
+		allTimemarkers.forEach[removeTimemarker]
+	}
+
+	/**
+     * Remove markers whic start with a certain prefix
+     * @param prefix The given prefix
+     */
+	def removeTimemarkerStartsWith(String prefix) {
+		allTimemarkers.filter[name.startsWith(prefix)].forEach[removeTimemarker]
+	}
+
+	/**
+     * SCRIPT API - UTILITY 
+     */
+     
+	/**
+     * Filters all event values from a given channel that matches a certain regular expression
+     */
+	def Iterable<RuntimeEvent<?>> like(RuntimeEventChannel<?> channel, String regex) {
+		channel.events.like(regex)
+	}
+
+	/**
+     * Filters all event values from a given channel that starts with a certain prefix
+	 */
+	def Iterable<RuntimeEvent<?>> startsWith(RuntimeEventChannel<?> channel, String starts) {
+		channel.events.startsWith(starts)
+	}
+
+	/**
+     * Filters all events values that matches a certain regular expression
+     */
+	def like(Iterable<RuntimeEvent<?>> events, String regex) {
+		events.filter[like(regex)]
+	}
+
+	/**
+	 *  Filters all events values that starts wuth a given prefix
+	 */
+	def startsWith(Iterable<RuntimeEvent<?>> events, String starts) {
+		events.filter[startsWith(starts)]
+	}
+
+	/**
+     * Filters checks if an event value matches a certain regular expression
+     */
+	def like(RuntimeEvent<?> event, String regex) {
+		event.value.toString.matches(regex)
+	}
+
+	/**
+     * Filters checks if a value object matches a certain regular expression
+     */
+	def like(ProtoMessageValue obj, String regex) {
+		obj.summary.matches(regex)
+	}
+
+	/**
+     * Filters checks if an event value starts with a certain prefix
+     */
+	def startsWith(RuntimeEvent<?> event, String starts) {
+		event.value.toString.startsWith(starts)
+	}
+
+	/**
+	 * Calculates the time delta between two events 
+	 */
+	def diff(RuntimeEvent<?> rte1, RuntimeEvent<?> rte2) {
+		rte2.timestamp - rte1.timestamp
+	}
+
+	/**
+	 * Calculates the time delta between two markers 
+	 */
+	def diff(TimeMarker tm1, TimeMarker tm2) {
+		tm2.timestamp - tm1.timestamp
+	}
+
+	/**
+       * Filter all events between two time markers
+       */
+	def between(List<RuntimeEvent<?>> events, TimeMarker t1, TimeMarker t2) {
+		events.between(t1.timestamp, t2.timestamp)
+	}
+
+	/**
+       * Filter all events between two time-stamps
+       */
+	def between(List<RuntimeEvent<?>> events, long t1, long t2) {
+		events.filter[timestamp >= t1 && timestamp <= t2]
+	}
+
+	/**
+       * This will return a list of lists of runtime events, grouped by time-stamp
+       */
+	def groupByTimestamp(Iterable<RuntimeEvent<?>> runtimeEvents) {
+	val sortedByTimestamp = runtimeEvents.sortBy[timestamp]
+	val List<List<RuntimeEvent<?>>> allList = newArrayList()
+	allList.add(newArrayList());
+	sortedByTimestamp.reduce[p1, p2|allList.last.add(p1)
+		if (p1.timestamp != p2.timestamp) {
+			allList.add(newArrayList())
+		} p2]
+	allList.last.add(sortedByTimestamp.last)
+	allList
+	}	
+}
+

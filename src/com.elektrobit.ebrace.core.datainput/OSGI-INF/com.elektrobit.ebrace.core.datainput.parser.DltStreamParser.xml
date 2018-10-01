@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.core.datainput.parser.DltStreamParser">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.datainput.api.DataStreamParser"/>
+   </service>
+   <reference bind="bindDltStreamMessageService" interface="com.elektrobit.ebrace.targetdata.dlt.newapi.DltStreamMessageService" name="DltStreamMessageService" unbind="unbindDltStreamMessageService"/>
+   <implementation class="com.elektrobit.ebrace.core.datainput.parser.DltStreamParser"/>
+</scr:component>

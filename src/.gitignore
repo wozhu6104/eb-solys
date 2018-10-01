@@ -1,0 +1,11 @@
+*/bin/
+*/.m2/
+*/build/
+*/bin/
+*/target/
+*/.gradle/
+*._trace
+*.xtendbin
+*/.DS_Store
+*/.polyglot.build.properties
+/bin/

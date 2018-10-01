@@ -1,0 +1,29 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package TargetAgent.Protocol.LoggingTests;
+
+option java_package = "com.elektrobit.ebrace.targetdata.adapter.loggingtests";
+option java_outer_classname = "LoggingTestsProto";
+
+
+enum OperationType
+{
+   LOGGING_TEST_INCREASE_SPEED					 = 0;
+   LOGGING_TEST_INCREASE_SIZE   				 = 1;
+}
+
+message Entry {
+	required OperationType mKey = 1;
+	optional uint32 mValue		= 2;
+}
+
+message LogConfiguration{
+	repeated Entry configEntry = 1;
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetadapter.communicator.targetagent.TargetAgentConnectionFactory">
+   <service>
+      <provide interface="com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnectionFactory"/>
+   </service>
+   <reference bind="bindUserMessageLogger" cardinality="1..1" interface="com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger" name="UserMessageLogger" policy="static" unbind="unbindUserMessageLogger"/>
+   <implementation class="com.elektrobit.ebrace.targetadapter.communicator.targetagent.TargetAgentConnectionFactory"/>
+</scr:component>

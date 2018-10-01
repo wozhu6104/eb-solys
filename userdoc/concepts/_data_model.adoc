@@ -1,0 +1,37 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+== Data Model
+
+The data model builds on events that will be assigned to a channel.
+
+=== Events
+
+Events contain a *time stamp* and a *value*. Time stamps have microsecond precision. Values can be _numeric_, _textual_ or _binary payload_. In case of a binary payload, decoders can be used to make it human readable.
+Examples for an event would be
+
+* the value of memory consumption of a process at a certain point in time.
+* a developer trace message
+* an inter-process communication message
+
+=== Channels
+
+Channels are groups of events.
+Examples are
+
+* CPU values of a process
+* Trace messages on a tracing channel
+
+=== Channel Groups
+
+Channel groups can be used to group channels by a certain category.
+Examples are
+
+* CPU channels for all processes running on the monitored system
+* Tracing channels for all tracing sources available on the monitored system.

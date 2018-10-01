@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="com.elektrobit.ebrace.targetdata.importer.internal.racefile.RaceFileImporterProxy">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.importerregistry.api.Importer"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ResetListener"/>
+   </service>
+   <reference bind="bindFileSizeLimitService" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.importer.FileSizeLimitService" name="FileSizeLimitService" policy="static" unbind="unbindFileSizeLimitService"/>
+   <reference bind="bindProtocolMessageDispatcher" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher" name="ProtocolMessageDispatcher" policy="static" unbind="unbindProtocolMessageDispatcher"/>
+   <reference bind="bindRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unbindRuntimeEventAcceptor"/>
+   <reference bind="bindTargetHeaderMetaDataService" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.TargetHeaderMetaDataService" name="TargetHeaderMetaDataService" policy="static" unbind="unbindTargetHeaderMetaDataService"/>
+   <reference bind="bindTimestampProvider" cardinality="1..1" interface="com.elektrobit.ebrace.chronograph.api.TimestampProvider" name="TimestampProvider" policy="static" unbind="unbindTimestampProvider"/>
+   <reference bind="bindUserInteractionPreferences" cardinality="1..1" interface="com.elektrobit.ebrace.core.preferences.api.UserInteractionPreferences" name="UserInteractionPreferences" policy="static" unbind="unbindUserInteractionPreferences"/>
+   <reference bind="bindUserMessageLogger" cardinality="1..1" interface="com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger" name="UserMessageLogger" policy="static" unbind="unbindUserMessageLogger"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.importer.internal.racefile.RaceFileImporterProxy"/>
+</scr:component>

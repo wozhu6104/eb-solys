@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="com.elektrobit.ebrace.core.datamanager.internal.model.structure.TreeNodeCheckStateServiceImpl">
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.structure.TreeNodeCheckStateService"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ResetListener"/>
+   </service>
+   <reference bind="bind" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureProvider" unbind="unbind"/>
+   <implementation class="com.elektrobit.ebrace.core.datamanager.internal.model.structure.TreeNodeCheckStateServiceImpl"/>
+</scr:component>

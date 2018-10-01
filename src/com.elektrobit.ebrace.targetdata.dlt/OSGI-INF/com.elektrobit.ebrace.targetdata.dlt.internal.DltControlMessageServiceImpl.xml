@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="start" enabled="true" immediate="true" name="com.elektrobit.ebrace.targetdata.dlt.internal.DltControlMessageServiceImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.targetdata.dlt.api.DltControlMessageService"/>
+   </service>
+   <reference bind="bindConnectionService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService" name="ConnectionService" policy="static" unbind="unbindConnectionService"/>
+   <reference bind="bindTargetMessageBroadcastService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.SendMessageToTargetService" name="TargetMessageBroadcastService" policy="static" unbind="unbindTargetMessageBroadcastService"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.dlt.internal.DltControlMessageServiceImpl"/>
+</scr:component>

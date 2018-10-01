@@ -1,0 +1,7 @@
+
+	/**
+	* To set the value of this variable, pass a command line argument to EB solys when starting (Auto mode). 
+	* For example command line parameter "parameter=yes" will set value of the variable to "yes".
+	*/
+	@InjectedParam
+	var String parameter = "default variable value";

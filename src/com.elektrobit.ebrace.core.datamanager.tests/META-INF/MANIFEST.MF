@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.elektrobit.ebrace.core.datamanager.test
+Bundle-SymbolicName: com.elektrobit.ebrace.core.datamanager.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Fragment-Host: com.elektrobit.ebrace.core.datamanager;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: test.com.elektrobit.ebrace.core.datamanager
+Require-Bundle: org.junit;bundle-version="4.12.0",
+ org.mockito;bundle-version="2.13.0",
+ org.objenesis;bundle-version="2.6.0",
+ com.elektrobit.ebrace.dev.test.util;bundle-version="1.0.0",
+ net.bytebuddy.byte-buddy;bundle-version="1.7.9",
+ org.hamcrest;bundle-version="1.1.0"
+

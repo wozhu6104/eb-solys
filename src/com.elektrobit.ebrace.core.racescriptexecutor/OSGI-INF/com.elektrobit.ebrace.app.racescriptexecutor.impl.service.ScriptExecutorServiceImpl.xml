@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.app.racescriptexecutor.impl.service.ScriptExecutorServiceImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.racescriptexecutor.api.ScriptExecutorService"/>
+   </service>
+   <reference bind="bindScriptLoader" cardinality="1..1" interface="com.elektrobit.ebrace.core.racescriptexecutor.api.ScriptMethodLoader" name="ScriptLoader" policy="static" unbind="unbindScriptLoader"/>
+   <implementation class="com.elektrobit.ebrace.app.racescriptexecutor.impl.service.ScriptExecutorServiceImpl"/>
+</scr:component>

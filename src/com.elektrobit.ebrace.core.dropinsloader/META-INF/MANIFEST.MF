@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dropinsloader
+Bundle-SymbolicName: com.elektrobit.ebrace.core.dropinsloader
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.osgi.services,
+ org.eclipse.core.runtime;bundle-version="3.11.1",
+ org.projectlombok.lombok,
+ org.apache.log4j,
+ com.elektrobit.ebrace.core.interactor.api;bundle-version="1.0.0",
+ com.elektrobit.ebrace.core.usermessagelogger
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.dropinsloader.impl.DropinsLoaderServiceImpl.xml
+Bundle-ActivationPolicy: lazy

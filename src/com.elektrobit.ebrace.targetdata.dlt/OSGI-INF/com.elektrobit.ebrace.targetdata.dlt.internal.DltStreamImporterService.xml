@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetdata.dlt.internal.DltStreamImporterService">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.importerregistry.api.Importer"/>
+   </service>
+   <reference bind="bind" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" unbind="unbind"/>
+   <reference bind="bindDltChannelFromLogInfoCreator" cardinality="1..1" interface="com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator" name="DltChannelFromLogInfoCreator" policy="static" unbind="unbindDltChannelFromLogInfoCreator"/>
+   <reference bind="bindProtocolMessageDispatcher" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher" name="ProtocolMessageDispatcher" policy="static" unbind="unbindProtocolMessageDispatcher"/>
+   <reference bind="bindTimeMarkerManager" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager" name="TimeMarkerManager" policy="static" unbind="unbindTimeMarkerManager"/>
+   <reference bind="bindTimestampProvider" cardinality="1..1" interface="com.elektrobit.ebrace.chronograph.api.TimestampProvider" name="TimestampProvider" policy="static" unbind="unbindTimestampProvider"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.dlt.internal.DltStreamImporterService"/>
+</scr:component>

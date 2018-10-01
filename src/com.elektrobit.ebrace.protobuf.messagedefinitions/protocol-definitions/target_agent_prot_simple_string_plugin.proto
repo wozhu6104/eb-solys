@@ -1,0 +1,29 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package TargetAgent.Protocol.SimpleStringPlugin;
+
+option java_package = "com.elektrobit.ebrace.genivi.targetadapter.simplestringplugin.protobuf";
+option java_outer_classname = "TargetAgentProtocolSimpleString";
+
+option optimize_for = LITE_RUNTIME;
+
+enum SimpleStringPluginMajorVersion 
+{
+    SOCKET_READER_PLUGINMAJOR_VERSION = 0;
+}
+
+enum SimpleStringPluginMinorVersion 
+{
+    SOCKET_READER_PLUGINMINOR_VERSION = 1;
+}
+
+message SimpleStringMessage {
+    required string string_message = 1;
+}

@@ -1,0 +1,59 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package TargetAgent.Protocol.CommonDefinitions;
+
+option java_package = "com.elektrobit.ebrace.targetagent.protocol.commondefinitions";
+option java_outer_classname = "TargetAgentProtocolCommonDefinitions";
+
+enum ProtHndlrMessageTypesVersion 
+{
+	PROT_HNDLR_MESSAGE_TYPES_VERSION = 1;
+}
+
+
+enum MessageType 
+{
+	MSG_TYPE_INVALID  			 				= 0;
+	MSG_TYPE_DBUS 				 				= 1;
+	MSG_TYPE_RESOURCE_MONITOR 		 			= 2;
+	MSG_TYPE_PROT_HNDLR_CONTROL 	 	 		= 3;
+	MSG_TYPE_PACKAGE_MONITOR 	   	 			= 4;
+	MSG_TYPE_GENIVI_SYSTEMD_START_UP_MONITOR 	= 8;
+	MSG_TYPE_GENIVI_TEMPLATE_PLUGIN          	= 9;
+	MSG_TYPE_GENIVI_DLT_MONITOR_PLUGIN       	= 10;
+	MSG_TYPE_THREAD_OBSERVER_PLUGIN 	 		= 11;
+	MSG_TYPE_GENIVI_CTRACER_PLUGIN		 		= 12;
+	MSG_TYPE_MOST_SPY_MONITOR_PLUGIN	 		= 13;
+	MSG_TYPE_SOCKET_READER_PLUGIN		 		= 14;
+	MSG_TYPE_SIMPLE_STRING_PLUGIN		 		= 15;
+	MSG_TYPE_SINGLETON_GATEWAY_PLUGIN	 		= 18;
+	MSG_TYPE_THREAD_HEAP_STATS_PLUGIN	 		= 19;
+	MSG_TYPE_LINUX_APP_STATS_PLUGIN		 		= 20;
+	MSG_TYPE_RMTEST_PLUGIN  		 			= 22;
+	MSG_TYPE_LOGGINGTESTS_PLUGIN  		 		= 23;
+	MSG_TYPE_DBUSCMDCTRL_PLUGIN  		 		= 25;
+	MSG_TYPE_SIMPLEREMOTESHELL_PLUGIN	 		= 26;
+	MSG_TYPE_POSIX_MSG_QUEUES_PLUGIN  	 		= 27;
+	MSG_TYPE_LOG4J_PLUGIN  			 			= 28;
+	MSG_TYPE_NETWORKPACKETSNIFFER_PLUGIN  	 	= 29;
+	MSG_TYPE_ANDROID_PLUGIN			 			= 30;
+	MSG_TYPE_TOP_RESOURCE_MONITOR_PLUGIN     	= 31;
+	MSG_TYPE_DLT_RAW_PLUGIN			 			= 33;
+	MSG_TYPE_JSONAPI_PLUGIN			 			= 34;
+//	MSG_TYPE_LAST  							 	= 35;
+	MSG_TYPE_CHRONOGRAPH_CALIBRATION	 		= 99;
+}
+
+/* deprecated */
+message Timestamp {
+	required int64 milliseconds = 1;
+	optional int32 microseconds = 2;	
+}
+

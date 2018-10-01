@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" immediate="true" name="com.elektrobit.ebrace.platform.commandlineparser.intern.parser.CommandLineParserImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.CommandLineParser"/>
+   </service>
+   <implementation class="com.elektrobit.ebrace.platform.commandlineparser.intern.parser.CommandLineParserImpl"/>
+</scr:component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetdata.importer.internal.csvimporter.CsvImporterService">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.importerregistry.api.Importer"/>
+   </service>
+   <implementation class="com.elektrobit.ebrace.targetdata.importer.internal.csvimporter.CsvImporterService"/>
+   <reference bind="bindJsonService" interface="com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler" name="JsonService" unbind="unbindJsonService"/>
+</scr:component>

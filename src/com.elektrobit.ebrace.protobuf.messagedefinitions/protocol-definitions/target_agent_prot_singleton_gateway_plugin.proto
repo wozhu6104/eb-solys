@@ -1,0 +1,25 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package TargetAgent.Protocol.SingletonGatewayPlugin;
+
+option java_package = "com.elektrobit.ebrace.targetadapter.singletongateway.protobuf";
+option java_outer_classname = "SingletonGatewayTAProto";
+
+option optimize_for = LITE_RUNTIME;
+
+enum SgMessageType {
+    MSG_TYPE_EVM          = 0;
+    MSG_TYPE_VIEW         = 1;
+}
+
+message SingletonGatewayMessage {
+    required SgMessageType msgType     = 1;
+    required string        msgContent  = 2;
+}

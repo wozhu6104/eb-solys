@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.elektrobit.ebrace.targetdata.dlt.test
+Bundle-SymbolicName: com.elektrobit.ebrace.targetdata.dlt.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Fragment-Host: com.elektrobit.ebrace.targetdata.dlt;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: test.com.elektrobit.ebrace.targetdata.dlt
+Require-Bundle: com.elektrobit.ebrace.common;bundle-version="1.0.0",
+ com.elektrobit.ebrace.dev.test.util;bundle-version="1.0.0",
+ org.junit;bundle-version="4.12.0",
+ org.hamcrest.library;bundle-version="1.1.0",
+ org.mockito
+

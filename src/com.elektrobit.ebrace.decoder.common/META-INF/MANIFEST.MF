@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Decoder Common
+Bundle-SymbolicName: com.elektrobit.ebrace.decoder.common;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.elektrobit.ebsolys.decoder.common.DecoderCommonPlugin
+Bundle-Vendor: ELEKTROBIT
+Require-Bundle: org.eclipse.core.runtime,
+ com.elektrobit.ebrace.core.targetdata.api;bundle-version="1.0.0",
+ com.elektrobit.ebrace.common;bundle-version="1.0.0",
+ org.projectlombok.lombok,
+ org.apache.log4j;bundle-version="1.2.15",
+ com.google.gson;bundle-version="2.1.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: com.elektrobit.ebsolys.decoder.common.api,
+ com.elektrobit.ebsolys.decoder.common.services
+Eclipse-ExtensibleAPI: true

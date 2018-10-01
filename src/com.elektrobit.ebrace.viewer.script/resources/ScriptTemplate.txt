@@ -1,0 +1,24 @@
+
+import api.ScriptBase
+import com.elektrobit.ebsolys.script.external.ScriptContext
+//BEFORE_SCRIPT_ANNOTATION_IMPORT////AFTER_SCRIPT_ANNOTATION_IMPORT////EXECUTE_PARAM_IMPORT////INJECTED_PARAM_IMPORT//
+
+class //CLASSNAME//
+{
+
+	extension ScriptContext _scriptContext
+    extension ScriptBase _scriptBase
+    //INJECTED_PARAM//
+     
+    new (ScriptContext scriptContext) {
+    	_scriptContext = scriptContext
+        _scriptBase = new ScriptBase(_scriptContext)
+    }
+//BEFORE_METHOD//
+	
+//EXECUTE_METHOD//
+//AFTER_METHOD//
+}
+
+
+

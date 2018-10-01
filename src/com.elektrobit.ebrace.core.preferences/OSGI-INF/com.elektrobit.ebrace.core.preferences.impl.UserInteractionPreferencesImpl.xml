@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.core.preferences.impl.UserInteractionPreferencesImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.preferences.api.UserInteractionPreferences"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ResetListener"/>
+   </service>
+   <implementation class="com.elektrobit.ebrace.core.preferences.impl.UserInteractionPreferencesImpl"/>
+</scr:component>

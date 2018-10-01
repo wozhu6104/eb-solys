@@ -1,0 +1,5 @@
+
+	@AfterScript
+	def cleanup() {
+	     // Your cleanup code
+	}

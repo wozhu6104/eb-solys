@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: xmlpull
+Bundle-SymbolicName: org.xmlpull.v1
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.xmlpull.v1
+Bundle-ClassPath: libs/xpp3_min-1.1.4c.jar,
+ libs/xpp3_xpath-1.1.4c.jar,
+ libs/xpp3-1.1.4c.jar

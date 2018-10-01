@@ -1,0 +1,37 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package TargetAgent.Protocol.NetworkPacketSniffer;
+option java_package = "com.elektrobit.ebrace.targetdata.adapter.networkpacketsniffer";
+option java_outer_classname = "NetworkPacketSnifferTAProto";
+
+enum MESSAGE_SOURCE 
+{
+	MESSAGE_SOURCE_WEBSOCK	 			 = 0;
+	MESSAGE_SOURCE_SOMEIP				 = 1;
+	MESSAGE_SOURCE_CORBA				 = 2;
+}
+message TCPHeader{
+	required uint64	src_port = 1;
+	required uint64	dst_port = 2;
+}
+message UDPHeader{
+	required uint64	src_port = 1;
+	required uint64	dst_port = 2;
+}
+
+message NetworkPacket {
+	required MESSAGE_SOURCE source = 1;
+	required string pdu_payload = 2;
+	required string src_addr = 3;
+	required string dst_addr = 4;
+	optional TCPHeader tcp = 5;
+	optional UDPHeader udp = 6;
+}
+

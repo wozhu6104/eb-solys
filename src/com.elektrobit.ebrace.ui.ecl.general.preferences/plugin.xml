@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.elektrobit.ebrace.ui.ecl.preferences.timestamp.TimeFormatPreferencesPage"
+            id="com.elektrobit.ebrace.ui.ecl.preferences.timestamp.TimeFormatPreferencesPage"
+            name="Time Format Settings">
+      </page>
+      <page
+            class="com.elektrobit.ebrace.ui.ecl.preferences.colors.ColorSettingsPreferencePage"
+            id="com.elektrobit.ebrace.ui.ecl.general.preferences.page1"
+            name="Color Settings">
+      </page>
+      <page
+            class="com.elektrobit.ebrace.ui.ecl.preferences.script.ScriptSettingsPreferencePage"
+            id="com.elektrobit.ebrace.ui.ecl.preferences.script.ScriptSettingsPreferencePage"
+            name="Script Folder">
+      </page>
+   </extension>
+
+</plugin>

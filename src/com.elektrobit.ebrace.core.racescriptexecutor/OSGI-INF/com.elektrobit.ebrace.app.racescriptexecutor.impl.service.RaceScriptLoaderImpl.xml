@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="start" deactivate="stop" name="com.elektrobit.ebrace.app.racescriptexecutor.impl.service.RaceScriptLoaderImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.racescriptexecutor.api.RaceScriptLoader"/>
+      <provide interface="com.elektrobit.ebrace.core.racescriptexecutor.api.RaceScriptInfoChangedListener"/>
+   </service>
+   <reference bind="setChannelColorProvider" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.color.ChannelColorProviderService" name="ChannelColorProvider" policy="static" unbind="unsetChannelColorProvider"/>
+   <reference bind="setCommandLineParser" cardinality="1..1" interface="com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.CommandLineParser" name="CommandLineParser" policy="static" unbind="unsetCommandLineParser"/>
+   <reference bind="bindJsonEventHandler" interface="com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler" name="JsonEventHandler" unbind="unbindJsonEventHandler"/>
+   <reference bind="bindOutputConsoleFactoryService" cardinality="0..1" interface="com.elektrobit.ebrace.core.scriptconsolefactory.api.ScriptConsoleFactoryService" name="OutputConsoleFactoryService" policy="dynamic" unbind="unbindOutputConsoleFactoryService"/>
+   <reference bind="setPlantUmlRendererService" cardinality="1..1" interface="com.elektrobit.ebrace.core.plantumlrenderer.api.PlantUmlRendererService" name="PlantUmlRendererService" policy="static" unbind="unsetPlantUmlRendererService"/>
+   <reference bind="setResourcesModelManager" cardinality="1..1" interface="com.elektrobit.ebrace.resources.api.manager.ResourcesModelManager" name="ResourcesModelManager" policy="static" unbind="unsetResourcesModelManager"/>
+   <reference bind="setRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unsetRuntimeEventAcceptor"/>
+   <reference bind="bindScriptMethodLoader" cardinality="1..1" interface="com.elektrobit.ebrace.core.racescriptexecutor.api.ScriptMethodLoader" name="ScriptMethodLoader" policy="static" unbind="unbindScriptMethodLoader"/>
+   <reference bind="bindScriptProjectBuilderService" cardinality="1..1" interface="com.elektrobit.ebrace.core.scriptimporter.api.ScriptProjectBuilderService" name="ScriptProjectBuilderService" policy="static" unbind="unbindScriptProjectBuilderService"/>
+   <reference bind="bindSystemModelAccess" interface="com.elektrobit.ebrace.core.systemmodel.api.SystemModelAccess" name="SystemModelAccess" unbind="unbindSystemModelAccess"/>
+   <reference bind="setTimeMarkerManager" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager" name="TimeMarkerManager" policy="static" unbind="unsetTimeMarkerManager"/>
+   <reference bind="setTimeSegmentAcceptorService" cardinality="1..1" interface="com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService" name="TimeSegmentAcceptorService" policy="static" unbind="unsetTimeSegmentAcceptorService"/>
+   <reference bind="setUserMessageLogger" cardinality="1..1" interface="com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger" name="UserMessageLogger" policy="static" unbind="unsetUserMessageLogger"/>
+   <implementation class="com.elektrobit.ebrace.app.racescriptexecutor.impl.service.RaceScriptLoaderImpl"/>
+</scr:component>

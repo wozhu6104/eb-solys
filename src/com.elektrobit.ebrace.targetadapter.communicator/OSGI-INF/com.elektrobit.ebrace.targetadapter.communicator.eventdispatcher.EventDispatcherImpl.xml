@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="com.elektrobit.ebrace.targetadapter.communicator.eventdispatcher.EventDispatcherImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher"/>
+      <provide interface="com.elektrobit.ebrace.targetadapter.communicator.services.MessageDispatcher"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataListener"/>
+   </service>
+   <reference bind="bindCommandLineParser" cardinality="1..1" interface="com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.CommandLineParser" name="CommandLineParser" policy="static" unbind="unbindCommandLineParser"/>
+   <reference bind="bindRawEventLogger" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.raweventlogger.RawEventLogger" name="RawEventLogger" policy="static" unbind="unbindRawEventLogger"/>
+   <implementation class="com.elektrobit.ebrace.targetadapter.communicator.eventdispatcher.EventDispatcherImpl"/>
+</scr:component>

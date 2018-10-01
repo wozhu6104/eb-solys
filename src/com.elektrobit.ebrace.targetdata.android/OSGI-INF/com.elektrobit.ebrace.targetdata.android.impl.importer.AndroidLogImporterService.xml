@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetdata.android.impl.importer.AndroidLogImporterService">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.importerregistry.api.Importer"/>
+   </service>
+   <reference bind="bindRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unbindRuntimeEventAcceptor"/>
+   <reference bind="bindUserMessageLogger" cardinality="1..1" interface="com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger" name="UserMessageLogger" policy="static" unbind="unbindUserMessageLogger"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.android.impl.importer.AndroidLogImporterService"/>
+</scr:component>

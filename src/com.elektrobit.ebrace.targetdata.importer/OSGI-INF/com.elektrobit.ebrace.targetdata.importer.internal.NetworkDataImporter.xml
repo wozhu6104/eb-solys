@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="com.elektrobit.ebrace.targetdata.importer.internal.NetworkDataImporter">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.importerregistry.api.Importer"/>
+   </service>
+   <reference bind="bind" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" unbind="unbind"/>
+   <reference bind="bindComRelationAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" policy="static" unbind="unbindComRelationAcceptor"/>
+   <reference bind="bindStructureAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor" name="StructureAcceptor" policy="static" unbind="unbindStructureAcceptor"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.importer.internal.NetworkDataImporter"/>
+</scr:component>

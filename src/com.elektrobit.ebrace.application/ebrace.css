@@ -1,0 +1,16 @@
+#org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
+	eclipse-perspective-keyline-color: #FFFFFF;
+}
+
+CTabItem {
+    background-color: '#org-eclipse-ui-workbench-INACTIVE_TAB_BG_END'; 
+}
+
+CTabItem:selected{
+    color: '#org-eclipse-ui-workbench-INACTIVE_TAB_SELECTED_TEXT_COLOR';
+}
+
+/*http://stackoverflow.com/questions/25970883/disabling-the-maximize-minimize-trim-space-in-eclipse-rcp-4/*
+
+
+

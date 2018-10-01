@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="com.elektrobit.ebrace.core.datamanager.reset.ClearChunkDataNotifierImpl">
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataNotifier"/>
+   </service>
+   <implementation class="com.elektrobit.ebrace.core.datamanager.reset.ClearChunkDataNotifierImpl"/>
+</scr:component>

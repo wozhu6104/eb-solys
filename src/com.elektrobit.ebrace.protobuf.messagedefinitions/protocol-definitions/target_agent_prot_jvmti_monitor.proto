@@ -1,0 +1,55 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package TargetAgent.Protocol.JvmMonitor;
+
+option java_package = "com.elektrobit.ebrace.targetagent.protocol.jvm";
+option java_outer_classname = "TargetAgentProtocolJvmMonitor";
+
+
+enum JvmMonitorMessageId {
+	JVM_MONITOR_MESSAGE_INVALID 				= 0;
+	JVM_MONITOR_EVT_THREAD_RESOURCE_INFO_ID 	= 1;
+	JVM_MONITOR_EVT_THREAD_LIFECYCLE_INFO_ID 	= 2;
+}
+
+
+
+message JvmMonitorMessage {
+
+	required JvmMonitorMessageId				id = 1;
+	
+	optional JvmSystemResourceInfo			systemResourceInfo = 2;	
+	optional JvmThreadLifycycleInfo			threadLifecycleInfo = 3;
+}
+
+
+message JvmSystemResourceInfo {
+	repeated JvmThreadResourceInfo	threadResourceInfo	= 1;
+}
+
+
+message JvmThreadResourceInfo {
+	required int64 	        threadID = 2;
+	required int64		cpuConsumption = 3;
+	required int64		timeStamp = 4;
+}
+
+
+message JvmThreadLifycycleInfo {
+	required string						name = 1;
+	required int64                      threadID = 2;
+	required JvmThreadLifecycleEvent	lifecycleEvent = 3;
+}
+
+
+enum JvmThreadLifecycleEvent {
+	JVM_THREAD_STARTED = 1;
+	JVM_THREAD_DIED	 = 2;
+}

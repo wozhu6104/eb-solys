@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?><cq:componentQuery xmlns:cq="http://www.eclipse.org/buckminster/CQuery-1.0" resourceMap="product-core-local.rmap">
+    <cq:rootRequest name="com.elektrobit.ebrace.productcore.updatesite" componentType="eclipse.feature"/>
+    <cq:advisorNode namePattern="^com\.elektrobit\.ebrace(\..+)?" useTargetPlatform="false" useWorkspace="false" branchTagPath="main"/>
+</cq:componentQuery>

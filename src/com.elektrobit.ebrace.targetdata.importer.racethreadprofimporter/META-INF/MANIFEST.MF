@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RACEThreadProfImporter
+Bundle-SymbolicName: com.elektrobit.ebrace.targetdata.importer.racethreadprofimporter
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Require-Bundle: org.eclipse.core.runtime,
+ org.apache.log4j,
+ com.elektrobit.ebrace.core.targetdata.api,
+ org.projectlombok.lombok,
+ org.eclipse.osgi.services
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.importer.internal.racethreadprofimporter.RACEThreadProfImporterService.xml
+Eclipse-ExtensibleAPI: true
+Import-Package: com.elektrobit.ebrace.core.importerregistry.api

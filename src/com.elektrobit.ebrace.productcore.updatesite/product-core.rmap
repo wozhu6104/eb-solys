@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
+  
+  <rm:locator pattern="com.elektrobit.ebrace.productcore.updatesite" searchPathRef="local-workspace"/>
+  <rm:locator pattern=".*" searchPathRef="product-core" failOnError="false"/> 
+  <rm:locator pattern=".*" searchPathRef="target-adapter" failOnError="true"/>
+  <!-- rm:locator searchPathRef="delta_pack"/ -->
+	  
+  <rm:searchPath name="product-core">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="http://{1}:{2}@subversion/svn/EB_RACE/product_core/trunk?moduleBeforeTag#src/rcp/src/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="user.name"/>
+        <bc:propertyRef key="user.pw"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  
+  <rm:searchPath name="product-core-test">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="http://{1}:{2}@subversion/svn/EB_RACE/product_core/trunk?moduleBeforeTag#src/rcp/test/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="user.name"/>
+        <bc:propertyRef key="user.pw"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  
+  <rm:searchPath name="target-adapter">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="http://{1}:{2}@subversion/svn/EB_RACE/product_core/trunk?moduleBeforeTag#src/plugins/jvmpi_monitor/rcp/src/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="user.name"/>
+        <bc:propertyRef key="user.pw"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="http://{1}:{2}@subversion/svn/EB_RACE/product_core/trunk?moduleBeforeTag#src/plugins/dbus-monitor/rcp/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="user.name"/>
+        <bc:propertyRef key="user.pw"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="http://{1}:{2}@subversion/svn/EB_RACE/product_core/trunk?moduleBeforeTag#src/plugins/resource-monitor/rcp/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="user.name"/>
+        <bc:propertyRef key="user.pw"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="http://{1}:{2}@subversion/svn/EB_RACE/product_core/trunk?moduleBeforeTag#src/plugins/terminal_monitor/rcp/src/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="user.name"/>
+        <bc:propertyRef key="user.pw"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="http://{1}:{2}@subversion/svn/EB_RACE/product_core/trunk?moduleBeforeTag#src/plugins/resource-monitor/rcp/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="user.name"/>
+        <bc:propertyRef key="user.pw"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="http://{1}:{2}@subversion/svn/EB_RACE/eb_streetdirector/trunk?moduleBeforeTag#src/systemdstartupmonitor/rcp/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="user.name"/>
+        <bc:propertyRef key="user.pw"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="http://{1}:{2}@subversion/svn/EB_RACE/eb_streetdirector/trunk?moduleBeforeTag#src/dlt-monitor-plugin/rcp/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="user.name"/>
+        <bc:propertyRef key="user.pw"/>
+      </rm:uri>
+    </rm:provider>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="svn" source="true" mutable="true">
+      <rm:uri format="http://{1}:{2}@subversion/svn/EB_RACE/product_core/trunk?moduleBeforeTag#src/plugins/thread-observer-plugin/rcp/{0}">
+        <bc:propertyRef key="buckminster.component"/>
+        <bc:propertyRef key="user.name"/>
+        <bc:propertyRef key="user.pw"/>
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+
+  <rm:searchPath name="delta_pack">
+  	<rm:provider readerType="local" componentTypes="osgi.bundle,eclipse.feature,buckminster" mutable="true" source="false">
+      <rm:uri format="file:///{0}/com.elektrobit.ebrace.productcore.site/delta.pack/3.7.2">
+          <bc:propertyRef key="workspace.root" />
+      </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  
+  	<rm:searchPath name="local-workspace">
+		<rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="local" source="true" mutable="true">
+      		<rm:uri format="file:///{0}/{1}">
+        		<bc:propertyRef key="workspace.root"/>
+        		<bc:propertyRef key="buckminster.component"/>
+      		</rm:uri>
+    	</rm:provider>
+    </rm:searchPath>
+</rm:rmap>

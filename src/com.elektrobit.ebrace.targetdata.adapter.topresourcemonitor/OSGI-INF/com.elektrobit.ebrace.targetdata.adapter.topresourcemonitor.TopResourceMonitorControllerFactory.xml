@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetdata.adapter.topresourcemonitor.TopResourceMonitorControllerFactory">
+   <property name="MessageType" type="String" value="MSG_TYPE_TOP_RESOURCE_MONITOR_PLUGIN"/>
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory"/>
+   </service>
+   <reference bind="bindRuntimeEventAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" unbind="unbindRuntimeEventAcceptor"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.adapter.topresourcemonitor.TopResourceMonitorControllerFactory"/>
+</scr:component>

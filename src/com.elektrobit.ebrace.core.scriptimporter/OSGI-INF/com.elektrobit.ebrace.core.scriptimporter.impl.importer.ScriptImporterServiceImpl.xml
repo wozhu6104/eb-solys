@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="start" deactivate="stop" name="com.elektrobit.ebrace.core.scriptimporter.impl.importer.ScriptImporterServiceImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.scriptimporter.api.ScriptImporterService"/>
+   </service>
+   <reference bind="bindRaceScriptLoader" cardinality="1..1" interface="com.elektrobit.ebrace.core.racescriptexecutor.api.RaceScriptLoader" name="RaceScriptLoader" policy="static" unbind="unbindRaceScriptLoader"/>
+   <reference bind="bindResourcesModelManager" cardinality="1..1" interface="com.elektrobit.ebrace.resources.api.manager.ResourcesModelManager" name="ResourcesModelManager" policy="static" unbind="unbindResourcesModelManager"/>
+   <reference bind="bindScriptProjectBuilder" cardinality="1..1" interface="com.elektrobit.ebrace.core.scriptimporter.api.ScriptProjectBuilderService" name="ScriptProjectBuilder" policy="static" unbind="unbindScriptProjectBuilder"/>
+   <implementation class="com.elektrobit.ebrace.core.scriptimporter.impl.importer.ScriptImporterServiceImpl"/>
+</scr:component>

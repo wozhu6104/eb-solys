@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetadapter.communicator.raweventlogger.RawEventLoggerImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.targetadapter.communicator.raweventlogger.RawEventLogger"/>
+   </service>
+   <reference bind="bind" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" unbind="unbind"/>
+   <implementation class="com.elektrobit.ebrace.targetadapter.communicator.raweventlogger.RawEventLoggerImpl"/>
+</scr:component>

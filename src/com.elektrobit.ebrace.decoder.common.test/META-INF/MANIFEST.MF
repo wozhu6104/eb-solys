@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.elektrobit.ebrace.decoder.common.test
+Bundle-SymbolicName: com.elektrobit.ebrace.decoder.common.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Fragment-Host: com.elektrobit.ebrace.decoder.common;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: test.com.elektrobit.ebrace.decoder.common
+Require-Bundle: org.junit;bundle-version="4.12.0"
+

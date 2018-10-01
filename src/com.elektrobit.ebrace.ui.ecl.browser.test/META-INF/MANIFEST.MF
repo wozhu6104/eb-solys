@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.elektrobit.ebrace.ui.ecl.browser.test
+Bundle-SymbolicName: com.elektrobit.ebrace.ui.ecl.browser.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: com.elektrobit.ebrace.common.utils
+Require-Bundle: org.junit;bundle-version="4.12.0"
+Export-Package: com.elektrobit.ebrace.ui.ecl.browser.test

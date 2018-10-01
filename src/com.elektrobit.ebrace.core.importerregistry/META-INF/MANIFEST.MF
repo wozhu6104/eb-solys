@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Importerregistry
+Bundle-SymbolicName: com.elektrobit.ebrace.core.importerregistry;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.osgi,
+ org.apache.log4j,
+ org.eclipse.osgi.services,
+ com.elektrobit.ebrace.common,
+ com.elektrobit.ebrace.core.targetdata.api
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.importerregistry.internal.impl.ImporterRegistryServiceImpl.xml
+Export-Package: com.elektrobit.ebrace.core.importerregistry.api
+Bundle-ActivationPolicy: lazy
+Eclipse-ExtensibleAPI: true
+Import-Package: org.eclipse.core.runtime

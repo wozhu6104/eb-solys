@@ -1,0 +1,2596 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.jface;singleton:=true
+Archiver-Version: Plexus Archiver
+Built-By: e4Build
+Require-Bundle: org.eclipse.swt;bundle-version="[3.104.0,4.0.0)";visib
+ ility:=reexport,org.eclipse.core.commands;bundle-version="[3.4.0,4.0.
+ 0)";visibility:=reexport,org.eclipse.equinox.common;bundle-version="[
+ 3.3.0,4.0.0)",org.eclipse.equinox.bidi;bundle-version="[0.10.0,2.0.0)
+ ";resolution:=optional
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Eclipse-SourceReferences: scm:git:git://git.eclipse.org/gitroot/platfo
+ rm/eclipse.platform.ui.git;path="bundles/org.eclipse.jface";tag="M201
+ 60128-1225";commitId=d8545c8f36d23cf71b5ae7cdc45d4a2281a3b8d8
+Bundle-Vendor: %providerName
+Import-Package: javax.xml.parsers,org.osgi.framework,org.w3c.dom,org.x
+ ml.sax
+Export-Package: org.eclipse.jface,org.eclipse.jface.action,org.eclipse
+ .jface.action.images,org.eclipse.jface.bindings,org.eclipse.jface.bin
+ dings.keys,org.eclipse.jface.bindings.keys.formatting,org.eclipse.jfa
+ ce.commands,org.eclipse.jface.contexts,org.eclipse.jface.dialogs,org.
+ eclipse.jface.dialogs.images,org.eclipse.jface.fieldassist,org.eclips
+ e.jface.fieldassist.images,org.eclipse.jface.images,org.eclipse.jface
+ .internal;x-friends:="org.eclipse.ui.workbench,org.eclipse.e4.ui.work
+ bench.renderers.swt",org.eclipse.jface.internal.provisional.action;x-
+ friends:="org.eclipse.ui.workbench,org.eclipse.ui.ide",org.eclipse.jf
+ ace.layout,org.eclipse.jface.menus,org.eclipse.jface.operation,org.ec
+ lipse.jface.preference,org.eclipse.jface.preference.images,org.eclips
+ e.jface.resource,org.eclipse.jface.util,org.eclipse.jface.viewers,org
+ .eclipse.jface.viewers.deferred,org.eclipse.jface.window,org.eclipse.
+ jface.wizard,org.eclipse.jface.wizard.images
+Bundle-Name: %pluginName
+Bundle-Version: 3.11.1.v20160128-1644
+Bundle-ClassPath: .
+Bundle-Localization: plugin
+Bundle-Activator: org.eclipse.jface.internal.JFaceActivator
+Created-By: Apache Maven 3.1.1
+Build-Jdk: 1.8.0_51
+
+Name: org/eclipse/jface/action/ExternalActionManager.class
+SHA-256-Digest: daGpAHD6RP9Zw0TmMMxVHG6nXzr1KCW55izswurdldc=
+
+Name: org/eclipse/jface/util/OpenStrategy$1$1.class
+SHA-256-Digest: thoxpnAPwcGSv0AkA3mvn3q2GvVaET2WbyVrMYb/0B8=
+
+Name: org/eclipse/jface/fieldassist/images/required_field_cue.gif
+SHA-256-Digest: eH3u49F1EX3d5LW5+sEodN8EiF47WjBER3lqpzIo5XU=
+
+Name: icons/full/pref_dialog_title.gif
+SHA-256-Digest: CPhi+9syUCilQfgcp+B8CFZQ6nk8u01JyrMTZI/CL88=
+
+Name: org/eclipse/jface/resource/ImageRegistry$OriginalImageDescriptor
+ .class
+SHA-256-Digest: P5XT6YwoOq8LnP1aCGs2cD6cbSZBGCkK43xapD3Qg1Y=
+
+Name: org/eclipse/jface/resource/jfacefonts_linux.properties
+SHA-256-Digest: jLPUBjolSaQ3FAA91HUuoQ4etUqKl5XfFOL0fQz0rT8=
+
+Name: org/eclipse/jface/preference/ComboFieldEditor$1.class
+SHA-256-Digest: mzVeMWmUGG3eu/lr4P0dKyBhmsAobloJdbroCSuwgSk=
+
+Name: org/eclipse/jface/action/SubContributionItem.class
+SHA-256-Digest: ZiPW0QPgApjQF4oUj2nQCQnH756YW0+cbgzrR4CGSFg=
+
+Name: org/eclipse/jface/fieldassist/IContentProposalListener2.class
+SHA-256-Digest: tprtSpMIAnRQUeZdQdupGs93rnKtG4If5ozXFzegmxs=
+
+Name: org/eclipse/jface/wizard/images/stop.gif
+SHA-256-Digest: 3wkanlUHc4bdXWYNoFKyPXQScx4LlSAUWVtTpAC9p0A=
+
+Name: org/eclipse/jface/util/BidiUtils$1.class
+SHA-256-Digest: C0Kmw/QTrySZ2hAt7+RqwyU2xga2HMFBshu3qNPT29g=
+
+Name: org/eclipse/jface/fieldassist/DecoratedField.class
+SHA-256-Digest: sLYuOyVIf+8kwsdgu2ZvwjfThq6YoNE6bpz19OWZuBI=
+
+Name: org/eclipse/jface/bindings/CachedBindingSet.class
+SHA-256-Digest: cP9Lk8X7mZrLUUnYbu0xPOf7hSObAq+haK8lS3lPb0Y=
+
+Name: org/eclipse/jface/viewers/TableViewerFocusCellManager.class
+SHA-256-Digest: knNKk3m/zOb5R2+fxYA895jspEc0eDLOfIOPtpiHGrE=
+
+Name: org/eclipse/jface/viewers/ComboBoxViewerCellEditor$4.class
+SHA-256-Digest: uohWgGwOUMHwvWLqrBiKbPQCbTUNCBynUjhc6yTEMvQ=
+
+Name: org/eclipse/jface/util/BidiUtils.class
+SHA-256-Digest: TCn4B92pm8LzFaYi+u26wqDLpl+RCX9qSoHKzNN02Ws=
+
+Name: org/eclipse/jface/viewers/BaseLabelProvider.class
+SHA-256-Digest: R3e5c87TTLBcmLWAf+7db/Ubt08yjP6qYCUE0U+7GWI=
+
+Name: org/eclipse/jface/resource/JFaceColors.class
+SHA-256-Digest: K23zzhRiB/NceujLy6cCGGT2IYUwvgaw0yJ/t2tMyrE=
+
+Name: org/eclipse/jface/viewers/ComboBoxCellEditor$4.class
+SHA-256-Digest: MytrH1etPXexnUxaTB4TVMgfNLDDBUuyqs9pNd50How=
+
+Name: org/eclipse/jface/wizard/IWizardContainer2.class
+SHA-256-Digest: tdL3bC5+E9WtaHIVhFT/DR6EHjrS6dJLUnVV3ybgZsE=
+
+Name: org/eclipse/jface/commands/RadioState$RadioStateManager$RadioGro
+ up.class
+SHA-256-Digest: NPLJOtY0gzcU0l5sd4Y7o1y4G6JsQNbqbcOKKAAOjZw=
+
+Name: org/eclipse/jface/viewers/ICellModifier.class
+SHA-256-Digest: Ki7cbj26cvHujdKXf71DlqV+X2NcYDAyhOEW5Vvwy04=
+
+Name: org/eclipse/jface/viewers/ViewerSorter.class
+SHA-256-Digest: uAUqvE7oYMp81XfMZRvTeMy7IF9wDJfyWUEsGEcSP9s=
+
+Name: org/eclipse/jface/dialogs/ControlEnableState$ItemState.class
+SHA-256-Digest: M3acwjnrWhyJFomrbnClfrvhIPggclvry59voA6s4sA=
+
+Name: org/eclipse/jface/viewers/AbstractTableViewer$VirtualManager.cla
+ ss
+SHA-256-Digest: ZMzoQbo8hhlGKgPYzvpJ+4kdPNfcWb2tfeatRB/k8Fc=
+
+Name: org/eclipse/jface/viewers/BaseLabelProvider$1.class
+SHA-256-Digest: uxQiiLG0c85uzxlscRuC7auoHFGCJpuI7jBRfN/Yj0Q=
+
+Name: org/eclipse/jface/action/ActionContributionItem$5.class
+SHA-256-Digest: mqkSTOq6AZ3zbX+dX89HMCqwJZvb3DS76Lzwxb4Ivbo=
+
+Name: org/eclipse/jface/dialogs/ProgressMonitorDialog$2.class
+SHA-256-Digest: 5gzf8o0VBu9H2Wy51dgCJEOmPQKxgu/ZaOOWG48CrqE=
+
+Name: org/eclipse/jface/layout/TableColumnLayout.class
+SHA-256-Digest: K1GQNIl17/4HrAjeKdO1Fkkx+NrfBvJbjNh+wGH8lWE=
+
+Name: org/eclipse/jface/preference/IPreferenceStore.class
+SHA-256-Digest: MKQ8LXOMtkq5CD8A+fSQXTNryAicdNkeTfy966EuOrM=
+
+Name: org/eclipse/jface/dialogs/images/message_error.png
+SHA-256-Digest: QkGSlB9uqmyXs/1SgzeEZ5DXBAjqWpU8xG9Xjtt8d1M=
+
+Name: org/eclipse/jface/fieldassist/images/errorqf_ovr.png
+SHA-256-Digest: LqKH3QBSfcivFSJ9HdQHm9+8LoIupkBhCjtfftfQ0D0=
+
+Name: org/eclipse/jface/fieldassist/ControlDecoration$Hover.class
+SHA-256-Digest: lfLYEvE5UqzKTul1Z4uKsDqryeZJikw/My5qi31W1ZA=
+
+Name: org/eclipse/jface/bindings/ISchemeListener.class
+SHA-256-Digest: OAn5Uxz/YNjUCp6Cl4eUM2PeOBku4/+PG0x5A+fxjIA=
+
+Name: icons/full/dots_button.png
+SHA-256-Digest: IoD2IBnzbMOehmd8nhk6X6vdNSbZs81jcuhu9lDfTxE=
+
+Name: org/eclipse/jface/action/StatusLine$StatusLineLayout.class
+SHA-256-Digest: XN2nkT788MIcWYsNiAl2VDjwnnPmF6zQ0XXKthe3aA0=
+
+Name: org/eclipse/jface/action/LegacyActionTools.class
+SHA-256-Digest: wTT+ruXbcYlPRLs/7oef4xLj6ts3nvcQjxbzq3rhgeA=
+
+Name: org/eclipse/jface/window/ToolTip$4.class
+SHA-256-Digest: 5aECL49pgCAKtT02h1tXGyBI5zgNt+33VUFCz3mf+Fk=
+
+Name: org/eclipse/jface/viewers/AbstractComboBoxCellEditor$1.class
+SHA-256-Digest: OiBKjO4ZGhQPc5X7x9kaGpkt+dSENcGQsiZUckxrypo=
+
+Name: org/eclipse/jface/preference/FieldEditor$1.class
+SHA-256-Digest: n2MECpnkvhZMBDTVKeHWbRH5i3Ya+3rTj9jYYg2iceg=
+
+Name: org/eclipse/jface/window/Window$2.class
+SHA-256-Digest: hm2R0GDm4YKbBDqi34m4nqdZ6kfe3fuyOaD3tH4mVs8=
+
+Name: org/eclipse/jface/action/IToolBarManager.class
+SHA-256-Digest: 48iJK5Ef/9whaioM3G9kKMRLjEP/hCNc7x2Ke/i4zCs=
+
+Name: org/eclipse/jface/viewers/ViewerColumn$2.class
+SHA-256-Digest: WcKhH/A+MSZKUasMNsAsTRtbCRQTLgZ8zimsETkZPZU=
+
+Name: org/eclipse/jface/viewers/TreeExpansionEvent.class
+SHA-256-Digest: fUadd9b8dScoR6rsyPmhdCur3KnYBbRrnHpjGUR6Kbc=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$ColorAndFontCollector
+ .class
+SHA-256-Digest: 8w7pTyibc0nd4U4rM+j3RJyf5esRPSC7mwBp9WMDiy8=
+
+Name: org/eclipse/jface/util/ConfigureColumns.class
+SHA-256-Digest: 6OpnOGCgeUu+m1eFTABrQKVISkRDPdbVip1JkyxgmVk=
+
+Name: org/eclipse/jface/dialogs/IDialogSettings.class
+SHA-256-Digest: VbZRQQ5vsHZM2Bn7hKlq5EIIDYtawI/acgN5ER+bQWY=
+
+Name: org/eclipse/jface/wizard/WizardDialog$6.class
+SHA-256-Digest: iZ5T6rY5pAo+GeupHrDtcL8pdXKb1hmjbUbOrTA/3Dk=
+
+Name: org/eclipse/jface/viewers/TextCellEditor$2.class
+SHA-256-Digest: kjdzP4eNO2hafKz6df0ztecvShULyqxt5a1+r4yn660=
+
+Name: org/eclipse/jface/viewers/IIndexableLazyContentProvider.class
+SHA-256-Digest: 74StroOA0nJBo00oIda4+4l+2qxpfMokjbEfX+MjjPA=
+
+Name: org/eclipse/jface/action/StatusLineManager.class
+SHA-256-Digest: gYY9l9jPkdGhDW8cItwBJn0fRnYxJWt+rkgfg/sNjkk=
+
+Name: org/eclipse/jface/viewers/LabelProvider.class
+SHA-256-Digest: sRpO0qozfscZOZMV8wlPNb3oB1xDwMmwM3SlJsdF/JQ=
+
+Name: org/eclipse/jface/viewers/IDelayedLabelDecorator.class
+SHA-256-Digest: NyCWR8w287QJlN55JYTkxxblGmlIG62cBBvIXvDVPh8=
+
+Name: org/eclipse/jface/menus/IMenuStateIds.class
+SHA-256-Digest: Vl9Z1GsWUeuyZWgAh7SxwlhTdQmkBu7iHyJ0KUw5aco=
+
+Name: org/eclipse/jface/util/DelegatingDropAdapter$4.class
+SHA-256-Digest: c1Qhh9p7esRV+1v3AE8qFkCD2W3Ni3MGongpUhlkuSA=
+
+Name: org/eclipse/jface/viewers/CustomHashtable.class
+SHA-256-Digest: Vj2c4vArER2T8hiAy6x9PaHQ9gUVp9Km1wLCiDK/qFw=
+
+Name: org/eclipse/jface/fieldassist/IContentProposalListener.class
+SHA-256-Digest: dqxpR8BBgZamjfq9xeBZ7T5pi9e6dydxhT+FQ5FVct0=
+
+Name: org/eclipse/jface/preference/FileFieldEditor.class
+SHA-256-Digest: n1TAqqLs8R8R4zef1wqKtSuXfh1+CmeDU78/IFoDkcA=
+
+Name: org/eclipse/jface/util/SafeRunnableDialog$3.class
+SHA-256-Digest: Dtf8eofajFan6pFpd4kvzsIKuxoIlJyZEOjaWRE+Ax4=
+
+Name: org/eclipse/jface/internal/provisional/action/ToolBarManager2.cl
+ ass
+SHA-256-Digest: wct7ILgk+3g1CxLhLXuoPC+CzqsbZC7lnbtidWQ0eJg=
+
+Name: org/eclipse/jface/viewers/IInputProvider.class
+SHA-256-Digest: dw385D2L2Tlb3ecFFAbO4KrJn6dwL0ceJeQ8MC1s5DY=
+
+Name: org/eclipse/jface/viewers/TreeViewer.class
+SHA-256-Digest: AlOxKOmiHdtuZasUxzuL0/flgyQr/ACL9ftsdYFhcCo=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$1.class
+SHA-256-Digest: iCT2L8gcXGHs8OdUCD03sxNeRn62PEQt7t9SWqGRWT0=
+
+Name: icons/full/message_warning.png
+SHA-256-Digest: grsf0lvYhi6yn/qKWoPdEQFZFIv7M4+ureKe5d91ayU=
+
+Name: org/eclipse/jface/resource/DeviceResourceManager.class
+SHA-256-Digest: E7vz6O5dFNAOqRBWeykj+LdwivSmTHAjxtP+wug1ULs=
+
+Name: org/eclipse/jface/action/images/stop.png
+SHA-256-Digest: AHeJbkHcXWG60vGQ4M31olPccOzzCdxBOMNKDq2IgPE=
+
+Name: org/eclipse/jface/viewers/CellEditor$1.class
+SHA-256-Digest: Qgf3DvIMWp9Wn08Q0pemDbhLBgRj3YvRycm97B8mhdk=
+
+Name: org/eclipse/jface/resource/jfacefonts_aix.properties
+SHA-256-Digest: sE1j+QW8cnRnakgdzU8PzjcSSOGIh2z4Bm7FU8SIoTA=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$4.class
+SHA-256-Digest: q/BtbyKR+HdiiK92EXAmS1bzIZXBKhnYLlZdR6chWho=
+
+Name: org/eclipse/jface/fieldassist/TextContentAdapter.class
+SHA-256-Digest: UE3TqupFe6uUEIpBgLVTVm2BwtzgQP6zroSi7BF9X/E=
+
+Name: icons/full/help.gif
+SHA-256-Digest: FFn61jNHNLAxiqGUF1OiRVKOYkYBhjFqhMuYP1g24Xg=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$3$1.class
+SHA-256-Digest: 4FdI0Gu2+v5HdkYVixGI9L8IFG8WZQ2dFgBbv7gfJjU=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$3.class
+SHA-256-Digest: G6Q9YEx8HrkdpX7LwEA0DfjrMKpZjTKYOLs8ATYzoE8=
+
+Name: org/eclipse/jface/bindings/keys/ParseException.class
+SHA-256-Digest: gZaTJHhgmekUa5KV/6rAGpI+aAFjgXRA98G1VWTlXgA=
+
+Name: org/eclipse/jface/window/ToolTip.class
+SHA-256-Digest: SkJRQH7r2hfB/HffNy8ltqQLGqlosPR0TIgVyRtAyc4=
+
+Name: org/eclipse/jface/action/ContributionManager.class
+SHA-256-Digest: ZiP7kqtIZyE6UnIqAFF9TyQaVO8C+skFy54b/fxpaGA=
+
+Name: org/eclipse/jface/dialogs/InputDialog.class
+SHA-256-Digest: dZcVEvoiEEemalIJAV4ys+BpdVc/Wo2C4/afw8txu8I=
+
+Name: org/eclipse/jface/viewers/ISelectionProvider.class
+SHA-256-Digest: e9HmyW/Oj8YvVbXrlW/nTE3TRpwnSD/DxBHVA52Pm4Y=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$TargetControlListener.class
+SHA-256-Digest: flb1KAqEFQf5+RWxAiisCvzu55v8+m4akc6ZIjH1ymM=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$3.class
+SHA-256-Digest: /C0ld+Hyfe/VLdejmGvNaGJc/nR0jImoCdcI+wpoMSM=
+
+Name: org/eclipse/jface/bindings/keys/SWTKeySupport.class
+SHA-256-Digest: k5EQAmhCNzv8BI8QjL70sM4hUKgPWytdxCVW5EWnumM=
+
+Name: org/eclipse/jface/fieldassist/ControlDecoration$1.class
+SHA-256-Digest: sbo7gyR/0Ee2bZFAsoif+t4Bc+qLhV51wWDeyoVuxDo=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$12.class
+SHA-256-Digest: UfzgoKlznERsWcJYBd9F/ywT2VXHXxUfbmCwLd0pDBI=
+
+Name: org/eclipse/jface/bindings/TriggerSequence.class
+SHA-256-Digest: 24qKdY2ppyia0GLpK0MkBAypj8RxSMwQOM/IUK7+jG8=
+
+Name: org/eclipse/jface/internal/provisional/action/CoolBarManager2.cl
+ ass
+SHA-256-Digest: MqHHYdicp4OkW6ZM9kgpVOhoAtpkCScGAFhX6rzHeYM=
+
+Name: org/eclipse/jface/preference/PreferenceConverter.class
+SHA-256-Digest: XiwAuJjOFSWuJQueAZPaqcYFzx7tJKrZ0YVTGXSAkKA=
+
+Name: org/eclipse/jface/viewers/TreeViewer$1.class
+SHA-256-Digest: Dlxzt3Qq2+Zgc0xNdPRSYWF0vs2ywGMlXjiMZsa+8uo=
+
+Name: org/eclipse/jface/viewers/DecorationContext.class
+SHA-256-Digest: LYsLeiaRq/AuFYvHhiSJj80qNw+ju5Y1Rm6aITO+PfE=
+
+Name: org/eclipse/jface/dialogs/ErrorDialog.class
+SHA-256-Digest: wP2+lZWxk1v/bmt9zBtmUGpkOyvYFSw+uD6YVebO59o=
+
+Name: org/eclipse/jface/preference/images/pref_dialog_title.png
+SHA-256-Digest: GHXjGP1fh++7v/MzOZjzTtn9BKmmMPwrbBDvD2xFNDg=
+
+Name: org/eclipse/jface/action/Action.class
+SHA-256-Digest: rik346xEO5ApH5gwRGvPlXwJKp1kFRa6FikMfBFC0gg=
+
+Name: org/eclipse/jface/commands/RadioState.class
+SHA-256-Digest: iJYUrAhdduiuIcTC6hCES62qPcLlfYCep4OKXkWOeNc=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$PersistSizeAction.class
+SHA-256-Digest: EKra9c2lBeBb7rxlkxRDUhDq1Uyebwt70iqttCWYMm0=
+
+Name: org/eclipse/jface/wizard/WizardDialog$2.class
+SHA-256-Digest: QNv2KXYBGc8nBhsr16YNon1YNLakxEAjWAkhq5AJ7Yo=
+
+Name: org/eclipse/jface/viewers/ILabelProvider.class
+SHA-256-Digest: oNi/ffXSi/i586I0mKmLdN9oHBleXxLkykem+5mKVqs=
+
+Name: org/eclipse/jface/menus/IWidget.class
+SHA-256-Digest: N/wfNAxFCzAOiyFFx7zZgffhAfvARasmNkWVurUeOsA=
+
+Name: org/eclipse/jface/preference/PreferencePage.class
+SHA-256-Digest: jEnaTizj9OosoLkNqq584xsq4yoigAz03LHuQm5ymwk=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$1.class
+SHA-256-Digest: yFB1aM1YCbfM1QTmARGAIKO2JDKV1D67uWZ8G6h3Q6E=
+
+Name: org/eclipse/jface/resource/ColorDescriptor.class
+SHA-256-Digest: j//CA1vlv03bRHpD4Ralf+othG+lBpvtMRGhSJRlGfs=
+
+Name: org/eclipse/jface/action/ActionContributionItem$1.class
+SHA-256-Digest: bNaN+eC63xnT0SbEnJy4eKBiz12fXf5JYmJPo4+c18E=
+
+Name: org/eclipse/jface/fieldassist/DecoratedField$Hover$2.class
+SHA-256-Digest: V0QcySne6pPr6HAx9f3Oyoa6dFm/xweD5Rfszx821KA=
+
+Name: org/eclipse/jface/viewers/AbstractTreeViewer.class
+SHA-256-Digest: VIIAG1T354vGwYM4bgwhBXu9luzbpIGu32FYyA7/wOs=
+
+Name: org/eclipse/jface/bindings/Trigger.class
+SHA-256-Digest: 7bcKy8xknSXQ5Hhc/ioW2LxaXwGsvfTyfz4L/i5qh9I=
+
+Name: org/eclipse/jface/viewers/TreeViewer$6.class
+SHA-256-Digest: NIrDluBgp3kFvjvYclE/FYnOWW5KMliY5AkNzLyCg/8=
+
+Name: org/eclipse/jface/operation/IRunnableWithProgress.class
+SHA-256-Digest: rRLLd/+/5UUCWhyYWwsM179cHUFewL9s5CSdEi0G6xc=
+
+Name: org/eclipse/jface/wizard/WizardDialog$7.class
+SHA-256-Digest: O/8bEbngTNyjme27njjGaJAd0x2aJpGNcbp995m/JbA=
+
+Name: org/eclipse/jface/viewers/LabelDecorator.class
+SHA-256-Digest: c4cSttEqHoFXYQk3qe07mwyrXU9xgmjYSl7mymUaoRg=
+
+Name: org/eclipse/jface/dialogs/DialogPage.class
+SHA-256-Digest: 6Nt3ELK3S2EtX4DZ1Ljn5iAmXDtuWLjI+DiQoQwOnh4=
+
+Name: org/eclipse/jface/fieldassist/SimpleContentProposalProvider.clas
+ s
+SHA-256-Digest: wR0hWCJTf/Rn219iWFkuh3uvbrB7IdUQUO9TOE6Z7Dg=
+
+Name: org/eclipse/jface/util/TransferDropTargetListener.class
+SHA-256-Digest: Y/OEPF6I/f/vK2LpHjZeQVJMjREFqnur3Gc73mEqq/U=
+
+Name: org/eclipse/jface/viewers/deferred/BackgroundContentProvider.cla
+ ss
+SHA-256-Digest: Bt/nGxiX4J9EbmmfsskzHkYf4JBsUqckuPOLwPsPlgI=
+
+Name: org/eclipse/jface/action/StatusLine$2.class
+SHA-256-Digest: EPVou8kK4AMO59RnhyddsCZ4RKSUVyduA86rN6CKps8=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$4$1$1.class
+SHA-256-Digest: ZicFnA181iPZNcci0/qJCnCuSEWbNc5ptVOVM319dB8=
+
+Name: org/eclipse/jface/window/Window.class
+SHA-256-Digest: V/91uSGybnMJ996PDVzZ8j3S2AAm0dh67mxMO3nLiD4=
+
+Name: org/eclipse/jface/fieldassist/DecoratedField$Hover$1.class
+SHA-256-Digest: JLkN+L0seENBld+cxMtqfA5tW3yVMt4Qf64IV+C4xP8=
+
+Name: org/eclipse/jface/viewers/IFontDecorator.class
+SHA-256-Digest: w85RXsxUMUC+3ZTMFbl4Rn2+gdhDdPtWM4KYubloRys=
+
+Name: org/eclipse/jface/preference/FontFieldEditor$DefaultPreviewer$1.
+ class
+SHA-256-Digest: 2YJrMIi0HjTe6FS6xBCxipqFSKBaCgHaGWnEZkMspeE=
+
+Name: org/eclipse/jface/preference/PreferenceNode.class
+SHA-256-Digest: 8r6J7IKBIkJWvfcd6ykeSo096hSVtimgINPs81Thm/w=
+
+Name: org/eclipse/jface/action/Action$1.class
+SHA-256-Digest: su1qBdJOW901DDy/+O4YvClNA2ScyiYCsV372aQqe7A=
+
+Name: org/eclipse/jface/operation/AccumulatingProgressMonitor$1.class
+SHA-256-Digest: WJ8wF2gFQWlV2+3Dcpxye/pCPF9JBOvPDnwBRMI51M8=
+
+Name: org/eclipse/jface/resource/DataFormatException.class
+SHA-256-Digest: h3oKCUH/E0E4/i13cDrYqF5o3z4UYT8HXXs9+0WpQzA=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditorActivationEvent.clas
+ s
+SHA-256-Digest: BjR1PUemdFBPQTmiZveB+nYdbh8MqdonCA5KPkMVaQA=
+
+Name: org/eclipse/jface/wizard/ProgressMonitorPart.class
+SHA-256-Digest: VmiGcRGEAi4EV0brpY6BNA32YqwfMhrWI9ihMSk3p9E=
+
+Name: org/eclipse/jface/wizard/IWizardPage.class
+SHA-256-Digest: 8J3Bgz1eqO8P9npus/AiSbFzv1NpPt+c09Lute6I//E=
+
+Name: org/eclipse/jface/resource/ResourceManager.class
+SHA-256-Digest: TgKSjEJO6gkSvsn1Owxak1mjOjmdP0ZdDYBTc7Gduic=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$5.class
+SHA-256-Digest: Vz6gRIaCsEmTsEDjdr13Gi3rS3Ny7MY5MLI/lUSnWWI=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditor$4.class
+SHA-256-Digest: 10PSRFK84pYehliFJ8CfOEwIgnuVsUM7Q0eLfkdw7F4=
+
+Name: org/eclipse/jface/wizard/WizardDialog$PageContainerFillLayout.cl
+ ass
+SHA-256-Digest: j9AcnvoX49WQC61P2+owLpWiOiKO197CW1xN2TYS39M=
+
+Name: org/eclipse/jface/fieldassist/images/warn_ovr.png
+SHA-256-Digest: txazrP8PfVVennsQeQ6SwywyDn+0sat94ZlTpl8tiXw=
+
+Name: org/eclipse/jface/viewers/ICellEditorValidator.class
+SHA-256-Digest: g3262EtumPcL8oaQnSK7BVY/riEPhfHdzmxSHPDKFHw=
+
+Name: org/eclipse/jface/viewers/deferred/IConcurrentModel.class
+SHA-256-Digest: oQ2VRpnRZ+pyud1zaKaphM6n9MlLrz/VmttkA9OytrA=
+
+Name: org/eclipse/jface/resource/ImageRegistry.class
+SHA-256-Digest: rw7pfZg+EK1nc7wixqKAbWJdHX9wMUBm4jfXkkP0UAA=
+
+Name: org/eclipse/jface/viewers/ColumnViewerToolTipSupport.class
+SHA-256-Digest: wTDw+nu3cq/f16/lGnOUpdFoGTePe7011GD2m9raRic=
+
+Name: org/eclipse/jface/layout/AbstractColumnLayout$1.class
+SHA-256-Digest: EJPqBz6oF81zLKTf1IBaHuEyNWuAT7e1eJ7g2n4ssk4=
+
+Name: org/eclipse/jface/dialogs/IDialogBlockedHandler.class
+SHA-256-Digest: Z1kliS7WJEij0xNfQ3220KYWR8oy6VKzyjaY/2HARkM=
+
+Name: org/eclipse/jface/action/ExternalActionManager$IBindingManagerCa
+ llback.class
+SHA-256-Digest: UkIZG7jZMFVJ2hjnC9JU8r0tOQyFTO8wrf+NlnUAf0g=
+
+Name: org/eclipse/jface/viewers/deferred/LazySortedCollection$Edge.cla
+ ss
+SHA-256-Digest: i6mXsFvYxJfPDcW4G7PGqL57U5Tq3eCEvZeVB4EDOAQ=
+
+Name: org/eclipse/jface/viewers/CellLabelProvider.class
+SHA-256-Digest: IHvI8tA58Du3VDgHmStr9KKkNR2fmkUNfkKrM3AJc6g=
+
+Name: org/eclipse/jface/viewers/CheckboxTableViewer.class
+SHA-256-Digest: epApzc0VssSeD/ZiH0gd+IXUb9TM75cp95mp4AORhZo=
+
+Name: org/eclipse/jface/viewers/DecoratingStyledCellLabelProvider$1.cl
+ ass
+SHA-256-Digest: rhSPclBly7GTfzqfFHxMq9/PR6CSOR0RMdbVnrUOBeA=
+
+Name: org/eclipse/jface/viewers/deferred/DeferredContentProvider$Table
+ ViewerAdapter.class
+SHA-256-Digest: 6AdkkjPzKluDeGyaQgaMI0q8Xs8rINr2po16l/q3uzU=
+
+Name: org/eclipse/jface/viewers/TreeViewer$2.class
+SHA-256-Digest: TEMg0rg23itUuMjGnSV0CBa6dKX6afUqplw9i4epqt0=
+
+Name: org/eclipse/jface/viewers/TextCellEditor$1.class
+SHA-256-Digest: PSpBYxVJWkHGSLDntBevDx+hepOLQbqN/J9act4TOoU=
+
+Name: org/eclipse/jface/viewers/Viewer$2.class
+SHA-256-Digest: cb0ixtN8vidItpLmqXeUOQiiEtNMTQEqTjejsZempSg=
+
+Name: org/eclipse/jface/dialogs/AbstractSelectionDialog.class
+SHA-256-Digest: rprAcAFyc5QDUGtKWqv6yBxFcq7Dw+0JSOqnXwGhMpg=
+
+Name: org/eclipse/jface/resource/jfacefonts_windows8.properties
+SHA-256-Digest: cft7NEhS3qLv32h0ejQOgipdHpNo9zylCGC056ENjyE=
+
+Name: org/eclipse/jface/viewers/IDoubleClickListener.class
+SHA-256-Digest: /cxlcKqmD7GBWUEC6SdPn3cTAURJMu5SQw275b98jCs=
+
+Name: org/eclipse/jface/action/SubCoolBarManager.class
+SHA-256-Digest: kuwPL01htub7xc09aW/EGfnGzT815Gp9czCuPoOSWFY=
+
+Name: org/eclipse/jface/viewers/ITreePathContentProvider.class
+SHA-256-Digest: v2HRoKZ/3yuum4qowbxp4EywyrtDjcEugxmN93uAELA=
+
+Name: org/eclipse/jface/viewers/ViewerColumn$1.class
+SHA-256-Digest: PQ0J3abU++IXYijRtO/+u7gZ4p1DspNgIhhLOw6GLtg=
+
+Name: org/eclipse/jface/operation/AccumulatingProgressMonitor$Collecto
+ r.class
+SHA-256-Digest: 5EmiSw1Bo0u1yLaykcLuCN6NY2KoEn7dOHzvaWZ++p4=
+
+Name: org/eclipse/jface/dialogs/IPageChangingListener.class
+SHA-256-Digest: nZnstRIGnQw878qSTrikwHBxRhgR3uBQ3E6Xu3Fv59w=
+
+Name: org/eclipse/jface/action/ExternalActionManager$CommandCallback$1
+ .class
+SHA-256-Digest: GjXFwdwm4VFGCIJoclAqG9Kr2mdrmCxrB3j7DoWVDqo=
+
+Name: org/eclipse/jface/viewers/CustomHashtable$HashMapEntry.class
+SHA-256-Digest: G8kykO/GqQTGexWK4l+hBZw25ZqFnwGQv47UMeZboY0=
+
+Name: org/eclipse/jface/wizard/WizardDialog$1.class
+SHA-256-Digest: spDjbjWNv/Nx5b+UT8+XPAyc/Pc4OMG8p5sPVtoDSXc=
+
+Name: org/eclipse/jface/action/IMenuCreator.class
+SHA-256-Digest: RdHY6t4o64HEljaObWu+ThEV/OFm9D1quxuLDmD0uvQ=
+
+Name: org/eclipse/jface/util/Assert$AssertionFailedException.class
+SHA-256-Digest: IHCGuwl801VwHe3aTnKr5K2qmCjceXjwpAvlxxFh4fY=
+
+Name: org/eclipse/jface/action/StatusLine$3.class
+SHA-256-Digest: UPXOpm9xvV88x7uinX9joRTd15yPJwuMUN/Z9BWRSq8=
+
+Name: org/eclipse/jface/util/SafeRunnable$1.class
+SHA-256-Digest: pVZpRn/c1/BIugsLgQcahPkA+koV4XkN2DY6PQgTXeQ=
+
+Name: org/eclipse/jface/action/IMenuListener2.class
+SHA-256-Digest: qXYpBXJ3TZgPfOL+C0+UEkVjrul/mZZrw7884aJuDIA=
+
+Name: org/eclipse/jface/action/ExternalActionManager$CommandCallback$4
+ .class
+SHA-256-Digest: ShE+quOX94ShHJSZa8vc5MB5nIolnXjR87rk+uOUbZ8=
+
+Name: org/eclipse/jface/viewers/ColumnWeightData.class
+SHA-256-Digest: gKmZtTpygCcBcP/xTFSInNFT0Z+43eRwt2yeWhDynyY=
+
+Name: icons/full/message_info.png
+SHA-256-Digest: wu1+FkzsthGKpS95tJDcfK2sjqmvOgHsrHwMDZOWKyM=
+
+Name: org/eclipse/jface/fieldassist/ControlDecoration$6.class
+SHA-256-Digest: gSNUe+/AWFhV1V69tv2ED9eHJUTY1DFUnK+d1rlajRk=
+
+Name: org/eclipse/jface/layout/AbstractColumnLayout.class
+SHA-256-Digest: 6P6SuHBKlgJoyo+nXWUkg9CEtEihyZwNBfEZfOUxZko=
+
+Name: org/eclipse/jface/viewers/StructuredViewerInternals.class
+SHA-256-Digest: QK1iIRgaKqciaErq33K2TYAiATMl/QdWTsFaPvKnkkI=
+
+Name: org/eclipse/jface/preference/ListEditor$3.class
+SHA-256-Digest: Y2478N6mxlqGD87J3ocTrvkTA0QUJuhbGTyhG/qvbn4=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditor$2.class
+SHA-256-Digest: n4RFpBxB+aa6bRKv2RlG2N9C/XYQCOk+d5WZYVm0ev4=
+
+Name: org/eclipse/jface/action/ExternalActionManager$IExecuteCallback.
+ class
+SHA-256-Digest: J0fmJ+pJgCAEU5TfnhkEryj1r1p2eAIWv1jJHu+7dlo=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditor$3.class
+SHA-256-Digest: I4TlGe0T8CT4xximjlRg/MNnTruiHBkqqqO2FDo0cnY=
+
+Name: org/eclipse/jface/wizard/images/page.png
+SHA-256-Digest: GHXjGP1fh++7v/MzOZjzTtn9BKmmMPwrbBDvD2xFNDg=
+
+Name: org/eclipse/jface/dialogs/TitleAreaDialog.class
+SHA-256-Digest: EMSWYACO8iHJPPckXyFAnlbusOzOrI1ocppDgvwNi1E=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$6.class
+SHA-256-Digest: ZhO+eC9PTXjkGBElv/M4MBGJpZb+CwnEZ3VAf3GtLLc=
+
+Name: org/eclipse/jface/operation/AccumulatingProgressMonitor$4.class
+SHA-256-Digest: KAqZ0ag8OlMbuCjUUZm+ukBjiun+qN2RqcWqSBk40ZQ=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditorActivationStrategy.c
+ lass
+SHA-256-Digest: hswdF4tPQDywMJVLVvhkkT7WJYAJKuqR2RPN3WdO1/A=
+
+Name: org/eclipse/jface/layout/GridLayoutFactory.class
+SHA-256-Digest: 1hABu4jFOfvGQapqz342H7mA4QmFlyWpw+suYLUAlIM=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$InfoPopupDialog$1.class
+SHA-256-Digest: j003l6tkaRkD1iFNvt6/13t9ws59tN49iQgMZhb+MVw=
+
+Name: org/eclipse/jface/messages.properties
+SHA-256-Digest: sZij7zWzl/kF450DI1hcq9F+WyA7XCG1IBprNSmxO+E=
+
+Name: org/eclipse/jface/viewers/DialogCellEditor$3.class
+SHA-256-Digest: BKLwC5TE90mfCC4l0Lth9rt7j3wUy2pKMEkSmksUFU4=
+
+Name: org/eclipse/jface/dialogs/images/message_warning.gif
+SHA-256-Digest: SIqxJvegTpaslKS1uEMy9IVSyZIoNjGbZsbb+ybUFEE=
+
+Name: org/eclipse/jface/util/StatusHandler.class
+SHA-256-Digest: A6G6q3J2HcqF5bqSdHraOoQhpaUl+SiWvUMONAzNhH0=
+
+Name: org/eclipse/jface/viewers/ILightweightLabelDecorator.class
+SHA-256-Digest: 1sER13a9Qa8Y5SESbkZj4V61JlejzeeSviu2shmBgR0=
+
+Name: org/eclipse/jface/viewers/ILazyTreeContentProvider.class
+SHA-256-Digest: tikF8kdNL5fMonieG/Y03ZivNM7h/1aSJhu/IY1mAHs=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$4.class
+SHA-256-Digest: xjEHi903sFBYlFhO1TD0BA90B1Du70SVNhqso5WE5e0=
+
+Name: org/eclipse/jface/viewers/ILabelProviderListener.class
+SHA-256-Digest: en09z4jI5M6043DhDcr6RX9lXwT+/f3XQlEV1UfIRPk=
+
+Name: org/eclipse/jface/resource/MissingImageDescriptor.class
+SHA-256-Digest: LdEfbu9xFii6Ye1DZ4Q7JzqN7ZF78P7egCzJp7c9LuA=
+
+Name: org/eclipse/jface/viewers/AbstractTreeViewer$5.class
+SHA-256-Digest: rfmfETh/HPNY0RFmtUobgjcNIyFhXnOXNWn4jkHh1IY=
+
+Name: org/eclipse/jface/action/StatusLine$4.class
+SHA-256-Digest: xq9lQXAsMu9gygW9lkTmHaDHpp/5b/6jp8cRt34qE+s=
+
+Name: org/eclipse/jface/viewers/StyledString$DefaultStyler.class
+SHA-256-Digest: yfNsUg8G+Oso8E9GB+q0zeb1CuQ+ak4wKUQZpVXjwwo=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$1.class
+SHA-256-Digest: sVIAv/9G5vy9M7iyFetNrBjVaZTGr5wzPP+RP4I/A0Y=
+
+Name: org/eclipse/jface/dialogs/ErrorSupportProvider.class
+SHA-256-Digest: IwDAXY28F9LpNFq4RMGv/YYlZukwQ7zJxFOhgXsYeqY=
+
+Name: org/eclipse/jface/viewers/CellEditor$2.class
+SHA-256-Digest: 83jvZ8U6NFV/1xKWnrD0segBIKaP/1DV5cBsi6IWuXg=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$4.class
+SHA-256-Digest: SApInXZu3st2vuNR0/aibz+PqyHJj8uLvU/tU565MZI=
+
+Name: org/eclipse/jface/viewers/DecorationOverlayIcon.class
+SHA-256-Digest: 4ZynVeBDECKTt5La1MXuvYMNrYXX3hGr0/4vkGq9fDw=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$11.class
+SHA-256-Digest: SK9xyjc6DNr/ii04vk/yBhcAm+rutNNjhrXT3fH5SUM=
+
+Name: org/eclipse/jface/util/Assert.class
+SHA-256-Digest: oDKAFfonbt/CcHwRmpVZTcmbWsrxuHtT/mtyxkTgi4c=
+
+Name: org/eclipse/jface/resource/ArrayFontDescriptor.class
+SHA-256-Digest: j3filHKfksCUTNn7KM6S/KJ2qU34g9Ual24Mk5X4t4g=
+
+Name: org/eclipse/jface/wizard/Wizard.class
+SHA-256-Digest: 1i3UpDLREFd1hgvzvjLsEvXvgYYTKwX1rszO/ElGNdI=
+
+Name: org/eclipse/jface/util/VisualTextDirectionSegmentListener.class
+SHA-256-Digest: Y/hF3gXG8zhRynoijOZxBb7GcynhJsesLjX9t8vjeo0=
+
+Name: org/eclipse/jface/fieldassist/images/errorqf_ovr.gif
+SHA-256-Digest: OyeGOtn9Lw5++r56eV87CX94zYRGtkZs08TRDbUgWUs=
+
+Name: org/eclipse/jface/action/SubToolBarManager.class
+SHA-256-Digest: ffIDCg+wELLIw8uNmDWLlQCukVFR9V7ICYzNZdPj3ms=
+
+Name: org/eclipse/jface/util/Policy$2$1.class
+SHA-256-Digest: GFL/qGwxAR4IjMgAej0iNZ//cbCNJJaM1/17tqzfty4=
+
+Name: org/eclipse/jface/action/StatusLineLayoutData.class
+SHA-256-Digest: UC3kIn4CNF9FSTQXOYrPRGtsZ9t/Q+fMkteLxWok2DI=
+
+Name: org/eclipse/jface/viewers/ColumnPixelData.class
+SHA-256-Digest: unitpj6momkUKmaEk0/2MxcRH16NhrMBbbRCbO1kpHI=
+
+Name: org/eclipse/jface/window/ToolTip$1$1.class
+SHA-256-Digest: RRgx77do5kiVugbeisUNvc33ey72V4mpXrUUZO3ASeI=
+
+Name: org/eclipse/jface/viewers/ITreeContentProvider.class
+SHA-256-Digest: X17FWy8ZKZ9bCEqhvrdLY0eURMDqh45KmyeukBx5X8I=
+
+Name: org/eclipse/jface/bindings/keys/formatting/NativeKeyFormatter.cl
+ ass
+SHA-256-Digest: UueTE3EeVaaUmm6Y8bKbpIUEyhBxOZTD2hNFwgv7CzI=
+
+Name: org/eclipse/jface/preference/BooleanFieldEditor$2.class
+SHA-256-Digest: +qlurkS9BAIxzPAz1D0I4zeuYd6NhbYZLuQ+uuetVxE=
+
+Name: org/eclipse/jface/util/SafeRunnableDialog$4.class
+SHA-256-Digest: coD9Z96UkhhRATV2Tg1h0eGWoRK0dAASLiFIreqUaPE=
+
+Name: org/eclipse/jface/action/ToolBarContributionItem$2.class
+SHA-256-Digest: inYJ9XnGgD30HDdn/0jF4VLSPfy9WewfTYvMmdZd2I8=
+
+Name: org/eclipse/jface/dialogs/DialogSettings$XMLWriter.class
+SHA-256-Digest: 6SXN3qgT0iQA8zoHEGkqCx7DiUm8JdTkJbAPMzCncvE=
+
+Name: org/eclipse/jface/fieldassist/DecoratedField$Hover.class
+SHA-256-Digest: 2gD04jFFK0Q9kMSjT3gowzkukXGht+n+Le6pXGA0dy0=
+
+Name: org/eclipse/jface/action/ExternalActionManager$CommandCallback.c
+ lass
+SHA-256-Digest: g67u79DziGjv0NnIMan3w4P5n39G/FzXX5f5yuuGx2w=
+
+Name: org/eclipse/jface/viewers/TextCellEditor$3.class
+SHA-256-Digest: /A3wPBPLf/m9qvZbSscRDVifVmiu020bPgeI6O0PXJQ=
+
+Name: org/eclipse/jface/action/ContributionManager$1.class
+SHA-256-Digest: 0iwpLd1SwC7J2/yPGAAZ43Tmy/NdZj7yiaNFRobBtGo=
+
+Name: org/eclipse/jface/wizard/ProgressMonitorPart$1.class
+SHA-256-Digest: WWZm9PNqj10bo78/pYIdteuoPZsJDCKtDpQkMaQOtIA=
+
+Name: icons/full/message_error.png
+SHA-256-Digest: Yxdk9QGGDGUFYRMCTGg++LyG+fS/GnR5PVHGN7X2KIc=
+
+Name: org/eclipse/jface/dialogs/TitleAreaDialog$1.class
+SHA-256-Digest: Wb9ZeFGrP6mbc+q79PJ/olBgG55hIsZDf+qPcrF9dq0=
+
+Name: org/eclipse/jface/action/IContributionManager.class
+SHA-256-Digest: uSk2/olPPrBDcL9YCa9q6ObitGcydsZsX/CNr0Mz5ho=
+
+Name: org/eclipse/jface/resource/AbstractResourceManager$RefCount.clas
+ s
+SHA-256-Digest: m9yW0OWTGWCVKJy5mpmN5aDjSilDQEyc3quZijIXI1s=
+
+Name: org/eclipse/jface/viewers/Viewer.class
+SHA-256-Digest: YnhnQM+Amwea1ItFyTwqLk/RG8kyt+rQW+zyDumfHy0=
+
+Name: org/eclipse/jface/util/Policy$2$1$1.class
+SHA-256-Digest: FxGCwx2XuHzpiAam7fmjSs6Cy98sB7/nxGco3JShYGU=
+
+Name: org/eclipse/jface/resource/DeviceResourceDescriptor.class
+SHA-256-Digest: tBrARguyb0z6+nNxJMpXCXKmkA4bUeopP1cb2JiOarI=
+
+Name: org/eclipse/jface/preference/RadioGroupFieldEditor$1.class
+SHA-256-Digest: pvxSlPTsRxL5723gRCuCalSYTp+HHCJ7be0QL+VeFY8=
+
+Name: org/eclipse/jface/viewers/ViewerFilter.class
+SHA-256-Digest: 9l8+uG2GHWqjUdAY0z8jAZPKjDg2rQuIOpiP3gNCPCc=
+
+Name: org/eclipse/jface/viewers/SWTFocusCellManager$4.class
+SHA-256-Digest: 7bk1xTmbWKs5JNYKoO/CalTMgT9f2hh9+7FIfnzKMck=
+
+Name: org/eclipse/jface/preference/ScaleFieldEditor$1.class
+SHA-256-Digest: 6NEloKRJpe7aY1YyG+/C4Cy2bPLDv3lH3bB+FB4h+EE=
+
+Name: org/eclipse/jface/viewers/StructuredSelection.class
+SHA-256-Digest: 86QzYZjboyZxHl2crp36uZmLitahGUZ9b9HM1vY/gt4=
+
+Name: org/eclipse/jface/util/DelegatingDropAdapter.class
+SHA-256-Digest: SZS56TCEDScbUNVYpGepUGRqYbEi/fP9qAqaMYIFf1w=
+
+Name: org/eclipse/jface/resource/jfacefonts_hp-ux.properties
+SHA-256-Digest: xoSVfO9XcBmIT6RRD18Sd6TgGt5RNiqiaT59SzWNWu4=
+
+Name: org/eclipse/jface/action/ToolBarContributionItem$4.class
+SHA-256-Digest: PgulDamnhhysW1d+SSMll4xLmbw5kBITXXwCtkhKfLo=
+
+Name: org/eclipse/jface/preference/PreferenceManager.class
+SHA-256-Digest: KHbK/qQ6BezfLzug4YaVy/d2Voj6lYZUNURET5UuwDE=
+
+Name: org/eclipse/jface/window/ApplicationWindow$ApplicationWindowLayo
+ ut.class
+SHA-256-Digest: 9/8k2APKZ9vDESJs4sQd7GiZoJH3P3ALCxE1BZLYYN8=
+
+Name: org/eclipse/jface/preference/ComboFieldEditor.class
+SHA-256-Digest: Pc266bjNQonMGgNy4yNvVu3qOGWTeypQYvqdoHzkvSY=
+
+Name: org/eclipse/jface/internal/InternalPolicy.class
+SHA-256-Digest: MVwraY+ryHU2dRLXg1oqAKMZXqLqlWNCivouZGy3hZE=
+
+Name: org/eclipse/jface/viewers/ColumnViewer$1.class
+SHA-256-Digest: SsNEk7EeZRJOsJnPiZf8rleTj1Pu+v8m9VWFzWnZkJk=
+
+Name: org/eclipse/jface/bindings/keys/KeyStroke.class
+SHA-256-Digest: /mJcYLBgrd8fLhnV3UbN9sqR49nBXjEC1omzGBO4a/E=
+
+Name: org/eclipse/jface/viewers/TableViewerEditor.class
+SHA-256-Digest: 6bJMXe3secyNnbl5TfA6bzFCRlKAlBzWizymCm/NP88=
+
+Name: org/eclipse/jface/viewers/CheckStateChangedEvent.class
+SHA-256-Digest: DvtNhFDUBEs0TPiY1GgCdwMPJcSanytbyOhm2ROmvec=
+
+Name: org/eclipse/jface/internal/JFaceActivator.class
+SHA-256-Digest: 9+J68AEJkPrRtZGQLh1nWCsvIVRQjKdDxTmtRFlmgkg=
+
+Name: org/eclipse/jface/bindings/keys/KeySequenceText$UpdateSequenceLi
+ stener.class
+SHA-256-Digest: 3QHnB6ej6UakgCvV/pDo77w1bQS7j0v4Qs8wNQ8FpjM=
+
+Name: org/eclipse/jface/viewers/TextCellEditor$6.class
+SHA-256-Digest: T7hS4alPeMu1bkTyTJV4zLzgeQhgVZBizZM5EK5S1vY=
+
+Name: org/eclipse/jface/viewers/ViewerColumn.class
+SHA-256-Digest: m7Epmh1msMg5UaoQR+cnX5z8wswNAM0LlD638xMxYI4=
+
+Name: org/eclipse/jface/window/ToolTip$TooltipHideListener.class
+SHA-256-Digest: Gvt1n6YZDNB2YmR5zRxeb2LdqG66lykm4fYmQQSdric=
+
+Name: org/eclipse/jface/fieldassist/AutoCompleteField.class
+SHA-256-Digest: Ru4tNMvI59NfOEGcDSQ3iqzRsNdyJ8mP65hLIIyWiAo=
+
+Name: org/eclipse/jface/resource/jfacefonts_windows2000.properties
+SHA-256-Digest: OHNOVP1sW9e6ACrLknwaHi7VljfJZm6MQAYQ8ERxd44=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$4$1.class
+SHA-256-Digest: Lk6UuBRbWqHdf8B62EvFkrBymAoyLV5hgtD/liLVda4=
+
+Name: icons/full/pref_dialog_title.png
+SHA-256-Digest: GHXjGP1fh++7v/MzOZjzTtn9BKmmMPwrbBDvD2xFNDg=
+
+Name: org/eclipse/jface/action/IMenuListener.class
+SHA-256-Digest: ELsxcu3oOKpKKr87Vi21uoli24zTr1/D0vLyJ7zLDR0=
+
+Name: org/eclipse/jface/action/ToolBarContributionItem.class
+SHA-256-Digest: XtF1cK5CS+1YZOKd9BV9PghRHit5gj6U9n4BoMXHbYQ=
+
+Name: org/eclipse/jface/viewers/ICheckable.class
+SHA-256-Digest: Axdri2xfRNkBalEuSAvFFXC2IIqzBvQXXMCBadEu6YU=
+
+Name: org/eclipse/jface/action/images/stop.gif
+SHA-256-Digest: TE802GttkNpbgC/xdSDietf/MIWlKLif9tcmG5fQa94=
+
+Name: org/eclipse/jface/viewers/ITreeViewerListener.class
+SHA-256-Digest: jy216qrSfwjm2+E8zu+K4yjdCMuqzI9GpF6EChHVvIE=
+
+Name: org/eclipse/jface/bindings/keys/KeySequenceText$TraversalFilterM
+ anager.class
+SHA-256-Digest: s2nBjqlDzo4LhMNoBn/lsMcBYlYjn/W4p+AQRFEaSVA=
+
+Name: org/eclipse/jface/util/TransferDragSourceListener.class
+SHA-256-Digest: vEQizLUk75sZ75BJyj7MH0GYpSiaSlWNw6PVcMfFHKs=
+
+Name: org/eclipse/jface/preference/FontFieldEditor$3.class
+SHA-256-Digest: qNvcKb2E/veVaoK/hRMifcdeiaC9HoarPLPsOoUOyvA=
+
+Name: org/eclipse/jface/util/OpenStrategy$1$2.class
+SHA-256-Digest: VGcuxzkuqDyDLS/U75SDzqLjJsGaR0qQh9fVI0PO9Zo=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$4.class
+SHA-256-Digest: A+87/QqiLeo5glyYKWoPrWGMXCf5RFXpkZkwekP+lRA=
+
+Name: org/eclipse/jface/viewers/IToolTipProvider.class
+SHA-256-Digest: RGVw5FGLzm8z6R6u0KSOE8CFMe/zfTJACa+tlMjz7eE=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$2.class
+SHA-256-Digest: NfXJ76Ypg3JH2dTQIlKdTl20zXRAGtllZ7g1cZGgF+w=
+
+Name: org/eclipse/jface/dialogs/images/help.gif
+SHA-256-Digest: FFn61jNHNLAxiqGUF1OiRVKOYkYBhjFqhMuYP1g24Xg=
+
+Name: org/eclipse/jface/resource/ColorRegistry$1.class
+SHA-256-Digest: aFd3eSlWn4drxMjE5GmWikJSwhEcj8I0V3doAFvVl08=
+
+Name: org/eclipse/jface/preference/images/pref_dialog_title.gif
+SHA-256-Digest: CPhi+9syUCilQfgcp+B8CFZQ6nk8u01JyrMTZI/CL88=
+
+Name: icons/full/message_warning.gif
+SHA-256-Digest: SIqxJvegTpaslKS1uEMy9IVSyZIoNjGbZsbb+ybUFEE=
+
+Name: org/eclipse/jface/viewers/SelectionChangedEvent.class
+SHA-256-Digest: Q9hUU96RxqVwsMr4/LZGevjYCXgSqpHrV6ZRh/v5Ytg=
+
+Name: org/eclipse/jface/util/SafeRunnableDialog$1.class
+SHA-256-Digest: vfxwAVXQYHUUHF0NiAvU7azPgJWo83O7Kxdn0m+uWtQ=
+
+Name: org/eclipse/jface/menus/AbstractTrimWidget.class
+SHA-256-Digest: c8Aj/ukDtQmUlcQgVRi2WEO8jQ43LlsXRZYRnbVVp0k=
+
+Name: org/eclipse/jface/commands/ActionHandler.class
+SHA-256-Digest: 0qOmqDo9BFM+dbAUiiWy0STBo7ssnrOk37iB6gNh7tA=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$13.class
+SHA-256-Digest: DUkXes6REdp/tzviSoL0Toq2MvttB+ZuP+4n3mo0PRI=
+
+Name: org/eclipse/jface/window/Window$DefaultExceptionHandler.class
+SHA-256-Digest: XRHPm5wtX0gfHWeG2up57oTJkXRyrpNDGgK1ghxJrlw=
+
+Name: org/eclipse/jface/util/DelegatingDropAdapter$5.class
+SHA-256-Digest: HdcRiYiId1S0+gj0bNDqSBE31ZPnWZS+xfDvCAp8grE=
+
+Name: org/eclipse/jface/viewers/TreeColumnViewerLabelProvider.class
+SHA-256-Digest: 2ocwVaWJnSAACZEIC0+bdusD3kZsZq3oxt0vBqeKi8A=
+
+Name: org/eclipse/jface/layout/LayoutGenerator.class
+SHA-256-Digest: 9kxwHwhb82/nmCK51040LPgCxDbzz9ZkNvq1gmVUYY0=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$2.class
+SHA-256-Digest: eISlnYcFgPcv7gxv0Ow/YwdkQtvDpXPFDn2Vss//zSo=
+
+Name: org/eclipse/jface/dialogs/IPageChangedListener.class
+SHA-256-Digest: xzQ7NRd06xnyRaAJ7SJkbz+slsp6StHA3LF9X0CANto=
+
+Name: org/eclipse/jface/resource/LocalResourceManager$1.class
+SHA-256-Digest: tSnNAMTiYrW3bStM8qDIoswjDQgwCC9mw7tNWl+Zf+4=
+
+Name: org/eclipse/jface/viewers/CheckboxCellEditor.class
+SHA-256-Digest: fgJa7MO/m560fjfPLik2hBvxDCZBPhGktJuGYyep3rQ=
+
+Name: org/eclipse/jface/viewers/ITableColorProvider.class
+SHA-256-Digest: 6P6XLv4Td+zEbS2QeMo30Fw3SfofJU7etRhSo2DACAU=
+
+Name: org/eclipse/jface/commands/PersistentState.class
+SHA-256-Digest: G5Q1hd5OTTrEGuRqVlX5ByRbsoUmEm7MZqsJfEiKDwQ=
+
+Name: org/eclipse/jface/resource/FontRegistry$1.class
+SHA-256-Digest: MlsuRsVgVZEBTJvLJMGwF++NW+Bd3/IwCcxnKGvlLNI=
+
+Name: org/eclipse/jface/dialogs/DialogSettings.class
+SHA-256-Digest: clOsecOVvUXppnT0xWHB+SJ84v6SGWbzTvdW7cvtANg=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup.class
+SHA-256-Digest: a1FBuhHYRXPq6d/1vAod5UsEWLG1abSGdlJ1FivDAfQ=
+
+Name: org/eclipse/jface/layout/TreeColumnLayout.class
+SHA-256-Digest: AFvMpULCHEK4jbD29cuD4AWLrLW47IBG2jWDwbLNDFA=
+
+Name: org/eclipse/jface/viewers/deferred/BackgroundContentProvider$Sor
+ tThread.class
+SHA-256-Digest: Zekbp5kWakPmYoC/REbah7unP55ggd5J+B+Jpk+PKvY=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter.class
+SHA-256-Digest: 9U31lOioVB3h6ydBNO42dl9nZX6APrZLHeAKufJG2wI=
+
+Name: org/eclipse/jface/dialogs/StatusDialog.class
+SHA-256-Digest: +Q7o2RLdEUu3oyOoHGv8sSoTFSZr9WgWAFxdsDizeUM=
+
+Name: org/eclipse/jface/action/ExternalActionManager$ICallback.class
+SHA-256-Digest: nWaYem+1cQDJcigumCcv3J+VSnBk7bh3nmaD1aKNWgw=
+
+Name: org/eclipse/jface/resource/ImageDescriptor.class
+SHA-256-Digest: hQSrCBjZZko3RSWrVRFr9VJkdbEfsZ1JZZFgUOIYrf8=
+
+Name: org/eclipse/jface/wizard/images/stop.png
+SHA-256-Digest: 2Tmc+qpR0bWKGdPcZR07j8uKeFdEEUxLaXvw2LnlsGk=
+
+Name: org/eclipse/jface/internal/provisional/action/ICoolBarManager2.c
+ lass
+SHA-256-Digest: b6EViOYZDficyTz9BjXJs222i4yJQdTE0aAewEecQaU=
+
+Name: org/eclipse/jface/action/IMenuManager.class
+SHA-256-Digest: j0e3aDwwU6uy9Lnfk9wCL/fantj8c9phPxbsj3TgzJs=
+
+Name: org/eclipse/jface/util/DelegatingDropAdapter$3.class
+SHA-256-Digest: 5gTNM95slmWWTlxDGdJhWqyLZeHmvA2W0u85hG/99P0=
+
+Name: org/eclipse/jface/viewers/AbstractTreeViewer$2.class
+SHA-256-Digest: HopCpwMBPemjFrDzxocmX3SfrrPwPwJQT3nMTNR/XzU=
+
+Name: org/eclipse/jface/preference/FieldEditorPreferencePage.class
+SHA-256-Digest: nGUxxUR+6/JB4Rzp/Lh1YXni+PX398k6LG2OdvjPwjI=
+
+Name: org/eclipse/jface/preference/PreferenceStore.class
+SHA-256-Digest: Y+1dmAhZflAoQO6DQMn7rTh2pE/Mb5NkNfxnNx6deaE=
+
+Name: org/eclipse/jface/dialogs/IDialogLabelKeys.class
+SHA-256-Digest: WhzBbznq3GW/aKkIM1aX57IWAAjthigZrB2IME5ylm8=
+
+Name: org/eclipse/jface/viewers/IColorDecorator.class
+SHA-256-Digest: 56Rf+qq94bJKhMBUbx/b4xsslAo8R8evZmFPlRCr23Q=
+
+Name: org/eclipse/jface/viewers/deferred/ConcurrentTableUpdator.class
+SHA-256-Digest: 5TO7b48Etmx1CJ9kdXUMbffr9pRd8i9UhfjXsywZDEk=
+
+Name: org/eclipse/jface/wizard/images/page.gif
+SHA-256-Digest: PaOUWHf1CT97AgEGZeObaUaAWMB1lmaQ7r+KYrQAUks=
+
+Name: org/eclipse/jface/layout/GridDataFactory.class
+SHA-256-Digest: 7D8wtBUeN3GrV+tiU2RJ2QjBtF92pYVuRcWJt+o9PWU=
+
+Name: org/eclipse/jface/preference/StringFieldEditor.class
+SHA-256-Digest: PzhXBAOw/fcUUL/UM+wzRGEP0v47LyDTf/Q/gqkmhWA=
+
+Name: org/eclipse/jface/contexts/IContextIds.class
+SHA-256-Digest: 2AuhegbsTiNExvihnutaeM54xKg69JTTR/1WvQiy+eI=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$1.class
+SHA-256-Digest: q76GyR//WnUWkLvs0TVBqtBg73Tg7jaOhS2sVbvzO64=
+
+Name: org/eclipse/jface/viewers/CheckboxTreeViewer.class
+SHA-256-Digest: Y2kzAlipJ1YB5wiW8h9JiycC5tyIwWWlOpZSJSb19zA=
+
+Name: org/eclipse/jface/dialogs/ControlEnableState.class
+SHA-256-Digest: cOlp0se5zn2i2TkNSWlnYTB8UROIso4kP/llsH7zX9g=
+
+Name: org/eclipse/jface/preference/FontFieldEditor$2.class
+SHA-256-Digest: st0Dnp5YmP4ChZ0vA+i+OKN3tx6LlPAVeaCRfWomMng=
+
+Name: org/eclipse/jface/util/SafeRunnableDialog$2.class
+SHA-256-Digest: 3xXmgD7L3mk36N3/iJ+Jvk21mUEGEhqzHIugCz/+fOw=
+
+Name: org/eclipse/jface/viewers/CheckboxTableViewer$1.class
+SHA-256-Digest: Zhpa1MrnwvcjyUDC7G/sCWGuxcuWvhW9HRLfgEjgNmw=
+
+Name: org/eclipse/jface/viewers/TableLayout.class
+SHA-256-Digest: 32rCt4GzhrX/ruW4QRQBov/2N8DUAS+WHxMy4Pjo4Eg=
+
+Name: org/eclipse/jface/preference/PreferencePage$2.class
+SHA-256-Digest: Ze9h58ol8TMmsW43fFjNvn9DgbZGRo5pgx2mCogMsFA=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$4.class
+SHA-256-Digest: JczNJGpb4tZaTCsYYHlmBg9qaAb3rC1xuQ+K1x6tBYU=
+
+Name: org/eclipse/jface/resource/ImageRegistry$Entry.class
+SHA-256-Digest: 1As2ciAhmn58bwHWOE6c8U24kgv25wztQxzgaU092tM=
+
+Name: org/eclipse/jface/viewers/SWTFocusCellManager$2.class
+SHA-256-Digest: lOWyr+Y0Qn0nhl3h4rgD9ub1e9KzmaFMMCKvj/EFOAA=
+
+Name: org/eclipse/jface/viewers/ColumnViewer$2.class
+SHA-256-Digest: apUYCudTOSJRYovsmUb5310M6Qd5HtelMbpOLRwCAZ0=
+
+Name: org/eclipse/jface/viewers/ComboBoxViewerCellEditor.class
+SHA-256-Digest: SvrIUAh8+SK0YAC6gEuOaK1QYB95YqjBnSDqB/lb+ZA=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$14.class
+SHA-256-Digest: 0w0SgYHwUNgJ1hb1sCae9/JSFnEpdDOq+lMwUIIU/tA=
+
+Name: org/eclipse/jface/resource/jfacefonts.properties
+SHA-256-Digest: sGmno/QskY80Qkz4W0oSRF9rlICtPJtS0VUrLP/xTRg=
+
+Name: org/eclipse/jface/util/OpenStrategy$1$2$1.class
+SHA-256-Digest: PQqHpnE4KPcWTbhUVMCP04ODLZbAWC557cxI36rc+zw=
+
+Name: org/eclipse/jface/action/AbstractGroupMarker.class
+SHA-256-Digest: erHW75RvV67bpEewJcj8Ca81OobWVhGC1i7KTubf8s0=
+
+Name: org/eclipse/jface/viewers/AbstractTreeViewer$7.class
+SHA-256-Digest: FOlK4UwUcT+Xoa/5tqBcDvhYGR+jiRM1hR/Wigwt9OQ=
+
+Name: org/eclipse/jface/window/ApplicationWindow.class
+SHA-256-Digest: AAX86VOI1fztCPhex9jU5jDntc1xzBN9xEGZ89FaENA=
+
+Name: org/eclipse/jface/viewers/ICheckStateListener.class
+SHA-256-Digest: l/YceP/CGav9HJvAB88KCOV/D5dgyorWECRVHN4Z1N8=
+
+Name: org/eclipse/jface/util/IOpenEventListener.class
+SHA-256-Digest: TILUCv9L8+cMKuvwPrdlK8DSAzXM55yLCi84O/dbseA=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$5.class
+SHA-256-Digest: GGOcEJxKvKeZflPvUCBO7RNppY6q5kLkKmm9/SD71lk=
+
+Name: org/eclipse/jface/viewers/deferred/AbstractConcurrentModel.class
+SHA-256-Digest: +rP3zSWKsZXoG/AVPql7gfUbnagzpmKVWOnmR3QaDS4=
+
+Name: org/eclipse/jface/dialogs/images/message_warning.png
+SHA-256-Digest: grsf0lvYhi6yn/qKWoPdEQFZFIv7M4+ureKe5d91ayU=
+
+Name: org/eclipse/jface/util/OpenStrategy.class
+SHA-256-Digest: qqoRUn027qWH00oMFm9diA1PjcV1qB1iHW0bg9R2ZIE=
+
+Name: org/eclipse/jface/util/DelegatingDropAdapter$2.class
+SHA-256-Digest: RAYr2uc+nM5SDggY6jKvxSnf7kStenB9MTOfpneRSQ8=
+
+Name: org/eclipse/jface/viewers/ViewerRow.class
+SHA-256-Digest: vqCV1SMc2uNqbx7aJ/KDxdE2PGo1yt/810WXIEuCziE=
+
+Name: org/eclipse/jface/viewers/OpenEvent.class
+SHA-256-Digest: sVb++WmpSTb55bf3RD6xbBMfaF29ZFcjzNBucljJGwI=
+
+Name: org/eclipse/jface/dialogs/images/message_info.png
+SHA-256-Digest: wu1+FkzsthGKpS95tJDcfK2sjqmvOgHsrHwMDZOWKyM=
+
+Name: org/eclipse/jface/viewers/ITreePathLabelProvider.class
+SHA-256-Digest: UaR1AuBTvf0MVU8sIBANrJSwI6Hvuimq1sGCNnVW2Pg=
+
+Name: org/eclipse/jface/viewers/AbstractTreeViewer$8.class
+SHA-256-Digest: 1pCmLC0Lz2e1F8pD1EclUcaG1cEmETmZB2P4yW5ZsYA=
+
+Name: org/eclipse/jface/viewers/ColumnViewer$3.class
+SHA-256-Digest: Xx/wTiiN45S18If7b3wP7FOaoSnhtx+uXjkSMb/RQcE=
+
+Name: org/eclipse/jface/preference/FontFieldEditor$1.class
+SHA-256-Digest: RsijroWZqxta2ujuTIbimic71+7sM27pU3j1oWP2szM=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$5.class
+SHA-256-Digest: 3C5awYBZiHSF0NXqPnGVUSIG93XjlRU7aK9nYiVm3qA=
+
+Name: org/eclipse/jface/viewers/IStructuredContentProvider.class
+SHA-256-Digest: ZVvM0lTC1OdhmxG5Vb64Zcpz6gP2clEm3B/smCHOcks=
+
+Name: org/eclipse/jface/action/ToolBarContributionItem$1.class
+SHA-256-Digest: 4606BigJEbCgGDePK4G64bGBxDrt5YNiwdZSXbI92CY=
+
+Name: icons/full/help.png
+SHA-256-Digest: WWZBNcp49RlDH4R2ZXwQWFbEN7mk5rz0BD9+QjbNwH4=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditorDeactivationEvent.cl
+ ass
+SHA-256-Digest: dJzm78NI9f3CsSsbMKgHy8OZqJsUsBDhdaMMciLhBLg=
+
+Name: org/eclipse/jface/viewers/AbstractTreeViewer$1.class
+SHA-256-Digest: bjXmrDvX7UJ9LcChtKc9IwMNqBzX8Qr9BBqh+w2HQZc=
+
+Name: org/eclipse/jface/resource/DerivedImageDescriptor.class
+SHA-256-Digest: SxdKSlbSkMaGJNJi7Ub6BRXimb/Z1NfOiS5t9BNk3+4=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$6.class
+SHA-256-Digest: 3z7uKKypfTQ1WkioQupX2BTx22xXHkmoKcmunX1i3LA=
+
+Name: org/eclipse/jface/viewers/deferred/FastProgressReporter.class
+SHA-256-Digest: 6IHJ4Znv/6g7g1iiaAEuZrW/Ejvp2KUN7rBLFg79GCg=
+
+Name: org/eclipse/jface/fieldassist/IContentProposal.class
+SHA-256-Digest: sx2aJ+PWpjgEv5lVtk2UDfoNh8XqO7eSo/NJgr8ARL4=
+
+Name: org/eclipse/jface/resource/jfacefonts_macosx.properties
+SHA-256-Digest: GQpwkYnXwxLWcrF6RHHNbT9vLQnV7ecEbwywAMwNne8=
+
+Name: org/eclipse/jface/viewers/TreeViewerRow.class
+SHA-256-Digest: 3uvXkoQ/yeixzCMIXi2AwUnul14++oF6p44m3OmsOB8=
+
+Name: org/eclipse/jface/dialogs/ProgressMonitorDialog$2$1.class
+SHA-256-Digest: tLCBBwk8U8NC5hGF+9b8C14bsu9fvyXgxt9qgiQVE5o=
+
+Name: org/eclipse/jface/viewers/CellEditor$LayoutData.class
+SHA-256-Digest: 2ovU4XweH492hBquPuqlTtZkAE5wBF7chIePVrhoLys=
+
+Name: org/eclipse/jface/dialogs/Dialog$1.class
+SHA-256-Digest: r1VOfZomDHg7p1pYQnRqBHhUWI4t6kWEesCMqnhRU4Y=
+
+Name: org/eclipse/jface/action/CoolBarManager.class
+SHA-256-Digest: yl77dnFHFwR0Frbi2HZFgyLVqLYkMZjBwlX0FUmDsZE=
+
+Name: org/eclipse/jface/viewers/CellEditor.class
+SHA-256-Digest: KB4ZPIfg+0qT03zfF1iRhDWn4J8MeVXt9lNL4Wr5MHE=
+
+Name: org/eclipse/jface/viewers/IInputSelectionProvider.class
+SHA-256-Digest: 9o3MYpLzmhs4W/q1ztxRCBPM9NqaazFnnq8M/9yApTs=
+
+Name: org/eclipse/jface/window/DefaultToolTip.class
+SHA-256-Digest: vbIkZQ3YWh4Hvy1zyIQ4KVHYBARN4+wpW3uOEFW3RM8=
+
+Name: org/eclipse/jface/operation/ModalContext$ModalContextThread$1.cl
+ ass
+SHA-256-Digest: wWOHXBoVZR7kwrxrueeaWFL/slHwOKHWLuw1REvMDrM=
+
+Name: org/eclipse/jface/viewers/SWTFocusCellManager$3.class
+SHA-256-Digest: bVJLGTCf4O1KXBZE1Ff0dqQAY57BGDH4lS+apWfGvzY=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$7.class
+SHA-256-Digest: /INKxqH2tEr8ibUzwahT25M1C4d9ifU7l7SJANAhFuc=
+
+Name: org/eclipse/jface/operation/IRunnableContext.class
+SHA-256-Digest: 2ivsxK531EshVPnCMWBRigkXBJtxDg7cwOBPrPVK2UI=
+
+Name: org/eclipse/jface/viewers/ITableLabelProvider.class
+SHA-256-Digest: v3iMGcQ3ZIvSANKu1YshTyzJL/+u1WFFWd8KFsMnGRY=
+
+Name: org/eclipse/jface/dialogs/ImageAndMessageArea.class
+SHA-256-Digest: Yd+JubJwI9nkUytCquSVDTK4uXmOGGyI6YHCF1na8cs=
+
+Name: org/eclipse/jface/viewers/AbstractTreeViewer$3.class
+SHA-256-Digest: wKrs0wgeDYvo9RnZaO239tQOl8hQQUhfM5C8UaF5LQo=
+
+Name: org/eclipse/jface/resource/FileImageDescriptor.class
+SHA-256-Digest: 2sTEDq4y7OOZEKF3W/p83bWIxv7nWRbABbxwsdR5zUA=
+
+Name: org/eclipse/jface/viewers/ICellEditorListener.class
+SHA-256-Digest: 37j4Yclg/ESsuPG6ypmKKvmprL5zhrDpW1/I+SibMSo=
+
+Name: org/eclipse/jface/preference/ColorSelector.class
+SHA-256-Digest: FxXfYPK5r9NdFwzJ58TZKtUB2dTWpvVKliiDDhYv/ZQ=
+
+Name: org/eclipse/jface/dialogs/TitleAreaDialog$3.class
+SHA-256-Digest: zX1CrUDnO+dPmB7BgJItzD1ar8RDGKS65S9HhzuHdSw=
+
+Name: org/eclipse/jface/dialogs/MessageDialog.class
+SHA-256-Digest: ACSaC+wVCVjxeAyDqJkY3NPgjLbgEJhVJlWHpG7zDeo=
+
+Name: org/eclipse/jface/dialogs/images/message_error.gif
+SHA-256-Digest: +FNGu4fCfFYv7Dulz2hiiVEV6FiXqj/cGx1u2/BFtoU=
+
+Name: org/eclipse/jface/bindings/keys/formatting/EmacsKeyFormatter.pro
+ perties
+SHA-256-Digest: jrMTrqwADGYZukxRofQ8A7ILHvzNH8wxJHF0Td6LzjU=
+
+Name: org/eclipse/jface/resource/jfacefonts_qnx.properties
+SHA-256-Digest: nmqNw+BD6yrFJkwAD+0lYqGrPp70M50lWaKDB0xwAck=
+
+Name: org/eclipse/jface/window/SameShellProvider.class
+SHA-256-Digest: Bkv/30G1AXMavCEtxD4lPFGLZdLB7qxhHTGprAjWoy4=
+
+Name: org/eclipse/jface/util/DelegatingDragAdapter$3.class
+SHA-256-Digest: gYzLpS+3z2OnsAucxOIV9MdUPyHXwKXmDK2VYlnibjE=
+
+Name: org/eclipse/jface/util/DelegatingDropAdapter$1.class
+SHA-256-Digest: H+r3/fBL9U78+3hO91TxOf+NvgzkY5W/HRXLQWlrYZc=
+
+Name: org/eclipse/jface/viewers/AbstractTreeViewer$6.class
+SHA-256-Digest: JLKsQzCJXJV5E5J5iu+VDFxakdaKhsLVIhDoWJhckYE=
+
+Name: org/eclipse/jface/operation/ModalContext.class
+SHA-256-Digest: p4uU6jrjrP/bcymyXbo23Y/IArR9/w6O0HwfQELRr2Y=
+
+Name: org/eclipse/jface/preference/ListEditor.class
+SHA-256-Digest: YoF8s8rJ+BdkBohiR1YHt5uCd0u45w+MM6nGldMofxQ=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$InfoPopupDialog.class
+SHA-256-Digest: aeG8zC+IVB83SkkQzfwAUT43ifOjyYgXk3SuQOyj9u0=
+
+Name: org/eclipse/jface/preference/ScaleFieldEditor.class
+SHA-256-Digest: gJc1/StWOOP7G/X0yY9O1w1dfne89JEIvip11VUhYV8=
+
+Name: org/eclipse/jface/preference/PreferencePage$1.class
+SHA-256-Digest: wslruVFPXDqnhX2BDhhZhuhz35f1Qu+jInfv68gB8Ac=
+
+Name: org/eclipse/jface/viewers/TableColumnViewerLabelProvider.class
+SHA-256-Digest: G+YxDnS8vfju7J8RQoj+s6BuWjzwWXRvUj3YyHo195k=
+
+Name: org/eclipse/jface/bindings/keys/KeySequenceText$TraversalFilter.
+ class
+SHA-256-Digest: jOZyOzDa3R0yYuUQVzZ8VFfkE7ogCGhmz1ilpgrUI+8=
+
+Name: org/eclipse/jface/action/ControlContribution.class
+SHA-256-Digest: aNkRPoLM4rma6Z6lKPJJ2o2hYlwoFBxC760sOwC0ADk=
+
+Name: org/eclipse/jface/viewers/AbstractTreeViewer$4.class
+SHA-256-Digest: sULRwwiOFgxRn0EDlBZ8i0/FxXzeGq1RNYKl79Hysgg=
+
+Name: org/eclipse/jface/viewers/ILazyTreePathContentProvider.class
+SHA-256-Digest: mVrN9nRC3MlmznFXK0Y+t00Gb0Rka9fOI6YigsTPBQs=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$8.class
+SHA-256-Digest: C60O0F39zWLFarlZtVCX5HJtoC9NYpqh8lbsbW3ql4Q=
+
+Name: org/eclipse/jface/dialogs/images/popup_menu_disabled.gif
+SHA-256-Digest: BYzBugDGyWfGNqU1aaQTR9K2uTLr5CsIcMDfOxp2qus=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$3.class
+SHA-256-Digest: wX+eETWcycvfaFqlsTpDCkHPeki0uR4xpQPQIGY256w=
+
+Name: org/eclipse/jface/util/DelegatingDragAdapter$1.class
+SHA-256-Digest: nMv4LHHaRWC7LVF4iniB1Z47F/BSkgdECD67k1LSIX4=
+
+Name: org/eclipse/jface/resource/CompositeImageDescriptor.class
+SHA-256-Digest: hf82zOw3zxy3PIXGrM4xi8qPwihX3trbpOtXxCU2aTw=
+
+Name: org/eclipse/jface/dialogs/TitleAreaDialog$4.class
+SHA-256-Digest: HILTek1pH9baocIJA9MriLUJjOuFjMsMfPcmWU8UARw=
+
+Name: org/eclipse/jface/viewers/ColorCellEditor.class
+SHA-256-Digest: yTDvbg2uJzlNMq4g0c5ywMK+nId/PJLTEOPrljhluzg=
+
+Name: org/eclipse/jface/resource/FontRegistry.class
+SHA-256-Digest: EZ4Vheem67Anz0CPOU7QgWsf2leYgOZ7Ejx6GufP8Ys=
+
+Name: org/eclipse/jface/bindings/keys/formatting/AbstractKeyFormatter.
+ properties
+SHA-256-Digest: HFTgVPQLcETWu8dG0JWGfxB0SmpwWy8vHrrbDSAwNGM=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$9.class
+SHA-256-Digest: AOcQX16EGx+VqB7v+1b68Ore90jK4XxGK/tUk/6KodE=
+
+Name: org/eclipse/jface/fieldassist/images/contassist_ovr.png
+SHA-256-Digest: MzmELF/taW2+UBrgYjPbU2pFE57RIJssSt9T+dWfY+U=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$2.class
+SHA-256-Digest: p6dizYJXiCwCAdbV251QNI48Gb4Yu5Qozdc+wUcGL7U=
+
+Name: org/eclipse/jface/viewers/TreeViewerColumn.class
+SHA-256-Digest: nCNIGuafKIneyhsvd6zETZ7AGzJxxV6fJ9O9Efqh8A0=
+
+Name: org/eclipse/jface/util/PropertyChangeEvent.class
+SHA-256-Digest: 8zO0Tj4HCw4G59Kv0XGeJrpwxUijwDPxA5oHq5hNwV4=
+
+Name: org/eclipse/jface/viewers/EditingSupport.class
+SHA-256-Digest: 5S54A8VOVsww4QyEqvTZiH0UrkbrYScMzbr3TZF17EE=
+
+Name: org/eclipse/jface/util/BaseTextDirectionSegmentListener.class
+SHA-256-Digest: SauKFM7TXjf+cQyvmc168c+unZLDN0ROgob9BWPXdGU=
+
+Name: org/eclipse/jface/viewers/TableViewer$1.class
+SHA-256-Digest: 5HfQkEzRzu4cJGDdUKzk9mPItjgKEdCI9AV1kGpxzgU=
+
+Name: org/eclipse/jface/viewers/SWTFocusCellManager$1.class
+SHA-256-Digest: bO62t+GcyJvKMoXh+kB5UWsvNWn9sLphNJUk0lmXwik=
+
+Name: org/eclipse/jface/util/DelegatingDragAdapter$2.class
+SHA-256-Digest: xummg4nCEeO1X9GAmiZAkdMosbTIcskorue42J6zOo4=
+
+Name: org/eclipse/jface/wizard/WizardPage.class
+SHA-256-Digest: XoGQSXzFqPcSZGC39iFBHShxqAKDvG+RBdlVyPft/+o=
+
+Name: org/eclipse/jface/dialogs/DialogMessageArea.class
+SHA-256-Digest: 4f0P9X7ZAtDDHb27Yo2UyB/7n2Jlqb+bBZL5AV3FLdo=
+
+Name: org/eclipse/jface/dialogs/ErrorDialog$1.class
+SHA-256-Digest: qTikcUmyFEeP97RMzZ/PyLt6HKIhbp4XK9OD/tGr0yg=
+
+Name: org/eclipse/jface/viewers/CellNavigationStrategy.class
+SHA-256-Digest: 6NKPgRbAAkboyhKyUn0hHB8ANG74a1m/Sp2tzb88K3A=
+
+Name: org/eclipse/jface/commands/ToggleState.class
+SHA-256-Digest: rTTlS0YSlW9ywTYr2r7FRXqQA9mnNMa+Cw9nNFcKL1M=
+
+Name: org/eclipse/jface/dialogs/TitleAreaDialog$2.class
+SHA-256-Digest: onnTE8okB76zIp/DNM7SqK8kl3OHLOdKa8zHEXTKE/w=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$3.class
+SHA-256-Digest: 4/b92Z97jvl0Db6mxiCSOxXODJw8qMrII8X/Pzedufo=
+
+Name: org/eclipse/jface/dialogs/images/help.png
+SHA-256-Digest: WWZBNcp49RlDH4R2ZXwQWFbEN7mk5rz0BD9+QjbNwH4=
+
+Name: org/eclipse/jface/images/dots_button.gif
+SHA-256-Digest: OyVFx4AooemGT97tgZUYLD14UGe2bVVJeGXrewonTSQ=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$6.class
+SHA-256-Digest: DOz2bAgIPCLlHK5rQ36eTjjq0mcU0QHHofHfq1woT4o=
+
+Name: org/eclipse/jface/wizard/IWizardContainer.class
+SHA-256-Digest: l39OT0Sx5fcepScrmmk7a6kh4eLgSmW9heuURKjJoJQ=
+
+Name: org/eclipse/jface/viewers/deferred/LazySortedCollection.class
+SHA-256-Digest: vtSZmf7y1TsgQCup6DWw3SPLPH60VpSJ8Iga5Djo/RM=
+
+Name: org/eclipse/jface/dialogs/images/popup_menu.gif
+SHA-256-Digest: 8Sz/9kDx30zZQWgbff3DbLzAkXo0p8hlCOt4P+F+cSA=
+
+Name: org/eclipse/jface/preference/ScaleFieldEditor$2.class
+SHA-256-Digest: ikgEDrbt/YGJUVs0Em4X/pbm3Rce93JSGU+8lDIc77Y=
+
+Name: org/eclipse/jface/util/Policy$2.class
+SHA-256-Digest: JOXggnFHZhd91DlXgnlNnNdxIiT7Mwo+8/kNjkcMCkA=
+
+Name: org/eclipse/jface/viewers/TreeViewer$4.class
+SHA-256-Digest: eM7Y/W8EiA0pPkjDrkiXozl7aPdGf7tKyAvXloxtXh4=
+
+Name: org/eclipse/jface/fieldassist/images/info_ovr.png
+SHA-256-Digest: b4nXD2I0ldnwpkbuDJ9rTGBttzQ8vB8ZF34wt77ANa0=
+
+Name: org/eclipse/jface/preference/StringButtonFieldEditor$1.class
+SHA-256-Digest: dxTwySnyCB8hx1Vb/Ew5Kg1+fsh9y4Ex0PJS8mmHWkw=
+
+Name: org/eclipse/jface/dialogs/TrayDialog$ResizeListener.class
+SHA-256-Digest: fhj4UP68TMDXL9lGYomeGxjQrqnWsUp0Whkcf0SAWUY=
+
+Name: org/eclipse/jface/action/ToolBarManager.class
+SHA-256-Digest: XLgvmFBVVUhbsLTg+KrhEyBFhzvU6yMPAGKOrOXm3kA=
+
+Name: org/eclipse/jface/fieldassist/IControlCreator.class
+SHA-256-Digest: m5V7MjW8G/OhcRIqizxMcXZcAcxtiZ0hTLJ1Aedq6o4=
+
+Name: org/eclipse/jface/viewers/DialogCellEditor.class
+SHA-256-Digest: SpesE3MZts91nxjAs0hNzBVsEN3jXiofOg3bqYFyCfA=
+
+Name: org/eclipse/jface/preference/ColorFieldEditor$1.class
+SHA-256-Digest: xJP57OhFLjCqQt/dFf3fD54ePqqaMkq3NSyVnJuiyU4=
+
+Name: org/eclipse/jface/viewers/StyledString$StyleRunList.class
+SHA-256-Digest: /lC5qnyqOIuLEQ6vlEdcp1o+2Z+oxBivFUG3WBStvGQ=
+
+Name: org/eclipse/jface/viewers/TreeViewerFocusCellManager.class
+SHA-256-Digest: fuNkGUCxUgXjjbfYC7zRf28Rp8SNsdpncun0jg3Lemo=
+
+Name: org/eclipse/jface/dialogs/ControlAnimator.class
+SHA-256-Digest: pkKzPRlgbwbBGWy3xk2Z8f/DbbXDLWaHKWz72nHrY8U=
+
+Name: org/eclipse/jface/action/ToolBarContributionItem$3.class
+SHA-256-Digest: dxDC5LOgKRkH7Ie1bRvQc5V6l8IKpgWtt9y2IqEo7H4=
+
+Name: org/eclipse/jface/viewers/StructuredViewerInternals$AssociateLis
+ tener.class
+SHA-256-Digest: 9qLlMJo8Oq1NVyGxIEGkt+extEntqkPxtCUX2ygrjhQ=
+
+Name: org/eclipse/jface/bindings/SchemeEvent.class
+SHA-256-Digest: wHCW8XlpRgCI+gq8lbAXPjK4vgYNaaneR7xGBsURou0=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$10.class
+SHA-256-Digest: rCgLkC3BE0CnuJIh1EDfb3ypLr34H8dl3gUF3cc3XrM=
+
+Name: org/eclipse/jface/fieldassist/DecoratedField$2.class
+SHA-256-Digest: 5IxRecijjyWi7k91RjEPLlc4LwNwDJ/QZWtPp5pyKno=
+
+Name: org/eclipse/jface/viewers/deferred/ConcurrentTableUpdator$Range.
+ class
+SHA-256-Digest: ju1LxdgnJRCnJqggnuOTxDr/b0An9CWMbavJlM2b610=
+
+Name: org/eclipse/jface/resource/StringConverter.class
+SHA-256-Digest: r3MBHicUGYUuniVzZi1YA7Ac0fSPWkMD+hkEAZ4bjvs=
+
+Name: org/eclipse/jface/window/Window$IExceptionHandler.class
+SHA-256-Digest: tx/+cdaS6M5UA23PYG8FFJq9hc1VKt/vDaxmC0f9uOU=
+
+Name: org/eclipse/jface/action/StatusLine.class
+SHA-256-Digest: fauz/CjC8JlwZr8uHet9kAlAJHgI1Cdyo54A8Cme0LY=
+
+Name: org/eclipse/jface/util/SafeRunnable.class
+SHA-256-Digest: aOGiHA3yYUPH/234CQz08rmxQIXb5hPEft/DlQYMTAQ=
+
+Name: org/eclipse/jface/resource/RGBColorDescriptor.class
+SHA-256-Digest: ajE+oMzUnXXkximS9b1eYrgzzGpddIZI+FxFfEBEmeE=
+
+Name: org/eclipse/jface/bindings/IBindingManagerListener.class
+SHA-256-Digest: c5imI359xB7Il6C3WxfdQA78O2DCB6ckWxeUKFV4leY=
+
+Name: org/eclipse/jface/dialogs/DialogTray.class
+SHA-256-Digest: 0PN4DCA6ozJGZa1GcrUJlfwJTl9KgS1VzbAxIzQayww=
+
+Name: org/eclipse/jface/bindings/keys/KeySequenceText$KeyTrapListener.
+ class
+SHA-256-Digest: zpg8PbtXbRk6n2kP/axKGaAVZ21zueJRso2XpNq93T0=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$1.class
+SHA-256-Digest: 1EO5fsh5vh0FjMNz/mcLf8145jWtUSxRBGPm8pN912k=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$3.class
+SHA-256-Digest: ttHtX+AZ3gj/gcPshIX1WBIZqYyzi8wt4+oVkt561nk=
+
+Name: org/eclipse/jface/fieldassist/images/contassist_ovr.gif
+SHA-256-Digest: QITd2c4z7DWIvW2suk2oyWhvpMMLPpiX3UuMd3fM50E=
+
+Name: org/eclipse/jface/resource/URLImageDescriptor.class
+SHA-256-Digest: 3rLXK9b50bSHCu47FhO8dA1YVMCaK66sq6PM/M41jZ4=
+
+Name: org/eclipse/jface/dialogs/InputDialog$1.class
+SHA-256-Digest: dHLDh+Iyye05Q/OcnobUgzCN7KGhNYG8pve2Rv2Y8Zk=
+
+Name: org/eclipse/jface/util/ILogger.class
+SHA-256-Digest: 5eoF+JHtOTme7oBhGc6MFLQafVsUKLe4+AgkjFPqS5U=
+
+Name: org/eclipse/jface/dialogs/Dialog$2.class
+SHA-256-Digest: gaUe9BtsZIaPeqNgccCbH+qpbWk4UpYII0jwLHWpfGg=
+
+Name: org/eclipse/jface/action/GroupMarker.class
+SHA-256-Digest: VPttuu2bZNYyTd/Rf6RuJ/3vUv9fTVOfuJAQF9ynlOY=
+
+Name: org/eclipse/jface/resource/FontDescriptor.class
+SHA-256-Digest: D4q8WjCTVlsPNAxSIXuBc8xYpKASX7gDISGIcKPMFPA=
+
+Name: org/eclipse/jface/bindings/keys/formatting/FormalKeyFormatter.cl
+ ass
+SHA-256-Digest: +3BYIRQTyXiFHNIv5qqvgwCKxV4m4LbR0nRjfIXJUgw=
+
+Name: org/eclipse/jface/viewers/ITreeSelection.class
+SHA-256-Digest: Dg9duSpd1Q2wbJYr1URc5NrJwaHjvQNH+P4mD7wubko=
+
+Name: org/eclipse/jface/internal/provisional/action/ToolBarContributio
+ nItem2.class
+SHA-256-Digest: DU4lNkoY1YTyqQACBIeB0jSj3UmidX8v6mwFjvej3yM=
+
+Name: org/eclipse/jface/resource/ImageRegistry$1.class
+SHA-256-Digest: dpn7SaG0Eyc+16LJnz7Ct9ezSiogazbLOcmMhV++WPw=
+
+Name: org/eclipse/jface/viewers/FocusCellOwnerDrawHighlighter.class
+SHA-256-Digest: v7VlkeohYUC+WRGWO7hpx5lZBQPkTts4nv5uACYnRE8=
+
+Name: org/eclipse/jface/bindings/keys/IKeyLookup.class
+SHA-256-Digest: U2ZSQELVG11dW9mTHWij/cqKF9ywCfIBkkhs7HStxY0=
+
+Name: org/eclipse/jface/dialogs/IconAndMessageDialog$2.class
+SHA-256-Digest: 2yHHR1sExkBqfKvD+4drrq1ns+1EoXe8sLr+xVSIRnY=
+
+Name: org/eclipse/jface/preference/BooleanFieldEditor$1.class
+SHA-256-Digest: z+bBtdi9Eea/wlp4jK0RglO6YceyiQRNqBaAMjaKIF8=
+
+Name: org/eclipse/jface/viewers/TreeNode.class
+SHA-256-Digest: EQ7nY6G8UcL7BEkS6vIqDFDFw5Hg0OlC+qLuXJHxTO4=
+
+Name: org/eclipse/jface/fieldassist/ControlDecoration$4.class
+SHA-256-Digest: rcWUreXrG12FuQ7aI0EbZzwWj9Urf9QVqZXKwH1xIdA=
+
+Name: org/eclipse/jface/resource/jfacefonts_windows98.properties
+SHA-256-Digest: xKPByV/LbmogYBwh9U6gInodlhd331cFW4dQ79CZcD0=
+
+Name: org/eclipse/jface/viewers/IViewerLabelProvider.class
+SHA-256-Digest: BH8FSvUKNHh6mk/yS+l8FGGFpHCq0fBvaL5oFAsiEYg=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$15.class
+SHA-256-Digest: fvm9VXRRgaC5KGCZ0GgHoTnBAqB+KZBgXXcv7t8wJS8=
+
+Name: org/eclipse/jface/viewers/CellEditor$3.class
+SHA-256-Digest: bC+YVkPIiwmbEBYMATPB1nFDuEl8GYoAhPqlJiy73sI=
+
+Name: org/eclipse/jface/util/ConfigureColumns$ConfigureColumnsDialog$C
+ olumnObject.class
+SHA-256-Digest: t7Yj0qCcI3jft8A0+jYBzp520VG/4+qWBa6mrybKcIc=
+
+Name: org/eclipse/jface/resource/JFaceResources$1.class
+SHA-256-Digest: naZQkI2do37inrQVbOORHVIpAblE1FGsVUYgJcRsR4c=
+
+Name: org/eclipse/jface/viewers/ComboBoxCellEditor.class
+SHA-256-Digest: eIR/YJXWNcEAf+1F5NRnOo53WpJsAo8UCrYDIoFKqRM=
+
+Name: org/eclipse/jface/wizard/WizardDialog$9.class
+SHA-256-Digest: GZOfFf7Kuovb6OWJ1bSGvBDWQHsbDCj3HQnVsd95a8g=
+
+Name: org/eclipse/jface/dialogs/TrayDialog$2.class
+SHA-256-Digest: Ch8ITPZoIOi78Qd9saSomjLl2qEgd6bIHCT3vJas1c8=
+
+Name: org/eclipse/jface/viewers/SWTFocusCellManager.class
+SHA-256-Digest: /rtSUCNjdzC2zwOkLHb97PEQHGXN6+QU8sK9N93shN0=
+
+Name: org/eclipse/jface/operation/ModalContext$ModalContextThread.clas
+ s
+SHA-256-Digest: 7zyloxDE1G+RpoE3aBoxQP1+Jni1PuPG0ujD+uUxxA0=
+
+Name: org/eclipse/jface/action/ActionContributionItem$3.class
+SHA-256-Digest: iOfIaeXKR8eQaaO+UPYEoF22a6+CMMR1KpNgKuVWjgA=
+
+Name: org/eclipse/jface/preference/PreferenceContentProvider.class
+SHA-256-Digest: SnVOeZJrBz9hIxq+wh6FLM6Njb4Bl7qqRy/LT5DiXJI=
+
+Name: org/eclipse/jface/preference/RadioGroupFieldEditor$2.class
+SHA-256-Digest: 2J8NI61/52xuVtxl0THNs8ApuXgKh54SJ8uUD54s0Ls=
+
+Name: org/eclipse/jface/action/MenuManager$1.class
+SHA-256-Digest: QCd+og/5XeEL9YwV4ODPuk1oW1zskaQLoOQaiAuTYdg=
+
+Name: org/eclipse/jface/viewers/ComboBoxViewerCellEditor$2.class
+SHA-256-Digest: AfNo0xfezo5Mwpq/W7hBkt/n/yNKtNwBj2IxKq/CSNo=
+
+Name: org/eclipse/jface/resource/JFaceResources.class
+SHA-256-Digest: b50JWYo8a/cX5eRaZn0qTStVqGrxVJgxJRQX+hkogFU=
+
+Name: org/eclipse/jface/viewers/DelegatingStyledCellLabelProvider$ISty
+ ledLabelProvider.class
+SHA-256-Digest: 5VbZXHIfrgc1XichIMGmJ9FWwt1cFKhj3rIJ3b1FXXI=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$MoveAction.class
+SHA-256-Digest: hqvRJoi7C/W6AEfEoqbS5wvZQla+Yd1BLfjeqFst6wg=
+
+Name: org/eclipse/jface/viewers/IFontProvider.class
+SHA-256-Digest: W1v/0SB90i9ujnGEmFEIJMhbPvw1aKfK+FtiyxiHJ/k=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$9$1.class
+SHA-256-Digest: sHQ3Z2etlh/1ZpzcmjhB2QFyBdGiElDsWSd3QSgYyOo=
+
+Name: org/eclipse/jface/layout/RowDataFactory.class
+SHA-256-Digest: vq79xsHWcQG6HPvvERzfhexJobMcY7OLV1cBJLBFPUY=
+
+Name: org/eclipse/jface/preference/BooleanPropertyAction.class
+SHA-256-Digest: j6ZN8rzNcyeBcA7wqD07aetKdllgDWQoSjlt3z7uN6I=
+
+Name: org/eclipse/jface/viewers/deferred/DeferredContentProvider.class
+SHA-256-Digest: QTt1cXaoattL/VIxIm2Cpnq001MmvkDpECpRmzOUWcg=
+
+Name: org/eclipse/jface/viewers/TextCellEditor$4.class
+SHA-256-Digest: ygbNpwbTF0phTRziqlATpfbKa9FwBma4o6r+ECekgKk=
+
+Name: org/eclipse/jface/util/Geometry.class
+SHA-256-Digest: bvnHa6kTSWcCeKbxgbnq96XIHpditgOwC0rj/2DKhes=
+
+Name: org/eclipse/jface/viewers/OwnerDrawLabelProvider.class
+SHA-256-Digest: ocNqEzNqPtLaOwFzYVII1kywKqB19rcFueFLDFR3kog=
+
+Name: org/eclipse/jface/viewers/IElementComparer.class
+SHA-256-Digest: B3F4JrTBnvJYX2+PG2HdGtHBxO8KP8x/+LqwoLu5ubc=
+
+Name: org/eclipse/jface/wizard/WizardDialog.class
+SHA-256-Digest: jo2jfAuOtqGfb5GTwyf8p4MR1+zwqJiEAkkEhk2z/OY=
+
+Name: org/eclipse/jface/dialogs/IDialogConstants.class
+SHA-256-Digest: lv77LWVSvKR9Qk9NMj8PaPjObEa/yGGHE3bPeu7bkZ0=
+
+Name: org/eclipse/jface/window/ToolTip$1.class
+SHA-256-Digest: Thd+KiN/JBdGwS0iFFHG7TlNTZ9fuWOoePuA9e41zYk=
+
+Name: org/eclipse/jface/internal/MenuManagerEventHelper.class
+SHA-256-Digest: Te/C+ckXPc6s9553h5OUeEoOc6AMIJ1lFP9HrXbrv4w=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$PopupCloserListener$1.class
+SHA-256-Digest: nFg6f/6hReAJb47qH5YyYzJBAejzWY4Kxp30d0wuCKY=
+
+Name: org/eclipse/jface/preference/IPreferencePage.class
+SHA-256-Digest: XopUV8R6SHDbfH29e7r0nFaU1Jv3nzOe9C2njQ7yiOs=
+
+Name: org/eclipse/jface/viewers/ViewerDropAdapter.class
+SHA-256-Digest: Xxdtrx/kRalXRij1FyUcVxZ3xEV/fYv6jaaKvjmbneQ=
+
+Name: org/eclipse/jface/preference/ColorSelector$3.class
+SHA-256-Digest: 8bA958mmh/7yZMOWxaYzlI6lsrvA8MSKsdoEzKJ8R3E=
+
+Name: org/eclipse/jface/layout/TreeColumnLayout$TreeLayoutListener$1.c
+ lass
+SHA-256-Digest: EMqY76ME6NnhOUlqvZSbbiTgJa0M2CUGzkykBjUjuTU=
+
+Name: org/eclipse/jface/viewers/deferred/SetModel.class
+SHA-256-Digest: pQExjClp9gmOiSsKPkdYXWnskINw6C1lGxr275Ky9vE=
+
+Name: org/eclipse/jface/dialogs/IMessageProvider.class
+SHA-256-Digest: v19y7LNzOmvXMzojUHZKMLhWDw2yO364/TYiqDEk1aA=
+
+Name: org/eclipse/jface/window/ToolTip$2.class
+SHA-256-Digest: 7eHtQ9abokDUxzR4yeCjXkDMQkbmckZ/I1ER1v/5OOA=
+
+Name: org/eclipse/jface/viewers/ITableFontProvider.class
+SHA-256-Digest: ABwwfv/Unq49ZYuv1xlplJ7cuGU9939pcAqTt32n/z4=
+
+Name: org/eclipse/jface/dialogs/images/title_banner.png
+SHA-256-Digest: uwgDnchy3uFqkBnqgJjaJ7LzGqdENiYatqZStARjRsU=
+
+Name: org/eclipse/jface/viewers/IBasicPropertyConstants.class
+SHA-256-Digest: zEbFH/2X9LHObXVrjoPaIXE/+1dhHRDk0l735+qa9lw=
+
+Name: org/eclipse/jface/viewers/TextCellEditor$5.class
+SHA-256-Digest: 1VHnZFPX4xkqsuJWs2ralrtwUNOfLpkIfpCjNCwL+DM=
+
+Name: org/eclipse/jface/action/StatusLineContributionItem.class
+SHA-256-Digest: BkPfvBoeQAUJral/4Vr+yXqQQD8RiW8pFk4byxXjHDc=
+
+Name: org/eclipse/jface/viewers/TreePathViewerSorter$1.class
+SHA-256-Digest: Vm+o1h5mVO6Y5fb12clL4MbwKQgzs4VTyOjELt9YHHg=
+
+Name: org/eclipse/jface/bindings/BindingManager.class
+SHA-256-Digest: 3Oz377CLBV/0nF7HsWEQmquxY13AG+l0NorzlivfTXk=
+
+Name: org/eclipse/jface/util/DelegatingDropAdapter$6.class
+SHA-256-Digest: 5h1DaEP5gPiumcXfO4H+IRGHjHEwAAZqaImhxRY7tJk=
+
+Name: org/eclipse/jface/dialogs/images/message_info.gif
+SHA-256-Digest: 1mPSOlUbJ6c+sf3X/UluHUoq+dd7HMVVZElw4bzgkrc=
+
+Name: org/eclipse/jface/viewers/Viewer$1.class
+SHA-256-Digest: Am2zK375vHKEWxuujjdGBhbPkAuadZQEIiPEX8shPuU=
+
+Name: org/eclipse/jface/viewers/ColumnLabelProvider.class
+SHA-256-Digest: uUwh2pyoAU611qAbBI2D2T9x7lfX7lRy/5ChWNSbzxs=
+
+Name: org/eclipse/jface/action/StatusLine$1.class
+SHA-256-Digest: UBH379uF40rzj+V84XQmwnKYk+QKrTvP0HZgO+Up8Ek=
+
+Name: org/eclipse/jface/action/ExternalActionManager.properties
+SHA-256-Digest: mcpnClrchYEOJXDLZ5XwAX6rHNxk7C6cid8zDQPME8s=
+
+Name: org/eclipse/jface/viewers/TextCellEditor.class
+SHA-256-Digest: LrFYDZx5+cMllkSQI5qyZN9mDooJB+eNjihUxgqyrLQ=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditorActivationStrategy$1
+ .class
+SHA-256-Digest: W7AjUffWyB/prMz+qJICw88qtY4rYJz6Tz1E0KbL4G0=
+
+Name: org/eclipse/jface/viewers/IFilter.class
+SHA-256-Digest: 9/duNLYFmfOIBMtxAtOrkxbOO/l66rVFtZ00/xS/d4g=
+
+Name: org/eclipse/jface/action/ExternalActionManager$CommandCallback$2
+ .class
+SHA-256-Digest: nDz+OKg4K+FCdSAfJ7z3GDmIjclhOMgA5ksRbZ2WkSE=
+
+Name: org/eclipse/jface/bindings/keys/formatting/KeyFormatterFactory.c
+ lass
+SHA-256-Digest: G53OiFHL/r8uS8jdSYo98fNWfEDwNIP8pSbfkLBEVTE=
+
+Name: org/eclipse/jface/viewers/ComboBoxCellEditor$1.class
+SHA-256-Digest: H9WH84lzrXIq/h4saD5ZgG2GVCejqLhLZC4pZA7hwJg=
+
+Name: org/eclipse/jface/viewers/DialogCellEditor$2.class
+SHA-256-Digest: yEGztg0A+xAci4CJWaICig9ujKVS7xFKHt1gb3NUYsk=
+
+Name: org/eclipse/jface/fieldassist/ControlDecoration$3.class
+SHA-256-Digest: K4wlmsyJe3Skke1QqLDfHghCmlm2h+vvr5kJ97mIZvQ=
+
+Name: org/eclipse/jface/viewers/TableTreeViewer$1.class
+SHA-256-Digest: PTZdfbqIJYiLyzQpLwRtbSnnPoSyus31c1Z7F3sJt5M=
+
+Name: org/eclipse/jface/viewers/ViewerLabel.class
+SHA-256-Digest: ZaCfIN8vIiWNY+G5PSjGi2A+DSO55FTEKfh9576/LXo=
+
+Name: org/eclipse/jface/action/StatusLine$6.class
+SHA-256-Digest: afCi0ZRcydlfsGhiAwvSCBa9ym1+u0X7w8O444yZeRk=
+
+Name: org/eclipse/jface/viewers/deferred/ChangeQueue.class
+SHA-256-Digest: wOUTmyaktlxoEE/wbt9HNxPKh8Ft1b+qZqLrcFVzcRE=
+
+Name: org/eclipse/jface/wizard/WizardDialog$8.class
+SHA-256-Digest: Ey+vGYxv+Lygs2E6XWQ9XGbLbSKPktM53kcAApDVWoA=
+
+Name: org/eclipse/jface/dialogs/TrayDialog$3.class
+SHA-256-Digest: +TI4sf6NZn+BeVQurZ77N5jWXk2xVPjiuUuhzjdQkLU=
+
+Name: org/eclipse/jface/preference/IPersistentPreferenceStore.class
+SHA-256-Digest: oof3W3T0b0w85m6j/f5IqRxeq6xTz2bct1NFufTt15g=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$7.class
+SHA-256-Digest: 3qSPCxOcHJMJyylyxhEOSS3nEbkpxSJys+EEhRSrSRU=
+
+Name: org/eclipse/jface/action/SubContributionManager.class
+SHA-256-Digest: 5ECqKXPrwXkkW6bzY26TCs88xRzHaDlXsg0rfzBku2Y=
+
+Name: org/eclipse/jface/preference/DirectoryFieldEditor.class
+SHA-256-Digest: xInISTb7qDp/trqNR4B7Zgxfcv0WzOUT4ip38sD86NQ=
+
+Name: org/eclipse/jface/preference/BooleanFieldEditor.class
+SHA-256-Digest: 2ifzLQOKQ44T9VqYrtBJnyVvfxNP43b8ApwHek4ZJtE=
+
+Name: org/eclipse/jface/resource/jfacefonts_windowsvista.properties
+SHA-256-Digest: by/a6jh69s8pSy4wHh/9A2fChhwcnLERcn3Ne1aCddY=
+
+Name: org/eclipse/jface/operation/AccumulatingProgressMonitor$2.class
+SHA-256-Digest: PZIVXCmkLZsX0kPFuT15dvAuUU7KWvd3WcHw4ZgVcYE=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$PersistLocationAction.clas
+ s
+SHA-256-Digest: 4+FuYuTOasjq6uFrhO8NpGAbxUy0leW/UKDnXPdtcT8=
+
+Name: org/eclipse/jface/viewers/TableViewer.class
+SHA-256-Digest: LbUYDLLClwSNOsvWJPQtkK2Ki8ASPVztIO+qYDSMOmA=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditor$5.class
+SHA-256-Digest: Z3/PvK80lC+WpDBE+NOpzzQ6S6dW3k/r2i0dWXjEqbM=
+
+Name: org/eclipse/jface/viewers/ISelectionChangedListener.class
+SHA-256-Digest: EqoGl9AmXbIcXbvpBhWaSdxBq0qWYf83OAclRsB/ODQ=
+
+Name: org/eclipse/jface/action/StatusLineManager$1.class
+SHA-256-Digest: wd3aZnq2Dt9u8tdTHetJSDsX/5UDFURuK0/2ic8aH08=
+
+Name: org/eclipse/jface/action/AbstractAction.class
+SHA-256-Digest: FlE19uVEULW7us3mgfZauzOk/Vjl5fuh21ktkTj1rQc=
+
+Name: org/eclipse/jface/viewers/deferred/LazySortedCollection$1.class
+SHA-256-Digest: yEW2cBfu+YXRuhyNBfLQD9oPlVk8gJ4RE7gEz4NUnR4=
+
+Name: org/eclipse/jface/util/DelegatingDragAdapter.class
+SHA-256-Digest: X8bAruny5AaHiciqOrL9kGruH28XGCbkbSUKsb8UnoY=
+
+Name: org/eclipse/jface/viewers/CellEditor$4.class
+SHA-256-Digest: F5ODx0tdiLG2C+dr2pTd6HaZHt3nExo9279dlO1/3eE=
+
+Name: org/eclipse/jface/viewers/ColumnLayoutData.class
+SHA-256-Digest: iVHuH1YDyzQ40lI2dFb9c1p9pzz4S7+pYcPR4HiOIHU=
+
+Name: org/eclipse/jface/preference/FontFieldEditor.class
+SHA-256-Digest: uRSVxnZ/CwDGPPLoI17G5nBWSpuQRxMEXx9JnTtATcw=
+
+Name: org/eclipse/jface/viewers/deferred/ConcurrentTableUpdator$1.clas
+ s
+SHA-256-Digest: CXxVEmyT+qj9oieiftAx8Dipfgh4bcsYDKO84gqlzC8=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$2.class
+SHA-256-Digest: QJr7+X9vwpDIRfrS2y2XONANhJBob9wSNKH+ab5MuL8=
+
+Name: org/eclipse/jface/dialogs/PageChangingEvent.class
+SHA-256-Digest: Lm84c3zHGQh1+Epqc1Qibo1lXw0ltUBNjCjK7Xvy2h8=
+
+Name: org/eclipse/jface/viewers/CheckboxTreeViewer$1.class
+SHA-256-Digest: aMroSOGf8mEufnh83npRwUhDHH5kY8RiDWJs9kJIjUM=
+
+Name: org/eclipse/jface/action/IContributionManagerOverrides.class
+SHA-256-Digest: 1bFjJHgNLGFuNpvGI2maNEyvDDK2sG7M2s/WrTrdSTE=
+
+Name: org/eclipse/jface/viewers/IDecorationContext.class
+SHA-256-Digest: +6zU4eGGl2zg5VQPFHgqhtRqyzdDHCzTCYUP4wO8Gj4=
+
+Name: org/eclipse/jface/viewers/DialogCellEditor$1.class
+SHA-256-Digest: EmEdJZkYbaSdrRNETB9DgHuUMwn0yaLBXAk6tM/u0Sg=
+
+Name: org/eclipse/jface/bindings/keys/formatting/NativeKeyFormatter.pr
+ operties
+SHA-256-Digest: 3aZHZuqqDZPvU9SsG8D33cfSSCEf5pR+B60q9BAEgSw=
+
+Name: org/eclipse/jface/resource/LocalResourceManager.class
+SHA-256-Digest: 5hPE53OhUON8CyewWQdPux6FLuz17XQFoJ2WVMaZeSA=
+
+Name: org/eclipse/jface/viewers/IContentProvider.class
+SHA-256-Digest: 5qpgpzat5FT/pmROHoMnm+h7cX95NP5M24oVRf0j4m4=
+
+Name: org/eclipse/jface/viewers/TreeViewerFocusCellManager$1.class
+SHA-256-Digest: fNze2hHFfjIaPWA7WcqCl93cKp2bL1ALOCZYZGylrsY=
+
+Name: org/eclipse/jface/dialogs/IInputValidator.class
+SHA-256-Digest: L8U1QB1j8HGlB0yoRf1gksdALDmBFwLUevRSpERJAZo=
+
+Name: org/eclipse/jface/preference/ListEditor$1.class
+SHA-256-Digest: gJgQLkj/LNZw9mSKXf1Gm6MXrZn81G7MHiedAfrefuc=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$8.class
+SHA-256-Digest: PjDM5n8piHv3vsWDEx4nShb4FvE3KBpJxbdT1diDLvE=
+
+Name: org/eclipse/jface/viewers/IColorProvider.class
+SHA-256-Digest: D9nim6PG5eZiOmF6KzlAVwEuDw86fMxNPjDhfyvyj1U=
+
+Name: org/eclipse/jface/viewers/ComboBoxCellEditor$2.class
+SHA-256-Digest: ckjN0412I2kkZeZXW2dvHzG+KcHtIB2ClJ4faO6WYEA=
+
+Name: org/eclipse/jface/fieldassist/DecoratedField$1.class
+SHA-256-Digest: 1qnwyEyoDXJV5Ie4sEXVCPNT3Eb7jVm5s6Ybj/ZkCs8=
+
+Name: org/eclipse/jface/viewers/TableTreeViewer$TableTreeEditorImpl$1.
+ class
+SHA-256-Digest: Zh9mmAV4xF19BhnB+nsvue8eFpKkWbGY+ZW6QqgKSdg=
+
+Name: org/eclipse/jface/dialogs/ProgressMonitorDialog$ProgressMonitor.
+ class
+SHA-256-Digest: 2UwzJgfErSOAKi6ZnITNJ/wNNidX9Xrz5zr/YZnYy/I=
+
+Name: org/eclipse/jface/action/ToolBarManager$1.class
+SHA-256-Digest: XR8EfzpkG2C+4p/YAjnDn87qRpbwZcQZ8lp0uOIrt6Y=
+
+Name: org/eclipse/jface/resource/URLImageDescriptor$URLImageDataProvid
+ er.class
+SHA-256-Digest: vGzVT2bZHtc9R3QW7kX8bOIscZwE4RWsK+58GdHAomg=
+
+Name: org/eclipse/jface/action/ContributionItem.class
+SHA-256-Digest: u9lky5e73HsTgFQgQ7WEpUs5hP9TR0lSGDk1QI48tzY=
+
+Name: org/eclipse/jface/preference/IPreferenceNode.class
+SHA-256-Digest: Nlk+ru9Q5wim+7UGqDMsNXosjO8nyGmS+c9JiVmGXdU=
+
+Name: org/eclipse/jface/viewers/OwnerDrawLabelProvider$OwnerDrawListen
+ er.class
+SHA-256-Digest: 3HLstuUEDQpsK0rYlYnzLPaa131HPq4PXu3lwPmp70M=
+
+Name: org/eclipse/jface/window/ApplicationWindow$1.class
+SHA-256-Digest: DQGM2k6U6dov4WV9hRFWSOpDjzJmw05lvXhVfJT5gL8=
+
+Name: org/eclipse/jface/dialogs/ProgressMonitorDialog.class
+SHA-256-Digest: L6BLSgRhacktud4bOp0wy953VlstCTiwu5FzKWSMawM=
+
+Name: org/eclipse/jface/viewers/AbstractTableViewer$2.class
+SHA-256-Digest: yxum4C2wSlAoogADY0/OY3w2vC7r9J97u1IUgeRK3Ys=
+
+Name: org/eclipse/jface/fieldassist/IContentProposalProvider.class
+SHA-256-Digest: 8lnSIWxLq1qVpBW4bu9CP6QMTeSzVfKI8fXxhjfqvJw=
+
+Name: org/eclipse/jface/wizard/ProgressMonitorPart$2.class
+SHA-256-Digest: PI78gmczmXrdmIOct3fUHTmkC2gzEXZZ+uP43FkHh6A=
+
+Name: org/eclipse/jface/viewers/AbstractComboBoxCellEditor.class
+SHA-256-Digest: kAPdW3o7TMBCe8u2LG3O3cSMV4HQCcgG/irnYro56tU=
+
+Name: org/eclipse/jface/bindings/keys/KeyBinding.class
+SHA-256-Digest: i7L299jt7H/OAOaKgaW44vLquFxIG70k6t7cCGybYc0=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditor$1.class
+SHA-256-Digest: J/Ccl/zGH3KbTu2dq7yufpwoI2k05tLFK8LwxBJxPP4=
+
+Name: org/eclipse/jface/operation/AccumulatingProgressMonitor$3.class
+SHA-256-Digest: BkTBDcVn4EEjEZzihQSHM8Ih+/5Dk3XAxcH6yUnvzoc=
+
+Name: org/eclipse/jface/viewers/TreeViewer$5.class
+SHA-256-Digest: iJut86/fVhOQYa1OcySCSLKtu8YcYn3tmh0YPQ+Y9/M=
+
+Name: org/eclipse/jface/wizard/WizardDialog$4.class
+SHA-256-Digest: N2JcEh13/YTGQbce6L+z+vRxF9i5vOtUJ/1tFtnQyS8=
+
+Name: org/eclipse/jface/preference/StringButtonFieldEditor$2.class
+SHA-256-Digest: UpWN376KoAv9sYBLjRpo2n/Gb16z7aaveTz7uwrchwk=
+
+Name: org/eclipse/jface/viewers/StructuredViewer.class
+SHA-256-Digest: uaIv0EiOP69uF8Lhrl9wt6ozOPTSmzJn2qxYjMrQiqk=
+
+Name: org/eclipse/jface/viewers/TableTreeViewer$TableTreeEditorImpl$2.
+ class
+SHA-256-Digest: Tqe7y/L/q8u9kx6ml8rhZB8U3W7I61UU+jqqJqaBjmw=
+
+Name: org/eclipse/jface/viewers/IDecoration.class
+SHA-256-Digest: QkxJOtdcyEy4Mrs5jewBQWjDQmvAwOv67UvPqtkO8KQ=
+
+Name: org/eclipse/jface/util/SafeRunnableDialog.class
+SHA-256-Digest: O4hOQHBBQNciHF27ARrm6aJBVvvarE1vev0wONbHyxk=
+
+Name: org/eclipse/jface/viewers/TreeViewer$3.class
+SHA-256-Digest: XReM/BE4m3l7IrfSov5Nv5w7k9Vu2M09AIlgntm8G24=
+
+Name: org/eclipse/jface/action/IStatusLineManager.class
+SHA-256-Digest: p/RFcG34V7LGrFOf43nmxszS9iuXzbwd990uW/fMSmM=
+
+Name: org/eclipse/jface/fieldassist/IControlContentAdapter.class
+SHA-256-Digest: 5PpUTOyCjWSh7oILJX09JfHznj9M/087DkmH+BN5uDU=
+
+Name: org/eclipse/jface/window/Window$FontChangeListener.class
+SHA-256-Digest: ygd+HVWcr0IuBDIZRJ6aiBWh1JidTkkzKVyrQtNOrKM=
+
+Name: org/eclipse/jface/fieldassist/FieldDecoration.class
+SHA-256-Digest: hONY+aQs9AZhCygnBrTSbNLgl8a247kK2IpQP374vR8=
+
+Name: org/eclipse/jface/viewers/StyledString$Styler.class
+SHA-256-Digest: D6+971ZF+Pu2UOfmyOtGQzWDEVWkPTMV5D6q48FVNuA=
+
+Name: org/eclipse/jface/dialogs/PageChangedEvent.class
+SHA-256-Digest: fGo7+wmnF65ta4QlfFT9K9fIY+i2H796uAq6c6yLA2w=
+
+Name: org/eclipse/jface/action/ExternalActionManager$CommandCallback$3
+ .class
+SHA-256-Digest: BZ2j4oMn/0zQKxps9HOGUVVlyDer2qWbAucxUYRsPLc=
+
+Name: org/eclipse/jface/operation/AccumulatingProgressMonitor.class
+SHA-256-Digest: We2ni3D2Y4o0EYRUtJcpsXARcaVq1ohksYIQ0JVOoQ8=
+
+Name: org/eclipse/jface/wizard/WizardDialog$3.class
+SHA-256-Digest: TCj01WscF2D5hwxiGzac3yWnDBBUc3JYa6EkqjBEUYU=
+
+Name: org/eclipse/jface/viewers/DecoratingLabelProvider.class
+SHA-256-Digest: Z2Y4j8gZPqwuudFw4IcJ32SzZGFAPcl4qA+rRKzGJ7g=
+
+Name: org/eclipse/jface/preference/ColorFieldEditor.class
+SHA-256-Digest: S/A43+Mw8uMMbiPWgSnB+1tUY/Hqnrz8GfhKNtV8uZU=
+
+Name: icons/full/page.png
+SHA-256-Digest: GHXjGP1fh++7v/MzOZjzTtn9BKmmMPwrbBDvD2xFNDg=
+
+Name: org/eclipse/jface/window/ToolTip$ToolTipOwnerControlListener.cla
+ ss
+SHA-256-Digest: Bzz8JAVMDRdYECltwevRPA4O9MO+ue3zoIYXDACwvgo=
+
+Name: org/eclipse/jface/action/Separator.class
+SHA-256-Digest: xOXTbMwbwmTGUchv33kzH/3TQwBIPWqirFUKRTiRGfg=
+
+Name: org/eclipse/jface/commands/ActionHandler$1.class
+SHA-256-Digest: gY9kfUY1kwD87SFlbauPp2d/MfR+165Pyg8l6c5eIgc=
+
+Name: org/eclipse/jface/preference/PreferenceStore$1.class
+SHA-256-Digest: rg/unjptSKD3gFT4yGeEyCnsGqtwnp8aBewqYFcDIYw=
+
+Name: org/eclipse/jface/action/StatusLine$5.class
+SHA-256-Digest: IlJd59jFy+U/I6WUUhc3tQ1D9Pn5SDn06aO3HByAC9c=
+
+Name: org/eclipse/jface/wizard/ProgressMonitorPart$3.class
+SHA-256-Digest: IBJrm/4KweL/TpvpLH2xs8JAgRwZDdtowiv3CwSvkjg=
+
+Name: org/eclipse/jface/fieldassist/images/error_ovr.png
+SHA-256-Digest: FuoZXn2Ff0XI+Yvm+1MOG/JC5YF+8WSMTPEpXUoxRfM=
+
+Name: org/eclipse/jface/viewers/TreePath.class
+SHA-256-Digest: A+LZNM2tPVv2WgUJ9TLUyMp8DDS4irGL53my/kSC+AA=
+
+Name: org/eclipse/jface/viewers/ContentViewer.class
+SHA-256-Digest: Qino1ZMJYMWLoNb43dWE4C168nVgHjBuTZRaigYvKtI=
+
+Name: org/eclipse/jface/fieldassist/FieldDecorationRegistry.class
+SHA-256-Digest: 6L6oFYjVqFEfJzPPWG2CDAdhLEYo2a/0F7yUflpyo1E=
+
+Name: org/eclipse/jface/wizard/IWizard.class
+SHA-256-Digest: kDnY2WhMEklR+/56RWsIO9lLnWTtHo/vD5Xof/QKJsg=
+
+Name: org/eclipse/jface/viewers/AbstractTreeViewer$UpdateItemSafeRunna
+ ble.class
+SHA-256-Digest: NXaUv+vIUqLdG1FMhbVL6xw5pY/LALoOQOHkIzBkj5Q=
+
+Name: org/eclipse/jface/window/Window$1.class
+SHA-256-Digest: Vi9T2rUnWC38KYPqx6oRIEEbvJwec/5VdernEwmLEao=
+
+Name: org/eclipse/jface/action/SubMenuManager$1.class
+SHA-256-Digest: NqndiGCHkuu44SUBOpiH2j3L0c0sUfix8dCh4HBmiR4=
+
+Name: org/eclipse/jface/viewers/TableTreeViewer$TableTreeEditorImpl.cl
+ ass
+SHA-256-Digest: IB1VgWdZXGpubPkwXSv5Jls7euezN1nfVvtQCQExfb8=
+
+Name: org/eclipse/jface/preference/StringButtonFieldEditor.class
+SHA-256-Digest: b1U6kDWR3WLVMgKQdFV2b9QBAZiOvxBcrG6WayeXcSc=
+
+Name: org/eclipse/jface/dialogs/TrayDialog.class
+SHA-256-Digest: SFW6Vt34PCZNFVwG99b9xawtRveZHBXiGfM+CvfcwH8=
+
+Name: org/eclipse/jface/action/ActionContributionItem$11.class
+SHA-256-Digest: C49dcpJtgw6ipE8KewUd5WmRG5IjpqnPREq5fE7dmVA=
+
+Name: org/eclipse/jface/resource/jfacefonts_windowsxp.properties
+SHA-256-Digest: YYyvb0zwcKC9SbIcWF9f44TRk/K+LqDH7i3Stu8OMZU=
+
+Name: org/eclipse/jface/util/ISafeRunnableRunner.class
+SHA-256-Digest: LZ4Of5Ys3w1obDnIwiSKezyfXaVY32X6XC9iuQqcj8E=
+
+Name: org/eclipse/jface/dialogs/IconAndMessageDialog$1.class
+SHA-256-Digest: qRwLjIR2M8aUjZqxi8cltFEKz4yqRcAbKhjeCUWB1Rc=
+
+Name: org/eclipse/jface/preference/StringFieldEditor$2.class
+SHA-256-Digest: wQiYRAynY/EqyXjKloqBbn4ydXOR0tYt3DY6B8gWlIk=
+
+Name: org/eclipse/jface/layout/PixelConverter.class
+SHA-256-Digest: rNYbQQ9VC7W9U3x4hBU7xnDM5u+zYO4PwA2DtXwPWfw=
+
+Name: org/eclipse/jface/dialogs/AnimatorFactory.class
+SHA-256-Digest: jMnalO1nevf1G54y+sPZSyEnZoI4GN/AjWOMKNhCDUI=
+
+Name: org/eclipse/jface/fieldassist/ControlDecoration$5.class
+SHA-256-Digest: GSLhbxTNASy2X4TKhUMaxvsW4Zl9QzScLKcPIJ2/RqI=
+
+Name: org/eclipse/jface/resource/ImageRegistry$2.class
+SHA-256-Digest: KI8QVw0X1NnWsSr2NeES+aZHlv2rh+2ZAkNOZWx9JZQ=
+
+Name: .api_description
+SHA-256-Digest: hJqVU5YLyVF5+WBGWkh84XLrl7zz033ZopcDdxmK7PI=
+
+Name: org/eclipse/jface/wizard/WizardDialog$5.class
+SHA-256-Digest: BklgzDFBg1NHAr6FXm8Np9SfsevAZR+GR3muaBm9RCU=
+
+Name: org/eclipse/jface/preference/ListEditor$2.class
+SHA-256-Digest: gfLdN544+FvWxE0XkfgGTDFK5ykh3bJenNOtyc+CDoE=
+
+Name: org/eclipse/jface/operation/IThreadListener.class
+SHA-256-Digest: zICjo0yhZ4rGcKw2zJLTnc1poM4bG8QdClSh2jdB0P8=
+
+Name: org/eclipse/jface/dialogs/IDialogPage.class
+SHA-256-Digest: deflJbZ4GKnEr6uniGy1KVHRrIupjsaNg4j25XoxstA=
+
+Name: org/eclipse/jface/viewers/TableTreeViewer$TableTreeEditorImpl$3.
+ class
+SHA-256-Digest: yyjvfD0HfrDHnKhZZ6zfOEGem3JRi6kRsQMyv3hqpAY=
+
+Name: org/eclipse/jface/wizard/IWizardNode.class
+SHA-256-Digest: At1Bf4dnajXQYwOCFtXJQ7MV4sl9Mkcaz8bDxSmaXAI=
+
+Name: org/eclipse/jface/preference/FontFieldEditor$DefaultPreviewer.cl
+ ass
+SHA-256-Digest: 0ostwpRYtsT6pULBohWtI3psVIE8jm9n5eTT3/80gFs=
+
+Name: org/eclipse/jface/action/ActionContributionItem$4.class
+SHA-256-Digest: GX51obnPECeBr5WjP2Xb74STTy3dJ1Q/rsUttcwikJU=
+
+Name: org/eclipse/jface/viewers/StyledString.class
+SHA-256-Digest: stOaxpYErxeBp+Tf0/I6hknNNRkp+RlgfQfAPJoFVds=
+
+Name: org/eclipse/jface/viewers/TreeColumnViewerLabelProvider$1.class
+SHA-256-Digest: O6kDLcqDPvLfK8N9uLWjKGF1SaU+HDzzieDIcaSQKME=
+
+Name: org/eclipse/jface/preference/PreferenceLabelProvider.class
+SHA-256-Digest: fShVvwoKiQeyESC36akErLM5PdXB24lD8jjw+5ggjJg=
+
+Name: org/eclipse/jface/bindings/keys/formatting/EmacsKeyFormatter.cla
+ ss
+SHA-256-Digest: r4aQx0EUb33nfGQEwlEsG30zR8EWrbICW9ObutbBlk0=
+
+Name: org/eclipse/jface/viewers/TreeNodeContentProvider.class
+SHA-256-Digest: sOVWQOeo1eLGh8Oz940rPb9LTJ2ZMpsBSy5x7fivflU=
+
+Name: org/eclipse/jface/viewers/ContentViewer$2.class
+SHA-256-Digest: AZS6q/7fBBfRgb3wknJGgKlIhgJJOHxZ6rQR1kzH37A=
+
+Name: org/eclipse/jface/fieldassist/FieldAssistColors$1.class
+SHA-256-Digest: grKkRtInt85l54h/on9BEAigtK0yefnvcKuy34DMoHo=
+
+Name: org/eclipse/jface/dialogs/images/title_banner.gif
+SHA-256-Digest: PaOUWHf1CT97AgEGZeObaUaAWMB1lmaQ7r+KYrQAUks=
+
+Name: org/eclipse/jface/viewers/ArrayContentProvider.class
+SHA-256-Digest: TQNCoHkGzWE1bgJqY40SZm7pAAwF/ticSqtos7zEs6A=
+
+Name: org/eclipse/jface/resource/URLImageDescriptor$URLImageFileNamePr
+ ovider.class
+SHA-256-Digest: a9mT+GUSppFLqs3kgxMWMQWlM3kRRtiB3pBFSlAvR8E=
+
+Name: org/eclipse/jface/util/Policy.class
+SHA-256-Digest: WYAofGMbVa6LAfBYO6W7B5bOqRvYCxmzaSbXLRJB/8Q=
+
+Name: org/eclipse/jface/fieldassist/ControlDecoration.class
+SHA-256-Digest: I/yMaZdA5bq7ypmuP2QoHreOfP7FzSiCz0HPip75res=
+
+Name: org/eclipse/jface/viewers/LabelProviderChangedEvent.class
+SHA-256-Digest: PGgQcaXtvX/1HIMQmaRghbw6/CoeSmjWhTRgECowXaE=
+
+Name: org/eclipse/jface/fieldassist/DecoratedField$3.class
+SHA-256-Digest: RuZBFyaF0DW/+dlhaTrEDQP6JpOcjr8duP4gR32wyvA=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$UpdateItemSafeRunnabl
+ e.class
+SHA-256-Digest: a2pGUA9Y0yyL7crlYKinujurM3YmBiG0OTlc1uo7qW0=
+
+Name: org/eclipse/jface/viewers/DecoratingStyledCellLabelProvider.clas
+ s
+SHA-256-Digest: RpYjltHFicsPHYAmx3t86hjCBAGnIj03PQi+ppp7Nl0=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditorActivationListener.c
+ lass
+SHA-256-Digest: 2sM20gIvDMqBBdK6XKZah9nGtLzq87xDoirv0IdSVHc=
+
+Name: org/eclipse/jface/dialogs/ProgressMonitorDialog$1.class
+SHA-256-Digest: oHZu45UeMceqXDNjjP+QufnmcaZtJ25TkM80UqPBNC8=
+
+Name: org/eclipse/jface/viewers/AbstractTableViewer$VirtualManager$1.c
+ lass
+SHA-256-Digest: pPnzj5lUPB5t84jJFHZIq9TgIIDfDbpFfq7847bVVhE=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$7.class
+SHA-256-Digest: nBPTtQSFVTdJUJCrQcuDxNTxgWi6zcTJdwtvV6jw2Yk=
+
+Name: org/eclipse/jface/window/IShellProvider.class
+SHA-256-Digest: R7P/oTysEsioFdoVO7izMm9Jt+c8pdthJIRCpCnZTWM=
+
+Name: org/eclipse/jface/viewers/AbstractTableViewer$1.class
+SHA-256-Digest: Tc7QpPskdn8Ooe7LLBFbQd1SGv8daYlC3AjY02Og1Ns=
+
+Name: org/eclipse/jface/viewers/deferred/IConcurrentModelListener.clas
+ s
+SHA-256-Digest: UYePXIWSWF7/r1op/1JC1UKu6gSKaxczoANqoqF+QDQ=
+
+Name: org/eclipse/jface/dialogs/TrayDialog$1.class
+SHA-256-Digest: 0kag1kJtejOHSoJtU9RYAh4IznR5cYlo23yPgf+ztBI=
+
+Name: org/eclipse/jface/viewers/ComboBoxCellEditor$3.class
+SHA-256-Digest: +55VgrL3Atqg1RLCKr/rGT3Lc3xmywqGoZOQcb8hEQw=
+
+Name: org/eclipse/jface/viewers/AcceptAllFilter.class
+SHA-256-Digest: Dvx55VPfakFvlrYbuV4h83JIxAtGFvI86C3Wn9g2ejU=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$9.class
+SHA-256-Digest: 3fRe4Ruq8CukuYq//fH/HyToJS7yG+CAbNbKiWrEbfM=
+
+Name: org/eclipse/jface/dialogs/Dialog.class
+SHA-256-Digest: aYguoFyuyGqRe9RF9eZgGWXuWcpnGxOHWcZtV4TL+gQ=
+
+Name: org/eclipse/jface/fieldassist/DecoratedField$FieldDecorationData
+ .class
+SHA-256-Digest: 45seU0w/I1Iaaiew2uRt+wnE3xRE/5oRo8LABS9dVt4=
+
+Name: org/eclipse/jface/window/ToolTip$3.class
+SHA-256-Digest: wn+cOS6M7+O8LnMPJ4AWgySfE32uCKTKGYDhyvBfs/g=
+
+Name: org/eclipse/jface/dialogs/IPageChangeProvider.class
+SHA-256-Digest: HcJXUutoNmZDjZtQ6o5JMf+ZXktiwiKeEG807b4u0xM=
+
+Name: org/eclipse/jface/util/IPropertyChangeListener.class
+SHA-256-Digest: 0+UUfBg8fgR8vwLrE8RVFu997drcxuICUZuQNzM3YlM=
+
+Name: org/eclipse/jface/viewers/DialogCellEditor$DialogCellLayout.clas
+ s
+SHA-256-Digest: YlSNX7gZMJ53g7VXQhh73u6jtAtUdH8Y6mL7t4ka+U0=
+
+Name: org/eclipse/jface/resource/jfacefonts_sunos.properties
+SHA-256-Digest: PEGL/8zONkQUOVexfDyyBHZAmdIX7j+HNn3oTyK9+HI=
+
+Name: org/eclipse/jface/preference/ColorSelector$1.class
+SHA-256-Digest: xcKLgtdpkZuYSGpbo7QswN8FbBsErZU1MpNmne7Ybpc=
+
+Name: org/eclipse/jface/viewers/TreeSelection$InitializeData.class
+SHA-256-Digest: teM3G4IWt2bnN7by6Yi/fE7NOArD0tgf6QoIy51ZqTs=
+
+Name: org/eclipse/jface/viewers/deferred/BackgroundContentProvider$1.c
+ lass
+SHA-256-Digest: u+NDfWkEQzuqE2LsWoSfFBq+I9CNsrbORxI96TqiWDM=
+
+Name: org/eclipse/jface/resource/ResourceRegistry.class
+SHA-256-Digest: v3x6NLrXX4ApOvHVELgIrr0gx02cOxdJ34a2G+5nyZ0=
+
+Name: org/eclipse/jface/preference/IPreferencePageContainer.class
+SHA-256-Digest: Q11QLXpcltGOInnDWszD6rkUMUdgGb0eXZogRDHpLbo=
+
+Name: org/eclipse/jface/internal/provisional/action/IToolBarContributi
+ onItem.class
+SHA-256-Digest: rVTOkuEmewdazd4kC87VC3tcD86wRu+FGntRrm2tGQk=
+
+Name: org/eclipse/jface/dialogs/PopupDialog.class
+SHA-256-Digest: Fyj0ol/+3twEuAso77+SvikMdN2OUMqYsGn6LB6nlfg=
+
+Name: org/eclipse/jface/resource/ColorRegistry.class
+SHA-256-Digest: N5O1+eZfgwuvMX5Pkc3xJj9aUkkv9yNEw4aju6w+xQo=
+
+Name: org/eclipse/jface/dialogs/StatusDialog$MessageLine.class
+SHA-256-Digest: QhVe+TCtl0k4B6zUwYaF20vTWtJjNS7w9CspBQvCh5k=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$5.class
+SHA-256-Digest: Ll/IJZRo0+hlfMDnXyrTK6UeTvCi9JUDrn/R1ydak4A=
+
+Name: org/eclipse/jface/viewers/IBaseLabelProvider.class
+SHA-256-Digest: TEdNtMmIYbrQYnCCxHtSJ2ueV+B/EJHeMWL3tSq7GUE=
+
+Name: org/eclipse/jface/viewers/deferred/IntHashMap.class
+SHA-256-Digest: c8MOydHqjLnTHRSVHdQ8JYgTz7R0NS5tmWjtM+cdd1w=
+
+Name: org/eclipse/jface/viewers/ComboViewer.class
+SHA-256-Digest: gXwhN9MHMpGvffim12f0WqjIRqoaq7SSb4s30NWbeDU=
+
+Name: org/eclipse/jface/viewers/AbstractTableViewer.class
+SHA-256-Digest: XKePbwrnPX0LHiHahaFWDdPA8j19i9qa8ZdwHml+dgc=
+
+Name: org/eclipse/jface/bindings/keys/KeySequenceText.class
+SHA-256-Digest: Nx86JEgLRQe0BUDu6MWFU7mr6tsr7fftXe3n6G25B4U=
+
+Name: org/eclipse/jface/util/Policy$3.class
+SHA-256-Digest: aMOFhijcl57cQeGcV3LsIqM2e5E/as/53DW8LrqMGc0=
+
+Name: org/eclipse/jface/preference/IntegerFieldEditor.class
+SHA-256-Digest: GAUaGYTRoQBJnIr+JXZAzEUTB7MDG28wFUtEfcKby0A=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$2.class
+SHA-256-Digest: XUYfq4Q3r+tHL2aCwf3i64dcQ3jWxAmrPibrXgUZ6SU=
+
+Name: org/eclipse/jface/dialogs/MessageDialogWithToggle$1.class
+SHA-256-Digest: 8oYutJPhSkwdmU822OHz0ljKyeHVBXUpKpZfWENV+x4=
+
+Name: org/eclipse/jface/viewers/IPostSelectionProvider.class
+SHA-256-Digest: skUqTjBjrDzMJc8BVSyU/TCURjhTTf6xO/LoQaqCRNo=
+
+Name: org/eclipse/jface/viewers/ListViewer.class
+SHA-256-Digest: pPcduk/hvxSfpfUWJOjM21ekHTUgKSL57UG7kbEmESs=
+
+Name: org/eclipse/jface/viewers/ComboBoxViewerCellEditor$3.class
+SHA-256-Digest: N6scpBMZyPAIluSRpO3GrRUuGsK+UvEYNZxdQ7+314A=
+
+Name: org/eclipse/jface/dialogs/TrayDialog$4.class
+SHA-256-Digest: mZ6lqdhCTA3RhWGq9DQtt9C1JHk8CwN8bDBT2mknql0=
+
+Name: org/eclipse/jface/action/MenuManager$2.class
+SHA-256-Digest: pXeVy09fwIvH6vTIDYyNwDpdhXG1+6VcbaU/qDbDtYU=
+
+Name: org/eclipse/jface/action/SubContributionManager$1.class
+SHA-256-Digest: sspKEVSCdG6ErKE6ycvSFJptNvnS2kFA6WwnOVJfinw=
+
+Name: org/eclipse/jface/util/Util.class
+SHA-256-Digest: egL2a65hf0rlcQFuJoQlTCTZlkqnqQ0gs96bhqiJ0ws=
+
+Name: org/eclipse/jface/viewers/AbstractListViewer.class
+SHA-256-Digest: p7WViqgZ+pTHQqc77H9cMXBOqG9pQTo9gCUFaBuaAf8=
+
+Name: org/eclipse/jface/fieldassist/ControlDecoration$2.class
+SHA-256-Digest: iz9g8IQemycLQsLIbRpa6XqmFIQ+xKzJapsnEpBd5QY=
+
+Name: org/eclipse/jface/action/IAction.class
+SHA-256-Digest: 0Saoj70qoxFAWJKR/XcbSRQcRYWeIor+Ru80WLu1KS8=
+
+Name: org/eclipse/jface/viewers/IStructuredSelection.class
+SHA-256-Digest: qvmTkXUhYBOfMi6kyjhXCTmweCYVA7FtCacQXg/9EJs=
+
+Name: org/eclipse/jface/wizard/WizardDialog$10.class
+SHA-256-Digest: ZV5PYUO4xcz+eRgIZ9c5CNkEDJnxjmJ0Dc9gtleYL54=
+
+Name: org/eclipse/jface/resource/AbstractResourceManager.class
+SHA-256-Digest: QMChipZx4jZArep206rr8eqiqymmHKbd1eVm6Lh636I=
+
+Name: org/eclipse/jface/commands/RadioState$RadioStateManager.class
+SHA-256-Digest: 1l3XxV9Q4+qJ9neAdDuYHA32W0fJXhjYpnCWCMQEESg=
+
+Name: org/eclipse/jface/preference/JFacePreferences.class
+SHA-256-Digest: Y07ikiguWto/6cO0uziYM+CbB2NTw4ArlFvbPyhT/V8=
+
+Name: org/eclipse/jface/viewers/ColumnViewer.class
+SHA-256-Digest: lVNimhriEnZWZ8OenBFFLMFGKJVaDu4ldUTkPhFepHA=
+
+Name: org/eclipse/jface/preference/FieldEditor.class
+SHA-256-Digest: 5luhHyGAoyCuv4fw9uTgYrnkb6aB2RsWwIyV4O/QJUM=
+
+Name: org/eclipse/jface/resource/jfacefonts_linux_gtk.properties
+SHA-256-Digest: 2s4Cw2HD1bGsFRPlZeDFvEnKfG2N96gHg+9pLovK6bs=
+
+Name: org/eclipse/jface/viewers/ColorCellEditor$ColorCellLayout.class
+SHA-256-Digest: 96EdJE190pKYxhSXdwLdA4kdqfDD5ZF2WA4US5o+MF4=
+
+Name: org/eclipse/jface/bindings/BindingManagerEvent.class
+SHA-256-Digest: uhJwUaPsLZ8JPpHQJqKtF4PcK3aVR/AvVI/dZfT1gmg=
+
+Name: org/eclipse/jface/action/ActionContributionItem$2.class
+SHA-256-Digest: WrjjXsIFPqm7clgH38UA8if12uIW18I6SmY7Imimiy0=
+
+Name: org/eclipse/jface/layout/TreeColumnLayout$TreeLayoutListener.cla
+ ss
+SHA-256-Digest: n0lFUTt8nqI/qwfXmw1KsrqqO7fOJC5+7h+JUdHH/Uc=
+
+Name: org/eclipse/jface/viewers/IOpenListener.class
+SHA-256-Digest: E22rCWjcgIN63QUMBT5SIHBPmTq3KwVdUHcNOghgFMY=
+
+Name: org/eclipse/jface/dialogs/ProgressIndicator.class
+SHA-256-Digest: 3phJh7ejaqB6iKHuzJCiWJ6JZGQsd38n79FrCEc+Z1c=
+
+Name: org/eclipse/jface/fieldassist/images/info_ovr.gif
+SHA-256-Digest: nv/bx1bRwoMzX6EG3vs5B64XQ6c6LgWr7MOiG9rUZj8=
+
+Name: org/eclipse/jface/util/Policy$1.class
+SHA-256-Digest: nCpdN+QvfU28ZQ+U0WTr9lb4ZxOsaF3moQPSv3+4RO0=
+
+Name: org/eclipse/jface/viewers/ComboBoxViewerCellEditor$1.class
+SHA-256-Digest: xzAdXjb8iACmo9vy3/H6buztupplAYgsypoIVCUGISM=
+
+Name: org/eclipse/jface/dialogs/ImageAndMessageArea$1.class
+SHA-256-Digest: bnDMBFDEiwyQUwzrqaYA+OwtQkCnb7gE0HOKQG4wkJM=
+
+Name: org/eclipse/jface/resource/DeviceResourceException.class
+SHA-256-Digest: pn/qTBFXOPn0jPjUdR7N0waDNxF3mYgdBG8vcAIEKWU=
+
+Name: org/eclipse/jface/util/ConfigureColumns$ConfigureColumnsDialog$1
+ .class
+SHA-256-Digest: gAjP+GPHshFNI6rsDy3xRtilVTrzbD/+YxqhNkR8ZhI=
+
+Name: org/eclipse/jface/viewers/ViewerComparator$1.class
+SHA-256-Digest: tAuZeQ5Qkr2Vl+kF4ePHnVFF+Ekmu3q2GnjX3TXd2gA=
+
+Name: org/eclipse/jface/bindings/keys/KeySequenceText$1.class
+SHA-256-Digest: S2TJv4qL3WhryuMi5amhKjEn6amNS3+CfuhzvIjblsU=
+
+Name: org/eclipse/jface/action/ExternalActionManager$IExecuteApplicabl
+ e.class
+SHA-256-Digest: tJz9uJBpFxggvrbCGibf90MmYUnSNDOPlIXWy0YLlos=
+
+Name: org/eclipse/jface/viewers/DoubleClickEvent.class
+SHA-256-Digest: TFJk7je9Inr3ieHApksxwPlPCpT7XBbCVcAixcQwBos=
+
+Name: org/eclipse/jface/viewers/FocusCellOwnerDrawHighlighter$1.class
+SHA-256-Digest: KCSnmPoy4/fWJOV/KLx0PnoI795pco+8dokzF5hm7TU=
+
+Name: org/eclipse/jface/fieldassist/ControlDecoration$Hover$1.class
+SHA-256-Digest: R53K7/oIGfqYgEbl1PMsq+MMsKu8BLEv5oGB/MH9tZg=
+
+Name: org/eclipse/jface/action/SubStatusLineManager.class
+SHA-256-Digest: mIkcoFjbzwUJthIOvEu7ZaOD0+usTBmWhjHEYmOxyws=
+
+Name: org/eclipse/jface/resource/FontRegistry$FontRecord.class
+SHA-256-Digest: Wo78nBIyZcwpu1cvlQxnAbhjqlSJQ/4XgA7lkZYmfgs=
+
+Name: org/eclipse/jface/viewers/NamedHandleObjectLabelProvider.class
+SHA-256-Digest: KW5PjFXP6V2jKRZEnIZyh8VUF8/zpafVl/CPCnNK1Ak=
+
+Name: org/eclipse/jface/fieldassist/ComboContentAdapter.class
+SHA-256-Digest: Z1DlsXqcerZQub1fY4cG6cqVWEGhivZeZUsHNgiQMpE=
+
+Name: org/eclipse/jface/preference/ColorSelector$2.class
+SHA-256-Digest: g+9Fm15fu/gQEx+K2Ckb4XBpLzGANo2aXGS8KQcL6QA=
+
+Name: org/eclipse/jface/internal/provisional/action/IToolBarManager2.c
+ lass
+SHA-256-Digest: qKGSpvU6BxP+yGetJYN6+38A31tTnNkX2wG+XLCxLxI=
+
+Name: org/eclipse/jface/action/ActionContributionItem$7.class
+SHA-256-Digest: Wnp3CrK0gmpFq1S2b3l4+B/LtkwBX+FaKt1LNdOC8Nk=
+
+Name: org/eclipse/jface/viewers/TreePathViewerSorter.class
+SHA-256-Digest: BpBx9GVOmWl/GkoOMO5ZjA2GxInIGH3cyO00wbJ2pqk=
+
+Name: org/eclipse/jface/viewers/TreeViewerEditor.class
+SHA-256-Digest: fzcm40ERWEaiMlHlGr540p8iB6GKoxetJzkvAQwe5Yw=
+
+Name: org/eclipse/jface/bindings/keys/SWTKeyLookup.class
+SHA-256-Digest: CyLa8aUYG5tk+lVOxYBu+aqcxbFCMOl3oeiAk8i3u2Q=
+
+Name: org/eclipse/jface/resource/jfacefonts_windows7.properties
+SHA-256-Digest: DH8dEcAnjT6itKwJLEeLZVHn+VgJNM0LzaFqTzMZ04g=
+
+Name: org/eclipse/jface/preference/RadioGroupFieldEditor.class
+SHA-256-Digest: dH3RVd3HA69nuej1dhtnRO+RH/2MRkbnALPteuLKc9c=
+
+Name: org/eclipse/jface/bindings/keys/formatting/AbstractKeyFormatter.
+ class
+SHA-256-Digest: Ye0iGsuDL1LSCI7Qk1Tnj0CTeei+marFhO/6lD8iruc=
+
+Name: org/eclipse/jface/preference/StringFieldEditor$4.class
+SHA-256-Digest: AOCg9f7zBiH4pWVoUi0XS/ZkZG5A3sibz9WGPlU1HQY=
+
+Name: org/eclipse/jface/action/MenuManager.class
+SHA-256-Digest: +8bLCbvJ8GROT494mXsxxInxIIU6/MfcO2fg8Hogu5w=
+
+Name: org/eclipse/jface/viewers/TreeSelection.class
+SHA-256-Digest: P9G4H8rbAn4Po6dNfNIJs7Z9B3VTQK6S0u9/DYFVmt8=
+
+Name: org/eclipse/jface/viewers/StyledString$StyleRun.class
+SHA-256-Digest: ck6jJ/l4TyQA0ioCoEJ4JYpcA0LYTeQh0iGn3V9ggJA=
+
+Name: org/eclipse/jface/viewers/ILazyContentProvider.class
+SHA-256-Digest: 43q3M/mqsM+GdLLMCq9Koz6vzC5W6K11lBBHZNWWQmU=
+
+Name: org/eclipse/jface/resource/jfacefonts_windowsnt.properties
+SHA-256-Digest: WDVwyUmJzDiDYqX//dLqEDBoMThRuqUF2cNVo6d5KcY=
+
+Name: org/eclipse/jface/viewers/TableViewerRow.class
+SHA-256-Digest: mv7sepjFvNrZsUMnFm+CJMeUw9djEqmUTx55ekfu0fs=
+
+Name: org/eclipse/jface/viewers/ColumnViewerEditor.class
+SHA-256-Digest: QTMnXsTiFFLRWTS5TdbUpI32Qp3JqsmS/s73X3YKfl8=
+
+Name: org/eclipse/jface/layout/RowLayoutFactory.class
+SHA-256-Digest: SBhWXq6712Rr7zXxe1Uw5hnXmEZG/7ku8pIqaQBiI74=
+
+Name: icons/full/page.gif
+SHA-256-Digest: PaOUWHf1CT97AgEGZeObaUaAWMB1lmaQ7r+KYrQAUks=
+
+Name: org/eclipse/jface/util/ConfigureColumns$ConfigureColumnsDialog.c
+ lass
+SHA-256-Digest: XkbZvHm0+nI3DYNVNV+tM7ddSzLcLeCi33Z1IFsEtuw=
+
+Name: org/eclipse/jface/viewers/ISelection.class
+SHA-256-Digest: Vyas/+ZlKa1RdK1QeqmgmEA5jaornIGCNEhRvBTGBF4=
+
+Name: org/eclipse/jface/viewers/ICheckStateProvider.class
+SHA-256-Digest: oDj/omYg0WsVB9WwvpAIsuF8DESGk4dNB1GKM5TckcI=
+
+Name: org/eclipse/jface/fieldassist/images/error_ovr.gif
+SHA-256-Digest: P63GJDfXKxKqEsKrT/EG1xU/2ACOpVtod6BZybqQJsg=
+
+Name: org/eclipse/jface/window/Window$3.class
+SHA-256-Digest: hndlRzRcu1PYLST1XZQ306UoYMWDTKrMThSpOXnp3vY=
+
+Name: org/eclipse/jface/preference/PreferenceDialog.class
+SHA-256-Digest: xCSUZrOGoaD31h9AOo9rDEXfhAPw44pxHv4vEKLtOcQ=
+
+Name: org/eclipse/jface/menus/TextState.class
+SHA-256-Digest: dP7dsKcj0bwPlzfnRbY4UpkSx53BMKtCjPVY4nKE4ik=
+
+Name: org/eclipse/jface/viewers/ViewerComparator.class
+SHA-256-Digest: mbuEk6PMlRKeJnWh6z2n2RkyKUoAt9zMg2mIRfFvbAQ=
+
+Name: org/eclipse/jface/viewers/CustomHashtable$EmptyEnumerator.class
+SHA-256-Digest: Ge16G7glzE7LhvGEobsN8cidhdQ3Q5d1ciHVAZn2Svg=
+
+Name: org/eclipse/jface/fieldassist/FieldAssistColors.class
+SHA-256-Digest: oohgOgAUesEimSzH5jq+cC1RkN93TO9WRIPEd/m4g0g=
+
+Name: org/eclipse/jface/action/SubMenuManager.class
+SHA-256-Digest: Z7ZfmcRUen56o8pTlhv4gjpAPVwiL/52Py2L/p5qYIc=
+
+Name: org/eclipse/jface/viewers/TableViewerColumn.class
+SHA-256-Digest: d/nFKPEn/vPTH4MUzlce49TWau2rnB4X8JyiBHal9uI=
+
+Name: org/eclipse/jface/preference/StringFieldEditor$5.class
+SHA-256-Digest: c5BA8foNGxvz+yHLCiqOkbqG96Imzqji0s6q0dsGs4Y=
+
+Name: org/eclipse/jface/action/ActionContributionItem$6.class
+SHA-256-Digest: /qxUvFAAQHna1IIA62k4j4N6kgiko/B0Pwt8abEbowQ=
+
+Name: org/eclipse/jface/util/ListenerList.class
+SHA-256-Digest: NXHZrSfti51mD1G35TgvzEBSVnyBYrV6yt5Rb41GIUY=
+
+Name: org/eclipse/jface/viewers/ContentViewer$1.class
+SHA-256-Digest: Axff6atMcWGtGfd7b+h/piibxKiI2X8tqq8nppxIWW0=
+
+Name: org/eclipse/jface/util/OpenStrategy$1.class
+SHA-256-Digest: weg28B3y7B3hb4aQtch1IZFJmF9pwsvSdjWIIUZWpGk=
+
+Name: org/eclipse/jface/fieldassist/ControlDecoration$Hover$2.class
+SHA-256-Digest: dSh6MV0ZUEmmqDBrLuNZwpx/WDHS6d/Yr9hKoWoCO3U=
+
+Name: org/eclipse/jface/preference/PreferenceDialog$PageLayout.class
+SHA-256-Digest: cEZnwWavcjoBrYGw3RVCnMGrLUi2Ewt59HHEXzNJ+NI=
+
+Name: org/eclipse/jface/bindings/Binding.class
+SHA-256-Digest: jx76S6zYGTQZbmHVlSiqu9rMqq54nqo1I/48gKCDXUE=
+
+Name: icons/full/title_banner.png
+SHA-256-Digest: wVIKKkr1OSLV5Q733Qx0Tu3PiI2VyzgFA5tnneWECDo=
+
+Name: org/eclipse/jface/viewers/DelegatingStyledCellLabelProvider.clas
+ s
+SHA-256-Digest: mTK9LPdSQGpVyS5Fu1+xQvDnykVY6ytms2aUy50TzSw=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$ResizeAction.class
+SHA-256-Digest: RE36QyV2GeoHDDNapynPxE5DOzch7c2/v5eMpAcYNg4=
+
+Name: org/eclipse/jface/action/ICoolBarManager.class
+SHA-256-Digest: QEDekmEHBPnmwJQTW+BWjHmPyX6HcxWK2EZmZeq3SUo=
+
+Name: org/eclipse/jface/viewers/deferred/ChangeQueue$Change.class
+SHA-256-Digest: ls4APEoVUAatOX78ufoY3HSja2gDD9Jh/HYM0U7KfRM=
+
+Name: org/eclipse/jface/dialogs/IconAndMessageDialog.class
+SHA-256-Digest: k46OOiSvFzYsVnlg2FMTQLLHgeuJqkQMDDJscJ7efcU=
+
+Name: org/eclipse/jface/action/ActionContributionItem.class
+SHA-256-Digest: GETet06Z+LD1osJStWbzg3CAJ8gxKrl5LQSuA6cRri8=
+
+Name: org/eclipse/jface/bindings/keys/KeyLookupFactory.class
+SHA-256-Digest: loB6gEGhNCHfAnlcpZb0+OQF/eJ0Wi020fAZ7Jya2xw=
+
+Name: plugin.properties
+SHA-256-Digest: xWWbV788Ame8DygMAFTvcvoJaf/4Hg4pbQvVKez/dyQ=
+
+Name: org/eclipse/jface/bindings/keys/formatting/IKeyFormatter.class
+SHA-256-Digest: AyTupuZc+sV0iLXFYJ229jb2VafcTaWBgCttIHCudkI=
+
+Name: org/eclipse/jface/bindings/keys/KeySequence.class
+SHA-256-Digest: 70JwWPBtGLwpL5GR1hPHyYq4vMhC4tGPbCWlvZ9krLk=
+
+Name: org/eclipse/jface/viewers/StructuredViewer$ColorAndFontCollector
+ WithProviders.class
+SHA-256-Digest: IOsB93STCC5EAz4rkSGXYgy4IEc1f5aEKKhfmBirz9I=
+
+Name: org/eclipse/jface/action/ActionContributionItem$10.class
+SHA-256-Digest: rvmtqVcJ/RboO7YJpB8/y/xuALt6ld8KONjmS9GGlb8=
+
+Name: org/eclipse/jface/preference/StringFieldEditor$3.class
+SHA-256-Digest: /HHL8HW0H6MQxFwwjaJ9kKJbRlJXr3sk+D8qj8Mt23s=
+
+Name: org/eclipse/jface/action/IContributionItem.class
+SHA-256-Digest: q+lDvSO0j/CmVS93WbvBZbiYwdRc29rLkWrJlGZviaY=
+
+Name: org/eclipse/jface/viewers/AbstractListViewer$1.class
+SHA-256-Digest: tqznI+XUjZd69UZPMi8HGCZQxdgUYgQAXggNfZRTGdw=
+
+Name: org/eclipse/jface/fieldassist/TextControlCreator.class
+SHA-256-Digest: ciHA7IRyePUdHsCKH/BotB2QrZPXeAm7rjhLIixD4vs=
+
+Name: org/eclipse/jface/dialogs/PopupDialog$PersistBoundsAction.class
+SHA-256-Digest: 4oI//p/TpAOIGNg0RpGqsjy14snFNs6zyT0cdogrhiE=
+
+Name: org/eclipse/jface/window/WindowManager.class
+SHA-256-Digest: up7Vzfq8afpqOj5VaIh7z8g6R5+gK71j6B2QRp6pFhc=
+
+Name: org/eclipse/jface/bindings/Scheme.class
+SHA-256-Digest: ef370Dins262Ynpdj76laMRr65DmFWe9OIZuPgdssOI=
+
+Name: org/eclipse/jface/fieldassist/images/required_field_cue.png
+SHA-256-Digest: 0P4o+Q4nzjqsAezVd9fs0Eo/vLotV0++JezJs1XyO/I=
+
+Name: icons/full/message_info.gif
+SHA-256-Digest: 1mPSOlUbJ6c+sf3X/UluHUoq+dd7HMVVZElw4bzgkrc=
+
+Name: org/eclipse/jface/util/ConfigureColumns$ConfigureColumnsDialog$2
+ .class
+SHA-256-Digest: JuZQONjyRVtitVxN9A1fX9YPNCP2+PT8JZvLIeXtAtA=
+
+Name: org/eclipse/jface/viewers/FocusCellHighlighter.class
+SHA-256-Digest: pJF5E5RZfkOthJVCD7wd9AtV+6hyIQ/Npob/RLNp0i0=
+
+Name: org/eclipse/jface/viewers/ILabelDecorator.class
+SHA-256-Digest: HwQmf7+cLmb9sUIYzOKt6x11BjG06AgsP+Jvzs0Ri9o=
+
+Name: org/eclipse/jface/viewers/StyledCellLabelProvider.class
+SHA-256-Digest: ngwBH8sCE64M//4c6nLrZHJ+jwd+b3/KaQg2JB2MGQs=
+
+Name: org/eclipse/jface/viewers/TableTreeViewer.class
+SHA-256-Digest: CtdlXs5JDEGjh953qcWLD3FzLH0HRJjATZy93T/bm40=
+
+Name: org/eclipse/jface/layout/LayoutConstants.class
+SHA-256-Digest: PfYPNh9hRvFSeIEr1UyKcAGp6igftJjGFlRiSXOmo78=
+
+Name: org/eclipse/jface/viewers/ViewerCell.class
+SHA-256-Digest: sbgVmfniBz+q5IUcAg6F8ITKH3Bwmc7W/W0+/YVuAc0=
+
+Name: org/eclipse/jface/fieldassist/ContentProposalAdapter$ContentProp
+ osalPopup$PopupCloserListener.class
+SHA-256-Digest: 9zdr3jEu3GutP5zhvN/BWXDrh+VHU2CmnylGBV5jHMg=
+
+Name: org/eclipse/jface/action/ActionContributionItem$8.class
+SHA-256-Digest: Gm59EzjgaOk9xyy5rYr48l7HAHJqDPpERfysi07Rq2s=
+
+Name: org/eclipse/jface/viewers/deferred/AbstractVirtualTable.class
+SHA-256-Digest: 5kJawyWEe9xnFh0OnT/j0Wfi69Lq3KyYoC7mMWARdZs=
+
+Name: org/eclipse/jface/bindings/keys/KeySequenceText$2.class
+SHA-256-Digest: mplcDbCkXSVPJRUpRGXAP3IR78WZVbhH5J1Mq1Nx230=
+
+Name: org/eclipse/jface/dialogs/ImageAndMessageArea$2.class
+SHA-256-Digest: Yl/6wNh8eeVcqsQxMVhMfvAIvcKQUKCobP3VKhgR7as=
+
+Name: org/eclipse/jface/fieldassist/ContentProposal.class
+SHA-256-Digest: fkPZCVzvJfYoxbMfSB5Rbhpff3oYf3g+agnjP4eMSCA=
+
+Name: org/eclipse/jface/util/StructuredTextSegmentListener.class
+SHA-256-Digest: cDalBbVxQe3XMxlUhiAcl7GdGHLeJJyKicgmKEbmsM0=
+
+Name: org/eclipse/jface/viewers/WrappedViewerLabelProvider.class
+SHA-256-Digest: +i5D4kn0lB8iMdLL24A7qfgIaPdVAdTkH+Vt8klzrEs=
+
+Name: org/eclipse/jface/util/ConfigureColumns$ConfigureColumnsDialog$3
+ .class
+SHA-256-Digest: TIdylqHizQPvbNy4/IcDcBuBd0H/BarywDcSeAsahys=
+
+Name: org/eclipse/jface/util/LocalSelectionTransfer.class
+SHA-256-Digest: XbXEj0srpxqxkv64nOwkVYb0yl4tiZjmJqhEOWJJmPo=
+
+Name: org/eclipse/jface/fieldassist/images/warn_ovr.gif
+SHA-256-Digest: BZN/BTMglOsVpnzyvYTPsJykE30cSHNXZIAt73x+dLc=
+
+Name: org/eclipse/jface/wizard/WizardSelectionPage.class
+SHA-256-Digest: DP4Fav/+0LDMgjHxAdSY0ekW8aoEdApurQqLioNIBQA=
+
+Name: about.html
+SHA-256-Digest: 0RM1x9lTJa7T8YkysaegPuBIeaEvSZypRDfXoMpsJAU=
+
+Name: org/eclipse/jface/dialogs/MessageDialogWithToggle.class
+SHA-256-Digest: g/bpIhmRPqXx/0lDxowXKKNyPHPwYG+xUx8tf7caCos=
+
+Name: org/eclipse/jface/preference/PathEditor.class
+SHA-256-Digest: uvTeBSXAhh40UPGXuklgq3iWrXavf9SsjguCFdCwP9Y=
+
+Name: org/eclipse/jface/util/ConfigureColumns$ConfigureColumnsDialog$4
+ .class
+SHA-256-Digest: h2Kc18atbHsi64aTUd6mIRDsQwlDcm2dxBjf4ZQNgIE=
+
+Name: org/eclipse/jface/preference/StringFieldEditor$1.class
+SHA-256-Digest: i4cTZa0i1BDpmIkj/f03JPp5qcumPQzehsw7XS1uX+c=
+
+Name: org/eclipse/jface/action/ExternalActionManager$IActiveChecker.cl
+ ass
+SHA-256-Digest: ojn3IPqZMMaJvXNHd2+byKAVwA0hRni9SbdrSE3rqVM=
+
+Name: org/eclipse/jface/fieldassist/FieldDecorationRegistry$Entry.clas
+ s
+SHA-256-Digest: WptElKzEgGHcSysshZ9qSd7AO7RduiAsFCplwp19HH8=
+
+Name: org/eclipse/jface/resource/ImageDataImageDescriptor.class
+SHA-256-Digest: uAxNkShpoMDEYsk87Jgh/HE+VjGHBMyY+gEznrxFBqw=
+
+Name: org/eclipse/jface/preference/BooleanPropertyAction$1.class
+SHA-256-Digest: k0+QC8ZRcEzJA16uTwGQGAh0+zH7Rnk9vkgQZuldML4=
+
+Name: org/eclipse/jface/action/ActionContributionItem$9.class
+SHA-256-Digest: Bb2aVZAFNvifo+wgtmDJpmurUDqgKYCYb6MGnOo3jhM=
+
+Name: org/eclipse/jface/viewers/CustomHashtable$HashEnumerator.class
+SHA-256-Digest: imTdtWx4MsuvRBbpunAYKz5pKEXgH74QwAmqFtZql7E=
+
+Name: icons/full/message_error.gif
+SHA-256-Digest: +FNGu4fCfFYv7Dulz2hiiVEV6FiXqj/cGx1u2/BFtoU=
+
+Name: org/eclipse/jface/fieldassist/IControlContentAdapter2.class
+SHA-256-Digest: ZliAjQVkxwPCZU/16bD6LxjtPPSV5X8tmMk6mbhP+4Q=
+

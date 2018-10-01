@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="com.elektrobit.ebrace.resources.manager.ResourcesModelManagerImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.resources.api.manager.ResourcesModelManager"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ResetListener"/>
+   </service>
+   <reference bind="bindCommandLineParser" cardinality="1..1" interface="com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.CommandLineParser" name="CommandLineParser" policy="static" unbind="unbindCommandLineParser"/>
+   <reference bind="bindConnectionTypes" cardinality="0..n" interface="com.elektrobit.ebrace.core.interactor.api.resources.model.connection.ConnectionType" name="ConnectionTypes" policy="dynamic" unbind="unbindConnectionTypes"/>
+   <reference bind="bindPreferencesService" cardinality="1..1" interface="com.elektrobit.ebrace.core.preferences.api.PreferencesService" name="PreferencesService" policy="static" unbind="unbindPreferencesService"/>
+   <reference bind="bindScriptExecutorService" cardinality="1..1" interface="com.elektrobit.ebrace.core.racescriptexecutor.api.ScriptExecutorService" name="ScriptExecutorService" policy="static" unbind="unbindScriptExecutorService"/>
+   <implementation class="com.elektrobit.ebrace.resources.manager.ResourcesModelManagerImpl"/>
+</scr:component>

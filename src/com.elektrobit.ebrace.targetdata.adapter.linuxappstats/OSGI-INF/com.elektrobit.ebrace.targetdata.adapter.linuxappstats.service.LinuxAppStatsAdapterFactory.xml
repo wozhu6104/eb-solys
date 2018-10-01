@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetdata.adapter.linuxappstats.service.LinuxAppStatsAdapterFactory">
+   <property name="MessageType" type="String" value="MSG_TYPE_LINUX_APP_STATS_PLUGIN"/>
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory"/>
+   </service>
+   <reference bind="bind" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" unbind="unbind"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.adapter.linuxappstats.service.LinuxAppStatsAdapterFactory"/>
+</scr:component>

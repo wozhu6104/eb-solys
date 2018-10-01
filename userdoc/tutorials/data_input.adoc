@@ -1,0 +1,49 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+=== Providing {solys} with data
+
+==== Scope and content
+
+To provide {solys} with data to be analyzed, it needs to either load a file or
+directly be connected to a target system that is equipped with the {targetagent}.
+
+===== Opening a log file
+
+A log file can be opened from the start dialog or from the file menu.
+You need to be careful when opening files when data has already been loaded into
+{solys}.
+
+image::..\resources\open-file-start-dialog.png[]
+
+[TIP]
+For educational purposes, a demo trace is included that can directly be loaded
+from the start dialog. It loads sample data of an automotive navigation system.
+Also a demo script is executed that processes some data and generates sample charts.
+
+===== Connecting to a target device
+
+A connection to a target device requires the {targetagent} to be present, <<./index.adoc#anchor-configure-ta, configured>>
+and launched. It will open an IP socket connection that can be connected to from the host.
+
+Either directly configure the connection from the start menu shown above or by adding a connection
+in the {resource-explorer}.
+
+image::..\resources\configure-target-connection.png[]
+
+Once a connection is established, {view}s will be updated with live data and
+callback scripts will react to new events.
+
+To do further analysis, the live mode can be paused and switched to analysis mode by clicking
+
+image::..\resources\pause-updating.png[]
+
+and resumed.
+
+image::..\resources\resume-updating.png[]

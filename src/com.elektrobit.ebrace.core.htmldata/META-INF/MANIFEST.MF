@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core HTML Data
+Bundle-SymbolicName: com.elektrobit.ebrace.core.htmldata
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.htmldata.internal.HtmlDataServiceImpl.xml
+Export-Package: com.elektrobit.ebrace.core.htmldata.api
+Require-Bundle: com.elektrobit.ebrace.resources.api,
+ org.eclipse.osgi.services,
+ com.elektrobit.ebrace.core.interactor.api
+Bundle-ActivationPolicy: lazy

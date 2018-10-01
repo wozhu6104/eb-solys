@@ -1,0 +1,32 @@
+
+comp UI {
+	idents: 
+	  com.elektrobit.ebrace.viewer*
+	  com.elektrobit.ebrace.ui.ecl*;
+}
+
+comp CORE {
+	ports:
+	  com.elektrobit.ebrace.core.interactor.api 
+	  com.elektrobit.ebrace.core.interactor
+	  com.elektrobit.ebrace.core.targetdata.api
+	  com.elektrobit.ebrace.core.scriptconsolefactory.api;
+
+	idents: 
+	  com.elektrobit.ebrace.core*;
+	  
+	forbidden:
+		UI TARGETDATA;
+}
+
+comp TARGETDATA {
+	idents: 
+		com.elektrobit.ebrace.targetdata*;
+		
+	forbidden:
+		UI;
+}
+
+dval config {
+	comps: UI CORE;
+}

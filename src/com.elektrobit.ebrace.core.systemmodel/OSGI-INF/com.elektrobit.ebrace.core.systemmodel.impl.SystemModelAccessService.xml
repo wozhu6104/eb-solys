@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.core.systemmodel.impl.SystemModelAccessService">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.systemmodel.api.SystemModelAccess"/>
+   </service>
+   <implementation class="com.elektrobit.ebrace.core.systemmodel.impl.SystemModelAccessService"/>
+</scr:component>

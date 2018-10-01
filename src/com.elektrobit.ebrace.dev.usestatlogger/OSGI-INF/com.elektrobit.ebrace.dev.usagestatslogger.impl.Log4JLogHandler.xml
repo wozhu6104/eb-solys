@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" immediate="true" name="com.elektrobit.ebrace.dev.usagestatslogger.impl.Log4JLogHandler">
+   <service>
+      <provide interface="com.elektrobit.ebrace.dev.usestatlogsannotationloader.api.UseStatLogHandler"/>
+   </service>
+   <implementation class="com.elektrobit.ebrace.dev.usagestatslogger.impl.Log4JLogHandler"/>
+</scr:component>

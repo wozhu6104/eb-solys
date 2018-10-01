@@ -1,0 +1,100 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+option java_package = "com.elektrobit.ebrace.genivi.targetadapter.ThreadObserveritor.protobuf";
+option java_outer_classname = "TargetAgentProtocolThreadObserveritor";
+	 
+enum ThreadObserverMajorVersion {
+	THREAD_OBS_MAJOR_VERSION = 1;
+}
+
+/*! This version of the protocol does not handle the notifications
+	for thread started/stoped
+	*/
+enum ThreadObserverMinorVersion {
+	THREAD_OBS_MINOR_VERSION = 1;
+}
+
+/*! Messages to and from Target Agent */
+enum ThreadObserverOpCodes {
+
+	THREAD_OBS_OP_MESSAGE_INVALID 			= 0;
+	
+	//*! Messages to Target Agent */
+	THREAD_OBS_OP_START_OBSERVING		= 1;/*!< THREAD_OBS_OPTYPE_REQUEST: allowed, no param
+											 THREAD_OBS_OPTYPE_RESPONSE: allowed, ThreadObserverCommandErrorCodes
+											 THREAD_OBS_OPTYPE_NOTIFY: not allowed
+											 */
+	THREAD_OBS_OP_STOP_OBSERVING		= 2;/*!< THREAD_OBS_OPTYPE_REQUEST: allowed, no param
+											 THREAD_OBS_OPTYPE_RESPONSE: allowed, ThreadObserverCommandErrorCodes
+											 THREAD_OBS_OPTYPE_NOTIFY: not allowed
+											 */
+	THREAD_OBS_OP_SET_SAMPLING_RATE	    = 3;/*!< THREAD_OBS_OPTYPE_REQUEST: allowed, ThreadObserverContextInfo
+											 THREAD_OBS_OPTYPE_RESPONSE: allowed, ThreadObserverCommandErrorCodes
+											 THREAD_OBS_OPTYPE_NOTIFY: not allowed
+											 */
+	THREAD_OBS_OP_PROTOCOL_VERSION		= 4;/*!< THREAD_OBS_OPTYPE_RESPONSE: ThreadObserverVersionInfo
+										     THREAD_OBS_OPTYPE_RESPONSE: no param, ThreadObserverCommandErrorCodes
+											 THREAD_OBS_OPTYPE_NOTIFY: invalid optype
+											 */
+	THREAD_OBS_OP_RESSOURCE_INFO		= 5; 
+}
+
+
+enum ThreadObserverCommandErrorCodes {
+	THREAD_OBS_RESULT_INVALID 	= 0;
+	THREAD_OBS_RESULT_SUCCESS	= 1;
+	THREAD_OBS_RESULT_PARAM_WRONG	= 2;
+	THREAD_OBS_RESULT_EXEC_ERROR	= 3;
+	THREAD_OBS_RESULT_PARSE_ERROR 	= 4;
+	THREAD_OBS_RESULT_SPECIFIC	= 5;
+}
+
+enum ThreadObserverOpType {
+	THREAD_OBS_OPTYPE_INVALID 	= 0;
+	THREAD_OBS_OPTYPE_REQUEST	= 1;
+	THREAD_OBS_OPTYPE_RESPONSE	= 2;
+	THREAD_OBS_OPTYPE_NOTIFY	= 3;
+}
+
+//*! Message*/
+message ThreadObserverApplicationMessage {
+	//*! Operation Code*/	
+	required ThreadObserverOpCodes					messageID 			= 1;
+	//*! Operation type*/	
+	required ThreadObserverOpType					operationType 		= 2;
+	//*! only set for responses updates*/
+	optional ThreadObserverCommandErrorCodes                 errorCodes 			= 3;
+	//*! Place holder for command specific information */	
+	optional ThreadObserverContextInfo 				context				= 4;
+	//*! Protocol version Information */	
+	optional ThreadObserverVersionInfo			versionInfo			= 5;
+	//*! Protocol version Information */	
+	optional ThreadObserverResourceInfo			resourceInfo		= 6;	
+}
+
+
+message ThreadObserverVersionInfo {
+	required	int32	majorVersion = 1;
+	required	int32	minorVersion = 2;
+}
+
+
+message ThreadObserverContextInfo {
+	required uint32				cmdSpecificCode 	= 1;	
+}
+
+
+
+message ThreadObserverResourceInfo{
+	required uint32	pid 				= 1;
+	required uint32	tid 				= 2;
+	required string tname 				= 3;
+	required string cpuUsage			= 4;
+}

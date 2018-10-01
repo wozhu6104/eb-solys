@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cspecExtension xmlns:com="http://www.eclipse.org/buckminster/Common-1.0"
+                    xmlns="http://www.eclipse.org/buckminster/CSpec-1.0">
+    <actions>
+        <public name="create.product" actor="ant">
+            <actorProperties>
+                <property key="buildFile" value="build/product.ant" />
+            </actorProperties>
+            <properties>
+                <property key="profile" value="profile" />
+                <property key="iu" value="com.elektrobit.ebrace.product" />
+            	<property key="targets" value="create.product" />
+            </properties>
+            <prerequisites alias="repository">
+                <attribute name="site.p2" />
+            </prerequisites>
+            <products alias="destination" base="${buckminster.output}">
+                <path path="ebsolys.${target.ws}.${target.os}.${target.arch}-${ebrace.product.version}/" />
+            </products>
+        </public>
+        <public name="create.product.zip" actor="ant">
+            <actorProperties>
+                <property key="buildFileId" value="buckminster.pdetasks" />
+                <property key="targets" value="create.zip" />
+            </actorProperties>
+            <prerequisites alias="action.requirements">
+                <attribute name="create.product" />
+            </prerequisites>
+            <products alias="action.output" base="${buckminster.output}">
+                <path path="ebsolys.${target.ws}.${target.os}.${target.arch}-${ebrace.product.version}.zip" ></path>
+            </products>
+        </public>
+        <public name="set.structure.file.for.jenkins" actor="ant">
+        	<actorProperties>
+        		<property key="buildFile" value="build/set-structure-file-for-jenkins.ant"></property>
+        		<property key="targets" value="set.structure.file.for.jenkins"></property>
+        	</actorProperties>
+        	<prerequisites alias="repository">
+                <attribute name="create.product" />
+            </prerequisites>
+        	<properties>
+                <property key="structurefilename" value="${structure.file.name}" />
+                <property key="destination" value="${buckminster.output}/ebsolys.${target.ws}.${target.os}.${target.arch}.${ebrace.product.version}/" />
+            </properties>
+        </public>
+    </actions>
+</cspecExtension>

@@ -1,0 +1,9 @@
+	/**
+	 * Add a meaningful content to the description tag to describe the feature, which is executed by this script
+	 * The content of the description tag will be used in all UI widgets where the script can be invoked
+	 * If the content is empty, then the classname.methodname will be used instead
+	 */
+    @Execute(context=ExecutionContext.PRESELECTION, description="")
+	def executeScript(List<TimeMarker> timeMarkers) {
+	    	// Your script code
+	}

@@ -1,0 +1,183 @@
+<!-- ===================================================================== -->
+<!-- Custom targets called from a project's generated build.xml            -->
+<!-- Set customBuildCallbacks=<path/to/this/file> in your build.properties.-->
+<!-- ===================================================================== -->
+<project name="Build specific targets and properties" default="replace-labels" basedir="..">
+
+	<!-- ===================================================================== -->
+	<!-- Default target                                                        -->
+	<!-- ===================================================================== -->
+	<target name="noDefault">
+		<echo message="This file must be called with explicit targets" />
+	</target>
+
+	<property name="workspace" value="${basedir}" />
+	<property name="dest-dir" value="${basedir}/com.elektrobit.ebrace.targetadapter.communicator/src/com/elektrobit/ebrace/targetadapter/communicator/connectionhandling" />
+	<property name="template-file" value="${basedir}/com.elektrobit.ebrace.protobuf.messagedefinitions/template/VersionHandler.java" />
+	<property name="project-folder" value="${basedir}/com.elektrobit.ebrace.protobuf.messagedefinitions" />
+	<property name="java-out-folder" value="${project-folder}/gen-java" />
+	<property name="cpp-out-folder" value="${project-folder}/gen-cpp" />
+	<property name="versionInfoFile" value="${project-folder}/protocol-definitions/version" />
+
+	<target name="replace-labels">
+
+		<loadfile property="newbuildVersion"      srcFile="${versionInfoFile}"/>
+
+		<echo message="Protocol Version ${newbuildVersion}"/>
+		
+		<copy file="${template-file}"	todir="${dest-dir}" overwrite="true"/>
+
+
+		<replace file="${basedir}/com.elektrobit.ebrace.targetadapter.communicator/src/com/elektrobit/ebrace/targetadapter/communicator/connectionhandling/VersionHandler.java" token="@VERSION@" value="${newbuildVersion}" />
+
+	</target>
+
+
+	<target name="refreshWorkspace">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before the target build.jars                              -->
+	<!-- Available parameters :                                                -->
+	<!--   build.result.folder - folder to contain the build results           -->
+	<!-- ===================================================================== -->
+	<target name="pre.build.jars">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the target build.jars                               -->
+	<!-- Available parameters :                                                -->
+	<!--   build.result.folder - folder to contain the build results           -->
+	<!-- ===================================================================== -->
+	<target name="post.build.jars">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before the target build.sources                           -->
+	<!-- Available parameters :                                                -->
+	<!--   build.result.folder - folder to contain the build results           -->
+	<!-- ===================================================================== -->
+	<target name="pre.build.sources">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the target build.sources                            -->
+	<!-- Available parameters :                                                -->
+	<!--   build.result.folder - folder to contain the build results           -->
+	<!-- ===================================================================== -->
+	<target name="post.build.sources">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before the compilation target <name>                      -->
+	<!-- Substitute "name" with the name of the compilation target, eg @dot    -->
+	<!-- Available parameters :                                                -->
+	<!--   source.foldern : n = 1 ... N, the source folders                    -->
+	<!--   target.folder  : where the results of the compilation go            -->
+	<!--   <name>.classpath : name = name of the compilation target. A         -->
+	<!--                      reference to the classpath structure.            -->
+	<!-- ===================================================================== -->
+	<target name="pre.name">
+	</target>
+
+	<target name="pre.@dot">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do during the compilation target <name>, after the compile   -->
+	<!-- but before jaring.  Substitute "name" with the name of the compilation-->
+	<!-- target, eg @dot                                                       -->
+	<!-- Available parameters :                                                -->
+	<!--   source.foldern : n = 1 ... N, the source folders                    -->
+	<!--   target.folder  : where the results of the compilation go            -->
+	<!--   <name>.classpath : name = name of the compilation target. A         -->
+	<!--                      reference to the classpath structure.            -->
+	<!-- ===================================================================== -->
+	<target name="post.compile.name">
+	</target>
+
+	<target name="post.compile.@dot">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the compilation target <name>                       -->
+	<!-- Substitute "name" with the name of the compilation target, eg @dot    -->
+	<!-- Available parameters :                                                -->
+	<!--   jar.Location - the location of the compilation results              -->
+	<!--   <name>.classpath : name = name of the compilation target. A         -->
+	<!--                      reference to the classpath structure.            -->
+	<!-- ===================================================================== -->
+	<target name="post.name">
+	</target>
+
+	<target name="post.@dot">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before the target gather.bin.parts                         -->
+	<!-- Available parameters :                                                -->
+	<!--   build.result.folder - folder containing the build results           -->
+	<!--   target.folder - destination folder                                  -->
+	<!-- ===================================================================== -->
+	<target name="pre.gather.bin.parts">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the target gather.bin.parts                         -->
+	<!-- Available parameters :                                                -->
+	<!--   build.result.folder - folder containing the build results           -->
+	<!--   target.folder - destination folder                                  -->
+	<!-- ===================================================================== -->
+	<target name="post.gather.bin.parts">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before the target gather.sources                          -->
+	<!-- Available parameters :                                                -->
+	<!--   destination.temp.folder - destination folder                        -->
+	<!-- ===================================================================== -->
+	<target name="pre.gather.sources">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the target gather.sources                           -->
+	<!-- Available parameters :                                                -->
+	<!--   destination.temp.folder - destination folder                        -->
+	<!-- ===================================================================== -->
+	<target name="post.gather.sources">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before the target gather.logs                             -->
+	<!-- Available parameters :                                                -->
+	<!--   destination.temp.folder - destination folder                        -->
+	<!-- ===================================================================== -->
+	<target name="pre.gather.logs">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the target gather.logs                              -->
+	<!-- Available parameters :                                                -->
+	<!--   destination.temp.folder - destination folder                        -->
+	<!-- ===================================================================== -->
+	<target name="post.gather.logs">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before the target clean                                   -->
+	<!-- Available parameters :                                                -->
+	<!--   destination.temp.folder - destination folder                        -->
+	<!-- ===================================================================== -->
+	<target name="pre.clean">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the target clean                                    -->
+	<!-- Available parameters :                                                -->
+	<!--   plugin.destination - final destination of the build                 -->
+	<!--   build.result.folder - results of the compilation                    -->
+	<!--   temp.folder - temporary folder                                      -->
+	<!-- ===================================================================== -->
+	<target name="post.clean" depends="replace-labels">
+	</target>
+</project> 

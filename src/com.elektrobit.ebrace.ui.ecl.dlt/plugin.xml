@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!-- https://stackoverflow.com/questions/15953454/how-to-contribute-to-a-sub-menu-of-context-menu#15971810 -->
+<plugin>
+	<extension point="org.eclipse.ui.commands">
+		<command id="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel" name="Set Log Level"></command>
+		<command id="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.default" name="default"></command>
+		<command id="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.off" name="off"></command>
+		<command id="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.fatal" name="FATAL"></command>
+		<command id="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.error" name="ERROR"></command>
+		<command id="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.warn" name="WARN"></command>
+		<command id="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.info" name="INFO"></command>
+		<command id="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.debug" name="DEBUG"></command>
+		<command id="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.verbose" name="VERBOSE"></command>
+		<command id="com.elektrobit.ebrace.ui.ecl.dlt.settracestatus" name="Set Trace Status"></command>
+	</extension>
+	<extension point="org.eclipse.ui.menus">
+		<menuContribution allPopups="true" locationURI="popup:com.elektrobit.ebrace.viewer.ChannelsView.contextmenu">
+			<menu id="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel" commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel" label="Set Log Level">
+				<visibleWhen checkEnabled="true">
+					<test forcePluginActivation="true" property="com.elektrobit.ebrace.ui.ecl.dlt.channelTester.DLT"></test>
+				</visibleWhen>
+			</menu>
+			<menu id="com.elektrobit.ebrace.ui.ecl.dlt.settracestatus" commandId="com.elektrobit.ebrace.ui.ecl.dlt.settracestatus" label="Set Trace Status">
+				<visibleWhen checkEnabled="true">
+					<test forcePluginActivation="true" property="com.elektrobit.ebrace.ui.ecl.dlt.channelTester.DLT"></test>
+				</visibleWhen>
+			</menu>
+		</menuContribution>
+		<menuContribution allPopups="false" locationURI="popup:com.elektrobit.ebrace.ui.ecl.dlt.setloglevel?after=additions">
+			<command commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.default" label="default" style="push"></command>
+			<command commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.off" label="off" style="push"></command>
+			<command commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.fatal" label="FATAL" style="push"></command>
+			<command commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.error" label="ERROR" style="push"></command>
+			<command commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.warn" label="WARN" style="push"></command>
+			<command commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.info" label="INFO" style="push"></command>
+			<command commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.debug" label="DEBUG" style="push"></command>
+			<command commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.verbose" label="VERBOSE" style="push"></command>
+		</menuContribution>
+
+	</extension>
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester class="com.elektrobit.ebrace.ui.ecl.dlt.ChannelConfigurationTester" id="com.elektrobit.ebrace.ui.ecl.dlt.channelTester" namespace="com.elektrobit.ebrace.ui.ecl.dlt.channelTester" properties="DLT" type="java.lang.Object"></propertyTester>
+	</extension>
+	<extension point="org.eclipse.ui.handlers">
+		<handler class="com.elektrobit.ebrace.ui.ecl.dlt.ConfigureDltChannelPropertiesHandler" commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.default"></handler>
+		<handler class="com.elektrobit.ebrace.ui.ecl.dlt.ConfigureDltChannelPropertiesHandler" commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.off"></handler>
+		<handler class="com.elektrobit.ebrace.ui.ecl.dlt.ConfigureDltChannelPropertiesHandler" commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.fatal"></handler>
+		<handler class="com.elektrobit.ebrace.ui.ecl.dlt.ConfigureDltChannelPropertiesHandler" commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.error"></handler>
+		<handler class="com.elektrobit.ebrace.ui.ecl.dlt.ConfigureDltChannelPropertiesHandler" commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.warn"></handler>
+		<handler class="com.elektrobit.ebrace.ui.ecl.dlt.ConfigureDltChannelPropertiesHandler" commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.info"></handler>
+		<handler class="com.elektrobit.ebrace.ui.ecl.dlt.ConfigureDltChannelPropertiesHandler" commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.debug"></handler>
+		<handler class="com.elektrobit.ebrace.ui.ecl.dlt.ConfigureDltChannelPropertiesHandler" commandId="com.elektrobit.ebrace.ui.ecl.dlt.setloglevel.verbose"></handler>
+	</extension>
+</plugin>

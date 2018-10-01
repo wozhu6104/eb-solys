@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="com.elektrobit.ebrace.chronograph.impl.ChronographImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.chronograph.api.TimestampProvider"/>
+   </service>
+   <reference bind="bind" interface="com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.CommandLineParser" unbind="unbind"/>
+   <implementation class="com.elektrobit.ebrace.chronograph.impl.ChronographImpl"/>
+</scr:component>

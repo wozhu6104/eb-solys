@@ -1,0 +1,56 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "com.diffplug.gradle:goomph:3.6.0"
+  }
+}
+
+apply plugin: 'com.diffplug.gradle.p2.asmaven'
+
+// Download same eclipse OSGi dependencies
+// ad in Manifest.mf
+p2AsMaven {
+    group 'eclipse-deps', {
+        repoEclipse '4.5.1'
+        iu          'org.eclipse.core.runtime'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'osgi'
+
+
+repositories {
+   mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+}
+
+dependencies {
+    compile 'net.bytebuddy:byte-buddy:1.7.9'
+    compile 'eclipse-deps:org.eclipse.osgi:+'
+    compile 'eclipse-deps:org.eclipse.core.runtime:+'
+}
+
+task fatJar(type: Jar) {
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+	manifest {
+        attributes("Premain-Class": "com.elektrobit.ebrace.dev.usestatlogsannotationloader.impl.InterceptAgent" )
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<version>1.0.0-SNAPSHOT</version>
+	<groupId>com.elektrobit.ebrace</groupId>
+	<artifactId>com.elektrobit.ebrace.releng.ui.ecl.aggregator</artifactId>
+	<packaging>pom</packaging>
+	<name>EB solys</name>
+
+	<parent>
+		<artifactId>com.elektrobit.ebrace.releng.parent</artifactId>
+		<groupId>com.elektrobit.ebrace</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../com.elektrobit.ebrace.releng.parent</relativePath>
+	</parent>
+
+	<modules>
+		<module>../com.elektrobit.ebrace.releng.ui.ecl.product</module>
+		<module>../com.elektrobit.ebrace.application</module>
+		<module>../com.elektrobit.ebrace.product.feature</module>
+		<module>../com.elektrobit.ebrace.core.product.feature</module>
+		<module>../com.elektrobit.ebrace.core.platform.feature</module>
+		<module>../com.elektrobit.ebrace.dev.product.feature</module>
+		<module>../com.elektrobit.ebrace.dev.platform.feature</module>
+		<module>../com.elektrobit.ebrace.core.remove.feature</module>
+		<module>../com.elektrobit.ebrace.releng.tp</module>
+		<module>../com.google.protobuf</module>
+		<module>../org.projectlombok.lombok</module>
+		<!--  <module>../net.bytebuddy.byte-buddy-1.4.18</module> -->
+		<module>../com.elektrobit.ebrace.core.interactor</module>
+		<module>../com.elektrobit.ebrace.core.targetdata.api</module>
+		<module>../com.elektrobit.ebrace.protobuf.messagedefinitions</module>
+		<module>../com.elektrobit.ebrace.common</module>
+		<module>../com.elektrobit.ebrace.core.interactor.api</module>
+		<module>../com.elektrobit.ebrace.core.tracefile</module>
+		<module>../com.elektrobit.ebrace.targetadapter.communicator</module>
+		<module>../com.elektrobit.ebrace.targetadapter.communicator.api</module>
+		<module>../com.elektrobit.ebrace.ui.ecl.preferences</module>
+		<module>../com.elektrobit.ebrace.chronograph</module>
+		<module>../com.elektrobit.ebrace.platform.commandlineparser</module>
+		<module>../com.elektrobit.ebrace.core.usermessagelogger</module>
+		<module>../com.elektrobit.ebrace.resources.api</module>
+		<module>../com.elektrobit.ebrace.core.racescriptexecutor.api</module>
+		<module>../com.elektrobit.ebrace.racescript.interface</module>
+		<module>../com.elektrobit.ebrace.resources</module>
+		<module>../com.elektrobit.ebrace.core.preferences</module>
+		<module>../com.elektrobit.ebrace.dev.usestatlogsannotationloader</module>
+		<module>../com.elektrobit.ebrace.core.importerregistry</module>
+		<module>../com.elektrobit.ebrace.decoder.common</module>
+		<module>../com.elektrobit.ebrace.core.datamanager</module>
+		<module>../com.elektrobit.ebrace.core.htmldata</module>
+		<module>../com.elektrobit.ebrace.dev.prof.agent</module>
+		<module>../com.elektrobit.ebrace.core.scriptimporter</module>
+		<module>../com.elektrobit.ebrace.core.timesegmentmanager</module>
+		<module>../com.elektrobit.ebrace.core.headlessexecutor</module>
+		<module>../com.elektrobit.ebrace.core.datamanager.timemarker</module>
+		<module>../com.elektrobit.ebrace.core.racescriptexecutor</module>
+		<module>../com.elektrobit.ebrace.franca.common</module>
+		<module>../com.elektrobit.ebrace.dev.kpimeasuring</module>
+		<module>../com.elektrobit.ebrace.dev.log4jproperties</module>
+		<module>../com.elektrobit.ebrace.core.plantumlrenderer</module>
+		
+		<module>../com.plantuml.plantuml-jar-epl-8055</module>
+		<module>../com.elektrobit.ebrace.dbus.decoder</module>
+		<module>../com.elektrobit.ebrace.dev.targetdata.sdk</module>
+		<module>../com.elektrobit.ebrace.targetdata.all.platform.feature</module>
+		<module>../com.elektrobit.ebrace.targetdata.dlt</module>
+		<module>../com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor</module>
+		<module>../com.elektrobit.ebrace.genivi.targetadapter.systemdstartupmonitor</module>
+		<module>../com.elektrobit.ebrace.targetadapter.socketreader</module>
+		<module>../com.elektrobit.ebrace.targetdata.adapter.topresourcemonitor</module>
+		<module>../com.elektrobit.ebrace.targetdata.adapter.linuxappstats</module>
+		<module>../com.elektrobit.ebrace.targetdata.decoder.stfevents</module>
+		<module>../com.elektrobit.ebrace.targetdata.decoder.xml</module>
+		<module>../com.elektrobit.ebrace.targetdata.importer</module>
+		<module>../com.elektrobit.ebrace.targetdata.android</module>
+		<module>../com.elektrobit.ebrace.targetdata.json</module>
+		<module>../com.elektrobit.ebrace.targetdata.importer.racethreadprofimporter</module>
+		<module>../com.elektrobit.ebrace.targetdata.importer.raceusecaselogimporter</module>
+		<module>../com.elektrobit.ebrace.targetdata.importer.csvimporter</module>
+		<module>../com.elektrobit.ebrace.genivi.targetadapter.dbus</module>
+		<module>../com.elektrobit.ebrace.decoder.protobuf</module>
+		<module>../org.xmlpull.v1</module>
+		<module>../org.freedesktop.dbus</module>
+		<module>../com.elektrobit.ebrace.targetdata.adapter.networkpacketsniffer</module>
+		<module>../com.elektrobit.ebrace.core.activation.api</module>
+		<module>../com.elektrobit.ebrace.ui.console.scriptconsole</module>
+		<module>../com.elektrobit.ebrace.core.scriptconsolefactory.api</module>
+		<module>../com.elektrobit.ebrace.ui.console.scriptcompiler</module>
+		<module>../com.elektrobit.ebrace.core.scriptannotation</module>
+		<module>../com.elektrobit.ebrace.ui.ecl.browser</module>
+		<module>../com.elektrobit.ebrace.ui.ecl.dlt</module>
+		<module>../com.elektrobit.ebrace.ui.ecl.file</module>
+		<module>../com.elektrobit.ebrace.ui.ecl.general.preferences</module>
+		<module>../com.elektrobit.ebrace.ui.ecl.scriptconsole</module>
+		<module>../com.elektrobit.ebrace.ui.ecl.splitFile</module>
+		<module>../com.elektrobit.ebrace.ui.ecl.usagestatseventlogger</module>
+		<module>../com.elektrobit.ebrace.validation</module>
+		<module>../com.elektrobit.ebrace.viewer</module>
+		<module>../com.elektrobit.ebrace.viewer.channelsview</module>
+		<module>../com.elektrobit.ebrace.viewer.chartengine</module>
+		<module>../com.elektrobit.ebrace.viewer.common</module>
+		<module>../com.elektrobit.ebrace.viewer.common.chart</module>
+		<module>../com.elektrobit.ebrace.viewer.common.timemarker</module>
+		<module>../com.elektrobit.ebrace.viewer.comrelationruntimeeventlogger</module>
+		<module>../com.elektrobit.ebrace.viewer.console</module>
+		<module>../com.elektrobit.ebrace.viewer.eventmap</module>
+		<module>../com.elektrobit.ebrace.viewer.graphmodel</module>
+		<module>../com.elektrobit.ebrace.viewer.preferences</module>
+		<module>../com.elektrobit.ebrace.viewer.resources</module>
+		<module>../com.elektrobit.ebrace.viewer.runtimeeventloggertable</module>
+		<module>../com.elektrobit.ebrace.viewer.script</module>
+		<module>../com.elektrobit.ebrace.viewer.targetconnector</module>
+		
+		<module>../com.elektrobit.viewer.dbus.decoder</module>
+		<module>../com.elektrobit.ebrace.core.dropinsloader</module>
+		
+		<module>../com.elektrobit.ebrace.targetdata.adapter.log4jtargetadapter</module>
+		<module>../com.elektrobit.ebrace.platform.feature</module>
+		<module>../com.elektrobit.ebrace.xtend.infrastructure.feature</module>
+		<module>../com.elektrobit.ebrace.core.systemmodel</module>
+		
+		<module>../org.eclipse.tracecompass.common.core</module>
+		<module>../com.elektrobit.ebrace.core.datainput</module>
+		
+		<!-- <module>../</module> -->
+		
+		<module>../com.elektrobit.ebrace.core.usermessagelogger.tests</module>
+		<module>../com.elektrobit.ebrace.core.tracefile.tests</module>
+		<module>../com.elektrobit.ebrace.core.datamanager.tests</module>
+		<module>../com.elektrobit.ebrace.chronograph.tests</module>
+		<module>../com.elektrobit.ebrace.common.tests</module>
+		<module>../com.elektrobit.ebrace.core.datamanager.timemarker.tests</module>
+		<module>../com.elektrobit.ebrace.core.importerregistry.tests</module>
+		<module>../com.elektrobit.ebrace.core.interactor.tests</module>
+		<module>../com.elektrobit.ebrace.core.plantumlrenderer.tests</module>
+		<module>../com.elektrobit.ebrace.core.preferences.tests</module>
+		<module>../com.elektrobit.ebrace.core.systemmodel.tests</module>
+		<module>../com.elektrobit.ebrace.core.racescriptexecutor.tests</module>
+		<module>../com.elektrobit.ebrace.core.scriptimporter.tests</module>
+		<module>../com.elektrobit.ebrace.core.timesegmentmanager.tests</module>
+		<module>../com.elektrobit.ebrace.dev.test.util</module>
+
+	</modules>
+
+</project>

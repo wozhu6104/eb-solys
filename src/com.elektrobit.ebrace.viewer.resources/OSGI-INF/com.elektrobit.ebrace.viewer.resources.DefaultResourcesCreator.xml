@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.viewer.resources.DefaultResourcesCreator">
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.StartupDoneListener"/>
+      <provide interface="com.elektrobit.ebrace.core.interactor.api.createresource.CreateResourceInteractionCallback"/>
+   </service>
+   <implementation class="com.elektrobit.ebrace.viewer.resources.DefaultResourcesCreator"/>
+</scr:component>

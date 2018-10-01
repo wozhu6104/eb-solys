@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+   mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+}
+
+dependencies {
+    compile 'net.bytebuddy:byte-buddy:1.7.9'
+    compile 'log4j:log4j:1.2.16'
+}
+
+task fatJar(type: Jar) {
+	manifest {
+        attributes("Premain-Class": "com.elektrobit.ebrace.dev.prof.agent.LogAgent" )
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

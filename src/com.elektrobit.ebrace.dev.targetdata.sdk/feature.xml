@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.elektrobit.ebrace.dev.targetdata.sdk"
+      label="Targetdata SDK"
+      version="1.0.0.qualifier"
+      provider-name="ELEKTROBIT">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.dlt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.genivi.targetadapter.systemdstartupmonitor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetadapter.socketreader"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.adapter.linuxappstats"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.decoder.stfevents"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.decoder.xml"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.importer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.importer.racethreadprofimporter"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.importer.raceusecaselogimporter"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.genivi.targetadapter.dbus"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.decoder.protobuf"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.adapter.networkpacketsniffer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.android"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.json"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.adapter.topresourcemonitor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.elektrobit.ebrace.targetdata.importer.csvimporter"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

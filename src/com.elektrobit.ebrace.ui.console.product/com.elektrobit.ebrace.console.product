@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="EB solys automation" uid="com.elektrobit.ebrace.console.product" id="com.elektrobit.ebrace.ui.console.application.console" application="com.elektrobit.ebrace.ui.console.application.id1" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-application com.elektrobit.ebrace.ui.console.application.id1
+      </programArgs>
+      <vmArgs>-Dfile.encoding=UTF-8
+ -Duser.timezone=UTC
+-Xmx3000m
+      </vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <windowImages i16="/com.elektrobit.ebrace.ui.console.application/icons/window_images/window_image_16.png" i32="/com.elektrobit.ebrace.ui.console.application/icons/window_images/window_image_32.png" i48="/com.elektrobit.ebrace.ui.console.application/icons/window_images/window_image_48.png" i64="/com.elektrobit.ebrace.ui.console.application/icons/window_images/window_image_64.png" i128="/com.elektrobit.ebrace.ui.console.application/icons/window_images/window_image_128.png"/>
+
+   <launcher name="eb-solys-automation">
+      <solaris/>
+      <win useIco="false">
+         <ico path="/com.elektrobit.ebrace.ui.console.application/icons/lauching_images/win32/ebrace.ico"/>
+         <bmp
+            winSmallHigh="/com.elektrobit.ebrace.ui.console.application/icons/lauching_images/win32/ebrace_3_16x16x32.png"
+            winSmallLow="/com.elektrobit.ebrace.ui.console.application/icons/lauching_images/win32/ebrace_3_16x16x8.png"
+            winMediumHigh="/com.elektrobit.ebrace.ui.console.application/icons/lauching_images/win32/ebrace_2_32x32x32.png"
+            winMediumLow="/com.elektrobit.ebrace.ui.console.application/icons/lauching_images/win32/ebrace_2_32x32x8.png"
+            winLargeHigh="/com.elektrobit.ebrace.ui.console.application/icons/lauching_images/win32/ebrace_1_48x48x32.png"
+            winLargeLow="/com.elektrobit.ebrace.ui.console.application/icons/lauching_images/win32/ebrace_1_48x48x8.png"/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+      <plugin id="com.elektrobit.ebrace.ui.console.application"/>
+      <plugin id="javax.xml"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
+   </plugins>
+
+   <features>
+      <feature id="com.elektrobit.ebrace.ui.console.feature" version="1.0.0.qualifier"/>
+      <feature id="com.elektrobit.ebrace.ui.console.platform.feature"/>
+      <feature id="com.elektrobit.ebrace.ui.console.product.feature"/>
+      <feature id="com.elektrobit.ebrace.core.product.feature" version="1.0.0.qualifier"/>
+      <feature id="com.elektrobit.ebrace.core.platform.feature" version="1.0.0.qualifier"/>
+      <feature id="com.elektrobit.ebrace.dev.targetdata.sdk" version="1.0.0.qualifier"/>
+      <feature id="com.elektrobit.ebrace.targetdata.all.platform.feature" version="1.0.0.qualifier"/>
+      <feature id="com.elektrobit.ebrace.dev.product.feature" version="1.0.0.qualifier"/>
+      <feature id="com.elektrobit.ebrace.dev.platform.feature" version="1.0.0.qualifier"/>
+   </features>
+
+   <configurations>
+      <plugin id="com.elektrobit.ebrace.ui.console.scriptcompiler" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+   </configurations>
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
+
+</product>

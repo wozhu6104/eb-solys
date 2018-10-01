@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="com.elektrobit.ebrace.core.datainput.service.DataInputServiceImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.datainput.api.DataInputService"/>
+   </service>
+   <reference bind="bindJsonEventHandler" interface="com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler" name="JsonEventHandler" unbind="unbindJsonEventHandler"/>
+   <implementation class="com.elektrobit.ebrace.core.datainput.service.DataInputServiceImpl"/>
+</scr:component>

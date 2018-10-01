@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.elektrobit.ebrace.core.scriptimporter.tests
+Bundle-SymbolicName: com.elektrobit.ebrace.core.scriptimporter.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Fragment-Host: com.elektrobit.ebrace.core.scriptimporter;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: test.com.elektrobit.ebrace.core.scriptimporter
+Require-Bundle: org.junit;bundle-version="4.12.0",
+ org.mockito,
+ com.google.guava,
+ com.elektrobit.ebrace.dev.test.util,
+ org.apache.commons.lang,
+ org.objenesis;bundle-version="2.6.0"
+Bundle-ActivationPolicy: lazy
+

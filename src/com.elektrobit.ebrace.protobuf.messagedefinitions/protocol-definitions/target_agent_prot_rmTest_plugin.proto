@@ -1,0 +1,30 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package TargetAgent.Protocol.RmTests;
+
+option java_package = "com.elektrobit.ebrace.targetdata.adapter.rmtests";
+option java_outer_classname = "RmTestsProto";
+
+
+enum OperationType
+{
+   RM_TESTS_CONSUME_CPU					 = 0;
+   RM_TESTS_CONSUME_MEMORY				 = 1;
+   RM_TESTS_LEAK_MEMORY 		 		 = 2;
+}
+
+message Entry {
+	required OperationType mKey = 1;
+	optional uint32 mValue		= 2;
+}
+
+message RmConfiguration{
+	repeated Entry configEntry = 1;
+}

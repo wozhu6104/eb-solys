@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.elektrobit.ebrace.platform.commandlineparser.test
+Bundle-SymbolicName: com.elektrobit.ebrace.platform.commandlineparser.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Fragment-Host: com.elektrobit.ebrace.platform.commandlineparser;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: test.com.elektrobit.ebrace.platform.commandlineparser,
+ test.com.elektrobit.ebrace.platform.commandlineparser.intern.parser
+Require-Bundle: org.junit;bundle-version="4.12.0"
+

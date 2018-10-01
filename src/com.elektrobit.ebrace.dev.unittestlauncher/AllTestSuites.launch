@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.junit.launchconfig">
+<listAttribute key="com.mountainminds.eclemma.core.SCOPE_IDS">
+<listEntry value="=com.elektrobit.ebrace.activation/src"/>
+<listEntry value="=com.elektrobit.ebrace.application/src"/>
+<listEntry value="=com.elektrobit.ebrace.app.racescriptexecutor/src"/>
+<listEntry value="=com.elektrobit.ebrace.common/src"/>
+<listEntry value="=com.elektrobit.ebrace.core.tracefile/src"/>
+<listEntry value="=com.elektrobit.ebrace.core.datamanager/src"/>
+<listEntry value="=com.elektrobit.ebrace.core.datamanager.timemarker/src"/>
+<listEntry value="=com.elektrobit.ebrace.decoder.common/src"/>
+<listEntry value="=com.elektrobit.ebrace.franca.common/src"/>
+<listEntry value="=com.elektrobit.ebrace.core.interactor.tracefile/src"/>
+<listEntry value="=com.elektrobit.ebrace.platform.commandlineparser/src"/>
+<listEntry value="=com.elektrobit.ebrace.platform.persistencemanager/src"/>
+<listEntry value="=com.elektrobit.ebrace.racescript.baseapi/src"/>
+<listEntry value="=com.elektrobit.ebrace.racescript.baseapi/xtend-gen"/>
+<listEntry value="=com.elektrobit.ebrace.resources/src"/>
+<listEntry value="=com.elektrobit.ebrace.targetadapter.communicator/src"/>
+<listEntry value="=com.elektrobit.ebrace.targetadapter.socketreader/src"/>
+<listEntry value="=com.elektrobit.ebrace.viewer.channelsview/src"/>
+<listEntry value="=com.elektrobit.ebrace.viewer.preferences/src"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/com.elektrobit.ebrace.dev.unittestlauncher/src/com/elektrobit/ebrace/dev/unittestlauncher/AllTestSuites.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value=""/>
+<booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="false"/>
+<stringAttribute key="org.eclipse.jdt.junit.TESTNAME" value=""/>
+<stringAttribute key="org.eclipse.jdt.junit.TEST_KIND" value="org.eclipse.jdt.junit.loader.junit4"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.elektrobit.ebrace.dev.unittestlauncher.AllTestSuites"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.elektrobit.ebrace.dev.unittestlauncher"/>
+</launchConfiguration>

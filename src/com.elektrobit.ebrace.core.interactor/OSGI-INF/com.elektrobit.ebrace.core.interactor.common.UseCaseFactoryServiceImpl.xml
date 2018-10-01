@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="start" deactivate="stop" enabled="true" immediate="true" name="com.elektrobit.ebrace.core.interactor.common.UseCaseFactoryServiceImpl">
+   <service>
+      <provide interface="com.elektrobit.ebrace.core.interactor.api.common.UseCaseFactoryService"/>
+   </service>
+   <reference bind="setAnalysisTimespanPreferences" cardinality="1..1" interface="com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences" name="AnalysisTimespanPreferences" policy="static" unbind="unsetAnalysisTimespanPreferences"/>
+   <reference bind="setBrowserService" cardinality="1..1" interface="com.elektrobit.ebrace.core.htmldata.api.HtmlDataService" name="BrowserService" policy="static" unbind="unsetBrowserService"/>
+   <reference bind="setChannelColorProviderService" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.color.ChannelColorProviderService" name="ChannelColorProviderService" policy="static" unbind="unsetChannelColorProviderService"/>
+   <reference bind="setClearChunkDataNotifier" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataNotifier" name="ClearChunkDataNotifier" policy="static" unbind="unsetClearChunkDataNotifier"/>
+   <reference bind="setComRelationAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" policy="static" unbind="unsetComRelationAcceptor"/>
+   <reference bind="setConnectionService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService" name="ConnectionService" policy="static" unbind="unsetConnectionService"/>
+   <reference bind="setDataStreamService" interface="com.elektrobit.ebrace.core.datainput.api.DataInputService" name="DataStreamService" unbind="unsetDataStreamService"/>
+   <reference bind="setFileSizeLimitService" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.importer.FileSizeLimitService" name="FileSizeLimitService" policy="static" unbind="unsetFileSizeLimitService"/>
+   <reference bind="setImporterRegistry" cardinality="1..1" interface="com.elektrobit.ebrace.core.importerregistry.api.ImporterRegistry" name="ImporterRegistry" policy="static" unbind="unsetImporterRegistry"/>
+   <reference bind="setLoadFileService" cardinality="1..1" interface="com.elektrobit.ebrace.core.tracefile.api.LoadFileService" name="LoadFileService" policy="static" unbind="unsetLoadFileService"/>
+   <reference bind="setPreferencesService" cardinality="1..1" interface="com.elektrobit.ebrace.core.preferences.api.PreferencesService" name="PreferencesService" policy="static" unbind="unsetPreferencesService"/>
+   <reference bind="setRaceScriptLoader" cardinality="1..1" interface="com.elektrobit.ebrace.core.racescriptexecutor.api.RaceScriptLoader" name="RaceScriptLoader" policy="static" unbind="unsetRaceScriptLoader"/>
+   <reference bind="setResetNotifier" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ResetNotifier" name="ResetNotifier" policy="static" unbind="unsetResetNotifier"/>
+   <reference bind="setResourcesModelManager" cardinality="1..1" interface="com.elektrobit.ebrace.resources.api.manager.ResourcesModelManager" name="ResourcesModelManager" policy="static" unbind="unsetResourcesModelManager"/>
+   <reference bind="setRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unsetRuntimeEventAcceptor"/>
+   <reference bind="setRuntimeEventChannelManager" cardinality="1..1" interface="com.elektrobit.ebrace.core.datamanager.api.channels.RuntimeEventChannelManager" name="RuntimeEventChannelManager" policy="static" unbind="unsetRuntimeEventChannelManager"/>
+   <reference bind="setScriptExecutorService" cardinality="1..1" interface="com.elektrobit.ebrace.core.racescriptexecutor.api.ScriptExecutorService" name="ScriptExecutorService" policy="static" unbind="unsetScriptExecutorService"/>
+   <reference bind="setScriptImporterService" cardinality="1..1" interface="com.elektrobit.ebrace.core.scriptimporter.api.ScriptImporterService" name="ScriptImporterService" policy="static" unbind="unsetScriptImporterService"/>
+   <reference bind="setScriptProjectBuilderService" cardinality="1..1" interface="com.elektrobit.ebrace.core.scriptimporter.api.ScriptProjectBuilderService" name="ScriptProjectBuilderService" policy="static" unbind="unsetScriptProjectBuilderService"/>
+   <reference bind="setSelectedElementsService" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.SelectedElementsService" name="SelectedElementsService" policy="static" unbind="unsetSelectedElementsService"/>
+   <reference bind="setSplitFileService" cardinality="1..1" interface="com.elektrobit.ebrace.core.tracefile.api.SplitFileService" name="SplitFileService" policy="static" unbind="unsetSplitFileService"/>
+   <reference bind="setStructureAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor" name="StructureAcceptor" policy="static" unbind="unsetStructureAcceptor"/>
+   <reference bind="setStructureSelectionService" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureSelectionService" name="StructureSelectionService" policy="static" unbind="unsetStructureSelectionService"/>
+   <reference bind="setTargetHeaderMetaDataService" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.TargetHeaderMetaDataService" name="TargetHeaderMetaDataService" policy="static" unbind="unsetTargetHeaderMetaDataService"/>
+   <reference bind="setTimeSegmentAcceptorService" cardinality="1..1" interface="com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService" name="TimeSegmentAcceptorService" policy="static" unbind="unsetTimeSegmentAcceptorService"/>
+   <reference bind="setTimemarkerManager" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager" name="TimemarkerManager" policy="static" unbind="unsetTimemarkerManager"/>
+   <reference bind="setTreeNodeCheckStateService" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.TreeNodeCheckStateService" name="TreeNodeCheckStateService" policy="static" unbind="unsetTreeNodeCheckStateService"/>
+   <reference bind="setUserInteractionPreferences" cardinality="1..1" interface="com.elektrobit.ebrace.core.preferences.api.UserInteractionPreferences" name="UserInteractionPreferences" policy="static" unbind="unsetUserInteractionPreferences"/>
+   <reference bind="setUserMessageLogger" cardinality="1..1" interface="com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger" name="UserMessageLogger" policy="static" unbind="unsetUserMessageLogger"/>
+   <implementation class="com.elektrobit.ebrace.core.interactor.common.UseCaseFactoryServiceImpl"/>
+</scr:component>

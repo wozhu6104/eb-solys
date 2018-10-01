@@ -1,0 +1,34 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package TargetAgent.Protocol.Frame;
+
+option java_package = "com.elektrobit.ebrace.targetagent.protocol.frame";
+option java_outer_classname = "TargetAgentProtocolFrameOld";
+option optimize_for=LITE_RUNTIME;
+
+import "target_agent_prot_common_definitions.proto";
+
+message OldHeader {
+	required int32 							length 	  = 1;
+	required TargetAgent.Protocol.CommonDefinitions.MessageType	type	  = 2;
+	required int64							timestamp = 3;
+}
+
+
+
+
+
+
+
+
+
+
+
+

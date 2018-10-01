@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Targetarchitecture
+Bundle-SymbolicName: com.elektrobit.ebrace.core.systemmodel
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Automatic-Module-Name: com.elektrobit.ebrace.core.targetarchitecture
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Eclipse-ExtensibleAPI: true 
+Export-Package: com.elektrobit.ebrace.core.systemmodel.api
+Require-Bundle: com.elektrobit.ebrace.common,
+ org.projectlombok.lombok,
+ com.google.gson,
+ org.eclipse.osgi.services;bundle-version="3.5.0"
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.systemmodel.impl.SystemModelAccessService.xml

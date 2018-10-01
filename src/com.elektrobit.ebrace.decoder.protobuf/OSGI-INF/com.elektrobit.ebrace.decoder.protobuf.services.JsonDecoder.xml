@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="com.elektrobit.ebrace.decoder.protobuf.services.JsonDecoder">
+   <property name="channel">ipc.websockets
+ipc.json
+   </property>
+   <service>
+      <provide interface="com.elektrobit.ebsolys.decoder.common.services.DecoderService"/>
+   </service>
+   <implementation class="com.elektrobit.ebrace.decoder.protobuf.services.JsonDecoder"/>
+</scr:component>

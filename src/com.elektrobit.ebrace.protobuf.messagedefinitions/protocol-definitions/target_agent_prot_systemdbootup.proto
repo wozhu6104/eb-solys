@@ -1,0 +1,48 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+option java_package = "com.elektrobit.ebrace.genivi.targetadapter.systemdstartupmonitor.protocoldefinitions";
+option java_outer_classname = "TargetAgentProtocolSystemDStartupMonitor";
+
+enum SystemdBootupMonMessageId {
+
+	SYSTEMD_START_UP_MONITOR_MESSAGE_INVALID_ID 	= 0;	
+	
+	/* until now, no cmds from race -> target are necessary */
+		
+	SYSTEMD_START_UP_MONITOR_COMMAND_RESULT_ID	= 21;
+	SYSTEMD_START_UP_MONITOR_VERSION_INFO_ID	= 22;
+	SYSTEMD_START_UP_MONITOR_MSG_ID   	= 23;
+    SYSTEMD_START_UP_MONITOR_SERVICES_STARTUP_TIMES_ID   	= 24;
+}
+
+message SystemdBootupMonApplicationMessage {
+
+	required SystemdBootupMonMessageId			id 					= 1;
+
+	optional SystemdBootupMonMessage			bootupmessage		= 9;
+    optional SystemdServicesStartupTimes     	startuptimes		= 10;	
+}
+
+message SystemdBootupMonMessage{
+	repeated string	systemdbootupmsg	= 1;
+}
+
+message UnitStatusTimingInfo {
+        required uint64 InactiveExitTimestampMonotonic = 1;
+        required uint64 ActiveEnterTimestampMonotonic = 2;
+        required uint64 ActiveExitTimestampMonotonic = 3;
+        required uint64 InactiveEnterTimestampMonotonic = 4;
+}
+
+message SystemdServicesStartupTimes {
+        repeated string servicename = 1;
+        repeated UnitStatusTimingInfo statusTimingInfo = 2;
+}
+

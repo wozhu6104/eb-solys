@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" immediate="true" name="com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.ConnectionPoller">
+   <service>
+      <provide interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionStatusListener"/>
+   </service>
+   <reference bind="setConnectionService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService" name="ConnectionService" policy="static" unbind="unsetConnectionService"/>
+   <reference bind="setSendMessageToTargetService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.SendMessageToTargetService" name="SendMessageToTargetService" policy="static" unbind="unsetSendMessageToTargetService"/>
+   <implementation class="com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.ConnectionPoller"/>
+</scr:component>

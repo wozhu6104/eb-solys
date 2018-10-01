@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.ResourceMonitorControllerFactory">
+   <property name="MessageType" type="String" value="MSG_TYPE_RESOURCE_MONITOR"/>
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory"/>
+   </service>
+   <reference bind="bindRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unbindRuntimeEventAcceptor"/>
+   <reference bind="bindStructureAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor" name="StructureAcceptor" policy="static" unbind="unbindStructureAcceptor"/>
+   <reference bind="bindWriteProcessRegistryIF" cardinality="1..1" interface="com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.api.WriteProcessRegistryIF" name="WriteProcessRegistryIF" policy="static" unbind="unbindWriteProcessRegistryIF"/>
+   <implementation class="com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.ResourceMonitorControllerFactory"/>
+</scr:component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetdata.adapter.log4jtargetadapter.internal.Log4jTargetAdapterFactory">
+   <property name="MessageType" type="String" value="MSG_TYPE_LOG4J_PLUGIN"/>
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory"/>
+   </service>
+   <reference bind="bindComRelationAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" policy="static" unbind="unbindComRelationAcceptor"/>
+   <reference bind="bindRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unbindRuntimeEventAcceptor"/>
+   <reference bind="bindTimestampProvider" cardinality="1..1" interface="com.elektrobit.ebrace.chronograph.api.TimestampProvider" name="TimestampProvider" policy="static" unbind="unbindTimestampProvider"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.adapter.log4jtargetadapter.internal.Log4jTargetAdapterFactory"/>
+</scr:component>

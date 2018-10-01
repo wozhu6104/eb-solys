@@ -1,0 +1,52 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+=== Preferences
+
+[[anchor-line_chart_settings]]
+==== Line Chart Settings
+
+image::..\resources\line-chart-preferences.png[]
+
+For {chart}s, three types of attributes can be configured. The type, the representation
+and the way, the Y-axis handles with values exceeding its current range.
+The _chart type_ will determine if the chart is rendered as a bar or a line chart.
+By changing the _chart representation_, the chart can be configured to show a single
+line per channel, a filled area below the line or all lines stacked above each
+other to visually represent the sum of values for multiple channels.
+The behavior of the _y-axis scale_ can be configured to be fixed with a minimum
+and a maximum value. It can be semi-dynamic, starting with a certain maximum and
+increasing if the value is exceeded or completely dynamic and adapt to the maximum
+value within the visible time frame.
+
+==== Color Settings
+
+image::..\resources\color-preferences.png[]
+
+For each channel a certain color is assigned as soon as th e channel is used at
+least in one resource. If the channel is used in different views it can then be
+visually identified with this assigned color. As default {solys} comes with a
+preset of 12 colors. Since there usually more channels than colors, different
+channels may share the same color. You can change the color palette by either
+changing the value or adding new colors or even remove existing colors. The channel
+color is also used in tables as background color of events. For a better readability
+a transparency value is set to 80% as default. This can be changed to a value
+between 0% and 100%.
+
+==== Time Format Settings
+
+image::..\resources\time-format-preferences.png[]
+
+Each <<./index.adoc#anchor-events, runtime event>> has a timestamp
+measured in microseconds, whereas the value can be an absolute time or a relative
+time since system start-up (also known as system ticks). If it is an absolute or
+rleative time depends on how it was measured on the target device. Nevertheless
+you can set how the timestamp should be represented in tables and charts. You have
+a set of predefined formats or you can define your own format as long as it is a
+valid java timeformat string.

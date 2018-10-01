@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Protocolbuffers
+Bundle-SymbolicName: com.google.protobuf
+Bundle-Version: 2.4.1
+Bundle-ClassPath: protobuf-java-2.4.1.jar
+Export-Package: com.google.protobuf;version="2.4.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

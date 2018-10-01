@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eventmap
+Bundle-SymbolicName: com.elektrobit.ebrace.viewer.eventmap;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.elektrobit.ebrace.viewer.snapshot.SnapshotPlugin
+Bundle-Vendor: ELEKTROBIT
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime;bundle-version="3.7.0",
+ com.elektrobit.ebrace.core.targetdata.api;bundle-version="1.0.0",
+ com.elektrobit.ebrace.viewer.common;bundle-version="1.0.0",
+ com.elektrobit.ebrace.ui.ecl.preferences;bundle-version="1.0.0",
+ com.elektrobit.ebrace.viewer.common.timemarker;bundle-version="1.0.0",
+ com.elektrobit.ebrace.common;bundle-version="1.0.0",
+ com.elektrobit.ebrace.viewer.resources,
+ com.elektrobit.ebrace.resources,
+ com.elektrobit.viewer.dbus.decoder,
+ com.elektrobit.ebrace.decoder.common,
+ org.apache.log4j,
+ com.elektrobit.ebrace.viewer.channelsview,
+ com.elektrobit.ebrace.core.interactor.api;bundle-version="1.0.0",
+ com.elektrobit.ebrace.resources.api
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: com.elektrobit.ebrace.viewer.snapshot,
+ com.elektrobit.ebrace.viewer.snapshot.editor
+
+

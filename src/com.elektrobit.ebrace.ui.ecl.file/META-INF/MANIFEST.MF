@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: File
+Bundle-SymbolicName: com.elektrobit.ebrace.ui.ecl.file;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.elektrobit.ebrace.ui.ecl.file.UiEclFileActivator
+Bundle-Vendor: ELEKTROBIT
+Require-Bundle: org.eclipse.ui,
+ com.elektrobit.ebrace.common;bundle-version="1.0.0",
+ com.elektrobit.ebrace.targetadapter.communicator,
+ org.eclipse.core.commands,
+ org.eclipse.ui.workbench,
+ com.elektrobit.ebrace.ui.ecl.splitFile,
+ com.elektrobit.ebrace.viewer.preferences,
+ com.elektrobit.ebrace.ui.ecl.preferences,
+ org.eclipse.core.expressions,
+ org.eclipse.osgi,
+ org.eclipse.core.runtime;bundle-version="3.7.0",
+ com.elektrobit.ebrace.core.targetdata.api,
+ com.elektrobit.ebrace.core.interactor.api,
+ com.elektrobit.ebrace.viewer.common,
+ com.elektrobit.ebrace.targetadapter.communicator.api
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: com.elektrobit.ebrace.ui.ecl.file
+

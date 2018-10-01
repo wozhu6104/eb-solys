@@ -1,0 +1,77 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package TargetAgent.Protocol.JvmpiMonitor;
+
+option java_package = "com.elektrobit.ebrace.targetagent.protocol.jvmpimonitor";
+option java_outer_classname = "TargetAgentProtocolJvmpiMonitor";
+
+
+enum JvmpiMonitorMessageId {
+	JVMPI_MONITOR_MESSAGE_INVALID 					= 0;
+	JVMPI_MONITOR_EVT_THREAD_RESOURCE_INFO_ID 		= 1;
+	JVMPI_MONITOR_EVT_THREAD_LIFECYCLE_INFO_ID 		= 2;
+	JVMPI_MONITOR_EVT_OBJECT_LIFECYCLE_INFO_ID 		= 3;
+	JVMPI_MONITOR_EVT_METHOD_CALL_INFO_ID 		    = 4;
+}
+
+
+
+message JvmpiMonitorMessage {
+	required JvmpiMonitorMessageId				messageId			= 1;
+	optional JvmpiSystemResourceInfo			systemResourceInfo 	= 2;	
+	optional JvmpiThreadLifycycleInfo			threadLifecycleInfo = 3;
+	optional JvmpiObjectLifycycleInfo			objectLifecycleInfo = 4;
+	optional JvmpiCalledMethodInfo  			methodCallsInfo 	= 5;
+}
+
+
+message JvmpiSystemResourceInfo {
+	repeated JvmpiThreadResourceInfo	threadResourceInfo	= 1;
+}
+
+message JvmpiCalledMethodInfo {
+	required JvmpiMethodInfo caller			    = 1;
+	required JvmpiMethodInfo callee			    = 2;
+	required int64		timeStamp 	= 3;
+}
+
+message JvmpiMethodInfo {
+	required int64 	    methodID 	= 1;
+	optional int64 	    classID 	= 2;
+	optional string	    methodName 	= 3;
+	optional int64		threadID  	= 4;
+}
+
+
+message JvmpiThreadResourceInfo {
+	required int64 	    threadID		= 1;
+	required int64		cpuConsumption	= 2;
+	required int64		timeStamp		= 3;
+}
+
+
+message JvmpiThreadLifycycleInfo {
+	optional string						threadName		= 1;
+	required int64                      threadID 		= 2;
+	required JvmpiEntityLifecycleEvent	lifecycleEvent  = 3;
+	required int64						timeStamp		= 4;
+}
+
+message JvmpiObjectLifycycleInfo {
+	required JvmpiEntityLifecycleEvent	lifecycleEvent 		= 1;
+	required int64                      classID     		= 2;
+	optional string						className 			= 3;
+	repeated JvmpiMethodInfo			methodInfo			= 4;
+}
+
+enum JvmpiEntityLifecycleEvent {
+	JVMPI_OBJECT_AVAILVABLE 	 = 1;
+	JVMPI_OBJECT_UNAVAILABLE	 = 2;
+}

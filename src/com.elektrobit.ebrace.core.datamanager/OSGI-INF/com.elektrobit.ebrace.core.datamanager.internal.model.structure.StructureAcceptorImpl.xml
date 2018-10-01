@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.core.datamanager.internal.model.structure.StructureAcceptorImpl">
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureProvider"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataListener"/>
+   </service>
+   <reference bind="setModelElementPool" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.ModelElementPool" name="ModelElementPool" policy="static" unbind="unsetModelElementPool"/>
+   <implementation class="com.elektrobit.ebrace.core.datamanager.internal.model.structure.StructureAcceptorImpl"/>
+</scr:component>

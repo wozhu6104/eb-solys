@@ -1,0 +1,21 @@
+{
+	"nodes":[
+		{"id" : "sys"},
+		{"id" : "subsys1", "parent" : "sys"},
+		{"id" : "AppA", "parent" : "subsys1"},
+		{"id" : "Comp3", "parent" : "AppA"},
+		{"id" : "Comp2", "parent" : "AppA"},
+		{"id" : "AppX", "parent" : "subsys1"},
+		{"id" : "Comp9", "parent" : "AppX"},
+		{"id" : "subsys2", "parent" : "sys"},
+		{"id" : "AppC", "parent" : "subsys2"},
+		{"id" : "Comp4", "parent" : "AppC"},
+		{"id" : "Comp5", "parent" : "AppC"},
+		{"id" : "AppD", "parent" : "subsys2"},
+		{"id" : "Comp3", "parent" : "AppD"}
+	],
+	"edges":[
+		{"from" : "sys.subsys2.AppC.Comp4", "to" : "sys.subsys2.AppC.Comp5"},
+		{"from" : "sys.subsys2.AppC.Comp5", "to" : "sys.subsys1.AppX.Comp9"}
+	]
+}

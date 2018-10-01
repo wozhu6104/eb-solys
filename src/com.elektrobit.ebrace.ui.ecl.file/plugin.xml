@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="com.elektrobit.ebrace.targetadapter.communicator.command.openracefile"
+            name="LoadRecorderTraceFilesCommand">
+      </command>
+      <command
+            defaultHandler="com.elektrobit.ebrace.ui.ecl.file.OpenRecentRaceFileHandler"
+            id="com.elektrobitebrace.targetadapter.tracemessageplayer.openrecentlogfiles"
+            name="OpenRecentLogFilesCommand">
+         <commandParameter
+               id="com.elektrobit.ebrace.ui.ecl.file.commandParameter"
+               name="name"
+               optional="true">
+         </commandParameter>
+      </command>
+      <command
+            defaultHandler="com.elektrobit.ebrace.ui.ecl.file.EmptyFilesListHandler"
+            id="com.elektrobit.ebrace.targetadapter.communicator.command.emptyFilesList"
+            name="EmptyFilesListCommand">
+      </command>
+      
+    
+   </extension>
+</plugin>

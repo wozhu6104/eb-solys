@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="EB solys" uid="com.elektrobit.ebrace.product" id="com.elektrobit.ebrace.application.product_application" application="com.elektrobit.ebrace.application.client" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+
+   <aboutInfo>
+      <image path="/com.elektrobit.ebrace.viewer/icons/window_images/eb-race-logo-about-64.png"/>
+      <text>
+         Elektrobit Automotive GmbH
+Driving the future of automotive software
+
+Am Wolfsmantel 46,
+91058 Erlangen,
+Germany
+
+E-Mail: ebsolys@elektrobit.com
+Web: http://www.elektrobit.com
+
+Build-Info:
+Revision:  r{1}
+Build-TAG: {2}
+
+Copyright © 2018 Elektrobit Automotive GmbH
+  
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+ 
+SPDX-License-Identifier: EPL-2.0
+
+EB solys may be used for analyzing complex software systems. 
+The use of the software does not ensure or guarantee compliance with safety requirements nor the correctness and freedom from errors.
+It should be used by experienced software engineers.
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-consoleLog -clean -clearPersistedState -console 
+
+#configure_the_maximum_file_size_in_MB
+-solys-file-size-limit=250
+      </programArgs>
+      <vmArgs>-XX:MaxPermSize=512M -Dfile.encoding=UTF-8 -Duser.timezone=UTC
+      </vmArgs>
+      <vmArgsLin>-Dorg.eclipse.swt.browser.DefaultType=mozilla
+         <argsX86>-Xmx900m</argsX86>
+         <argsX86_64>-Xmx3000m</argsX86_64>
+      </vmArgsLin>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+      <vmArgsWin>
+         <argsX86>-Xmx900m</argsX86>
+         <argsX86_64>-Xmx3000m</argsX86_64>
+      </vmArgsWin>
+   </launcherArgs>
+
+   <windowImages i16="/com.elektrobit.ebrace.viewer/icons/window_images/window_image_16.png" i32="/com.elektrobit.ebrace.viewer/icons/window_images/window_image_32.png" i48="/com.elektrobit.ebrace.viewer/icons/window_images/window_image_48.png" i64="/com.elektrobit.ebrace.viewer/icons/window_images/window_image_64.png" i128="/com.elektrobit.ebrace.viewer/icons/window_images/window_image_128.png"/>
+
+   <splash
+      location="com.elektrobit.ebrace.application"
+      handlerType="extensible" />
+   <launcher name="ebsolys">
+      <win useIco="true">
+         <ico path="/com.elektrobit.ebrace.viewer/icons/lauching_images/win32/ebrace.ico"/>
+         <bmp
+            winSmallHigh="/com.elektrobit.ebrace.viewer/icons/lauching_images/win32/ebrace_3_16x16x32.png"
+            winSmallLow="/com.elektrobit.ebrace.viewer/icons/lauching_images/win32/ebrace_3_16x16x8.png"
+            winMediumHigh="/com.elektrobit.ebrace.viewer/icons/lauching_images/win32/ebrace_2_32x32x32.png"
+            winMediumLow="/com.elektrobit.ebrace.viewer/icons/lauching_images/win32/ebrace_2_32x32x8.png"
+            winLargeHigh="/com.elektrobit.ebrace.viewer/icons/lauching_images/win32/ebrace_1_48x48x32.png"
+            winLargeLow="/com.elektrobit.ebrace.viewer/icons/lauching_images/win32/ebrace_1_48x48x8.png"/>
+      </win>
+   </launcher>
+
+   <vm>
+      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6</windows>
+   </vm>
+
+   <plugins>
+      <plugin id="com.elektrobit.ebrace.core.datamanager"/>
+      <plugin id="com.elektrobit.ebrace.targetadapter.eso.dminputadapter"/>
+      <plugin id="com.elektrobit.ebrace.targetadapter.eso.tracecoreinterface"/>
+      <plugin id="com.elektrobit.ebrace.targetadapter.eso.traceplayer"/>
+      <plugin id="com.elektrobit.ebrace.targetadapter.esotracetargetadapter"/>
+      <plugin id="com.elektrobit.ebrace.targetadapter.frameworkjsontargetdataprovider"/>
+      <plugin id="com.elektrobit.ebrace.targetadapter.resourcemonitoring"/>
+      <plugin id="com.elektrobit.ebrace.viewer"/>
+      <plugin id="com.elektrobit.ebrace.viewer.viewproviderinterface"/>
+      <plugin id="com.ibm.icu"/>
+      <plugin id="javax.servlet"/>
+      <plugin id="org.apache.log4j"/>
+      <plugin id="org.eclipse.core.commands"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.databinding"/>
+      <plugin id="org.eclipse.core.databinding.observable"/>
+      <plugin id="org.eclipse.core.databinding.property"/>
+      <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.auth"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.draw2d"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.jface"/>
+      <plugin id="org.eclipse.jface.databinding"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.swt.win32.win32.x86" fragment="true"/>
+      <plugin id="org.eclipse.ui"/>
+      <plugin id="org.eclipse.ui.forms"/>
+      <plugin id="org.eclipse.ui.workbench"/>
+      <plugin id="org.eclipse.zest.core"/>
+      <plugin id="org.eclipse.zest.layouts"/>
+      <plugin id="org.hamcrest.core"/>
+      <plugin id="org.junit4"/>
+   </plugins>
+
+   <features>
+      <feature id="com.elektrobit.ebrace.productcore.updatesite" version="1.0.0.qualifier"/>
+      <feature id="com.elektrobit.ebrace.platform.feature" version="1.0.0.qualifier"/>
+      <feature id="com.elektrobit.ebrace.xtend.infrastructure.feature" version="1.0.0.qualifier"/>
+      <feature id="com.elektrobit.ebrace.product.feature" version="1.0.0.qualifier"/>
+      <feature id="org.eclipse.emf.common"/>
+      <feature id="org.eclipse.emf.ecore"/>
+      <feature id="org.eclipse.rcp"/>
+      <feature id="com.elektrobit.ebrace.dev.targetdata.sdk" version="1.0.0.qualifier"/>
+      <feature id="org.eclipse.e4.rcp"/>
+   </features>
+
+   <configurations>
+      <plugin id="com.elektrobit.ebrace.chronograph" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.core.datamanager" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.core.datamanager.timemarker" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.core.htmldata" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.core.importerregistry" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.core.preferences" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.core.usermessagelogger" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.dbus.decoder" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.decoder.protobuf" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.franca.common" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.genivi.targetadapter.dbus" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.genivi.targetadapter.systemdstartupmonitor" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.platform.commandlineparser" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.targetadapter.communicator" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.targetadapter.socketreader" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.targetdata.decoder.stfevents" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.targetdata.decoder.xml" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.targetdata.dlt" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.targetdata.importer" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.ui.ecl.file" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.ui.ecl.general.preferences" autoStart="false" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.ui.ecl.preferences" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.viewer" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.viewer.channelsview" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.viewer.chartengine" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.viewer.common.timemarker" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.viewer.comrelationruntimeeventlogger" autoStart="true" startLevel="0" />
+      <plugin id="com.elektrobit.ebrace.viewer.targetconnector" autoStart="true" startLevel="0" />
+      <plugin id="com.google.protobuf" autoStart="true" startLevel="0" />
+      <plugin id="org.apache.log4j" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="0" />
+      <property name="osgi.instance.area.default" value="./workspace-X" />
+   </configurations>
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+      <file path="platform:/plugin/com.elektrobit.ebrace.application/ebrace.css"/>
+   </cssInfo>
+
+</product>

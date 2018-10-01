@@ -1,0 +1,33 @@
+timestamp;value
+;
+$uptime(),$value
+
+Context ID;Profiling Task ID;Start time;Stop time;Duration in µs;Synchronized
+;
+;$summary;$uptime();;$duration;$summary
+this.separator = ";";
+#fieldMapping.put( JsonEventTag.UPTIME, Arrays.asList( 2, "u" ) );
+#fieldMapping.put( JsonEventTag.DURATION, Arrays.asList( 4, "u" ) );
+#fieldMapping.put( JsonEventTag.CHANNEL, Arrays.asList( "trace.r.", 1 ) );
+#fieldMapping.put( JsonEventTag.SUMMARY, Arrays.asList( 1, 4 ) );
+#fieldMapping.put( JsonEventTag.VALUE, Arrays.asList( 4 ) );
+
+"level-id","level","time","text","code","proc","src","plugin"
+,
+#"HH:mm:ss:SSS"
+#SimpleDateFormat sdf = new SimpleDateFormat( "HH:mm:ss:SSS" );
+#Command c = (String arg) -> {
+#	try
+#	{
+#		return "" + sdf.parse( arg ).getTime();
+#	}
+#	catch (ParseException e)
+#	{
+#		return "0";
+#	}
+#};
+#
+#fieldMapping.put( JsonEventTag.UPTIME, Arrays.asList( 2, c ) );
+#fieldMapping.put( JsonEventTag.CHANNEL, Arrays.asList( "trace.r.", 7 ) );
+#fieldMapping.put( JsonEventTag.SUMMARY, Arrays.asList( 0, 1, 3, 4, 5, 6, 7 ) );
+#fieldMapping.put( JsonEventTag.VALUE, Arrays.asList( 0, 1, 3, 4, 5, 6, 7 ) );

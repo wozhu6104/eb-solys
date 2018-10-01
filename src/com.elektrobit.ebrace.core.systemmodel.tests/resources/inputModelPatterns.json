@@ -1,0 +1,8 @@
+{
+	"nodes":[
+		{"id" : "TCU"},
+		{"id" : "NoPatternGroup", "parent" : "TCU"},
+		{"id" : "SolysGroup", "parent" : "TCU", "elementPatterns" : [".*solys.*"], "classes": "group"},
+		{"id" : "ServiceAndDeamonGroup", "parent" : "TCU", "elementPatterns" : [".*service.*",".*daemon.*"]}
+	]
+}

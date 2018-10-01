@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.core.datamanager.reset.ResetNotifierImpl">
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ResetNotifier"/>
+   </service>
+   <reference bind="bindClearChunkDataNotifier" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataNotifier" name="ClearChunkDataNotifier" policy="static" unbind="unbindClearChunkDataNotifier"/>
+   <reference bind="bindTargetAdapterCommunicatorControlService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService" name="TargetAdapterCommunicatorControlService" policy="static" unbind="unbindTargetAdapterCommunicatorControlService"/>
+   <implementation class="com.elektrobit.ebrace.core.datamanager.reset.ResetNotifierImpl"/>
+</scr:component>

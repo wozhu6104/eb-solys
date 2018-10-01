@@ -1,0 +1,119 @@
+target "EB solys" with source allEnvironments
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/releases/mars" {
+	org.eclipse.equinox.executable.feature.group
+	org.eclipse.rcp.feature.group
+	org.eclipse.emf.ecore.feature.group
+	org.eclipse.emf.common.feature.group
+	org.eclipse.equinox.p2.core.feature.feature.group
+	org.junit
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/eclipse/updates/4.5" {
+	org.eclipse.jdt.feature.group
+	org.eclipse.platform.feature.group
+	org.eclipse.pde.feature.group
+
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/modeling/tmf/xtext/updates/composite/releases" {
+	org.eclipse.xtend.sdk.feature.group
+	org.eclipse.xtext.runtime.feature.group
+	org.eclipse.xtext.sdk.feature.group
+	org.eclipse.xtext.ui.feature.group
+	org.eclipse.xtext.ui.source.feature.group
+	org.eclipse.xtext.xbase.feature.group
+	org.eclipse.xtext.xbase.lib.feature.group
+	org.eclipse.xtext.xtext.ui.feature.group
+	org.eclipse.emf.mapping.ecore.feature.group
+	org.eclipse.emf.codegen.feature.group
+	org.eclipse.xpand.feature.group
+	org.eclipse.xtend.feature.group
+	org.eclipse.xtend.typesystem.emf.feature.group
+	org.eclipse.emf.codegen.ecore.feature.group
+	org.eclipse.emf.mwe.sdk.feature.group
+	org.eclipse.emf.mwe2.runtime.sdk.feature.group
+	org.eclipse.emf.edit.ui.feature.group
+	org.eclipse.emf.common.ui.feature.group
+	org.eclipse.emf.edit.feature.group
+	com.google.guava
+	com.google.inject
+	com.google.collect
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/mat/1.5/update-site" {
+	org.eclipse.mat.api
+	org.eclipse.mat.hprof
+	org.eclipse.mat.parser
+	org.eclipse.mat.report
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tools/gef/updates/releases" {
+	org.eclipse.zest.feature.group
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/franca.org/0.9.2" {
+	org.franca.core.sdk.feature.group
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/birt/update-site/4.5" {
+	org.eclipse.birt.chart.feature.group
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository" {
+	org.apache.commons.collections
+	org.apache.commons.io
+	org.apache.commons.math
+	org.apache.commons.cli
+	org.apache.commons.compress
+	org.apache.commons.net
+	//	org.hamcrest
+	com.google.gson
+	org.hamcrest.generator
+	//	org.mockito
+//	org.objenesis
+	//	org.hamcrest
+//	org.hamcrest.core
+//	org.hamcrest.library
+//	org.hamcrest.integration
+//	org.hamcrest.text
+	com.thoughtworks.qdox
+}
+
+location "http://download.eclipse.org/tools/orbit/downloads/drops/R20180606145124/repository" {
+	org.mockito
+	org.objenesis
+	org.hamcrest
+	org.hamcrest.core
+	org.hamcrest.library
+	org.hamcrest.integration
+	org.hamcrest.text
+	net.bytebuddy.byte-buddy
+	net.bytebuddy.byte-buddy-agent
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/nebula/releases/1.0.0" {
+	org.eclipse.nebula.feature.feature.group
+}
+
+//Tracecompass START
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tracecompass/releases/2.2.0/repository" {
+	org.eclipse.tracecompass.tmf.feature.group
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tools/cdt/releases/9.2" {
+	org.eclipse.cdt.core
+	org.eclipse.cdt.core.native
+
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/webtools/updates" {
+
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/linuxtools/update-5.2.0" {
+	org.eclipse.linuxtools.dataviewers.feature.feature.group
+	org.swtchart
+}
+//Tracecompass END

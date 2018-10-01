@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.genivi.targetadapter.dbus.bundlemanager.DBusTargetAdapterFactory">
+   <property name="MessageType" type="String" value="MSG_TYPE_DBUS"/>
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory"/>
+   </service>
+   <reference bind="setComRelationAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" policy="static" unbind="unsetComRelationAcceptor"/>
+   <reference bind="setReadProcessRegistryIF" cardinality="1..1" interface="com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.api.ReadProcessRegistryIF" name="ReadProcessRegistryIF" policy="static" unbind="unsetReadProcessRegistryIF"/>
+   <reference bind="setRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unsetRuntimeEventAcceptor"/>
+   <reference bind="setStructureAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor" name="StructureAcceptor" policy="static" unbind="unsetStructureAcceptor"/>
+   <implementation class="com.elektrobit.ebrace.genivi.targetadapter.dbus.bundlemanager.DBusTargetAdapterFactory"/>
+</scr:component>

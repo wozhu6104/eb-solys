@@ -1,0 +1,5 @@
+
+    @BeforeScript
+	def setupScript() {
+		// Your setup code
+	}

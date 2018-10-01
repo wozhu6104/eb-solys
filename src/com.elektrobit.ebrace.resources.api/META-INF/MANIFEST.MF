@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Resources API
+Bundle-SymbolicName: com.elektrobit.ebrace.resources.api
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.projectlombok.lombok;bundle-version="1.0.0",
+ com.elektrobit.ebrace.core.targetdata.api,
+ org.eclipse.equinox.registry,
+ org.eclipse.core.resources,
+ com.elektrobit.ebrace.core.racescriptexecutor.api,
+ com.elektrobit.ebrace.core.interactor.api
+Export-Package: com.elektrobit.ebrace.resources.api,
+ com.elektrobit.ebrace.resources.api.manager,
+ com.elektrobit.ebrace.resources.api.model,
+ com.elektrobit.ebrace.resources.api.model.connection
+Bundle-ActivationPolicy: lazy

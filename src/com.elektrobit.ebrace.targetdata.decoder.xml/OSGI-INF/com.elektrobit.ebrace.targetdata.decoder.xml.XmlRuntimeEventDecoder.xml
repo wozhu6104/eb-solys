@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetdata.decoder.xml.XmlRuntimeEventDecoder">
+   <property name="channel">trace.giop
+trace.targetagent.config
+   </property>
+   <service>
+      <provide interface="com.elektrobit.ebsolys.decoder.common.services.DecoderService"/>
+   </service>
+   <implementation class="com.elektrobit.ebrace.targetdata.decoder.xml.XmlRuntimeEventDecoder"/>
+</scr:component>

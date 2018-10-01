@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="com.elektrobit.ebrace.core.datamanager.internal.runtime.event.RuntimeEventServiceProxy">
+   <service>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventProvider"/>
+      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataListener"/>
+   </service>
+   <reference bind="bind" interface="com.elektrobit.ebrace.core.datamanager.api.channels.ChannelListenerNotifier" unbind="unbind"/>
+   <reference bind="setModelElementPool" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.ModelElementPool" name="ModelElementPool" policy="static" unbind="unsetModelElementPool"/>
+   <reference bind="setRuntimeEventChannelManager" cardinality="1..1" interface="com.elektrobit.ebrace.core.datamanager.api.channels.RuntimeEventChannelManager" name="RuntimeEventChannelManager" policy="static" unbind="unsetRuntimeEventChannelManager"/>
+   <implementation class="com.elektrobit.ebrace.core.datamanager.internal.runtime.event.RuntimeEventServiceProxy"/>
+</scr:component>

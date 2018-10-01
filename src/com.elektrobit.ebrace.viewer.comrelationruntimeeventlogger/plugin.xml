@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:com.elektrobit.ebrace.viewer.comrelationruntimeevent.logger">
+         <command
+               commandId="com.elektrobit.ebrace.viewer.lockTable"
+               label="Lock Table"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="com.elektrobit.ebrace.viewer.tablelockstate.active">
+                  <equals
+                        value="UNLOCKED">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="com.elektrobit.ebrace.viewer.unlockTable"
+               label="Unlock Table"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="com.elektrobit.ebrace.viewer.tablelockstate.active">
+                  <equals
+                        value="LOCKED">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:comrelation.runtime.events.menu">
+         <command
+               commandId="com.elektrobit.ebrace.viewer.common.timemarker.createTimeMarker"
+               style="push">
+         </command>
+         <separator
+               name="com.elektrobit.ebrace.viewer.comrelationruntimeeventlogger.separator1"
+               visible="true">
+         </separator>
+         <command
+               commandId="com.elektrobit.ebrace.viewer.clearSelection"
+               style="push">
+         </command>
+         <separator
+               name="com.elektrobit.ebrace.viewer.comrelationruntimeeventlogger.separator2"
+               visible="true">
+         </separator>
+         <command
+               commandId="com.elektrobit.ebrace.viewer.common.timemarker.toggleVisibility"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false">
+                     <instanceof
+                           value="com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarker">
+                     </instanceof>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+   </extension>
+
+
+</plugin>

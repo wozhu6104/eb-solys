@@ -1,0 +1,49 @@
+/*******************************************************************************
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * 
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * 
+ * SPDX-License-Identifier: EPL-2.0
+ ******************************************************************************/
+package TargetAgent.Protocol.ThreeGLogAnalyzer;
+
+option java_package = "com.elektrobit.ebrace.targetagent.protocol.threegloganalyzer";
+option java_outer_classname = "TargetAgentProtocolThreeGLogAnalyzer";
+
+
+enum ThreeGLogAnalyzerMessageId {
+	LOG_ANALYZER_MESSAGE_INVALID 				= 0;
+	LOG_ANALYZER_MESSAGE_TRACE_ID 				= 1;
+	LOG_ANALYZER_MESSAGE_CHANNEL_ID				= 2;
+}
+
+
+
+message ThreeGLogAnalyzerMessage {
+
+	required ThreeGLogAnalyzerMessageId				id = 1;
+	optional ThreeGLogAnalyzerTraceMessage			trace_message = 2;
+	optional ThreeGLogAnalyzerChannelList			channel_list = 3;
+}
+
+message ThreeGLogAnalyzerChannelList {
+
+	repeated ThreeGLogAnalyzerChannel channels = 1;
+}
+
+message ThreeGLogAnalyzerChannel {
+
+	required int32 channelId = 1;
+	required string name = 2;
+}
+
+message ThreeGLogAnalyzerTraceMessage {
+	
+	required string timestamp = 1;
+	required string level = 2;
+	required string channel = 3;
+	required string data = 4;		
+
+}

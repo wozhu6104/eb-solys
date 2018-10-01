@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Plantumlrenderer
+Bundle-SymbolicName: com.elektrobit.ebrace.core.plantumlrenderer
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-ExtensibleAPI: true
+Require-Bundle: org.eclipse.osgi.services,
+ com.plantuml.plantuml-jar-epl-8055;bundle-version="1.0.0",
+ org.projectlombok.lombok,
+ org.apache.log4j
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.plantumlrenderer.impl.PlantUmlRendererServiceImpl.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: com.elektrobit.ebrace.core.plantumlrenderer.api

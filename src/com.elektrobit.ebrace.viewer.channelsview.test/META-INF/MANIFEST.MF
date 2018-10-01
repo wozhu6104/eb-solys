@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.elektrobit.ebrace.viewer.channelsview.test
+Bundle-SymbolicName: com.elektrobit.ebrace.viewer.channelsview.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Fragment-Host: com.elektrobit.ebrace.viewer.channelsview;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.elektrobit.ebrace.viewer.channelsview
+Import-Package: com.elektrobit.ebrace.common.utils,
+ org.apache.commons.collections.set,
+ org.mockito,
+ org.mockito.stubbing
+Require-Bundle: org.junit;bundle-version="4.12.0"
+

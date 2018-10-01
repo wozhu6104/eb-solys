@@ -1,0 +1,2 @@
+Please do not remove this file!
+Added this file to the franca folder, because otherwise it is in some project-specific builds not exported and leads to some startup exceptions.

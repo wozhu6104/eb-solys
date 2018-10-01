@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.elektrobit.ebrace.franca.common.test
+Bundle-SymbolicName: com.elektrobit.ebrace.franca.common.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ELEKTROBIT
+Fragment-Host: com.elektrobit.ebrace.franca.common;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: test.com.elektrobit.ebrace.franca.common
+Require-Bundle: org.mockito;bundle-version="1.8.4",
+ org.junit;bundle-version="4.12.0",
+ com.elektrobit.ebrace.protobuf.messagedefinitions,
+ org.eclipse.xtext.xbase.lib
+
