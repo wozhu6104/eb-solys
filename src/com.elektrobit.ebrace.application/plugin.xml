@@ -201,7 +201,7 @@
       </property>
       <property
             name="aboutText"
-            value="Elektrobit Automotive GmbH&#x0A;Driving the future of automotive software&#x0A;&#x0A;Am Wolfsmantel 46,&#x0A;91058 Erlangen,&#x0A;Germany&#x0A;&#x0A;E-Mail: ebrace@elektrobit.com&#x0A;Web: http://www.elektrobit.com&#x0A;&#x0A;Build-Info:&#x0A;Revision:  r{1}&#x0A;Build-TAG: {2}&#x0A;&#x0A;© Elektrobit Automotive GmbH 2012-2016. All Rights Reserved.">
+            value="Elektrobit Automotive GmbH&#x0A;Driving the future of automotive software&#x0A;&#x0A;Am Wolfsmantel 46,&#x0A;91058 Erlangen,&#x0A;Germany&#x0A;&#x0A;E-Mail: ebsolys@elektrobit.com&#x0A;Web: http://www.elektrobit.com&#x0A;&#x0A;Build-Info:&#x0A;Revision:  r{1}&#x0A;Build-TAG: {2}&#x0A;&#x0A;Copyright © 2018 Elektrobit Automotive GmbH&#x0A;  &#x0A;This program and the accompanying materials are made&#x0A;available under the terms of the Eclipse Public License 2.0&#x0A;which is available at https://www.eclipse.org/legal/epl-2.0/&#x0A; &#x0A;SPDX-License-Identifier: EPL-2.0&#x0A;&#x0A;EB solys may be used for analyzing complex software systems. &#x0A;The use of the software does not ensure or guarantee compliance with safety requirements nor the correctness and freedom from errors.&#x0A;It should be used by experienced software engineers.">
       </property>
       <property
             name="aboutImage"
