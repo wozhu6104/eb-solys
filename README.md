@@ -14,7 +14,7 @@ It can be attached to the EB solys Target Agent, which you can find here https:/
 It can also connect to a DLT daemon via TCP connection.
 And it is possible to import various trace file formats.
 
-EB solys is based on Eclipse RCP.
+EB solys is based on Eclipse RCP and can be used in GUI mode or CLI mode.
 
 ## Build
 
@@ -24,7 +24,7 @@ EB solys is based on Eclipse RCP.
 * Java 8 or higher
 * Maven 3.3.1
 
-### Build Executable
+### Build GUI Executable
 
 run `mvn clean verify` inside src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
 
