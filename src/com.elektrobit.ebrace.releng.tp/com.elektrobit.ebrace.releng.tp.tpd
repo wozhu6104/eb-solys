@@ -1,4 +1,4 @@
-target "EB solys" with source environment win32,gtk  
+target "EB solys" with source allEnvironments  
 
 location "http://download.eclipse.org/releases/neon" {
 	org.eclipse.equinox.executable.feature.group
@@ -8,13 +8,9 @@ location "http://download.eclipse.org/releases/neon" {
 	org.eclipse.equinox.p2.core.feature.feature.group
 	org.junit
 	org.eclipse.zest.feature.group
-}
-
-location "http://download.eclipse.org/eclipse/updates/4.6" {
 	org.eclipse.jdt.feature.group
 	org.eclipse.platform.feature.group
 	org.eclipse.pde.feature.group
-
 }
 
 location "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases" {
@@ -65,16 +61,8 @@ location "http://download.eclipse.org/tools/orbit/downloads/drops/R2014011414271
 	org.apache.commons.cli
 	org.apache.commons.compress
 	org.apache.commons.net
-	//	org.hamcrest
 	com.google.gson
 	org.hamcrest.generator
-	//	org.mockito
-//	org.objenesis
-	//	org.hamcrest
-//	org.hamcrest.core
-//	org.hamcrest.library
-//	org.hamcrest.integration
-//	org.hamcrest.text
 	com.thoughtworks.qdox
 }
 
