@@ -30,9 +30,10 @@ run `mvn clean verify` inside src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
 
 ## Contact
 
+EB solys development is supported by systemticks GmbH.
 For further questions on how to build, contribute or use, please reach out to
 
-ebsolys@elektrobit.com
+eb-solys@systemticks.de
 
 ## License and Copyright
 
