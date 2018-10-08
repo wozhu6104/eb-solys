@@ -2,9 +2,14 @@ language: java
 sudo: false
 jdk:
 - oraclejdk8
+cache:
+  directories:
+  - "$HOME/.m2/repository"
+  - "$HOME/apache-maven-3.5.0"
+before_install:
+- export M2_HOME=$HOME/apache-maven-3.5.0
+- if [ ! -d $M2_HOME/bin ]; then curl https://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz | tar zxf - -C $HOME; fi
+- export PATH=$M2_HOME/bin:$PATH
 script:
 - cd src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
-# Travis-ci does not support mvn 3.3 - using mvn wrapper
-- mvn -N io.takari:maven:wrapper -Dmaven=3.3.3 clean verify
-# Build example with mvn wrapper
-- "./mvnw clean verify"
+- mvn clean verify
