@@ -3,7 +3,7 @@ sudo: false
 jdk:
 - oraclejdk8
 script:
-- cd src
+- cd src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
 # Travis-ci does not support mvn 3.3 - using mvn wrapper
 - mvn -N io.takari:maven:wrapper -Dmaven=3.3.3 clean verify
 # Build example with mvn wrapper
