@@ -1,4 +1,4 @@
-target "EB solys" with source allEnvironments  
+target "EB solys" with source environment linux gtk x86_64  
 
 location "http://download.eclipse.org/releases/neon" {
 	org.eclipse.equinox.executable.feature.group
