@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/mbarbero/fr.obeo.releng.targetplatform -->
-<target name="EB solys" sequenceNumber="1539001794">
+<target name="EB solys" sequenceNumber="1539068588">
   <locations>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.equinox.executable.feature.group" version="3.6.300.v20161122-1740"/>
       <unit id="org.eclipse.rcp.feature.group" version="4.6.3.v20170301-0400"/>
       <unit id="org.eclipse.emf.ecore.feature.group" version="2.12.0.v20160420-0247"/>
@@ -16,7 +16,7 @@
       <unit id="org.eclipse.pde.feature.group" version="3.12.3.v20170301-0400"/>
       <repository location="http://download.eclipse.org/releases/neon"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.xtend.sdk.feature.group" version="2.15.0.v20180916-1232"/>
       <unit id="org.eclipse.xtext.runtime.feature.group" version="2.15.0.v20180916-1232"/>
       <unit id="org.eclipse.xtext.sdk.feature.group" version="2.15.0.v20180916-1232"/>
@@ -42,22 +42,22 @@
       <unit id="org.objectweb.asm" version="6.2.1.v20180823-1831"/>
       <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.mat.api" version="1.5.0.201505271423"/>
       <unit id="org.eclipse.mat.hprof" version="1.5.0.201505271423"/>
       <unit id="org.eclipse.mat.parser" version="1.5.0.201505271423"/>
       <unit id="org.eclipse.mat.report" version="1.5.0.201505271423"/>
       <repository location="http://download.eclipse.org/mat/1.5/update-site"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.franca.core.sdk.feature.group" version="0.13.1.201807231814"/>
       <repository location="http://franca.github.io/franca/update_site/releases/"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.birt.chart.feature.group" version="4.5.0.v201506092134"/>
       <repository location="http://download.eclipse.org/birt/update-site/4.5"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.apache.commons.collections" version="3.2.0.v2013030210310"/>
       <unit id="org.apache.commons.io" version="2.0.1.v201105210651"/>
       <unit id="org.apache.commons.math" version="2.1.0.v201105210652"/>
@@ -69,7 +69,7 @@
       <unit id="com.thoughtworks.qdox" version="1.6.3.v20081201-1400"/>
       <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.mockito" version="2.13.0.v20180426-1843"/>
       <unit id="org.objenesis" version="2.6.0.v20180420-1519"/>
       <unit id="org.hamcrest" version="1.1.0.v20090501071000"/>
@@ -81,23 +81,28 @@
       <unit id="net.bytebuddy.byte-buddy-agent" version="1.7.9.v20180420-1519"/>
       <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20180606145124/repository"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.nebula.feature.feature.group" version="1.0.0.201605312033"/>
       <repository location="http://download.eclipse.org/nebula/releases/1.0.0"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.tracecompass.tmf.feature.group" version="2.2.0.201612071351"/>
       <repository location="http://download.eclipse.org/tracecompass/releases/2.2.0/repository"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.cdt.core" version="6.2.0.201704050430"/>
       <unit id="org.eclipse.cdt.core.native" version="5.10.0.201704050430"/>
       <repository location="http://download.eclipse.org/tools/cdt/releases/9.2"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.linuxtools.dataviewers.feature.feature.group" version="7.0.2.201809272014"/>
       <unit id="org.swtchart" version="0.10.0.v201605200358"/>
       <repository location="https://ftp.fau.de/eclipse/linuxtools/update/"/>
     </location>
   </locations>
+  <environment>
+    <os>linux</os>
+    <ws>gtk</ws>
+    <arch>x86_64</arch>
+  </environment>
 </target>
