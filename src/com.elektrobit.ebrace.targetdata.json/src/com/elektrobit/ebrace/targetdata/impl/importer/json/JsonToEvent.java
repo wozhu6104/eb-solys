@@ -89,13 +89,17 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         long timestamp = parseTimestamp( eventObject, JsonEventTag.UPTIME );
         String channelName = eventObject.get( JsonEventTag.CHANNEL ).getAsString();
         JsonElement valueElement = eventObject.get( JsonEventTag.VALUE );
+        if (valueElement == null)
+        {
+            valueElement = eventObject;
+        }
         Object valueObject = null;
         if (valueElement.isJsonPrimitive() && valueElement.getAsJsonPrimitive().isNumber())
         {
             valueObject = valueElement.getAsLong();
         }
-        String valueAsJsonString = eventObject.get( JsonEventTag.VALUE ).toString().replace( "\\\"", "\"" )
-                .replace( "}\"", "}" ).replace( "\"{", "{" );
+        String valueAsJsonString = valueElement.toString().replace( "\\\"", "\"" ).replace( "}\"", "}" ).replace( "\"{",
+                                                                                                                  "{" );
         String summary = eventObject.get( JsonEventTag.SUMMARY ).toString().replace( "\\\"", "\"" )
                 .replace( "}\"", "}" ).replace( "\"{", "{" );
 
@@ -103,7 +107,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
 
         handleTimeSegmentEventCreation( eventObject, timestamp, channelName, valueAsJsonString, summary, relation );
 
-        handleChannelCreation( channelName, valueObject, valueAsJsonString );
+        handleChannelCreation( channelName, valueObject, summary );
 
         handleEventCreation( timestamp, channelName, valueObject, valueAsJsonString, summary, relation );
     }
