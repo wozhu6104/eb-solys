@@ -9,7 +9,11 @@
  ******************************************************************************/
 package com.elektrobit.ebsolys.core.targetdata.api.importer;
 
+import com.google.gson.JsonObject;
+
 public interface JsonEventHandler
 {
     public void handle(String jsonEvent);
+
+    public void handle(JsonObject event);
 }

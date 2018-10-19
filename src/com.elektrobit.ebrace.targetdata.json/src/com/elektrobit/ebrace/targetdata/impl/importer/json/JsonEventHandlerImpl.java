@@ -18,6 +18,7 @@ import com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAccepto
 import com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor;
+import com.google.gson.JsonObject;
 
 @Component
 public class JsonEventHandlerImpl implements JsonEventHandler
@@ -92,5 +93,11 @@ public class JsonEventHandlerImpl implements JsonEventHandler
     public void unbindTimeSegmentAcceptor(TimeSegmentAcceptorService timeSegmentAcceptor)
     {
         this.timeSegmentAcceptor = null;
+    }
+
+    @Override
+    public void handle(JsonObject event)
+    {
+        handler.handle( event );
     }
 }

@@ -82,10 +82,8 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         return null;
     }
 
-    public void handle(String event) throws JsonSyntaxException
+    public void handle(JsonObject eventObject)
     {
-        JsonObject eventObject = null;
-        eventObject = new JsonParser().parse( event ).getAsJsonObject();
         long timestamp = parseTimestamp( eventObject, JsonEventTag.UPTIME );
         String channelName = eventObject.get( JsonEventTag.CHANNEL ).getAsString();
         JsonElement valueElement = eventObject.get( JsonEventTag.VALUE );
@@ -110,6 +108,14 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         handleChannelCreation( channelName, valueObject, summary );
 
         handleEventCreation( timestamp, channelName, valueObject, valueAsJsonString, summary, relation );
+
+    }
+
+    public void handle(String event) throws JsonSyntaxException
+    {
+        JsonObject eventObject = null;
+        eventObject = new JsonParser().parse( event ).getAsJsonObject();
+        handle( eventObject );
     }
 
     private void handleTimeSegmentEventCreation(JsonObject eventObject, long timestamp, String channelName,
@@ -271,4 +277,5 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         String[] split = nodeName.split( "\\." );
         return structureAcceptor.addTreeNode( parent, split[split.length - 1] );
     }
+
 }

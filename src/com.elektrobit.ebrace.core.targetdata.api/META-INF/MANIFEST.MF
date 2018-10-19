@@ -22,5 +22,6 @@ Require-Bundle: org.eclipse.osgi,
  org.projectlombok.lombok;bundle-version="1.0.0",
  com.elektrobit.ebrace.protobuf.messagedefinitions,
  com.elektrobit.ebrace.common,
- com.google.protobuf;bundle-version="2.4.1"
+ com.google.protobuf;bundle-version="2.4.1",
+ com.google.gson
 Bundle-ClassPath: .
