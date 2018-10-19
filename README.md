@@ -26,7 +26,10 @@ EB solys is based on Eclipse RCP and can be used in GUI mode or CLI mode.
 
 ### Build GUI Executable
 
-run `mvn clean verify` inside src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
+```
+cd src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
+mvn clean verify
+```
 
 ## Contact
 
