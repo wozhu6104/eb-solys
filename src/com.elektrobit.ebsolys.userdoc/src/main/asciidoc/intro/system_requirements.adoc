@@ -1,0 +1,39 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+=== System Requirements
+
+[WARNING]
+To be reviewed!
+
+The performance of {solys} depends on the amount of data being processed and
+the available resources of the host computer.
+
+==== Requirements {solys}
+[%header%footer%autowidth]
+|===
+| Component                   | Minimum                | Recommended
+| Operating System          2+| Windows 7
+| CPU threads                 | 4                      | 8
+| CPU clock                   | 2.4 GHz                | 2.8 GHz
+| RAM                         | 8 GB                   | 16 GB
+| Available Hard Disk Space 2+| Depends on expected log size
+|===
+
+
+==== Requirements {solys} automation
+[%header%footer%autowidth]
+|===
+| Component                   | Minimum             | Recommended
+| Operating System          2+| Windows 7, Linux
+| CPU threads                 | 4                      | 8
+| CPU clock                   | 2.4 GHz                | 2.8 GHz
+| RAM                         | 8 GB                | 16 GB
+| Available Hard Disk Space 2+| Depends on expected log size
+|===

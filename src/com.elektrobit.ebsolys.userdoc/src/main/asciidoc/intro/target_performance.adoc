@@ -1,0 +1,145 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+=== {targetagent} Performance Impact
+
+The {targetagent} is an application running on the target system and therefore
+uses system resources.
+
+[IMPORTANT]
+The following values are only an indication based on a laboratory environment
+and may vary depending on the exact hardware and operating system being used
+in your project environment.
+
+==== Reference Hardware
+
+===== System Information
+
+====== Distribution Information
+
+....
+# lsb_release -a
+
+Distributor ID:	Ubuntu
+Description:	Ubuntu 14.04.4 LTS
+Release:	14.04
+Codename:	trusty
+....
+
+====== Cpu Information
+
+....
+# lscpu
+
+Architecture:          i686
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                4
+On-line CPU(s) list:   0-3
+Thread(s) per core:    1
+Core(s) per socket:    4
+Socket(s):             1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 42
+Stepping:              7
+CPU MHz:               2194.314
+BogoMIPS:              4388.62
+L1d cache:             32K
+L1d cache:             32K
+L2d cache:             6144K
+....
+
+====== Memory Information
+
+....
+# sudo lshw -class memory
+  *-firmware
+       description: BIOS
+       vendor: innotek GmbH
+       physical id: 0
+       version: VirtualBox
+       date: 12/01/2006
+       size: 128KiB
+       capabilities: isa pci cdboot bootselect int9keyboard int10video acpi
+  *-memory
+       description: System memory
+       physical id: 5
+       size: 4038MiB
+....
+
+==== Tests
+
+===== DLT Monitor Test
+*Test Case*
+
+How does the performance of {targetagent} vary with the DLT data amount?
+
+Tool: `dlt-test-stress -3`
+
+Version: DLT Package Version: 2.11.0
+
+Description: Generate DLT output by varying size
+
+[%header%footer%autowidth]
+|===
+| DLT log size | Resident Set Size | CPU usage
+| 0 bytes      | 6508 kB           | 1.7 %
+| 512 bytes    | 6508 kB           | 7.0 %
+|===
+
+===== Resource Monitor Test
+*Test Case*
+
+How does the performance of {targetagent} vary with resource monitors sampling rate?
+
+[%header%footer%autowidth]
+|===
+| Sampling Rate | Resident Set Size | CPU usage
+| 500 ms        | 6528 kB           | 3.0 %
+| 1000 ms       | 6512 kB           | 1.7 %
+| 1500 ms       | 6500 kB           | 0.7 %
+|===
+
+
+===== Dbus Monitor Test
+*Test Case*
+
+[NOTE]
+This requires `pyqt5-examples` package to be installed.
+
+Following bash scripts will be used to generate traffic.
+
+.pong.sh
+....
+#!/bin/bash
+while true; do
+python pong.py
+done
+....
+
+.ping.sh
+....
+#!/bin/bash
+while true; do
+python ping.py <insert 1kB or 2kB of binary data>
+sleep 1
+done
+....
+
+`# ./pong.sh`
+
+`# ./ping.sh`
+
+[%header%footer%autowidth]
+|===
+| Data Amount  | Resident Set Size | CPU usage
+| 1 kB         | 6508 kB           | 1.0 %
+| 2 kB         | 6508 kB           | 1.5 %
+|===

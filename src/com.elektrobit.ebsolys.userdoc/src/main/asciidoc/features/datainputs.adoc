@@ -1,0 +1,57 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+== Specifying target data input
+
+=== Example input file
+
+[source,json]
+----
+{
+  "targets":[
+    {
+      "id":"RasPi",
+      "stream":{
+        "type":"tcp-client",
+        "details":{
+          "host":"192.168.178.36",
+          "port":3490
+        }
+      },
+      "protocol":{
+        "type":"dlt",
+        "details":{
+          "delimiter":"dlt-stream-header"
+        }
+      },
+      "filters":[]
+    },
+    {
+      "id":"Arduino",
+      "stream":{
+        "type":"serial",
+        "details":{
+          "port":"COM6",
+          "baudrate":9600
+        }
+      },
+      "protocol":{
+        "type":"csv",
+        "details":{
+          "delimiter":"byte-array-delimiter",
+          "messagetoken":"\r\n",
+          "itemtoken":","
+        }
+      },
+      "channel":"light-sensor",
+      "filters":[]
+    }
+  ]
+}
+----
