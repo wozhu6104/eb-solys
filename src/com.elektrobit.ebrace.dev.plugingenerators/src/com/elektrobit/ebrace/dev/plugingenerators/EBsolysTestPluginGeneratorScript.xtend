@@ -200,7 +200,7 @@ class EBsolysTestPluginGeneratorScript {
 	}
 
 	def static createBuildManifestFile(String pluginFolderPath, String content) {
-		val String metaInfFolder = pluginFolderPath + "/META_INF"
+		val String metaInfFolder = pluginFolderPath + "/META-INF"
 		new File(metaInfFolder).mkdirs
 		writeToFile("MANIFEST.MF", metaInfFolder, content)
 	}
