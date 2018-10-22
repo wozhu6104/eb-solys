@@ -7,20 +7,21 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package test.de.systemticks.ebrace.eventhooks.regextochannelhook;
+package test.com.elektrobit.ebrace.targetdata.json;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.elektrobit.ebrace.targetdata.impl.importer.json.JsonEventDataAdapter;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import de.systemticks.ebrace.eventhooks.regextochannelhook.JsonEventByRegExMapper;
-
-public class RegExToChannelEventHandlerTest
+public class JsonEventDataAdapterTest
 {
+    private static final JsonEventDataAdapter ADAPTER = new JsonEventDataAdapter();
+
     // @formatter:off
     public static final String EVENT_JSON = "{" + 
             "  \"uptime\": \"12345\",\n" + 
@@ -33,6 +34,7 @@ public class RegExToChannelEventHandlerTest
             "      \"param2\": \"Value 2\",\n" + 
             "      \"param3\": null\n" + 
             "    },\n" + 
+            "    \"duration\": \"123\",\n" +
             "    \"edge\": {\n" + 
             "      \"source\": \"service1.module1\",\n" + 
             "      \"destination\": \"service2.module2\",\n" + 
@@ -41,30 +43,28 @@ public class RegExToChannelEventHandlerTest
             "  }\n" + 
             "}";
     // @formatter:on
-    // @formatter:off
-    public static final String NEW_EVENT_JSON_STRING_VALUE = "{\"uptime\":\"12345\",\"channel\":\"cpu.yourname\",\"value\":\"12\"}";
-    public static final String NEW_EVENT_JSON_LONG_VALUE = "{\"uptime\":\"12345\",\"channel\":\"cpu.yourname\",\"value\":12}";
-    // @formatter:on
-    private static final String REG_EX = "[\\s\\S]*channel\":\"[\\S]*\\.([\\S]*)\",[\\s\\S]*param1\":([0-9]*),[\\s\\S]*";
-    private static JsonObject event;
+
+    private static JsonObject eventData;
+
+    private static final Long EXPECTED_TIMESTAMP = 12345000l;
+    private static final Long EXPECTED_DURATION = 123000l;
 
     @BeforeClass
     public static void setup()
     {
-        event = new JsonParser().parse( EVENT_JSON ).getAsJsonObject();
+        eventData = new JsonParser().parse( EVENT_JSON ).getAsJsonObject();
+        ADAPTER.initialize( eventData );
     }
 
     @Test
-    public void handleJsonEventWithStringValue()
+    public void testGetTimestamp()
     {
-        String result = new JsonEventByRegExMapper( REG_EX, "cpu", false ).map( event ).toString();
-        assertEquals( NEW_EVENT_JSON_STRING_VALUE, result );
+        assertEquals( EXPECTED_TIMESTAMP, ADAPTER.getTimestamp() );
     }
 
     @Test
-    public void handleJsonEventWithLongValue()
+    public void testGetDuration()
     {
-        String result = new JsonEventByRegExMapper( REG_EX, "cpu", true ).map( event ).toString();
-        assertEquals( NEW_EVENT_JSON_LONG_VALUE, result );
+        assertEquals( EXPECTED_DURATION, ADAPTER.getDuration() );
     }
 }

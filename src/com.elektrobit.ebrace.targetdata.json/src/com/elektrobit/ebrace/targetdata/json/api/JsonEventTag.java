@@ -11,12 +11,12 @@ package com.elektrobit.ebrace.targetdata.json.api;
 
 public class JsonEventTag
 {
-    public static final String SUMMARY = "summary";
+    public static final String SUMMARY = "value.summary";
     public static final String CHANNEL = "channel";
     public static final String UPTIME = "uptime";
-    public static final String DURATION = "duration";
-    public static final String DESTINATION = "destination";
-    public static final String SOURCE = "source";
-    public static final String EDGE = "edge";
+    public static final String DURATION = "value.duration";
+    public static final String DESTINATION = "value.edge.destination";
+    public static final String SOURCE = "value.edge.source";
+    public static final String EDGE = "value.edge";
     public static final String VALUE = "value";
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2018 systemticks GmbH
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
  * 
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -7,20 +7,21 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package test.de.systemticks.ebrace.eventhooks.regextochannelhook;
+package test.com.elektrobit.ebrace.common.utils;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.elektrobit.ebrace.common.utils.SimpleJsonPath;
 
-import de.systemticks.ebrace.eventhooks.regextochannelhook.JsonEventByRegExMapper;
-
-public class RegExToChannelEventHandlerTest
+public class SimpleJsonPathTest
 {
+    private static final int EXPECTED_FIRST_LEVEL_VALUE = 12345;
+    private static final String EXPECTED_SECOND_LEVEL_VALUE = "I am a trace message";
+    private static final int EXPECTED_THIRD_LEVEL_VALUE = 12;
+
     // @formatter:off
     public static final String EVENT_JSON = "{" + 
             "  \"uptime\": \"12345\",\n" + 
@@ -33,6 +34,7 @@ public class RegExToChannelEventHandlerTest
             "      \"param2\": \"Value 2\",\n" + 
             "      \"param3\": null\n" + 
             "    },\n" + 
+            "    \"duration\": \"123\",\n" +
             "    \"edge\": {\n" + 
             "      \"source\": \"service1.module1\",\n" + 
             "      \"destination\": \"service2.module2\",\n" + 
@@ -41,30 +43,36 @@ public class RegExToChannelEventHandlerTest
             "  }\n" + 
             "}";
     // @formatter:on
-    // @formatter:off
-    public static final String NEW_EVENT_JSON_STRING_VALUE = "{\"uptime\":\"12345\",\"channel\":\"cpu.yourname\",\"value\":\"12\"}";
-    public static final String NEW_EVENT_JSON_LONG_VALUE = "{\"uptime\":\"12345\",\"channel\":\"cpu.yourname\",\"value\":12}";
-    // @formatter:on
-    private static final String REG_EX = "[\\s\\S]*channel\":\"[\\S]*\\.([\\S]*)\",[\\s\\S]*param1\":([0-9]*),[\\s\\S]*";
-    private static JsonObject event;
+    private static SimpleJsonPath simpleJsonPath;
 
     @BeforeClass
     public static void setup()
     {
-        event = new JsonParser().parse( EVENT_JSON ).getAsJsonObject();
+        simpleJsonPath = new SimpleJsonPath( EVENT_JSON );
     }
 
     @Test
-    public void handleJsonEventWithStringValue()
+    public void getFirstLevelObject()
     {
-        String result = new JsonEventByRegExMapper( REG_EX, "cpu", false ).map( event ).toString();
-        assertEquals( NEW_EVENT_JSON_STRING_VALUE, result );
+        assertEquals( EXPECTED_FIRST_LEVEL_VALUE, simpleJsonPath.get( "uptime" ).getAsNumber().intValue() );
     }
 
     @Test
-    public void handleJsonEventWithLongValue()
+    public void getSecondLevelObject()
     {
-        String result = new JsonEventByRegExMapper( REG_EX, "cpu", true ).map( event ).toString();
-        assertEquals( NEW_EVENT_JSON_LONG_VALUE, result );
+        assertEquals( EXPECTED_SECOND_LEVEL_VALUE, simpleJsonPath.get( "value.summary" ).getAsString() );
+    }
+
+    @Test
+    public void getThirdLevelObject()
+    {
+        assertEquals( EXPECTED_THIRD_LEVEL_VALUE,
+                      simpleJsonPath.get( "value.details.param1" ).getAsNumber().intValue() );
+    }
+
+    @Test
+    public void tryGetNonExistingValue()
+    {
+        assertEquals( null, simpleJsonPath.get( "value.paramX.paramY" ) );
     }
 }

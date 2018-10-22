@@ -19,23 +19,31 @@ public class JsonEventByRegExMapper
     private final Pattern pattern;
     private Matcher matcher;
     private final String channelName;
+    private final boolean asLong;
 
-    public JsonEventByRegExMapper(String regEx, String channelName)
+    public JsonEventByRegExMapper(String regEx, String channelName, boolean asLong)
     {
         pattern = Pattern.compile( regEx );
         this.channelName = channelName;
+        this.asLong = asLong;
     }
 
     public JsonObject map(JsonObject event)
     {
         JsonObject mappedEvent = new JsonObject();
-        System.out.println( event.toString() );
         matcher = pattern.matcher( event.toString() );
         if (matcher.find())
         {
             mappedEvent.addProperty( "uptime", event.get( "uptime" ).getAsString() );
             mappedEvent.addProperty( "channel", channelName + "." + matcher.group( 1 ) );
-            mappedEvent.addProperty( "value", matcher.group( 2 ) );
+            if (asLong)
+            {
+                mappedEvent.addProperty( "value", Long.parseLong( matcher.group( 2 ) ) );
+            }
+            else
+            {
+                mappedEvent.addProperty( "value", matcher.group( 2 ) );
+            }
         }
         return mappedEvent;
     }

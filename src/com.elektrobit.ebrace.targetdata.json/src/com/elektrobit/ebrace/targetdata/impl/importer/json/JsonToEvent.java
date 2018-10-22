@@ -49,6 +49,8 @@ public class JsonToEvent implements NodeAgent<TreeNode>
 
     private final Map<String, RuntimeEventChannel<?>> channels = new HashMap<>();
 
+    private final JsonEventDataAdapter eventDataAdapter = new JsonEventDataAdapter();
+
     public JsonToEvent(RuntimeEventAcceptor runtimeEventAcceptor, StructureAcceptor structureAcceptor,
             ComRelationAcceptor comRelationAcceptor, TimeSegmentAcceptorService timeSegmentAcceptor,
             String channelDescription)
@@ -77,15 +79,12 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         return new ArrayList<TreeLevelDef>( treeLevels.values() );
     }
 
-    public RuntimeEvent<?> toRuntimeEvent(String event)
-    {
-        return null;
-    }
-
     public void handle(JsonObject eventObject)
     {
-        long timestamp = parseTimestamp( eventObject, JsonEventTag.UPTIME );
+        eventDataAdapter.initialize( eventObject );
+
         String channelName = eventObject.get( JsonEventTag.CHANNEL ).getAsString();
+
         JsonElement valueElement = eventObject.get( JsonEventTag.VALUE );
         if (valueElement == null)
         {
@@ -101,14 +100,19 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         String summary = eventObject.get( JsonEventTag.SUMMARY ).toString().replace( "\\\"", "\"" )
                 .replace( "}\"", "}" ).replace( "\"{", "{" );
 
-        ComRelation relation = tryToRetrieveComRelation( eventObject );
+        ComRelation comRelation = handleComRelationCreation( eventObject );
 
-        handleTimeSegmentEventCreation( eventObject, timestamp, channelName, valueAsJsonString, summary, relation );
+        handleTimeSegmentEventCreation( eventObject,
+                                        eventDataAdapter.getTimestamp(),
+                                        channelName,
+                                        valueAsJsonString,
+                                        summary,
+                                        comRelation );
 
         handleChannelCreation( channelName, valueObject, summary );
 
-        handleEventCreation( timestamp, channelName, valueObject, valueAsJsonString, summary, relation );
-
+        handleEventCreation( eventDataAdapter
+                .getTimestamp(), channelName, valueObject, valueAsJsonString, summary, comRelation );
     }
 
     public void handle(String event) throws JsonSyntaxException
@@ -124,7 +128,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         if (eventObject.has( JsonEventTag.DURATION ))
         {
             createTimeSegmentEvent( timestamp,
-                                    parseTimestamp( eventObject, JsonEventTag.DURATION ),
+                                    eventDataAdapter.getDuration(),
                                     channelName,
                                     valueAsJsonString,
                                     summary,
@@ -132,7 +136,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         }
     }
 
-    private ComRelation tryToRetrieveComRelation(JsonObject eventObject)
+    private ComRelation handleComRelationCreation(JsonObject eventObject)
     {
         return (eventObject.has( JsonEventTag.EDGE )) ? processStructuredEvent( eventObject ) : null;
     }
@@ -201,20 +205,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         }
     }
 
-    private long parseTimestamp(JsonObject eventObject, String tagName)
-    {
-        String timestampString = eventObject.getAsJsonObject().get( tagName ).getAsString();
-        long timestamp = Long.parseLong( timestampString.replace( "u", "" ) );
-        if (timestampString.endsWith( "u" ))
-        {
-            return timestamp;
-        }
-        else
-        {
-            return timestamp * 1000;
-        }
-    }
-
     private ComRelation processStructuredEvent(JsonObject eventObject)
     {
         String source = eventObject.get( JsonEventTag.EDGE ).getAsJsonObject().get( JsonEventTag.SOURCE ).getAsString();
@@ -257,7 +247,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
                 .acceptEventMicros( timestamp + duration, segmentEventChannel, relation, valueAsJsonString, summary );
 
         timeSegmentAcceptor.add( channel, startEvent, endEvent );
-
     }
 
     public StructureAcceptor getStructureAcceptor()
@@ -273,7 +262,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
     @Override
     public TreeNode createNodeObject(String nodeName, TreeNode parent)
     {
-
         String[] split = nodeName.split( "\\." );
         return structureAcceptor.addTreeNode( parent, split[split.length - 1] );
     }
