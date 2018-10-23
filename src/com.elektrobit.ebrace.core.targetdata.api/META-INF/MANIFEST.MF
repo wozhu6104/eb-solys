@@ -5,7 +5,8 @@ Bundle-SymbolicName: com.elektrobit.ebrace.core.targetdata.api
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: ELEKTROBIT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.elektrobit.ebsolys.core.targetdata.api,
+Export-Package: com.elektrobit.ebrace.core.targetdata.api.json,
+ com.elektrobit.ebsolys.core.targetdata.api,
  com.elektrobit.ebsolys.core.targetdata.api.adapter,
  com.elektrobit.ebsolys.core.targetdata.api.color,
  com.elektrobit.ebsolys.core.targetdata.api.comrelation,

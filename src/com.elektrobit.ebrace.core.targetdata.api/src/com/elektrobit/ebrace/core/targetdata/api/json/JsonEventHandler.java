@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2018 systemticks GmbH
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
  * 
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -7,17 +7,11 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package de.systemticks.ebrace.core.eventhook.registry.api;
+package com.elektrobit.ebrace.core.targetdata.api.json;
 
-import java.util.Set;
-
-public interface EventHookRegistry
+public interface JsonEventHandler
 {
-    public void register(EventHook hook);
+    public void handle(String jsonEvent);
 
-    public void unregister(EventHook hook);
-
-    public Set<EventHook> getAll();
-
-    public void callFor(String eventJson);
+    public void handle(JsonEvent event);
 }

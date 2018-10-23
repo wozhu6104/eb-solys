@@ -32,21 +32,27 @@ public class SimpleJsonPath
 
     public String stringValueOf(String key)
     {
-        return navigateTo( Arrays.asList( key.split( "\\." ) ) ).getAsString();
+        return getByPath( key ).getAsString();
     }
 
     public JsonObject jsonObjectValueOf(String key)
     {
-        return navigateTo( Arrays.asList( key.split( "\\." ) ) ).getAsJsonObject();
+        return getByPath( key ).getAsJsonObject();
     }
 
-    public JsonElement get(String path)
+    public JsonElement get(String jsonPath)
     {
-        return navigateTo( Arrays.asList( path.split( "\\." ) ) );
+        return getByPath( jsonPath );
     }
 
-    private JsonElement navigateTo(List<String> parts)
+    private JsonElement getByPath(String jsonPath)
     {
+        return navigateTo( jsonPath );
+    }
+
+    private JsonElement navigateTo(String jsonPath)
+    {
+        List<String> parts = Arrays.asList( jsonPath.split( "\\." ) );
         JsonObject latest = target;
 
         for (String part : parts.subList( 0, parts.size() - 1 ))

@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.core.datainput.api;
 
-import com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

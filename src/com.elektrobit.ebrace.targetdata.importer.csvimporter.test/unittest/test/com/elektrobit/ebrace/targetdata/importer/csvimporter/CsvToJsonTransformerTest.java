@@ -9,33 +9,38 @@
  ******************************************************************************/
 package test.com.elektrobit.ebrace.targetdata.importer.csvimporter;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
 import com.elektrobit.ebrace.common.utils.FileHelper;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.targetdata.importer.internal.csvimporter.CsvToJsonTransformer;
+import com.google.gson.Gson;
 
-public class CsvToJsonTransformerTest {
+public class CsvToJsonTransformerTest
+{
 
-	@Test
-	public void transform() {
-		String input = "1234,12.0,numeric channel";
-		String output = "{\"summary\":\"12.0\",\"channel\":\"numeric channel\",\"value\":\"12.0\",\"uptime\":\"1234\"}";
-		CsvToJsonTransformer transformer = new CsvToJsonTransformer();
-		transformer.acquireMetaData(null, ".");
-		
-		assertEquals(output, transformer.transformEvent(input));
-	}
-	
-	
-	@Test
-	public void transformWithHint() {
-		String input = "1234;12.0";
-		String output = "{\"summary\":\"12.0\",\"channel\":\"trace.csv\",\"value\":\"12.0\",\"uptime\":\"1234\"}";
-		CsvToJsonTransformer transformer = new CsvToJsonTransformer();
-		transformer.acquireMetaData("timestamp;value", FileHelper.getBundleRootFolderOfClass(getClass()));
-		
-		assertEquals(output, transformer.transformEvent(input));
-	}
+    @Test
+    public void transform()
+    {
+        String input = "1234,12.0,numeric channel";
+        String output = "{\"uptime\":1234,\"channel\":\"numeric channel\",\"value\":{\"summary\":\"12.0\"},\"duration\":0}";
+        CsvToJsonTransformer transformer = new CsvToJsonTransformer();
+        transformer.acquireMetaData( null, "." );
+
+        assertEquals( output, new Gson().toJson( transformer.transformEvent( input ), JsonEvent.class ) );
+    }
+
+    @Test
+    public void transformWithHint()
+    {
+        String input = "1234;12.0";
+        String output = "{\"uptime\":1234,\"channel\":\"trace.csv\",\"value\":{\"summary\":\"12.0\"},\"duration\":0}";
+        CsvToJsonTransformer transformer = new CsvToJsonTransformer();
+        transformer.acquireMetaData( "timestamp;value", FileHelper.getBundleRootFolderOfClass( getClass() ) );
+
+        assertEquals( output, new Gson().toJson( transformer.transformEvent( input ), JsonEvent.class ) );
+    }
 
 }

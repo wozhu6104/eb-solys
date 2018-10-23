@@ -14,11 +14,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventEdge;
 import com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService;
 import com.elektrobit.ebrace.targetdata.impl.importer.json.util.NodeAgent;
 import com.elektrobit.ebrace.targetdata.impl.importer.json.util.StructuredNodeNameToNodeTree;
-import com.elektrobit.ebrace.targetdata.json.api.JsonEventTag;
 import com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelation;
 import com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
@@ -30,10 +32,8 @@ import com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.structure.Tree;
 import com.elektrobit.ebsolys.core.targetdata.api.structure.TreeLevelDef;
 import com.elektrobit.ebsolys.core.targetdata.api.structure.TreeNode;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
 
 public class JsonToEvent implements NodeAgent<TreeNode>
 {
@@ -48,8 +48,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
     private Tree tree;
 
     private final Map<String, RuntimeEventChannel<?>> channels = new HashMap<>();
-
-    private final JsonEventDataAdapter eventDataAdapter = new JsonEventDataAdapter();
 
     public JsonToEvent(RuntimeEventAcceptor runtimeEventAcceptor, StructureAcceptor structureAcceptor,
             ComRelationAcceptor comRelationAcceptor, TimeSegmentAcceptorService timeSegmentAcceptor,
@@ -79,137 +77,115 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         return new ArrayList<TreeLevelDef>( treeLevels.values() );
     }
 
-    public void handle(JsonObject eventObject)
+    public void handle(String eventJson)
     {
-        eventDataAdapter.initialize( eventObject );
-
-        String channelName = eventObject.get( JsonEventTag.CHANNEL ).getAsString();
-
-        JsonElement valueElement = eventObject.get( JsonEventTag.VALUE );
-        if (valueElement == null)
-        {
-            valueElement = eventObject;
-        }
-        Object valueObject = null;
-        if (valueElement.isJsonPrimitive() && valueElement.getAsJsonPrimitive().isNumber())
-        {
-            valueObject = valueElement.getAsLong();
-        }
-        String valueAsJsonString = valueElement.toString().replace( "\\\"", "\"" ).replace( "}\"", "}" ).replace( "\"{",
-                                                                                                                  "{" );
-        String summary = eventObject.get( JsonEventTag.SUMMARY ).toString().replace( "\\\"", "\"" )
-                .replace( "}\"", "}" ).replace( "\"{", "{" );
-
-        ComRelation comRelation = handleComRelationCreation( eventObject );
-
-        handleTimeSegmentEventCreation( eventObject,
-                                        eventDataAdapter.getTimestamp(),
-                                        channelName,
-                                        valueAsJsonString,
-                                        summary,
-                                        comRelation );
-
-        handleChannelCreation( channelName, valueObject, summary );
-
-        handleEventCreation( eventDataAdapter
-                .getTimestamp(), channelName, valueObject, valueAsJsonString, summary, comRelation );
+        JsonEvent event = new Gson().fromJson( eventJson, JsonEvent.class );
+        handle( event );
     }
 
-    public void handle(String event) throws JsonSyntaxException
+    public void handle(JsonEvent event)
     {
-        JsonObject eventObject = null;
-        eventObject = new JsonParser().parse( event ).getAsJsonObject();
-        handle( eventObject );
+        ComRelation comRelation = handleComRelationCreation( event );
+        handleTimeSegmentEventCreation( event, comRelation );
+        handleChannelCreation( event );
+        handleEventCreation( event, comRelation );
     }
 
-    private void handleTimeSegmentEventCreation(JsonObject eventObject, long timestamp, String channelName,
-            String valueAsJsonString, String summary, ComRelation relation)
+    private ComRelation handleComRelationCreation(JsonEvent event)
     {
-        if (eventObject.has( JsonEventTag.DURATION ))
+        JsonEventEdge edge = event.getEdge();
+        return (edge != null) ? processStructuredEvent( edge ) : null;
+    }
+
+    private void handleTimeSegmentEventCreation(JsonEvent event, ComRelation relation)
+    {
+        if (event.getDuration() != null)
         {
-            createTimeSegmentEvent( timestamp,
-                                    eventDataAdapter.getDuration(),
-                                    channelName,
-                                    valueAsJsonString,
-                                    summary,
-                                    relation );
+            createTimeSegmentEvent( event, relation );
         }
     }
 
-    private ComRelation handleComRelationCreation(JsonObject eventObject)
+    private void createTimeSegmentEvent(JsonEvent event, ComRelation relation)
     {
-        return (eventObject.has( JsonEventTag.EDGE )) ? processStructuredEvent( eventObject ) : null;
+        RuntimeEventChannel<STimeSegment> channel = runtimeEventAcceptor
+                .createOrGetRuntimeEventChannel( event.getChannel(), Unit.TIMESEGMENT, channelDescription );
+
+        RuntimeEventChannel<String> segmentEventChannel = runtimeEventAcceptor.createOrGetRuntimeEventChannel( "_"
+                + event.getChannel() + "_segmentBoundaries", Unit.TEXT, channelDescription );
+
+        String value = event.getValue().getDetails().toString();
+        Object summaryObject = event.getValue().getSummary();
+        String summary = (summaryObject != null && summaryObject instanceof String) ? (String)summaryObject : "";
+        RuntimeEvent<String> startEvent = runtimeEventAcceptor
+                .acceptEventMicros( event.getUptime(), segmentEventChannel, relation, value, summary );
+        RuntimeEvent<String> endEvent = runtimeEventAcceptor.acceptEventMicros( event.getUptime()
+                + event.getDuration(), segmentEventChannel, relation, value, summary );
+
+        timeSegmentAcceptor.add( channel, startEvent, endEvent );
     }
 
-    private void handleChannelCreation(String channelName, Object valueObject, String valueAsJsonString)
+    private void handleChannelCreation(JsonEvent event)
     {
+        String channelName = event.getChannel();
+        Object summary = event.getValue().getSummary();
         if (!channels.containsKey( channelName ))
         {
-            if (valueObject != null && valueObject instanceof Long)
+            if (summary != null && summary instanceof Long)
             {
                 channels.put( channelName,
                               runtimeEventAcceptor
                                       .createOrGetRuntimeEventChannel( channelName, Unit.COUNT, channelDescription ) );
             }
-            else if (valueAsJsonString.startsWith( "{" ) && valueAsJsonString.endsWith( "}" ))
-            {
-                final List<String> keys = extractJsonColumnFields( valueAsJsonString );
-                channels.put( channelName,
-                              runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
-                                                                                   Unit.TEXT,
-                                                                                   channelDescription,
-                                                                                   keys ) );
-            }
             else
             {
-                channels.put( channelName,
-                              runtimeEventAcceptor
-                                      .createOrGetRuntimeEventChannel( channelName, Unit.TEXT, channelDescription ) );
+                JsonElement details = event.getValue().getDetails();
+                if (details != null)
+                {
+                    channels.put( channelName,
+                                  runtimeEventAcceptor
+                                          .createOrGetRuntimeEventChannel( channelName,
+                                                                           Unit.TEXT,
+                                                                           channelDescription,
+                                                                           details.getAsJsonObject().entrySet().stream()
+                                                                                   .map( entry -> entry.getKey() )
+                                                                                   .collect( Collectors.toList() ) ) );
+                }
+                else
+                {
+                    channels.put( channelName,
+                                  runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
+                                                                                       Unit.TEXT,
+                                                                                       channelDescription ) );
+                }
             }
         }
-    }
-
-    private List<String> extractJsonColumnFields(String valueAsJsonString)
-    {
-        final List<String> keys = new ArrayList<String>();
-        JsonObject value = null;
-        JsonParser parser = new JsonParser();
-        JsonElement jsonValue = parser.parse( valueAsJsonString );
-        if (jsonValue.isJsonObject())
-        {
-            value = jsonValue.getAsJsonObject();
-            value.entrySet().stream().forEach( entry -> keys.add( entry.getKey() ) );
-        }
-        return keys;
     }
 
     @SuppressWarnings("unchecked")
-    private void handleEventCreation(long timestamp, String channelName, Object valueObject, String valueAsJsonString,
-            String summary, ComRelation relation)
+    private void handleEventCreation(JsonEvent event, ComRelation relation)
     {
-        if (valueObject instanceof Long)
+        if (event.getValue().getSummary() instanceof Long)
         {
-            runtimeEventAcceptor.acceptEventMicros( timestamp,
-                                                    (RuntimeEventChannel<Long>)channels.get( channelName ),
+            runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
+                                                    (RuntimeEventChannel<Long>)channels.get( event.getChannel() ),
                                                     relation,
-                                                    (Long)valueObject,
-                                                    summary );
+                                                    (Long)event.getValue().getSummary(),
+                                                    event.getValue().getSummary() + "" );
         }
         else
         {
-            runtimeEventAcceptor.acceptEventMicros( timestamp,
-                                                    (RuntimeEventChannel<String>)channels.get( channelName ),
+            runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
+                                                    (RuntimeEventChannel<String>)channels.get( event.getChannel() ),
                                                     relation,
-                                                    valueAsJsonString,
-                                                    summary );
+                                                    event.getValue().toString(),
+                                                    (String)event.getValue().getSummary() );
         }
     }
 
-    private ComRelation processStructuredEvent(JsonObject eventObject)
+    private ComRelation processStructuredEvent(JsonEventEdge edge)
     {
-        String source = eventObject.get( JsonEventTag.EDGE ).getAsJsonObject().get( JsonEventTag.SOURCE ).getAsString();
-        String destination = eventObject.get( JsonEventTag.EDGE ).getAsJsonObject().get( JsonEventTag.DESTINATION )
-                .getAsString();
+        String source = edge.getSource();
+        String destination = edge.getDestination();
 
         provideSufficientLayers( source.split( "\\." ) );
         provideSufficientLayers( destination.split( "\\." ) );
@@ -230,23 +206,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
             structureAcceptor.appendTreeLevelDef( tree, newDef );
             treeLevels.put( newDefName, newDef );
         }
-    }
-
-    private void createTimeSegmentEvent(long timestamp, long duration, String channelName, String valueAsJsonString,
-            String summary, ComRelation relation)
-    {
-        RuntimeEventChannel<STimeSegment> channel = runtimeEventAcceptor
-                .createOrGetRuntimeEventChannel( channelName, Unit.TIMESEGMENT, channelDescription );
-
-        RuntimeEventChannel<String> segmentEventChannel = runtimeEventAcceptor.createOrGetRuntimeEventChannel( "_"
-                + channelName + "_segmentBoundaries", Unit.TEXT, channelDescription );
-
-        RuntimeEvent<String> startEvent = runtimeEventAcceptor
-                .acceptEventMicros( timestamp, segmentEventChannel, relation, valueAsJsonString, summary );
-        RuntimeEvent<String> endEvent = runtimeEventAcceptor
-                .acceptEventMicros( timestamp + duration, segmentEventChannel, relation, valueAsJsonString, summary );
-
-        timeSegmentAcceptor.add( channel, startEvent, endEvent );
     }
 
     public StructureAcceptor getStructureAcceptor()

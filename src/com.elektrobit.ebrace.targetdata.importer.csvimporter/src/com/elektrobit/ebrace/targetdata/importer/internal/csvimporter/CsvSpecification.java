@@ -15,11 +15,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.elektrobit.ebrace.targetdata.json.api.JsonEventTag;
-
 public class CsvSpecification
 {
+    public static final String CHANNEL_TAG = "channel";
+    public static final String SUMMARY_TAG = "summary";
+    public static final String VALUE_TAG = "value";
+    public static final String UPTIME_TAG = "uptime";
     public static final String TIME_FORMAT_PREFIX = "tf_";
+
+    private static final String DEFAULT_VALUE_STRING = "no value detected";
+    private static final String CSV_CHANNEL_PREFIX = "trace.csv";
+
     private final String schema;
     private final Map<String, List<Object>> fieldMapping;
     private String separator = ",";
@@ -102,7 +108,7 @@ public class CsvSpecification
             {
                 fieldId = extractFieldId( fieldPart );
                 objects.add( index );
-                if (fieldId.startsWith( JsonEventTag.UPTIME ))
+                if (fieldId.startsWith( UPTIME_TAG ))
                 {
                     objects.add( handleFieldPart( fieldPart.substring( 1 ) ) );
                 }
@@ -141,7 +147,7 @@ public class CsvSpecification
     {
         Object returnObject = null;
 
-        if (part.startsWith( JsonEventTag.UPTIME ))
+        if (part.startsWith( UPTIME_TAG ))
         {
             String timeFormat = timeFormatBetweenBrackets( part );
             returnObject = TIME_FORMAT_PREFIX + timeFormat;
@@ -162,21 +168,21 @@ public class CsvSpecification
 
     private static void fillUpRequiredFields(Map<String, List<Object>> fieldMapping)
     {
-        if (!fieldMapping.containsKey( JsonEventTag.UPTIME ))
+        if (!fieldMapping.containsKey( UPTIME_TAG ))
         {
-            fieldMapping.put( JsonEventTag.UPTIME, Arrays.asList( "0" ) );
+            fieldMapping.put( UPTIME_TAG, Arrays.asList( "0" ) );
         }
-        if (!fieldMapping.containsKey( JsonEventTag.VALUE ))
+        if (!fieldMapping.containsKey( VALUE_TAG ))
         {
-            fieldMapping.put( JsonEventTag.VALUE, Arrays.asList( "no value detected" ) );
+            fieldMapping.put( VALUE_TAG, Arrays.asList( DEFAULT_VALUE_STRING ) );
         }
-        if (!fieldMapping.containsKey( JsonEventTag.SUMMARY ))
+        if (!fieldMapping.containsKey( SUMMARY_TAG ))
         {
-            fieldMapping.put( JsonEventTag.SUMMARY, fieldMapping.get( JsonEventTag.VALUE ) );
+            fieldMapping.put( SUMMARY_TAG, fieldMapping.get( VALUE_TAG ) );
         }
-        if (!fieldMapping.containsKey( JsonEventTag.CHANNEL ))
+        if (!fieldMapping.containsKey( CHANNEL_TAG ))
         {
-            fieldMapping.put( JsonEventTag.CHANNEL, Arrays.asList( "trace.csv" ) );
+            fieldMapping.put( CHANNEL_TAG, Arrays.asList( CSV_CHANNEL_PREFIX ) );
         }
     }
 }

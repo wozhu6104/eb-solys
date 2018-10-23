@@ -13,8 +13,7 @@ import org.apache.log4j.Logger;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler;
-import com.google.gson.JsonObject;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.eventhooks.regextochannelhook.api.RegExToChannelEventHook;
@@ -37,8 +36,9 @@ public class RegExToChannelEventHookImpl implements RegExToChannelEventHook
     }
 
     @Override
-    public void onEvent(JsonObject event)
+    public void onEvent(String event)
     {
+        LOG.debug( this.getClass().getName() + ".onEvent(" + event + ")" );
         jsonEventHandler.handle( event );
     }
 }

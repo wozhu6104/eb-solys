@@ -5,7 +5,7 @@
       <provide interface="com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory"/>
    </service>
    <reference bind="bindComRelationAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" policy="static" unbind="unbindComRelationAcceptor"/>
-   <reference bind="bindJsonEventHandler" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler" name="JsonEventHandler" policy="static" unbind="unbindJsonEventHandler"/>
+   <reference bind="bindJsonEventHandler" cardinality="1..1" interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler" name="JsonEventHandler" policy="static" unbind="unbindJsonEventHandler"/>
    <reference bind="bindRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unbindRuntimeEventAcceptor"/>
    <reference bind="bindStructureAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor" name="StructureAcceptor" policy="static" unbind="unbindStructureAcceptor"/>
    <implementation class="com.elektrobit.ebrace.targetdata.impl.adapter.json.JsonAPIAdapterFactory"/>

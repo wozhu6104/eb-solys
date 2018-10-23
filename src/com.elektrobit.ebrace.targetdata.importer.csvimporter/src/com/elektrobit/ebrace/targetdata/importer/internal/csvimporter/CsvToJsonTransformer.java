@@ -24,9 +24,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
 import com.elektrobit.ebrace.targetdata.importer.internal.csvimporter.api.Transformer;
-import com.elektrobit.ebrace.targetdata.json.api.JsonEventTag;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class CsvToJsonTransformer implements Transformer
@@ -48,10 +48,10 @@ public class CsvToJsonTransformer implements Transformer
         {
             Map<String, List<Object>> fieldMapping = new HashMap<>();
             String separator = ",";
-            fieldMapping.put( JsonEventTag.UPTIME, Arrays.asList( 0 ) );
-            fieldMapping.put( JsonEventTag.CHANNEL, Arrays.asList( 2 ) );
-            fieldMapping.put( JsonEventTag.SUMMARY, Arrays.asList( 1 ) );
-            fieldMapping.put( JsonEventTag.VALUE, Arrays.asList( 1 ) );
+            fieldMapping.put( CsvSpecification.UPTIME_TAG, Arrays.asList( 0 ) );
+            fieldMapping.put( CsvSpecification.CHANNEL_TAG, Arrays.asList( 2 ) );
+            fieldMapping.put( CsvSpecification.SUMMARY_TAG, Arrays.asList( 1 ) );
+            fieldMapping.put( CsvSpecification.VALUE_TAG, Arrays.asList( 1 ) );
             spec = new CsvSpecification( hint, separator, fieldMapping );
         }
         else
@@ -101,7 +101,7 @@ public class CsvToJsonTransformer implements Transformer
     }
 
     @Override
-    public String transformEvent(String input)
+    public JsonEvent transformEvent(String input)
     {
         String[] eventFields = input.split( spec.getSeparator() );
         int index = 0;
@@ -115,8 +115,6 @@ public class CsvToJsonTransformer implements Transformer
             eventFields[index++] = field;
         }
 
-        Gson gson = new Gson();
-
         JsonObject object = new JsonObject();
 
         for (String fieldTag : spec.getFieldMapping().keySet())
@@ -124,7 +122,16 @@ public class CsvToJsonTransformer implements Transformer
             object.addProperty( fieldTag, resolvePropertyValueFromFields( fieldTag, eventFields ) );
         }
 
-        return gson.toJson( object );
+        JsonEvent event = new JsonEvent( Long
+                .parseLong( resolvePropertyValueFromFields( CsvSpecification.UPTIME_TAG, eventFields ) ),
+                                         resolvePropertyValueFromFields( CsvSpecification.CHANNEL_TAG, eventFields ),
+                                         new JsonEventValue( resolvePropertyValueFromFields( CsvSpecification.SUMMARY_TAG,
+                                                                                             eventFields ),
+                                                             null ),
+                                         0l,
+                                         null );
+
+        return event;
     }
 
     private String resolvePropertyValueFromFields(String property, String[] eventFields)

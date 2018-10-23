@@ -14,8 +14,6 @@ import java.util.Set;
 
 import org.osgi.service.component.annotations.Component;
 
-import com.google.gson.JsonObject;
-
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
 
@@ -38,7 +36,7 @@ public class EventHookRegistryServiceImpl implements EventHookRegistry
     }
 
     @Override
-    public void callFor(JsonObject event)
+    public void callFor(String event)
     {
         hooks.forEach( hook -> hook.onEvent( event ) );
     }

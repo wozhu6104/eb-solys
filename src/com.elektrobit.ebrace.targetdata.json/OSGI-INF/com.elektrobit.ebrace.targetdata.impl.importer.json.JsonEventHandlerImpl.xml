@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" name="com.elektrobit.ebrace.targetdata.impl.importer.json.JsonEventHandlerImpl">
    <service>
-      <provide interface="com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler"/>
+      <provide interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler"/>
    </service>
    <implementation class="com.elektrobit.ebrace.targetdata.impl.importer.json.JsonEventHandlerImpl"/>
    <reference bind="bindComRelationAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" policy="static" unbind="unbindComRelationAcceptor"/>

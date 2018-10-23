@@ -9,9 +9,7 @@
  ******************************************************************************/
 package de.systemticks.ebrace.core.eventhook.registry.api;
 
-import com.google.gson.JsonObject;
-
 public interface EventHook
 {
-    public void onEvent(JsonObject event);
+    void onEvent(String event);
 }

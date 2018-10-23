@@ -7,17 +7,14 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package de.systemticks.ebrace.core.eventhook.registry.api;
+package com.elektrobit.ebrace.core.targetdata.api.json;
 
-import java.util.Set;
+import lombok.Data;
 
-public interface EventHookRegistry
+@Data
+public class JsonEventEdge
 {
-    public void register(EventHook hook);
-
-    public void unregister(EventHook hook);
-
-    public Set<EventHook> getAll();
-
-    public void callFor(String eventJson);
+    private final String source;
+    private final String destination;
+    private final String type;
 }

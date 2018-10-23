@@ -4,5 +4,5 @@
       <provide interface="de.systemticks.ebrace.core.eventhook.registry.api.EventHook"/>
    </service>
    <implementation class="de.systemticks.ebrace.eventhooks.regextochannelhook.RegExToChannelEventHookImpl"/>
-   <reference bind="bindJsonService" interface="com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler" name="JsonService" unbind="unbindJsonService"/>
+   <reference bind="bindJsonService" interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler" name="JsonService" unbind="unbindJsonService"/>
 </scr:component>

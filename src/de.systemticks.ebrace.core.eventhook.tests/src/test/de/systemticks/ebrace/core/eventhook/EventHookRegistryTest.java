@@ -14,9 +14,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import de.systemticks.ebrace.core.eventhook.impl.EventHookRegistryServiceImpl;
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
@@ -47,7 +44,6 @@ public class EventHookRegistryTest
     private static EventHookRegistry registry;
     private static EventHook testHook;
     private static int indicator = 0;
-    private static JsonObject event;
 
     @BeforeClass
     public static void setup()
@@ -56,12 +52,11 @@ public class EventHookRegistryTest
         testHook = new EventHook()
         {
             @Override
-            public void onEvent(JsonObject event)
+            public void onEvent(String event)
             {
                 indicator++;
             }
         };
-        event = new JsonParser().parse( eventString ).getAsJsonObject();
     }
 
     @Test
@@ -82,7 +77,7 @@ public class EventHookRegistryTest
     public void areInterestedHooksCalled()
     {
         registry.register( testHook );
-        registry.callFor( event );
+        registry.callFor( eventString );
         assertEquals( 1, indicator );
     }
 }
