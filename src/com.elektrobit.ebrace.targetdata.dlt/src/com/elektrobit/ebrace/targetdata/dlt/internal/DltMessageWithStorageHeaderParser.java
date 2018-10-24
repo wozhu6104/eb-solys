@@ -51,7 +51,7 @@ public class DltMessageWithStorageHeaderParser implements MessageReader<DltMessa
 
         if (locateNextStorageHeader( bytesReader ))
         {
-            dltMsg = withoutStorageHeaderParser.readNextMessageUnChecked( bytesReader );
+            dltMsg = withoutStorageHeaderParser.readNextMessage( bytesReader );
         }
         else
         {
