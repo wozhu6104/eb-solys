@@ -9,6 +9,8 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.core.targetdata.api.json;
 
+import com.google.gson.Gson;
+
 import lombok.Data;
 
 @Data
@@ -19,4 +21,10 @@ public class JsonEvent
     private final JsonEventValue value;
     private final Long duration;
     private final JsonEventEdge edge;
+
+    @Override
+    public String toString()
+    {
+        return new Gson().toJson( this );
+    }
 }
