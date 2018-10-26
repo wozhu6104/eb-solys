@@ -291,7 +291,7 @@ public class AndroidLogImporterTest
     {
         String pathToBundleRootFolder = FileHelper.getBundleRootFolderOfClass( this.getClass() );
         BufferedReader reader = new BufferedReader( new FileReader( new File( pathToBundleRootFolder
-                + "testdata/a_thread_time.log" ) ) );
+                + "testdata/a_thread_time.logcat" ) ) );
         String line = "";
         RuntimeEventAcceptor runtimeEventAcceptor = Mockito.mock( RuntimeEventAcceptor.class );
         @SuppressWarnings("unchecked")
@@ -324,7 +324,7 @@ public class AndroidLogImporterTest
     {
         String pathToBundleRootFolder = FileHelper.getBundleRootFolderOfClass( this.getClass() );
         BufferedReader reader = new BufferedReader( new FileReader( new File( pathToBundleRootFolder
-                + "testdata/a_time.log" ) ) );
+                + "testdata/a_time.logcat" ) ) );
         String line = "";
         RuntimeEventAcceptor runtimeEventAcceptor = Mockito.mock( RuntimeEventAcceptor.class );
         @SuppressWarnings("unchecked")
@@ -355,7 +355,7 @@ public class AndroidLogImporterTest
     {
         String pathToBundleRootFolder = FileHelper.getBundleRootFolderOfClass( this.getClass() );
         BufferedReader reader = new BufferedReader( new FileReader( new File( pathToBundleRootFolder
-                + "testdata/a_long.log" ) ) );
+                + "testdata/a_long.logcat" ) ) );
         String line = "";
         RuntimeEventAcceptor runtimeEventAcceptor = Mockito.mock( RuntimeEventAcceptor.class );
         @SuppressWarnings("unchecked")

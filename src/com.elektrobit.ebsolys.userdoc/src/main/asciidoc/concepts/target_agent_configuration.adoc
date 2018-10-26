@@ -1,0 +1,153 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+[[anchor-configure-ta]]
+=== Configuring the {targetagent}
+
+{targetagent} is equipped with a variety of configuration options which enable
+it to be tuned according to your needs.
+Performance footprint varies with the selected configuration.
+Additionally to the {targetagent} configuration a per-plugin configuration is also
+provided.
+To summarize, following functionality is configurable:
+
+- Networking
+- Destinations for {targetagent} logs
+- Recorded data storage
+- Time base
+
+==== {targetagent} configuration options
+[cols="2,5a", options="header"]
+|===
+|Configuration Item
+|Description
+
+|Network:Port
+|Port number for client connection
+
+|Network:CmdCtrlPort
+|Port number for command and control plugin
+
+|Logging
+|Relates to {targetagent} internal logging for development and debugging purpose
+
+NOTE: If you are not interested in debugging the {targetagent} you may disable
+some or all the log channels.
+
+|Logging:Channels:Console
+|Enable writing {targetagent} logs to console
+
+WARNING: Not Supported under Windows CE
+
+|Logging:Channels:File
+|Enable writing {targetagent} logs to file
+
+WARNING: Not Supported under Windows CE
+
+|Logging:Channels:Socket
+|Enable writing {targetagent} logs to a TCP socket
+
+|Logging:LoggingLevel
+|Logging Level (highest first):
+
+* PRIO_FATAL
+* PRIO_CRITICAL
+* PRIO_ERROR
+* PRIO_WARNING
+* PRIO_NOTICE
+* PRIO_INFORMATION
+* PRIO_DEBUG
+* PRIO_TRACE
+
+|Recorder:enabled
+|Enable recording the monitoring results to file.
+
+NOTE: By default the data collected by the {targetagent} is written to file.
+In case of a live connection data it is also written to socket.
+If you are only interested in live analysis or if you choose to save data on
+host side, then you may disable writing to file in order to improve performance.
+
+NOTE: {targetagent} will continue to buffer the data received until the connection
+is established independent of the recorder configuration.
+
+
+|Recorder:fileSizeLimit
+|File size limit in MB. Zero means not set.
+
+|Recorder:filePrefix
+|File name prefix: the complete name will additionally contain:
+_-dd.mm.yyyy-hh.mm.ss.mmm-partNumber_
+
+|Recorder:targetDirPath
+|Target directory path: defaults to current directory
+
+|Recorder:doCreateOutputPath
+|Create intermediate directories if required: this may fail if the
+ right privileges are not provided
+
+|Units:TimeReference
+|Specify how the timestamp will be expressed. Valid Options are:
+
+ * UP_TIME (time since system boot)
+ * ABSOLUTE_SYSTEM_TIME (absolute system time, or epoch-time in Linux)
+|===
+
+==== Plugin Configuration options
+[cols="1,2a", options="header"]
+|==============================================
+|Plugin
+|Description and configuration
+
+|Resource Monitor
+|Gather resource utilization information
+[cols="2,1a", options="header"]
+!==============================================
+!Configuration Item !Description
+!samplingRate!Specify how often the procfs virtual filesystem should be
+read
+
+NOTE: Setting a sampling rate outside this range may have negative impact on
+performance
+
+!procName!Specify name of a process for which also thread related metrics should
+be gathered
+!procID!Specify id of a process for which also thread related metrics should
+be gathered
+!==============================================
+
+|Diagnostic Log and Trace (DLT)
+|Collects DLT logs
+[cols="2,1a", options="header"]
+!==============================================
+!Configuration Item !Description
+!dltFilter!Filter DLT logs based on Application ID and/or
+Context ID (i.e. "ABC DE"/"ABC ----")
+
+!==============================================
+
+|D-Bus
+|Monitoring D-Bus communication
+[cols="2,1a", options="header"]
+!==============================================
+!Configuration Item !Description
+!DBUS_BUS! The Bus to be observed;
+must be one of:
+
+* DBUS_BUS_SESSION
+* DBUS_BUS_SYSTEM
+
+!==============================================
+
+!==============================================
+
+|systemd
+|Linux start-up analysis
+[cols="2,1a", options="header"]
+
+|==============================================

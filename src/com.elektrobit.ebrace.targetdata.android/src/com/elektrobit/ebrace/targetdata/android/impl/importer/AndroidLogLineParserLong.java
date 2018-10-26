@@ -26,7 +26,9 @@ public class AndroidLogLineParserLong extends AndroidLogLineParserAbstract
     @Override
     public char getLogLevel(Matcher matcher)
     {
-        return matcher.group( 2 ).trim().split( " " )[2].trim().charAt( 0 );
+        String s = matcher.group( 2 ).trim();
+        char ch = s.charAt( s.indexOf( "/" ) - 1 );
+        return ch;
     }
 
     @Override

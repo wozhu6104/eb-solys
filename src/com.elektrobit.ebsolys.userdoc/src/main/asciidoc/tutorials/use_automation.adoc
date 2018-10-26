@@ -1,0 +1,144 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+
+=== Creating a Jenkins CI job calling {solys} automation
+
+Let's assume, we are required to create an environment to continuously
+check, whether two logs appear in a certain sequence and to measure the time
+that passes in between.
+
+==== Prerequisites
+
+You should have
+
+* basic knowledge about https://jenkins.io/index.html[Jenkins]
+* read the {solys} scripting parts of the documentation
+** <<./index.adoc#anchor-scripting, Scripting Concept>>
+** <<./index.adoc#anchor-hello_world, Hello World Example>>
+** <<./index.adoc#anchor-using_the_api, Advanced Scripting>>
+* knowledge about how to use a SCM like Subversion
+
+==== Creating the script
+
+You need to create a script that identifies the messages first, then checks the
+order and measures the time in between.
+
+[source, xtend]
+----
+class CheckMyUseCase
+{
+  extension ScriptContext _scriptContext
+  extension ScriptBase _scriptBase
+
+  new (ScriptContext scriptContext) {
+    _scriptContext = scriptContext
+    _scriptBase = new ScriptBase(_scriptContext)
+  }
+
+  /**
+   * Add a meaningful content to the description tag to describe the feature, which is executed by this script
+   * The content of the description tag will be used in all UI widgets where the script can be invoked
+   * If the content is empty, then the classname.methodname will be used instead
+   */
+  @Execute(context=ExecutionContext.GLOBAL, description="")
+  def execute() {
+      val START_EVENT_NAME = "your start event"
+      val END_EVENT_NAME = "your end event"
+
+      val startEvent = "trace.<channel>".channel.events.filter[value.toString.contains(START_EVENT_NAME)].head
+    	val endEvent = "trace.<channel>".channel.events.filter[value.toString.contains(END_EVENT_NAME)].last
+    	val deltaTime = delta(startEvent, endEvent)
+    	consolePrintln("time delta: " + deltaTime)
+    	if(deltaTime > 0)
+    	{
+    		consolePrintln("Sequence OK")
+    	}
+    	else
+    	{
+    		consolePrintln("Sequence NOK")
+    	}
+  }
+}
+----
+
+You will need to make some adaptions to the script in order to work for your purposes.
+
+[NOTE]
+For trying it out with the demo file, you can initialize `START_EVENT_NAME` with
+`"CreateRoute"`, `END_EVENT_NAME` with `"DeleteRoute"` and `"trace.<channel>""` with
+`"trace.dbus.sessionbus"`.
+
+==== Installing {solys} automation
+
+It is recommended to install {solys} automation into the Jenkins home folder,
+referenced by $\{JENKINS_HOME\}. Installing means, unzipping the {solys}
+installation package.
+
+==== Configuring the Jenkins job
+
+Create a new Freestyle job and open the configuration.
+
+In order to be able to run the script you just created, you need to copy
+<eb-solys-gui-installation-folder>/scripts/CheckMyUseCase.jar to your Jenkins server.
+The $\{WORKSPACE\} folder is a good place to reference it from.
+
+You might want to check out the latest version of the jar from some source code
+management system.
+
+Then you need to provide the trace that you like to analyse. Some possible ways are,
+to use a shared folder, to upload it with a build parameter or to directly connect to the target.
+
+Please refer to <<./index.adoc#anchor-automation-cli, the CLI parameters description>> for a
+deeper explanation.
+
+Now, you need to configure a build step to execute a shell command.
+In the shell editor, place the following script:
+
+[source, bsh]
+----
+mkdir license-key
+cp /path/to/auto-key-build-server.key license-key
+
+$\{JENKINS_HOME\}/eb-solys-automation -s=$\{WORKSPACE\}/CheckMyUseCase.jar -f=traceFile.bin
+echo "error code $?"
+
+# or if you like to connect to a target
+# $\{JENKINS_HOME\}/eb-solys-automation -s=$\{WORKSPACE\}/CheckMyUseCase.jar -c=<target-ip>:<port>
+# echo "error code $?"
+----
+
+First thing is to ensure, there is a valid license key available inside
+<eb-solys-installation-folder>/license-key.
+
+Then {solys} automation is called with the script and a trace.
+
+[NOTE]
+Running the actual test use case is not covered by this tutorial. It is assumed that you
+already have a test environment, that stimulates your target for the use case that you
+like to analyse.
+
+==== Running the Jenkins job
+
+Running the job can be done as most suitable for your requirements. You can react
+to SCM changes or run it manually.
+
+==== Evaluating the results
+
+With the simple example above, evaluating the reports may be as simple as just looking
+at the console log of the jenkins job. However there is a lot of potential in doing
+more sophisticated reporting.
+
+Some ideas are:
+
+* send an e-mail to the committer if a threshold is crossed
+* write the results to a database and visualize it in a dashboard
+* mark a build as successful or failed
+* generate a pdf and send it to the project manager
+* ...

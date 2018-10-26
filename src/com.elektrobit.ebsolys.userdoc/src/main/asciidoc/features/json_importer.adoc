@@ -1,0 +1,78 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+== Event target format
+
+Log events are finally processed in EB solys as JSON objects. If the events represent communication messages, they contain an additional _edge_ field. They can then be displayed in a communication graph visualization in EB solys.
+
+=== Example event (pretty)
+
+[source,json]
+----
+{
+  "uptime": "12345",
+  "channel": "trace.ipc.yourname",
+  "summary": "I am a trace message",
+  "value": {
+    "requestId": 1,
+    "param1": 1,
+    "param2": "Value 2",
+    "param3": null
+  },
+  "edge": {
+    "source": "service1.module1",
+    "destination": "service2.module2",
+    "type": "request"
+  }
+}
+----
+
+WARNING: The final IPC log file may only contain one event element per line. The events are not allowed to contain line breaks.
+
+=== Example file (raw)
+
+----
+{"uptime":"12345","channel":"trace.ipc.yourname", ... }
+{"uptime":"23456u","channel":"trace.ipc.yourname", ... }
+...
+----
+
+
+=== Description
+
+[cols="1,3", options="header"]
+|===
+|Field
+|Description
+
+|*_uptime_*
+|System uptime in can be in milisecond precision (default) or microsecond precision with a trailing 'u'.
+
+|*_channel_*
+|The _channel_ will be used to distinguish between different types of logs in EB solys. It will be interpreted hierarchically if divided by '.' If there are two channels, starting with trace.ipc, they will be grouped in the UI.
+
+|*_summary_* [optional]
+|The content of a cell in the _Value_ column in an _Event Table_ in EB solys. If there is no summary, it will be replaced by a textual representation of the contents of the _value_ field.
+
+|*_value_*
+|Can be a plain textual value or a valid JSON structure of different and arbitrary parameters.
+
+|*_edge_* [optional]
+|If the event is a communication message, it shall be identified as an edge in the communication graph. It is identified by a source, a destination and a type of interaction.
+
+|*_edge.source_*
+|The origin of the message. It can indicate an architectural hierarchy or layer by using the '.' syntax.
+
+|*_edge.destination_*
+|The destination of the message. It can also indicate an architectural hierarchy or layer by using the '.' syntax.
+
+|*_edge.type_*
+|Can be 'request', 'response' or 'broadcast'.
+
+|===
