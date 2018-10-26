@@ -1,0 +1,44 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+=== Processing Data
+
+==== {view}s
+
+{view}s are there to display data. Data in this context means payload of events. As this can be of a multitude of types, there are also different kinds of views available.
+
+* *Line charts*, suitable for numeric data, configurable in scale, zoom level and appearance
+* *Tables*, suitable for textual data, can be searched and filtered
+* *Communication graph*, displaying communication data like inter-process or inter-processor communication, can be filtered
+* *HTML views*, for flexible extension of viewing capabilities, can be used with any web-visualization framework
+
+==== {timemarker}s
+
+{timemarker}s are used to correlate data across views. They can be created from the GUI or from a script and will have a timestamp and a name.
+
+==== Importers
+
+{solys} can import data in different formats and can be extended to read custom data.
+
+Out of the box importers are:
+
+* {solys} binary files _*.bin_
+* Comma-separated files _*.csv_
+* Android log files _*.log_
+* AUTOSAR DLT 4.0 traces _*.dlt_
+* Network data file _*.pdml_
+
+==== Decoders
+
+Decoders are modules to make encoded event payloads human readable and better workable. {solys} includes decoders for D-Bus and PDML (network) data.
+
+==== Scripting
+
+All run-time data can be accessed from an integrated scripting module. Scripts can be written to perform different kinds of tasks. Automating an analysis,
+defining system level tests or taking metrics are just a few examples. The scripting language used is Xtend, which is a dialect of Java.

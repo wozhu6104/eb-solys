@@ -1,0 +1,140 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+=== Analyzing the root cause of a system wide issue
+
+==== Scope and content
+
+A major use case of {solys} is system wide issue analysis. The approach is to
+find out the module or component responsible for a certain error rather than the
+exact line of code. The approach is analyzing the system coming from a birds-eye
+perspective - observing resource consumption and general message flow - and
+drilling down to deeper levels like protocol violations or error logs.
+{solys} supports this by providing tools to visualize and correlate data as well
+as tools to programmatically determine certain parameters of interest.
+
+.Caution
+[WARNING]
+Analyzing system wide issues requires an understanding of the system itself and
+the technologies involved. Hence following this tutorial does not guarantee,
+that an issue will be found. It rather focuses on explaining how to use the tools
+to boost the chances of finding issues faster or finding them at all.
+
+==== Tutorial
+
+This tutorial will take the {solys} demo file as a basis for investigating
+fictitious issues within the navigation system of an automotive head unit.
+
+.Prerequisites
+[NOTE]
+Familiarize yourself with
+<<./index.adoc#anchor-demo-file, the demo file>>,
+<<./index.adoc#anchor-line-charts, line charts>>, and
+<<./index.adoc#anchor-time_markers, time markers>>.
+
+
+===== Analyzing resource data in a chart
+
+Assume a test engineer reported a constantly high CPU load during a root guidance.
+Expected behavior would be possible short peaks during guidance prompts but the
+total consumption should average out at a much lower level than present.
+
+In this case an entry point into root cause analysis can be the chart view of {solys}.
+
+//video::../resources/demo-file-process-chart.mp4[width=840]
+
+====== Possible approaches
+
+* <<./index.adoc#anchor-line-charts, Open a {chart}>> with the cpu.system
+{channel} and look for suspicious areas, set a {timemarker} and correlate with other
+data.
+
+* Open a {chart} with all cpu.proc.* {channel}s, look for suspicious points in time,
+set a {timemarker} and sort values in {chart} legend to identify which processes
+are consuming the most resources.
+
+* Write a script to identify interesting {channel}s by more complex logic and open
+them in a {chart}. Find more about scripting <<./index.adoc#anchor-using_the_api, here>>.
+
+===== Analyzing log data in a table
+
+Reasons for analyzing logs are
+
+* trying to find out if a certain log message, like an exception or error message,
+was written
+
+* observing the output of an application for particular logs to appear
+
+* validating the sequence of logs to check the application flow
+
+{solys} provides features to support these use cases.
+
+====== Filtering and searching in log files
+
+The {table} is equipped with a search field that can be used to search and highlight
+certain terms or to filter the log table.
+
+Find more about filtering and searching <<./index.adoc#anchor-filter-and-search, here>>.
+
+===== Correlating with Timemarkers
+
+Once a significant event has been identified in either a {chart}, {table} or
+any other {view}, it can be <<./index.adoc#anchor-time-markers, marked with a {timemarker}>>.
+
+It can then be matched with other {view}s at the same point in time to deepen
+the knowledge about the root cause.
+
+[WARNING]
+The plain setting of a {timemarker} will in most cases not directly lead to the
+cause of the problem. It is an iterative process to take assumptions, filter out
+noise and isolate the root cause.
+
+===== Visualizing complex/structured data
+
+For an introduction to decoders, have a look at
+<<./index.adoc#anchor-decoders, decoders>> first.
+
+Complex or structured data can be any data recorded with a payload that is somehow
+encoded.
+
+[WARNING]
+A custom decoder needs to be available for the payload to be shown correctly.
+
+Events can then be evaluated down to each data item present in the decoded payload.
+This is also available from the scripting API.
+
+===== Analyzing communication with the dependency graph
+
+The {dependency-graph} can be used to analyze the communication between software
+components. This means, it can help to detect faulty communication that can be
+
+* communication between participants that are not allowed to communicate
+* wrong parameters that are transmitted with a message
+* suspicious communication patterns
+
+To learn how to use the {dependency-graph} please read
+<<./index.adoc#anchor-dependency-graph, this section>>.
+
+===== Observe values with {snapshot}s
+
+Read more about {snapshot}s <<./index.adoc#anchor-snapshots, here>>.
+
+If you like to observe only the values at a certain point in time, while looking
+at other views, {snapshot}s are the right feature to be used. You can configure
+your work area as to show multiple views at once by drag and drop.
+
+An exemplary use case for {snapshot}s is to observe the process CPU level
+in combination with the process memory and the latest log line at a certain point
+in time while you are reproducing an issue on the target system.
+
+It is also possible to add user-created {channel}s to a {snapshot}. I.e. if you
+want to filter logs for a certain data item (like the current street name of the
+ongoing route guidance) and only display this item over time, you can write a
+script to filter for the item and create a new channel to contain only the street
+names at the time they were prompted.

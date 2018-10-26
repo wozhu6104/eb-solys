@@ -1,0 +1,23 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+[[anchor-automation]]
+=== Automation
+
+EB solys automation provides a command line interface (CLI) to the non-GUI features of EB solys.
+
+Benefits are:
+
+* You can execute scripts you developed in GUI mode in an automated manner
+* You can run EB solys in a continuous build environment
+** Meaning, you can monitor changes of your system over subsequent revisions
+*** Hence, detect trends
+*** identify regressions
+*** validate usage of software interfaces
+** Also, you can run system level tests based on logs and traces

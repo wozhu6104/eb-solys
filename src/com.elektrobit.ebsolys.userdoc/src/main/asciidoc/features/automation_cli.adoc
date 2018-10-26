@@ -1,0 +1,87 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+[[anchor-automation-cli]]
+=== Automation CLI
+
+==== Overview
+
+Using EB solys in automation mode means, that only a command line console will be opened but no GUI. This mode supports 4 features:
+
+* Connect to a target
+* Load binary trace files
+* Load other trace formats
+* Execute EB solys scripts
+
+Connecting to a target is not possible in combination with loading files. Also, it is not possible to load a file without executing a script.
+Basic Usage
+
+Open a command shell and navigate to your EB solys installation. Then execute eb-solys-automation with the required command line parameters listed below.
+
+==== License Activation
+
+There are two ways how to use your obtained license key to activate EB solys
+
+* Copy your license key file to "license-key" folder in the install location
+* Setup a system environment variable EB_SOLYS_LICENSE_KEY_PATH that contains path to a folder with license key
+
+==== Command Line Parameters
+
+[source, bsh]
+----
+eb-solys-automation[.exe] script-path[.script-method] [data-source] [script-parameters]
+----
+
+*script-path (mandatory)*
+
+* Absolute path to EB solys script file without suffix '.xtend'. E.g. '/home/user/scripts/src/MyScript'.
+* Only script name. Script is used from workspace. E.g. 'MyScript'.
+
+*script-method (optional)*
+
+* Add '.script-name' to script-path to execute a certain method. E.g. '/home/user/scripts/src/MyScript.execute2'.
+
+*data-source (mandatory)*
+
+* '-' if no data-source is needed.
+* Absolute or relative path to file. E.g. '/home/user/files/input.bin'.
+* Hostname and IP to running EB solys target-agent. E.g. '192.168.2.2:1234'.
+
+*script-parameters (optional)*
+
+* list of key value pair, that is used by the script. E.g. 'buildID=1234 date=15/08/2017'.
+
+==== Description
+
+{solys-auto} can be used like any other executable on the command line. It does
+not provide options but provides an environment for calling a script on a file
+or live data.
+
+eb-solys-automation is followed by the script name, optionally the script context
+(global or callback are available), optionally followed by the method name and the parameters (file/connection).
+
+==== Usage
+
+[source, bsh]
+----
+eb-solys-automation Script.callback target=192.168.1.1:1234
+----
+
+* executes the single callback method in Script
+* connects to the target, taking the IP address from a command line parameter
+
+[source, bsh]
+----
+eb-solys-automation Script.global.method1 file=/path/to/file.bin
+----
+
+* loads file.bin
+* executes the global method method1 in Script
+
+WARNING: First parameter *must* always be the script name
