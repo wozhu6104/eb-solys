@@ -1,3 +1,5 @@
+
+
 # EB solys
 
 EB solys is
@@ -20,10 +22,18 @@ The target agent framework is available as open source project for
 * Linux (see https://github.com/Elektrobit/eb-solys-target-agent) and 
 * Android (see https://github.com/Elektrobit/eb-solys-android-agent).
 
-The EB solys GUI is built on Eclipse RCP and is running on the host machine and allows an expressive and comprehensive system analysis by correlating and aggregating the collected runtime data. 
+The EB solys GUI is built on Eclipse RCP and is running on the host machine and allows an expressive and comprehensive system analysis by correlating and aggregating the collected runtime data across different data sources in a single place.
 The host application provides extensible means for data analysis. 
 It is equipped with a rich set of visualizations tools like charts, tables and a communication graph out of the box and can be extended through custom HTML visualizations. 
-In addition you can provide your own importer and decoder for any kind of logs, which are not created originally by the target agent.
+
+## Extensibility and Adaptability
+
+EB solys is designed with the capability to be adaptable, customizable and extensible to the concrete project specific environment:
+
+* Use the **built-in Script Engine** to add new functionality by accessing the EB solys raw data and resources
+* Hook in your own **Decoder**, that transforms arbitrary non-primitive data (e.g. binary payload) into structured readable text
+* Provide your own **Importer** for any kind of logs, which are not created originally by the target agent
+* Provide your own **Communicator** to be able to connect to other trace providers than EB solys target agent
 
 ## Build
 
