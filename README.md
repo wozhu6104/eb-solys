@@ -9,12 +9,21 @@ EB solys is
 
 ## High level architecture
 
-EB solys is capable of visualizing data from various sources.
-It can be attached to the EB solys Target Agent, which you can find here https://github.com/Elektrobit/eb-solys-target-agent
-It can also connect to a DLT daemon via TCP connection.
-And it is possible to import various trace file formats.
+The EB solys eco-system consists of the target agent for collecting run-time data on the target system and an Eclipse RCP based analysis tool-chain running on the host environment.
 
-EB solys is based on Eclipse RCP and can be used in GUI mode or CLI mode.
+![alt text](./resources/eco_system.png "EB solys eco-system")
+
+The target agent is running on the target device(s) and serves as a plug-in framework. The plug-ins are used to acquire any kind of runtime data, such as resource consumption, application logs & traces, interprocess-communiction, I/O, etc. 
+There is a set of  target agent plug-ins available, but you can implement your own plug-in, that retrieves additional proprietary project specific data. The data is sent to the host in a unified way, specified with protobuf.  
+
+The target agent framework is available as open source project for 
+* Linux (see https://github.com/Elektrobit/eb-solys-target-agent) and 
+* Android (see https://github.com/Elektrobit/eb-solys-android-agent).
+
+The EB solys GUI is built on Eclipse RCP and is running on the host machine and allows an expressive and comprehensive system analysis by correlating and aggregating the collected runtime data. 
+The host application provides extensible means for data analysis. 
+It is equipped with a rich set of visualizations tools like charts, tables and a communication graph out of the box and can be extended through custom HTML visualizations. 
+In addition you can provide your own importer and decoder for any kind of logs, which are not created originally by the target agent.
 
 ## Build
 
