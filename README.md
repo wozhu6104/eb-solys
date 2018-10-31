@@ -1,5 +1,3 @@
-
-
 # EB solys
 
 EB solys is
@@ -34,6 +32,36 @@ EB solys is designed with the capability to be adaptable, customizable and exten
 * Hook in your own **Decoder**, that transforms arbitrary non-primitive data (e.g. binary payload) into structured readable text
 * Provide your own **Importer** for any kind of logs, which are not created originally by the target agent
 * Provide your own **Communicator** to be able to connect to other trace providers than EB solys target agent
+
+## Scripting
+
+### Purpose
+
+EB solys comes with a powerful built-in scripting engine, that allows the user to interact with the collected runtime data and the UI resources. This enables the user to aggregate and correlate data from different sources programmatically and visualize them in tables, charts or in arbitrary html views in a very easy and straight-forward manner.
+
+### The Language (Xtend)
+
+As built-in scripting language Xtend was chosen, due to following reasons:
+
+* Xtend is using the Java type-system and hence allows a seamless integration into an Eclipse RCP application, what {solys} is.
+* Xtend code will be generated into Java source code on-the-fly in the background, so that no additional interpreter is needed at runtime.
+* Xtend is a hybrid language that combines object-oriented and functional programming at the same time, which allows the implementation of very expressive and concise scripts.
+* You have the full power of Java with some syntactical sugar on top.
+* Eclipse editor functionality like content-assist, code completion, referencing is the same as for Java
+
+If you are not yet familiar with Xtend, but with Java and one of its JVM-based scripting langauges such as Groovy, Scala or Clojure you should be very fast in learning the principles of Xtend.
+
+Visit https://eclipse.org/xtend/[Xtend] for details, tutorials and examples.
+
+### Example
+
+```xtend
+@Execute(context=ExecutionContext.GLOBAL, description="")
+def createMarkerForHighCpuLoad() {
+    getChannel("cpu.system").events.filter[value as Double > 50].
+        forEach[createTimemarker("High CPU Load")]
+}
+```
 
 ## Build
 
