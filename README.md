@@ -1,11 +1,10 @@
 # EB solys
 
-EB solys is
+## Key features and benefits
 
-* a development tool for collecting, aggregating and correlating data and its visualization. Live and post-mortem.
-* a framework to be customized and extended for the best possible integration with the project it's used in.
-* a method to identify and localize functional and non-functional defects in an early phase for reducing the efforts spent for testing and bug fixing in later phases.
-* a sophisticated approach to analyzing and validating complex automotive software systems from top to bottom.
+EB solys is a customizable tool to identify and localize functional and non-functional defects in complex software projects.
+It offers functionality for filtering, searching, aggregating  and correlating runtime data across different data sources in a single place.
+This enables you creating a joint system understanding and isolating errors with significant less workforce and gains a greater insight into the operational activity of your software system.
 
 ## High level architecture
 
