@@ -79,7 +79,10 @@ mvn clean verify
 
 ## Contact
 
-EB solys development is supported by systemticks GmbH - www.systemticks.de.
+EB solys development is supported by systemticks GmbH
+
+www.systemticks.de
+
 For further questions on how to build, contribute or use, please reach out to
 
 eb-solys@systemticks.de
