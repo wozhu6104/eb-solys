@@ -4,7 +4,7 @@
 
 EB solys is a customizable tool to identify and localize functional and non-functional defects in complex software projects.
 It offers functionality for filtering, searching, aggregating  and correlating runtime data across different data sources in a single place.
-This enables you creating a joint system understanding and isolating errors with significant less workforce and gains a greater insight into the operational activity of your software system.
+This enables you creating a joint system understanding and isolating errors with significant less workforce and gains a greater insight into the operational activity of your software system. It is applicable for live and post-mortem analysis.
 
 ## High level architecture
 
@@ -42,7 +42,7 @@ EB solys comes with a powerful built-in scripting engine, that allows the user t
 
 As built-in scripting language Xtend was chosen, due to following reasons:
 
-* Xtend is using the Java type-system and hence allows a seamless integration into an Eclipse RCP application, what {solys} is.
+* Xtend is using the Java type-system and hence allows a seamless integration into an Eclipse RCP application, what EB solys is.
 * Xtend code will be generated into Java source code on-the-fly in the background, so that no additional interpreter is needed at runtime.
 * Xtend is a hybrid language that combines object-oriented and functional programming at the same time, which allows the implementation of very expressive and concise scripts.
 * You have the full power of Java with some syntactical sugar on top.
@@ -50,7 +50,7 @@ As built-in scripting language Xtend was chosen, due to following reasons:
 
 If you are not yet familiar with Xtend, but with Java and one of its JVM-based scripting langauges such as Groovy, Scala or Clojure you should be very fast in learning the principles of Xtend.
 
-Visit https://eclipse.org/xtend/[Xtend] for details, tutorials and examples.
+Visit https://eclipse.org/xtend for details, tutorials and examples.
 
 ### Example
 
