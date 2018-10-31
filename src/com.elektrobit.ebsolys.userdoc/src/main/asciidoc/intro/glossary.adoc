@@ -1,0 +1,31 @@
+////
+Copyright (C) 2018 Elektrobit Automotive GmbH
+
+This program and the accompanying materials are made
+available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+
+SPDX-License-Identifier: EPL-2.0
+////
+[options="header,footer",cols="2e,7"]
+|=======
+|Term                | Description
+|{solys}             | Application for system analysis
+|{solys} essential   | Version of {solys} containing a basic set of features
+|{solys} pro         | Version of {solys} with the full feature set
+|{solys} automation  | Version of {solys} that runs without GUI and can be used in automated environments
+|{targetagent}       | Application collecting data on a target system
+|{channel}           | Container of events with the same attributes in timely order
+|{event}             | Data item consisting of timestamp and value
+|{resource-explorer} | Window to manage views, scripts and connections
+|{view}              | Visualization of one or more channels
+|{chart}             | {chart} {view} for numeric channels
+|{table}             | Tabellaric {view} for all types of channels
+|{dependency-graph}  | Graph visualizing the communication relations between software modules
+|{snapshot}          | Window to observe values of channels at certain points in time
+|{timemarker}        | Tool for correlating data between views
+|{script}            | {script} for processing data loaded into {solys}
+|CLI                 | Command line interface
+|GUI                 | Graphical user interface
+|CI                  | Continuous Integration
+|=======
