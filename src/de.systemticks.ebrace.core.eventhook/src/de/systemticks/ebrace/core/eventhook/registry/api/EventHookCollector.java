@@ -9,7 +9,9 @@
  ******************************************************************************/
 package de.systemticks.ebrace.core.eventhook.registry.api;
 
-public interface EventHookRegistry
+import java.util.List;
+
+public interface EventHookCollector
 {
-    public void callFor(String eventJson);
+    public List<EventHook> getEventHooks();
 }

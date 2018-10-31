@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetdata.dlt.internal.DltStreamMessageServiceImpl">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="com.elektrobit.ebrace.targetdata.dlt.newapiimpl.DltMessageServiceImpl">
    <service>
       <provide interface="com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader"/>
-      <provide interface="com.elektrobit.ebrace.targetdata.dlt.newapi.DltStreamMessageService"/>
+      <provide interface="com.elektrobit.ebrace.targetdata.dlt.newapi.DltMessageService"/>
    </service>
    <reference bind="bindDltChannelFromLogInfoCreator" interface="com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator" name="DltChannelFromLogInfoCreator" unbind="unbindDltChannelFromLogInfoCreator"/>
-   <implementation class="com.elektrobit.ebrace.targetdata.dlt.internal.DltStreamMessageServiceImpl"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.dlt.newapiimpl.DltMessageServiceImpl"/>
 </scr:component>

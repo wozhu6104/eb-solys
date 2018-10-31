@@ -5,6 +5,7 @@
    </service>
    <implementation class="com.elektrobit.ebrace.targetdata.impl.importer.json.JsonEventHandlerImpl"/>
    <reference bind="bindComRelationAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" policy="static" unbind="unbindComRelationAcceptor"/>
+   <reference bind="bindEventHookService" interface="de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry" name="EventHookService"/>
    <reference bind="bindRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unbindRuntimeEventAcceptor"/>
    <reference bind="bindStructureAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor" name="StructureAcceptor" policy="static" unbind="unbindStructureAcceptor"/>
    <reference bind="bindTimeSegmentAcceptor" interface="com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService" name="TimeSegmentAcceptor" unbind="unbindTimeSegmentAcceptor"/>

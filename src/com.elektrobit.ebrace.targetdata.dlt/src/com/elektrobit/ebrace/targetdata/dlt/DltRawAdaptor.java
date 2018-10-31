@@ -18,9 +18,9 @@ import com.elektrobit.ebrace.targetadapter.communicator.api.BytesFromStreamReade
 import com.elektrobit.ebrace.targetagent.protocol.commondefinitions.TargetAgentProtocolCommonDefinitions;
 import com.elektrobit.ebrace.targetagent.protocol.commondefinitions.TargetAgentProtocolCommonDefinitions.MessageType;
 import com.elektrobit.ebrace.targetdata.dlt.internal.BytesFromStreamReaderImpl;
-import com.elektrobit.ebrace.targetdata.dlt.internal.DltStreamMessageServiceImpl;
 import com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator;
 import com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreatorImpl;
+import com.elektrobit.ebrace.targetdata.dlt.newapiimpl.DltMessageServiceImpl;
 import com.elektrobit.ebsolys.core.targetdata.api.TimestampCreator;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdapter;
@@ -30,7 +30,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 public class DltRawAdaptor implements TargetAdapter
 {
-    private final DltStreamMessageServiceImpl parser = new DltStreamMessageServiceImpl( new DltChannelFromLogInfoCreatorImpl() );
+    private final DltMessageServiceImpl parser = new DltMessageServiceImpl( new DltChannelFromLogInfoCreatorImpl() );
 
     private final BytesFromStreamReader streamReader;
 

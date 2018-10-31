@@ -10,8 +10,8 @@
 package com.elektrobit.ebrace.core.datainput.factory;
 
 import com.elektrobit.ebrace.core.datainput.api.DataStreamParser;
+import com.elektrobit.ebrace.core.datainput.dlt.DltStreamParser;
 import com.elektrobit.ebrace.core.datainput.parser.CSVParser;
-import com.elektrobit.ebrace.core.datainput.parser.DltStreamParser;
 import com.elektrobit.ebrace.core.datainput.service.DataStreamDescriptor;
 
 import lombok.extern.log4j.Log4j;

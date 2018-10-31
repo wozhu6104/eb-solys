@@ -36,10 +36,13 @@ public class DataInput
             {
                 byte[] nextMessage = null;
                 nextMessage = tokenizer.readNextMessage();
-                String jsonResult = parser.parse( nextMessage );
-                if (jsonEventHandler != null)
+                if (nextMessage != null)
                 {
-                    jsonEventHandler.handle( jsonResult );
+                    String jsonResult = parser.parse( nextMessage );
+                    if (jsonEventHandler != null)
+                    {
+                        jsonEventHandler.handle( jsonResult );
+                    }
                 }
             }
         }

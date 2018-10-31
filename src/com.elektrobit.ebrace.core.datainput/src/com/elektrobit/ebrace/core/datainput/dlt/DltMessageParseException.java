@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2018 systemticks GmbH
+ * Copyright (C) 2018 Elektrobit Automotive GmbH
  * 
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -7,9 +7,19 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package de.systemticks.ebrace.core.eventhook.registry.api;
+package com.elektrobit.ebrace.core.datainput.dlt;
 
-public interface EventHookRegistry
+public class DltMessageParseException extends RuntimeException
 {
-    public void callFor(String eventJson);
+
+    private static final long serialVersionUID = 1L;
+
+    public DltMessageParseException()
+    {
+    }
+
+    public DltMessageParseException(String message)
+    {
+        super( message );
+    }
 }

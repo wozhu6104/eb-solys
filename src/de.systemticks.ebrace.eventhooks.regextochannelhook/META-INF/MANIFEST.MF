@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.core.runtime,
  com.elektrobit.ebrace.targetdata.json,
  com.elektrobit.ebrace.core.importerregistry;bundle-version="1.0.0",
  com.google.gson;bundle-version="2.1.0",
- de.systemticks.ebrace.core.eventhook
+ de.systemticks.ebrace.core.eventhook,
+ com.elektrobit.ebrace.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Eclipse-ExtensibleAPI: true

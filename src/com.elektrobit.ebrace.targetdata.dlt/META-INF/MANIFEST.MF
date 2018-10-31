@@ -35,7 +35,7 @@ Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.DltAdaptorFacto
  OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.GetAllDltChannelsMessageSenderService.xml,
  OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreatorImpl.xml,
  OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.DltRawAdaptorFactory.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.DltStreamMessageServiceImpl.xml
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.newapiimpl.DltMessageServiceImpl.xml
 Import-Package: org.osgi.service.component;version="1.1.0"
 Eclipse-ExtensibleAPI: true
 Export-Package: com.elektrobit.ebrace.targetdata.dlt.api,

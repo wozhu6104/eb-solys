@@ -12,9 +12,11 @@ package com.elektrobit.ebrace.targetdata.dlt.newapi;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
-public interface DltStreamMessageService
+public interface DltMessageService
 {
     String createEvent(byte[] message);
 
-    byte[] tokenizeNextMessage(BufferedInputStream stream) throws IOException;
+    byte[] tokenizeNextMessageStreamHeader(BufferedInputStream stream) throws IOException;
+
+    byte[] tokenizeNextMessageFileHeader(BufferedInputStream stream) throws IOException;
 }

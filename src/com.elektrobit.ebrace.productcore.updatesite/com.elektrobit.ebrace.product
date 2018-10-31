@@ -136,6 +136,7 @@ It should be used by experienced software engineers.
    </features>
 
    <configurations>
+      <plugin id="com.elektrobit.ebrace.application" autoStart="false" startLevel="0" />
       <plugin id="com.elektrobit.ebrace.chronograph" autoStart="true" startLevel="0" />
       <plugin id="com.elektrobit.ebrace.core.datamanager" autoStart="true" startLevel="0" />
       <plugin id="com.elektrobit.ebrace.core.datamanager.timemarker" autoStart="true" startLevel="0" />

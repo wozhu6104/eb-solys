@@ -7,19 +7,15 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package com.elektrobit.ebrace.core.datainput.parser;
+package com.elektrobit.ebrace.core.datainput.dlt;
 
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import com.elektrobit.ebrace.core.datainput.api.DataStreamParser;
-import com.elektrobit.ebrace.targetdata.dlt.newapi.DltStreamMessageService;
 
 @Component
 public class DltStreamParser implements DataStreamParser
 {
-    private DltStreamMessageService dltStreamMessageService;
-
     public DltStreamParser()
     {
     }
@@ -27,23 +23,13 @@ public class DltStreamParser implements DataStreamParser
     @Override
     public String parse(byte[] message)
     {
-        return dltStreamMessageService.createEvent( message );
+        return new DltMessageHelper().createEvent( message );
     }
 
     @Override
     public String getId()
     {
-        return "Dlt Stream Parser";
+        return "dlt";
     }
 
-    @Reference
-    public void bindDltStreamMessageService(DltStreamMessageService dltStreamMessageService)
-    {
-        this.dltStreamMessageService = dltStreamMessageService;
-    }
-
-    public void unbindDltStreamMessageService(DltStreamMessageService dltStreamMessageService)
-    {
-        this.dltStreamMessageService = null;
-    }
 }
