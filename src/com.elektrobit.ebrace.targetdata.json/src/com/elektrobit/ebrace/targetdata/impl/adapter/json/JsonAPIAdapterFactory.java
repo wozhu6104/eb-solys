@@ -15,11 +15,11 @@ import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.BaseTargetAdapterFactory;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory;
 import com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor;
-import com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor;
 

@@ -16,6 +16,8 @@ import java.util.List;
 
 import com.elektrobit.ebrace.common.utils.ByteArrayHelper;
 import com.elektrobit.ebrace.common.utils.StringHelper;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
 import com.elektrobit.ebrace.targetadapter.communicator.api.OutgoingMessage;
 import com.google.gson.JsonObject;
 
@@ -99,61 +101,41 @@ public class DltMessage implements OutgoingMessage
     public String toString()
     {
         return "DltMessage";
-
     }
 
-    public String constructJsonEvent()
+    public JsonEventValue constructJsonEventValue()
     {
-        final String logLevel = StringHelper.extractLast( extendedHeader.getMessageTypeInfo(), "_" );
-        String jsonEvent = "{\"appId\":\"" + extendedHeader.getApplicationId() + "\", \"contextId\":\""
-                + extendedHeader.getContextId() + "\", \"numArgs\":\"" + extendedHeader.getNumberOfArguments()
-                + "\", \"logLevel\":\"" + logLevel + "\", \"Value\":" + constructPayload() + "}";
-
-        return jsonEvent.replace( "\n", "" );
+        JsonObject value = new JsonObject();
+        value.addProperty( "appId", extendedHeader.getApplicationId() );
+        value.addProperty( "contextId", extendedHeader.getContextId() );
+        value.addProperty( "numArgs", extendedHeader.getNumberOfArguments() );
+        value.addProperty( "logLevel", StringHelper.extractLast( extendedHeader.getMessageTypeInfo(), "_" ) );
+        value.add( "payload", constructPayload() );
+        return new JsonEventValue( constructPayload().toString(), value );
     }
 
-    private String constructPayload()
+    private JsonObject constructPayload()
     {
-        int payloadItemsSize = payload.size();
-        String payloadJson = "";
-        if (payloadItemsSize > 1)
+        JsonObject payloadObject = new JsonObject();
+        int i = 0;
+        for (String param : payload)
         {
-            payloadJson += "{";
-            int i = 0;
-            for (i = 0; i < payloadItemsSize - 1; i++)
-            {
-                payloadJson += addJsonPayloadParam( i ) + ",";
-            }
-            payloadJson += addJsonPayloadParam( i );
-            payloadJson += "}";
-        }
-        else if (payloadItemsSize == 1)
-        {
-            payloadJson = constructPayloadParam( 0 );
-        }
-        return payloadJson;
-    }
 
-    private String constructPayloadParam(int i)
-    {
-        return "\"" + getPayload().get( i ).trim().replace( "\"", "\\\"" ) + "\"";
-    }
-
-    private String addJsonPayloadParam(int i)
-    {
-        return "\"" + i + "\":" + constructPayloadParam( i );
+            payloadObject.addProperty( "" + i++, param );
+        }
+        return payloadObject;
     }
 
     public String toJson()
     {
-        JsonObject eventJson = new JsonObject();
-        String value = constructJsonEvent();
-        eventJson.addProperty( "uptime", standardHeader.getTimeStamp() );
-        eventJson.addProperty( "channel",
-                               "trace.dlt." + extendedHeader.getApplicationId() + "." + extendedHeader.getContextId() );
-        eventJson.addProperty( "summary", value );
-        eventJson.addProperty( "value", value );
-        return eventJson.toString();
+        JsonEventValue value = constructJsonEventValue();
+        JsonEvent event = new JsonEvent( (long)standardHeader.getTimeStamp(),
+                                         "trace.dlt." + extendedHeader.getApplicationId() + "."
+                                                 + extendedHeader.getContextId(),
+                                         value,
+                                         0l,
+                                         null );
+        return event.toString();
     }
 
 }

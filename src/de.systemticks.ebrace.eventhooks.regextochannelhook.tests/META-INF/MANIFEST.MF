@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: de.systemticks.ebrace.eventhooks.regextochannelhook.tests
+Bundle-SymbolicName: de.systemticks.ebrace.eventhooks.regextochannelhook.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: systemticks
+Fragment-Host: de.systemticks.ebrace.eventhooks.regextochannelhook;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.junit;bundle-version="4.12.0"

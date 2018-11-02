@@ -111,7 +111,7 @@ public class DltRuntimeEventCreatorImpl implements DltRuntimeEventCreator
         Timestamp timestamp = tsProvider.getHostTimestampCreator().create( standardHeader.getTimeStamp() );
 
         return runtimeEventAcceptor
-                .acceptEventMicros( timestamp.getTimeInMillis() * 1000, channel, null, dltMsg.constructJsonEvent() );
+                .acceptEventMicros( timestamp.getTimeInMillis() * 1000, channel, null, dltMsg.toJson() );
     }
 
     @Override
