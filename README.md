@@ -2,7 +2,7 @@
 
 ## Key features and benefits
 
-EB solys is a customizable tool to identify and localize functional and non-functional defects in complex software projects.
+EB solys is a customizable framework and construction kit for building tools to identify and localize functional and non-functional defects in complex software projects.
 It offers functionality for filtering, searching, aggregating  and correlating runtime data across different data sources in a single place.
 This enables you to create a joint system understanding and to isolate errors with significantly less workforce and to gain greater insight into the operational activity of your software system. It is applicable for live and post-mortem analysis.
 
