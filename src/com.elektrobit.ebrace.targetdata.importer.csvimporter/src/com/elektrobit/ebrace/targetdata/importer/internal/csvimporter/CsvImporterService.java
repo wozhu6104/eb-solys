@@ -21,7 +21,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import com.elektrobit.ebrace.core.importerregistry.api.AbstractImporter;
 import com.elektrobit.ebrace.core.importerregistry.api.Importer;
-import com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 
 @Component(service = Importer.class)
 public class CsvImporterService extends AbstractImporter

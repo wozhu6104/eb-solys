@@ -11,7 +11,9 @@ Require-Bundle: org.eclipse.core.runtime,
  com.elektrobit.ebrace.core.timesegmentmanager,
  com.elektrobit.ebrace.protobuf.messagedefinitions;bundle-version="1.0.0",
  com.google.protobuf;bundle-version="2.4.1",
- com.google.gson;bundle-version="2.1.0"
+ com.google.gson;bundle-version="2.1.0",
+ com.elektrobit.ebrace.common,
+ org.projectlombok.lombok
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Eclipse-ExtensibleAPI: true
@@ -19,4 +21,3 @@ Import-Package: com.elektrobit.ebrace.core.importerregistry.api
 Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.impl.importer.json.JsonService.xml,
  OSGI-INF/com.elektrobit.ebrace.targetdata.impl.importer.json.JsonEventHandlerImpl.xml,
  OSGI-INF/com.elektrobit.ebrace.targetdata.impl.adapter.json.JsonAPIAdapterFactory.xml
-Export-Package: com.elektrobit.ebrace.targetdata.json.api

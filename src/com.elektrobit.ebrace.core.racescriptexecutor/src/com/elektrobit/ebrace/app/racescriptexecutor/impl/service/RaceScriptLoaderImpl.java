@@ -36,6 +36,7 @@ import com.elektrobit.ebrace.core.scriptconsolefactory.api.ScriptConsoleFactoryS
 import com.elektrobit.ebrace.core.scriptimporter.api.ScriptProjectBuildListener;
 import com.elektrobit.ebrace.core.scriptimporter.api.ScriptProjectBuilderService;
 import com.elektrobit.ebrace.core.systemmodel.api.SystemModelAccess;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService;
 import com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger;
 import com.elektrobit.ebrace.franca.common.validator.api.FrancaTraceValidator;
@@ -43,7 +44,6 @@ import com.elektrobit.ebrace.franca.common.validator.api.FrancaTraceValidatorFac
 import com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.CommandLineParser;
 import com.elektrobit.ebrace.resources.api.manager.ResourcesModelManager;
 import com.elektrobit.ebsolys.core.targetdata.api.color.ChannelColorProviderService;
-import com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager;
 import com.elektrobit.ebsolys.decoder.common.api.DecodedRuntimeEventStringConverter;

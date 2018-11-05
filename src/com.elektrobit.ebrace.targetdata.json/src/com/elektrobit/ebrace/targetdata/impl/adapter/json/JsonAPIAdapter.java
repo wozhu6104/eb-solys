@@ -9,6 +9,7 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.targetdata.impl.adapter.json;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.protobuf.messagedefinitions.JsonAPI.JsonAPIMsg;
 import com.elektrobit.ebrace.targetagent.protocol.commondefinitions.TargetAgentProtocolCommonDefinitions;
 import com.elektrobit.ebrace.targetagent.protocol.commondefinitions.TargetAgentProtocolCommonDefinitions.MessageType;
@@ -17,7 +18,6 @@ import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdapter;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.Timestamp;
 import com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor;
-import com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor;
 import com.google.protobuf.InvalidProtocolBufferException;

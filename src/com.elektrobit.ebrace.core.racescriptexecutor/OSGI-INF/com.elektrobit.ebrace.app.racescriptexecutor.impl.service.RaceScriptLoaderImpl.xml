@@ -6,7 +6,7 @@
    </service>
    <reference bind="setChannelColorProvider" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.color.ChannelColorProviderService" name="ChannelColorProvider" policy="static" unbind="unsetChannelColorProvider"/>
    <reference bind="setCommandLineParser" cardinality="1..1" interface="com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.CommandLineParser" name="CommandLineParser" policy="static" unbind="unsetCommandLineParser"/>
-   <reference bind="bindJsonEventHandler" interface="com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler" name="JsonEventHandler" unbind="unbindJsonEventHandler"/>
+   <reference bind="bindJsonEventHandler" interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler" name="JsonEventHandler" unbind="unbindJsonEventHandler"/>
    <reference bind="bindOutputConsoleFactoryService" cardinality="0..1" interface="com.elektrobit.ebrace.core.scriptconsolefactory.api.ScriptConsoleFactoryService" name="OutputConsoleFactoryService" policy="dynamic" unbind="unbindOutputConsoleFactoryService"/>
    <reference bind="setPlantUmlRendererService" cardinality="1..1" interface="com.elektrobit.ebrace.core.plantumlrenderer.api.PlantUmlRendererService" name="PlantUmlRendererService" policy="static" unbind="unsetPlantUmlRendererService"/>
    <reference bind="setResourcesModelManager" cardinality="1..1" interface="com.elektrobit.ebrace.resources.api.manager.ResourcesModelManager" name="ResourcesModelManager" policy="static" unbind="unsetResourcesModelManager"/>

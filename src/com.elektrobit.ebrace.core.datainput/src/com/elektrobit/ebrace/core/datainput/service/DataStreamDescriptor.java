@@ -9,10 +9,7 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.core.datainput.service;
 
-import java.util.Arrays;
-import java.util.List;
-
-import com.google.gson.JsonElement;
+import com.elektrobit.ebrace.common.utils.SimpleJsonPath;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -22,31 +19,12 @@ public class DataStreamDescriptor
     private final JsonObject target;
     private final JsonParser parser = new JsonParser();
 
+    private SimpleJsonPath jsonPath = null;
+
     public DataStreamDescriptor(JsonObject target)
     {
         this.target = target;
-    }
-
-    public String stringValueOf(String key)
-    {
-        return navigateTo( Arrays.asList( key.split( "\\." ) ) ).getAsString();
-    }
-
-    public JsonObject jsonObjectValueOf(String key)
-    {
-        return navigateTo( Arrays.asList( key.split( "\\." ) ) ).getAsJsonObject();
-    }
-
-    private JsonElement navigateTo(List<String> parts)
-    {
-        JsonObject latest = target;
-
-        for (String part : parts.subList( 0, parts.size() - 1 ))
-        {
-            latest = latest.getAsJsonObject( part );
-        }
-
-        return latest.get( parts.get( parts.size() - 1 ) );
+        jsonPath = new SimpleJsonPath( target );
     }
 
     public void setId(String id)
@@ -67,5 +45,15 @@ public class DataStreamDescriptor
 
     public void setParser(String id)
     {
+    }
+
+    public JsonObject jsonObjectValueOf(String key)
+    {
+        return jsonPath.jsonObjectValueOf( key );
+    }
+
+    public String stringValueOf(String key)
+    {
+        return jsonPath.stringValueOf( key );
     }
 }

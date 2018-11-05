@@ -26,7 +26,7 @@ import com.elektrobit.ebrace.core.datainput.api.DataStreamTokenizer;
 import com.elektrobit.ebrace.core.datainput.factory.DataStreamFactory;
 import com.elektrobit.ebrace.core.datainput.factory.DataStreamParserFactory;
 import com.elektrobit.ebrace.core.datainput.factory.DataStreamTokenizerFactory;
-import com.elektrobit.ebsolys.core.targetdata.api.importer.JsonEventHandler;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;

@@ -1,19 +1,22 @@
-target "EB solys" with source environment linux gtk x86_64  
+target "EB solys" with source allEnvironments
 
-location "http://download.eclipse.org/releases/neon" {
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/releases/mars" {
 	org.eclipse.equinox.executable.feature.group
 	org.eclipse.rcp.feature.group
 	org.eclipse.emf.ecore.feature.group
 	org.eclipse.emf.common.feature.group
 	org.eclipse.equinox.p2.core.feature.feature.group
 	org.junit
-	org.eclipse.zest.feature.group
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/eclipse/updates/4.5" {
 	org.eclipse.jdt.feature.group
 	org.eclipse.platform.feature.group
 	org.eclipse.pde.feature.group
+
 }
 
-location "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases" {
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/modeling/tmf/xtext/updates/composite/releases" {
 	org.eclipse.xtend.sdk.feature.group
 	org.eclipse.xtext.runtime.feature.group
 	org.eclipse.xtext.sdk.feature.group
@@ -36,37 +39,48 @@ location "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/relea
 	com.google.guava
 	com.google.inject
 	com.google.collect
-	org.objectweb.asm [6.2.1,6.2.2)
 }
 
-location "http://download.eclipse.org/mat/1.5/update-site" {
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/mat/1.5/update-site" {
 	org.eclipse.mat.api
 	org.eclipse.mat.hprof
 	org.eclipse.mat.parser
 	org.eclipse.mat.report
 }
 
-location "http://franca.github.io/franca/update_site/releases/" {
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tools/gef/updates/releases" {
+	org.eclipse.zest.feature.group
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/franca.org/0.9.2" {
 	org.franca.core.sdk.feature.group
 }
 
-location "http://download.eclipse.org/birt/update-site/4.5" {
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/birt/update-site/4.5" {
 	org.eclipse.birt.chart.feature.group
 }
 
-location "http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository" {
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository" {
 	org.apache.commons.collections
 	org.apache.commons.io
 	org.apache.commons.math
 	org.apache.commons.cli
 	org.apache.commons.compress
 	org.apache.commons.net
+	//	org.hamcrest
 	com.google.gson
 	org.hamcrest.generator
+	//	org.mockito
+//	org.objenesis
+	//	org.hamcrest
+//	org.hamcrest.core
+//	org.hamcrest.library
+//	org.hamcrest.integration
+//	org.hamcrest.text
 	com.thoughtworks.qdox
 }
 
-location "http://download.eclipse.org/tools/orbit/downloads/drops/R20180606145124/repository" {
+location "https://ftp-stud.hs-esslingen.de/pub/Mirrors/eclipse/tools/orbit/downloads/drops/R20180606145124/repository" {
 	org.mockito
 	org.objenesis
 	org.hamcrest
@@ -78,22 +92,27 @@ location "http://download.eclipse.org/tools/orbit/downloads/drops/R2018060614512
 	net.bytebuddy.byte-buddy-agent
 }
 
-location "http://download.eclipse.org/nebula/releases/1.0.0" {
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/nebula/releases/1.0.0" {
 	org.eclipse.nebula.feature.feature.group
 }
 
 //Tracecompass START
 
-location "http://download.eclipse.org/tracecompass/releases/2.2.0/repository" {
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tracecompass/releases/2.2.0/repository" {
 	org.eclipse.tracecompass.tmf.feature.group
 }
 
-location "http://download.eclipse.org/tools/cdt/releases/9.2" {
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tools/cdt/releases/9.2" {
 	org.eclipse.cdt.core
 	org.eclipse.cdt.core.native
 
 }
-location "https://ftp.fau.de/eclipse/linuxtools/update/" {
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/webtools/updates" {
+
+}
+
+location "http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/linuxtools/update-5.2.0" {
 	org.eclipse.linuxtools.dataviewers.feature.feature.group
 	org.swtchart
 }

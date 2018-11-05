@@ -16,14 +16,16 @@ Log events are finally processed in EB solys as JSON objects. If the events repr
 [source,json]
 ----
 {
-  "uptime": "12345",
+  "uptime": 12345,
   "channel": "trace.ipc.yourname",
-  "summary": "I am a trace message",
   "value": {
-    "requestId": 1,
-    "param1": 1,
-    "param2": "Value 2",
-    "param3": null
+    "summary": "I am a trace message",
+    "details": {
+      "requestId": 1,
+      "param1": 1,
+      "param2": "Value 2",
+      "param3": null
+    }
   },
   "edge": {
     "source": "service1.module1",
@@ -38,8 +40,8 @@ WARNING: The final IPC log file may only contain one event element per line. The
 === Example file (raw)
 
 ----
-{"uptime":"12345","channel":"trace.ipc.yourname", ... }
-{"uptime":"23456u","channel":"trace.ipc.yourname", ... }
+{"uptime":12345,"channel":"trace.ipc.yourname", ... }
+{"uptime":23456,"channel":"trace.ipc.yourname", ... }
 ...
 ----
 
@@ -52,15 +54,18 @@ WARNING: The final IPC log file may only contain one event element per line. The
 |Description
 
 |*_uptime_*
-|System uptime in can be in milisecond precision (default) or microsecond precision with a trailing 'u'.
+|System uptime in microsecond precision.
 
 |*_channel_*
 |The _channel_ will be used to distinguish between different types of logs in EB solys. It will be interpreted hierarchically if divided by '.' If there are two channels, starting with trace.ipc, they will be grouped in the UI.
 
-|*_summary_* [optional]
-|The content of a cell in the _Value_ column in an _Event Table_ in EB solys. If there is no summary, it will be replaced by a textual representation of the contents of the _value_ field.
-
 |*_value_*
+|A _value_ contains at least a _summary_ and optionally _details_ which at the top level will provide for additional columns in an EB solys table. In the example above, this would result in the columns: requestId, param1, param2, param3, Value, where Value would contain the content of _summary_.
+
+|*_summary_*
+|Either a short summary of a complex value or the value itself if it is of a primitive data type. Will be displayed in the "Value" column.
+
+|*_details_* [optional]
 |Can be a plain textual value or a valid JSON structure of different and arbitrary parameters.
 
 |*_edge_* [optional]

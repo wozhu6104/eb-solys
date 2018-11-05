@@ -19,7 +19,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 
-import com.elektrobit.ebrace.common.utils.JsonHelper;
+import com.elektrobit.ebrace.common.utils.SimpleJsonPath;
 import com.elektrobit.ebrace.core.interactor.api.resources.model.table.TableModel;
 import com.elektrobit.ebrace.core.interactor.api.table.Position;
 import com.elektrobit.ebrace.core.interactor.api.table.RowFormatter;
@@ -125,12 +125,19 @@ public class ValueColumnLabelProvider extends StyledCellLabelProvider implements
                 }
                 else
                 {
-                    result = JsonHelper.getFieldFromJsonString( event.getSummary(), "Value" );
+                    if (event.getValue() instanceof String)
+                    {
+                        result = new SimpleJsonPath( (String)event.getValue() ).stringValueOf( "value.summary" );
+                    }
                 }
             }
             else
             {
-                result = JsonHelper.getFieldFromJsonString( event.getSummary(), columnName );
+                if (event.getValue() instanceof String)
+                {
+                    result = new SimpleJsonPath( (String)event.getValue() )
+                            .stringValueOf( "value.details." + columnName );
+                }
             }
         }
 
