@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="EB solys" sequenceNumber="1539679972">
+<target name="EB solys" sequenceNumber="1541415173">
   <locations>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.equinox.executable.feature.group" version="3.6.200.v20150602-1417"/>
-      <unit id="org.eclipse.rcp.feature.group" version="4.5.2.v20160212-1500"/>
-      <unit id="org.eclipse.emf.ecore.feature.group" version="2.11.2.v20160208-0816"/>
-      <unit id="org.eclipse.emf.common.feature.group" version="2.11.1.v20160208-0816"/>
-      <unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.3.100.v20150527-1706"/>
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.equinox.executable.feature.group" version="3.6.300.v20161122-1740"/>
+      <unit id="org.eclipse.rcp.feature.group" version="4.6.3.v20170301-0400"/>
+      <unit id="org.eclipse.emf.ecore.feature.group" version="2.12.0.v20160420-0247"/>
+      <unit id="org.eclipse.emf.common.feature.group" version="2.12.0.v20160420-0247"/>
+      <unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.3.203.v20170131-1444"/>
       <unit id="org.junit" version="4.12.0.v201504281640"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/releases/mars"/>
+      <unit id="org.eclipse.zest.feature.group" version="1.7.0.201606061308"/>
+      <unit id="org.eclipse.jdt.feature.group" version="3.12.3.v20170301-0400"/>
+      <unit id="org.eclipse.platform.feature.group" version="4.6.3.v20170301-0400"/>
+      <unit id="org.eclipse.pde.feature.group" version="3.12.3.v20170301-0400"/>
+      <repository location="http://download.eclipse.org/releases/neon"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.jdt.feature.group" version="3.11.2.v20160212-1500"/>
-      <unit id="org.eclipse.platform.feature.group" version="4.5.2.v20160212-1500"/>
-      <unit id="org.eclipse.pde.feature.group" version="3.11.2.v20160212-1500"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/eclipse/updates/4.5"/>
-    </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.xtend.sdk.feature.group" version="2.10.0.v201605250459"/>
-      <unit id="org.eclipse.xtext.runtime.feature.group" version="2.10.0.v201605250459"/>
-      <unit id="org.eclipse.xtext.sdk.feature.group" version="2.10.0.v201605250459"/>
-      <unit id="org.eclipse.xtext.ui.feature.group" version="2.10.0.v201605250459"/>
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.xtend.sdk.feature.group" version="2.15.0.v20180916-1232"/>
+      <unit id="org.eclipse.xtext.runtime.feature.group" version="2.15.0.v20180916-1232"/>
+      <unit id="org.eclipse.xtext.sdk.feature.group" version="2.15.0.v20180916-1232"/>
+      <unit id="org.eclipse.xtext.ui.feature.group" version="2.15.0.v20180916-1232"/>
       <unit id="org.eclipse.xtext.ui.source.feature.group" version="2.10.0.v201605250459"/>
-      <unit id="org.eclipse.xtext.xbase.feature.group" version="2.10.0.v201605250459"/>
-      <unit id="org.eclipse.xtext.xbase.lib.feature.group" version="2.10.0.v201605250459"/>
-      <unit id="org.eclipse.xtext.xtext.ui.feature.group" version="2.10.0.v201605250459"/>
+      <unit id="org.eclipse.xtext.xbase.feature.group" version="2.15.0.v20180916-1232"/>
+      <unit id="org.eclipse.xtext.xbase.lib.feature.group" version="2.15.0.v20180916-1132"/>
+      <unit id="org.eclipse.xtext.xtext.ui.feature.group" version="2.15.0.v20180916-1232"/>
       <unit id="org.eclipse.emf.mapping.ecore.feature.group" version="2.8.0.v20150123-0452"/>
       <unit id="org.eclipse.emf.codegen.feature.group" version="2.10.0.v20150123-0452"/>
       <unit id="org.eclipse.xpand.feature.group" version="2.0.0.v201406030414"/>
@@ -41,28 +39,25 @@
       <unit id="com.google.guava" version="15.0.0.v201403281430"/>
       <unit id="com.google.inject" version="3.0.0.v201312141243"/>
       <unit id="com.google.collect" version="1.0.0.v201105210816"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
+      <unit id="org.objectweb.asm" version="6.2.1.v20180823-1831"/>
+      <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.mat.api" version="1.5.0.201505271423"/>
       <unit id="org.eclipse.mat.hprof" version="1.5.0.201505271423"/>
       <unit id="org.eclipse.mat.parser" version="1.5.0.201505271423"/>
       <unit id="org.eclipse.mat.report" version="1.5.0.201505271423"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/mat/1.5/update-site"/>
+      <repository location="http://download.eclipse.org/mat/1.5/update-site"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.zest.feature.group" version="1.7.0.201606061308"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tools/gef/updates/releases"/>
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.franca.core.sdk.feature.group" version="0.13.1.201807231814"/>
+      <repository location="http://franca.github.io/franca/update_site/releases/"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.franca.core.sdk.feature.group" version="0.9.2.201505211553"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/franca.org/0.9.2"/>
-    </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.birt.chart.feature.group" version="4.5.0.v201506092134"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/birt/update-site/4.5"/>
+      <repository location="http://download.eclipse.org/birt/update-site/4.5"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.apache.commons.collections" version="3.2.0.v2013030210310"/>
       <unit id="org.apache.commons.io" version="2.0.1.v201105210651"/>
       <unit id="org.apache.commons.math" version="2.1.0.v201105210652"/>
@@ -72,9 +67,9 @@
       <unit id="com.google.gson" version="2.1.0.v201303041604"/>
       <unit id="org.hamcrest.generator" version="1.1.0.v20090501071000"/>
       <unit id="com.thoughtworks.qdox" version="1.6.3.v20081201-1400"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository"/>
+      <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.mockito" version="2.13.0.v20180426-1843"/>
       <unit id="org.objenesis" version="2.6.0.v20180420-1519"/>
       <unit id="org.hamcrest" version="1.1.0.v20090501071000"/>
@@ -84,28 +79,25 @@
       <unit id="org.hamcrest.text" version="1.1.0.v20090501071000"/>
       <unit id="net.bytebuddy.byte-buddy" version="1.7.9.v20180420-1519"/>
       <unit id="net.bytebuddy.byte-buddy-agent" version="1.7.9.v20180420-1519"/>
-      <repository location="https://ftp-stud.hs-esslingen.de/pub/Mirrors/eclipse/tools/orbit/downloads/drops/R20180606145124/repository"/>
+      <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20180606145124/repository"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.nebula.feature.feature.group" version="1.0.0.201605312033"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/nebula/releases/1.0.0"/>
+      <repository location="http://download.eclipse.org/nebula/releases/1.0.0"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.tracecompass.tmf.feature.group" version="2.2.0.201612071351"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tracecompass/releases/2.2.0/repository"/>
+      <repository location="http://download.eclipse.org/tracecompass/releases/2.2.0/repository"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.cdt.core" version="6.2.0.201704050430"/>
       <unit id="org.eclipse.cdt.core.native" version="5.10.0.201704050430"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/tools/cdt/releases/9.2"/>
+      <repository location="http://download.eclipse.org/tools/cdt/releases/9.2"/>
     </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/webtools/updates"/>
-    </location>
-    <location includeMode="slicer" includeAllPlatforms="true" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.linuxtools.dataviewers.feature.feature.group" version="5.2.0.201612072123"/>
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.linuxtools.dataviewers.feature.feature.group" version="7.0.2.201809272014"/>
       <unit id="org.swtchart" version="0.10.0.v201605200358"/>
-      <repository location="http://er01545p:8989/userContent/eclipse-mirror/download.eclipse.org/linuxtools/update-5.2.0"/>
+      <repository location="https://ftp.fau.de/eclipse/linuxtools/update/"/>
     </location>
   </locations>
 </target>
