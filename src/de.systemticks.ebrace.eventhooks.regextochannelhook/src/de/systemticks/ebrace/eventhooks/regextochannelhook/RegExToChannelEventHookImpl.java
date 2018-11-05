@@ -31,16 +31,17 @@ public class RegExToChannelEventHookImpl implements RegExToChannelEventHook
 {
     private static final Logger LOG = Logger.getLogger( RegExToChannelEventHookImpl.class );
     private JsonEventHandler jsonEventHandler = null;
-    private String regEx = "no-match-1234";
-    private Pattern regExPattern;
-    private Matcher regExMatcher;
+    private String expression;
+    private Pattern pattern;
+    private Matcher matcher;
 
     public RegExToChannelEventHookImpl()
     {
         try
         {
-            regEx = FileHelper.readFileToString( "regExHook.txt" );
-            regExPattern = Pattern.compile( regEx );
+            expression = FileHelper.readFileToString( "regExHook.txt" );
+            pattern = Pattern.compile( expression );
+            LOG.info( "initialized RegEx to Channel Event Hook with expression: " + expression );
         }
         catch (FileNotFoundException e)
         {
@@ -74,13 +75,14 @@ public class RegExToChannelEventHookImpl implements RegExToChannelEventHook
     private JsonEvent mapEvent(JsonEvent oldEvent)
     {
         JsonEvent newEvent = null;
-        regExMatcher = regExPattern.matcher( oldEvent.getValue().getSummary().toString() );
-        if (regExMatcher.find())
+        String summaryString = oldEvent.getValue().getSummary().toString();
+        matcher = pattern.matcher( summaryString );
+        if (matcher.find())
         {
             newEvent = new JsonEvent( oldEvent.getUptime(),
-                                      "cpu." + regExMatcher.group( 2 ),
-                                      new JsonEventValue( regExMatcher.group( 1 ), null ),
-                                      0l,
+                                      "cpu." + matcher.group( 2 ),
+                                      new JsonEventValue( Double.parseDouble( matcher.group( 1 ) ), null ),
+                                      null,
                                       null );
         }
         return newEvent;

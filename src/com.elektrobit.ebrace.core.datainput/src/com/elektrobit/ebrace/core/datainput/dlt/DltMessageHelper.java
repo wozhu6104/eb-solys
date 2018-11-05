@@ -68,7 +68,7 @@ public class DltMessageHelper
                 DltExtendedHeader extendedHeader = parseExtendedHeader( stream );
                 dltMsg.setExtendedHeader( extendedHeader );
 
-                if (null != extendedHeader)
+                if (null != extendedHeader && standardHeader.getMessageLength() > offset)
                 {
                     byte[] bytes = new byte[standardHeader.getMessageLength() - offset];
                     stream.read( bytes );
@@ -76,19 +76,22 @@ public class DltMessageHelper
                 }
                 else
                 {
-                    log.error( "No Extended Header" );
+                    log.error( "Parsing extended header failed" );
                     dltMsg = null;
                 }
             }
             else
             {
-                stream.skip( standardHeader.getMessageLength() - offset );
+                log.error( "No extended header - skipping" );
+                int toBeSkipped = standardHeader.getMessageLength() - offset;
+                byte[] skippedBytes = new byte[toBeSkipped];
+                stream.read( skippedBytes );
                 dltMsg = null;
             }
         }
         else
         {
-            log.error( "No Standard Header" );
+            log.error( "Invalid DLT message" );
             dltMsg = null;
         }
         return dltMsg;
@@ -141,16 +144,19 @@ public class DltMessageHelper
                 headerFound = true;
                 if (dropList.size() > 0)
                 {
-                    System.out.println( "Following content was dropped" + dropList );
+                    log.warn( "Following content was dropped" + dropList );
                 }
-                bytesReader.skip( 12 );
+                // storage header is 16 bytes long (the search pattern +
+                // an 8 byte timestamp + 4 bytes ecu id)
+                byte[] skippedBytes = new byte[12];
+                bytesReader.read( skippedBytes );
                 eofReached = bytesReader.available() == 0;
             }
         }
         return !eofReached;
     }
 
-    private boolean isExpectedCharFound(byte actual, int expected, List<Byte> dropList) throws IOException
+    private boolean isExpectedCharFound(int actual, int expected, List<Byte> dropList) throws IOException
     {
         boolean retVal = false;
 
@@ -160,7 +166,7 @@ public class DltMessageHelper
         }
         else
         {
-            dropList.add( actual );
+            dropList.add( (byte)actual );
         }
         return retVal;
     }
@@ -217,7 +223,6 @@ public class DltMessageHelper
         if (len == 0)
         {
             throw new DltMessageParseException( "the length of the dlt message is zero " );
-
         }
 
         retrieveEcuId( standardHeader, stream );
@@ -405,7 +410,8 @@ public class DltMessageHelper
         {
             result += "GetSoftwareVersion";
 
-            bytesReader.skip( 4 );
+            byte[] skippedBytes = new byte[4];
+            bytesReader.read( skippedBytes );
             lengthOfPayload -= 4;
             if (lengthOfPayload > 0)
             {

@@ -10,11 +10,9 @@
 package com.elektrobit.ebrace.core.datainput.dlt;
 
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.elektrobit.ebrace.common.utils.ByteArrayHelper;
 import com.elektrobit.ebrace.common.utils.StringHelper;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
@@ -42,36 +40,12 @@ public class DltMessage
 
     public byte[] serialize()
     {
-        byte[] payloadBytes = joinPayloadEntries();
-
-        standardHeader.setMessageLength( (short)(standardHeader.getLength() + DltExtendedHeader.LENGTH
-                + payloadBytes.length) );
+        standardHeader.setMessageLength( standardHeader.getLength() + DltExtendedHeader.LENGTH + payloadBuffer.length );
         ByteBuffer buffer = ByteBuffer.allocate( standardHeader.getMessageLength() );
         buffer.put( standardHeader.getBytes() );
         buffer.put( extendedHeader.getBytes() );
-        buffer.put( payloadBytes );
+        buffer.put( payloadBuffer );
         return buffer.array();
-    }
-
-    private byte[] joinPayloadEntries()
-    {
-        byte[] payload = new byte[0];
-        for (byte[] item : outPayload)
-        {
-            payload = ByteArrayHelper.appendBytes( payload, item );
-        }
-        return payload;
-    }
-
-    public void addPayloadItem(int serviceId)
-    {
-        byte[] bytes = ByteBuffer.allocate( 4 ).order( ByteOrder.LITTLE_ENDIAN ).putInt( serviceId ).array();
-        outPayload.add( bytes );
-    }
-
-    public void addPayloadItem(byte[] item)
-    {
-        outPayload.add( item );
     }
 
     public void setPayloadBuffer(byte[] payloadBuffer)

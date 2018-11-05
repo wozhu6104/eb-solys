@@ -14,6 +14,9 @@ import java.nio.charset.StandardCharsets;
 
 import com.elektrobit.ebrace.common.utils.ByteArrayHelper;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 public class DltStandardHeader
 {
     private final static int STANDARD_HEADER_SIZE = 4;
@@ -83,7 +86,10 @@ public class DltStandardHeader
     {
         if (length > 65535 || length < 0)
         {
-            throw new IllegalArgumentException( "Message length needs to be in the range 0 <= length <= 65535 (2^16-1)" );
+            header[2] = 0;
+            header[3] = 0;
+            log.error( "Message length needs to be in the range 0 <= length <= 65535 (2^16-1)" );
+            return;
         }
         header[2] = (byte)(length >> 8 & 0xff);
         header[3] = (byte)(length & 0xff);

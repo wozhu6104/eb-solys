@@ -25,7 +25,13 @@ public class DltStreamTokenizer extends DataStreamTokenizer
     @Override
     public byte[] readNextMessage() throws IOException
     {
-        return new DltMessageHelper().getNextMessage( stream ).serialize();
+        byte[] buffer = null;
+        DltMessage nextMessage = new DltMessageHelper().getNextMessage( stream );
+        if (nextMessage != null)
+        {
+            buffer = nextMessage.serialize();
+        }
+        return buffer;
     }
 
     @Override

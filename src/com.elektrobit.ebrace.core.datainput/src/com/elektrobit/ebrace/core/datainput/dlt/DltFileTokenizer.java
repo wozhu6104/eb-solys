@@ -13,7 +13,6 @@ import java.io.IOException;
 
 import org.osgi.service.component.annotations.Component;
 
-import com.elektrobit.ebrace.common.utils.HexStringHelper;
 import com.elektrobit.ebrace.core.datainput.api.DataStreamTokenizer;
 
 @Component
@@ -31,7 +30,6 @@ public class DltFileTokenizer extends DataStreamTokenizer
         if (nextMessage != null)
         {
             buffer = nextMessage.serialize();
-            System.out.println( HexStringHelper.toHexString( buffer ) );
         }
         return buffer;
     }

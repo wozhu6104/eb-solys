@@ -79,7 +79,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
 
     public void handle(String eventJson)
     {
-        System.out.println( eventJson );
         JsonEvent event = new Gson().fromJson( eventJson, JsonEvent.class );
         handle( event );
     }
