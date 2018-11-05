@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (C) 2018 systemticks GmbH
+
+    This program and the accompanying materials are made
+    available under the terms of the Eclipse Public License 2.0
+    which is available at https://www.eclipse.org/legal/epl-2.0/
+ 
+    SPDX-License-Identifier: EPL-2.0
+-->
+<setup:Project
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:git="http://www.eclipse.org/oomph/setup/git/1.0"
+    xmlns:jdt="http://www.eclipse.org/oomph/setup/jdt/1.0"
+    xmlns:pde="http://www.eclipse.org/oomph/setup/pde/1.0"
+    xmlns:predicates="http://www.eclipse.org/oomph/predicates/1.0"
+    xmlns:projects="http://www.eclipse.org/oomph/setup/projects/1.0"
+    xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+    xmlns:setup.p2="http://www.eclipse.org/oomph/setup/p2/1.0"
+    xmlns:setup.workingsets="http://www.eclipse.org/oomph/setup/workingsets/1.0"
+    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/setup/pde/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/PDE.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/projects/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Projects.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
+    name="eb.solys.dev"
+    label="EB Solys">
+  <stream name="master">
+    <setupTask
+        xsi:type="jdt:JRETask"
+        version="JavaSE-1.8"
+        location="${jre.location-1.8}">
+      <description>Define the JRE needed to compile and run the Java projects of ${scope.project.label}</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:EclipseIniTask"
+        option="-Xmx"
+        value="2048m"
+        vm="true">
+      <description>Set the heap space needed to work with the projects of ${scope.project.label}</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:ResourceCreationTask"
+        excludedTriggers="STARTUP MANUAL"
+        content="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;section name=&quot;Workbench&quot;>&#xD;&#xA;&#x9;&lt;section name=&quot;org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart&quot;>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;true&quot; key=&quot;group_libraries&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;false&quot; key=&quot;linkWithEditor&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;2&quot; key=&quot;layout&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;2&quot; key=&quot;rootMode&quot;/>&#xD;&#xA;&#x9;&#x9;&lt;item value=&quot;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;packageExplorer configured=&amp;quot;true&amp;quot; group_libraries=&amp;quot;1&amp;quot; layout=&amp;quot;2&amp;quot; linkWithEditor=&amp;quot;0&amp;quot; rootMode=&amp;quot;2&amp;quot; sortWorkingSets=&amp;quot;false&amp;quot; workingSetName=&amp;quot;&amp;quot;&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;localWorkingSetManager&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;workingSet editPageId=&amp;quot;org.eclipse.jdt.internal.ui.OthersWorkingSet&amp;quot; factoryID=&amp;quot;org.eclipse.ui.internal.WorkingSetFactory&amp;quot; id=&amp;quot;1382792884467_1&amp;quot; label=&amp;quot;Other Projects&amp;quot; name=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;/localWorkingSetManager&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;activeWorkingSet workingSetName=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;allWorkingSets workingSetName=&amp;quot;Other Projects&amp;quot;/&amp;gt;&amp;#x0D;&amp;#x0A;&amp;lt;/packageExplorer&amp;gt;&quot; key=&quot;memento&quot;/>&#xD;&#xA;&#x9;&lt;/section>&#xD;&#xA;&lt;/section>&#xD;&#xA;"
+        targetURL="${workspace.location|uri}/.metadata/.plugins/org.eclipse.jdt.ui/dialog_settings.xml"
+        encoding="UTF-8">
+      <description>Initialize JDT's package explorer to show working sets as its root objects</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="Xtend"
+        label="Xtend">
+      <requirement
+          name="org.eclipse.xtend.sdk.feature.group"
+          versionRange="[2.9.0,3.0.0)"/>
+      <repository
+          url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
+      <description></description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="CopySettings"
+        label="RaGe Copy Settings">
+      <requirement
+          name="de.raphaelgeissler.eclipseaddons.copysettings.feature.feature.group"/>
+      <repository
+          url="https://github.com/rage5474/eclipseaddons.copysettings.updatesite/raw/master"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="CDSL"
+        label="RaGe CDSL">
+      <requirement
+          name="de.ragedev.cdsl.feature.feature.group"/>
+      <repository
+          url="http://dval.updatesite.ragedev.de"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="DependencyChecker"
+        label="RaGe Dependency Checker">
+      <requirement
+          name="de.raphaelgeissler.dependencychecker.feature.feature.group"/>
+      <repository
+          url="http://dval.updatesite.ragedev.de"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="SWT-Examples"
+        label="SWT Examples">
+      <requirement
+          name="org.eclipse.sdk.examples.source.feature.group"/>
+      <repository
+          url="http://download.eclipse.org/eclipse/updates/4.5"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="Explorer-Plugin"
+        label="Explorer Plugin">
+      <requirement
+          name="de.bastiankrol.startexplorer.feature.feature.group"/>
+      <repository
+          url="https://basti1302.github.com/startexplorer/update"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="tp.dsl"
+        label="Targetplatform DSL">
+      <requirement
+          name="org.eclipse.cbi.targetplatform-feature.feature.group"/>
+      <repository
+          url="http://download.eclipse.org/cbi/tpd/3.0.0-SNAPSHOT/"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:CompoundTask"
+        name="Preferences">
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          key="/instance/org.eclipse.ui.editors/lineNumberRuler"
+          value="true"/>
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          key="/instance/org.eclipse.core.resources/refresh.enabled"
+          value="true"/>
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          key="/instance/org.eclipse.jdt.ui/org.eclipse.jdt.ui.typefilter.enabled"
+          value="java.awt.*;"/>
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          disabled="true"
+          key="/instance/org.eclipse.core.resources/encoding"
+          value="UTF-8"/>
+    </setupTask>
+    <setupTask
+        xsi:type="git:GitCloneTask"
+        id="cloneEBsolys"
+        remoteURI="https://github.com/Elektrobit/eb-solys.git"/>
+    <setupTask
+        xsi:type="projects:ProjectsImportTask"
+        id="ebsolys.import"
+        predecessor="cloneEBsolys">
+      <sourceLocator
+          rootFolder="${cloneEBsolys.location}/src"/>
+    </setupTask>
+    <setupTask
+        xsi:type="pde:TargetPlatformTask"
+        id="ebsolys.targetplatform"
+        predecessor="ebsolys.import"
+        name="EB solys">
+      <description>Set EB solys default target platform</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:ResourceCopyTask"
+        id="copyLombokToEclipseFolder"
+        excludedTriggers="BOOTSTRAP"
+        predecessor="ebsolys.targetplatform"
+        sourceURL="${cloneEBsolys.location|uri}/src/org.projectlombok.lombok/lombok-1.16.6.jar"
+        targetURL="${installation.location|uri}/eclipse/lombok.jar">
+      <description>Copy lombok.jar to Eclipse Folder</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:EclipseIniTask"
+        id="vmArgsLombok"
+        excludedTriggers="BOOTSTRAP"
+        predecessor="copyLombokToEclipseFolder"
+        option="-javaagent"
+        value=":lombok.jar"
+        vm="true">
+      <description>Set lombok.jar option</description>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:CompoundTask"
+        id="com.elektrobit.ebrace.source.preferences"
+        name="Preferences">
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          id="de.raphaelgeissler.dependencychecker.ui.builder.prefs"
+          predecessor="ebsolys.import"
+          key="/instance/de.raphaelgeissler.dependencychecker.ui.builder/checkerConfigPath"
+          value="${cloneEBsolys.location}/src/com.elektrobit.ebrace.dev.cdsl/src-gen/config.dependencychecker">
+        <description>Sets the path to DependencyChecker model file</description>
+      </setupTask>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.workingsets:WorkingSetTask">
+      <workingSet
+          name="ebrace.dev"
+          id="ebrace.dev">
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="com.elektrobit.ebrace.dev.*"/>
+      </workingSet>
+      <workingSet
+          name="ebrace.core"
+          id="ebrace.core">
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="com.elektrobit.ebrace.core.*"/>
+      </workingSet>
+      <workingSet
+          name="ebrace.ext"
+          id="ebrace.ext">
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="com.elektrobit.ebrace.ext.*"/>
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="com.google.*"/>
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="nl.*"/>
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="de.*"/>
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="org.*"/>
+      </workingSet>
+      <workingSet
+          name="ebrace.ui.console"
+          id="ebrace.ui.console">
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="com.elektrobit.ebrace.ui.console.*"/>
+      </workingSet>
+      <workingSet
+          name="ebrace.ui.ecl"
+          id="ebrace.ui.ecl">
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="com.elektrobit.ebrace.ui.ecl.*"/>
+      </workingSet>
+      <workingSet
+          name="ebrace.targetdata"
+          id="ebrace.ui.ecl">
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="com.elektrobit.ebrace.targetdata.*"/>
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="com.elektrobit.ebrace.targetadapter.*"/>
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="com.elektrobit.ebrace.genivi.targetadapter.*"/>
+      </workingSet>
+      <workingSet
+          name="ebrace.common"
+          id="ebrace.common">
+        <predicate
+            xsi:type="predicates:NamePredicate"
+            pattern="com.elektrobit.ebrace.common.*"/>
+      </workingSet>
+    </setupTask>
+  </stream>
+  <logicalProjectContainer
+      xsi:type="setup:ProjectCatalog"
+      href="index:/org.eclipse.setup#//@projectCatalogs[name='org.eclipse']"/>
+  <description>EB Solys Development Setup</description>
+</setup:Project>
