@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    Copyright (C) 2018 systemticks GmbH
-
-    This program and the accompanying materials are made
-    available under the terms of the Eclipse Public License 2.0
-    which is available at https://www.eclipse.org/legal/epl-2.0/
- 
-    SPDX-License-Identifier: EPL-2.0
--->
 <setup:Project
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
@@ -133,12 +124,14 @@
     </setupTask>
     <setupTask
         xsi:type="git:GitCloneTask"
-        id="cloneEBsolys"
-        remoteURI="https://github.com/Elektrobit/eb-solys.git"/>
+        id="clone.solys"
+        remoteURI="https://github.com/Elektrobit/eb-solys.git">
+      <description>Clones EB solys from public GitHub</description>
+    </setupTask>
     <setupTask
         xsi:type="projects:ProjectsImportTask"
         id="ebsolys.import"
-        predecessor="cloneEBsolys">
+        predecessor="clone.solys">
       <sourceLocator
           rootFolder="${cloneEBsolys.location}/src"/>
     </setupTask>
