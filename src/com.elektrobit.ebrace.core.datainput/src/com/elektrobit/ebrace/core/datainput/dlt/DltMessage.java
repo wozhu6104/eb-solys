@@ -56,7 +56,7 @@ public class DltMessage
     public String toJson()
     {
         JsonEventValue value = constructJsonEventValue();
-        JsonEvent event = new JsonEvent( (long)standardHeader.getTimeStamp(),
+        JsonEvent event = new JsonEvent( standardHeader.getTimeStamp() * 100,
                                          "trace.dlt." + extendedHeader.getApplicationId() + "."
                                                  + extendedHeader.getContextId(),
                                          value,
