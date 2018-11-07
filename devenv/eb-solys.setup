@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    Copyright (C) 2018 systemticks GmbH
-
-    This program and the accompanying materials are made
-    available under the terms of the Eclipse Public License 2.0
-    which is available at https://www.eclipse.org/legal/epl-2.0/
- 
-    SPDX-License-Identifier: EPL-2.0
--->
 <setup:Project
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
@@ -133,14 +124,16 @@
     </setupTask>
     <setupTask
         xsi:type="git:GitCloneTask"
-        id="cloneEBsolys"
-        remoteURI="https://github.com/Elektrobit/eb-solys.git"/>
+        id="clone.solys"
+        remoteURI="https://github.com/Elektrobit/eb-solys.git">
+      <description>Clones EB solys from public GitHub</description>
+    </setupTask>
     <setupTask
         xsi:type="projects:ProjectsImportTask"
         id="ebsolys.import"
-        predecessor="cloneEBsolys">
+        predecessor="clone.solys">
       <sourceLocator
-          rootFolder="${cloneEBsolys.location}/src"/>
+          rootFolder="${clone.solys.location}/src"/>
     </setupTask>
     <setupTask
         xsi:type="pde:TargetPlatformTask"
@@ -149,22 +142,24 @@
         name="EB solys">
       <description>Set EB solys default target platform</description>
     </setupTask>
+	<!--
     <setupTask
         xsi:type="setup:ResourceCopyTask"
         id="copyLombokToEclipseFolder"
         excludedTriggers="BOOTSTRAP"
         predecessor="ebsolys.targetplatform"
-        sourceURL="${cloneEBsolys.location|uri}/src/org.projectlombok.lombok/lombok-1.16.6.jar"
+        sourceURL="${clone.solys.location|uri}/src/org.projectlombok.lombok/lombok-1.16.6.jar"
         targetURL="${installation.location|uri}/eclipse/lombok.jar">
       <description>Copy lombok.jar to Eclipse Folder</description>
     </setupTask>
+	-->
     <setupTask
         xsi:type="setup:EclipseIniTask"
         id="vmArgsLombok"
         excludedTriggers="BOOTSTRAP"
-        predecessor="copyLombokToEclipseFolder"
+        predecessor="clone.solys"
         option="-javaagent"
-        value=":lombok.jar"
+        value=":../git/eb-solys/src/org.projectlombok.lombok/lombok-1.16.6.jar"
         vm="true">
       <description>Set lombok.jar option</description>
     </setupTask>
@@ -177,7 +172,7 @@
           id="de.raphaelgeissler.dependencychecker.ui.builder.prefs"
           predecessor="ebsolys.import"
           key="/instance/de.raphaelgeissler.dependencychecker.ui.builder/checkerConfigPath"
-          value="${cloneEBsolys.location}/src/com.elektrobit.ebrace.dev.cdsl/src-gen/config.dependencychecker">
+          value="${clone.solys.location}/src/com.elektrobit.ebrace.dev.cdsl/src-gen/config.dependencychecker">
         <description>Sets the path to DependencyChecker model file</description>
       </setupTask>
     </setupTask>
