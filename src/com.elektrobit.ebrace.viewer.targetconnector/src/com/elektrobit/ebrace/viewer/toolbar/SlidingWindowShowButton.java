@@ -22,7 +22,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.menus.WorkbenchWindowControlContribution;
 
-import com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.BetaFeatureConfigurator;
 import com.elektrobit.ebrace.viewer.common.constants.ViewIDs;
 
 public class SlidingWindowShowButton extends WorkbenchWindowControlContribution
@@ -37,7 +36,9 @@ public class SlidingWindowShowButton extends WorkbenchWindowControlContribution
     protected Control createControl(Composite parent)
     {
         if (!isSlidingWindowActive())
+        {
             return null;
+        }
 
         Composite composite = new Composite( parent, SWT.NONE );
         GridLayout layout = new GridLayout();
@@ -69,7 +70,7 @@ public class SlidingWindowShowButton extends WorkbenchWindowControlContribution
 
     private boolean isSlidingWindowActive()
     {
-        return BetaFeatureConfigurator.Features.DATA_CHUNK.isActive();
+        return false;
     }
 
     private void updateToState()
