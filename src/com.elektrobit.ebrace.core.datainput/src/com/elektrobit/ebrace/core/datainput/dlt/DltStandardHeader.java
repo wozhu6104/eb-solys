@@ -140,9 +140,9 @@ public class DltStandardHeader
         return ByteBuffer.wrap( sessionId ).getInt();
     }
 
-    public int getTimeStamp()
+    public long getTimeStamp()
     {
-        return ByteBuffer.wrap( timestamp ).getInt() / DLT_TIME_UNITS_IN_MS;
+        return ByteBuffer.wrap( timestamp ).getInt();
     }
 
     public byte[] getBytes()
