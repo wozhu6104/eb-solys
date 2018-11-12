@@ -140,6 +140,7 @@ public class LogInterceptor
         return clazz.getName() + "." + m.getName();
     }
 
+    @SuppressWarnings("unused")
     private static String extractCallerDep()
     {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();

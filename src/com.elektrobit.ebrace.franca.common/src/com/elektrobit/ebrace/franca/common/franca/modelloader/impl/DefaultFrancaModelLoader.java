@@ -20,7 +20,6 @@ import org.franca.core.franca.FModel;
 import com.elektrobit.ebrace.common.utils.FileHelper;
 import com.elektrobit.ebrace.franca.common.franca.modelloader.api.FrancaModelLoader;
 
-@SuppressWarnings("deprecation")
 public class DefaultFrancaModelLoader implements FrancaModelLoader
 {
     private List<FModel> loadedModels = null;
@@ -58,7 +57,9 @@ public class DefaultFrancaModelLoader implements FrancaModelLoader
     {
         String correctPathToFolder = pathToFolder;
         if (!pathToFolder.startsWith( "/" ))
+        {
             correctPathToFolder = "/" + correctPathToFolder;
+        }
 
         return new File( FileHelper.locateFileInBundle( "com.elektrobit.ebrace.franca.common", correctPathToFolder ) );
     }
@@ -67,7 +68,9 @@ public class DefaultFrancaModelLoader implements FrancaModelLoader
     public List<FModel> getLoadedModels()
     {
         if (loadedModels == null)
+        {
             loadedModels = loadModelsForPath( pathToFolder );
+        }
 
         return loadedModels;
     }
