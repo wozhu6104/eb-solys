@@ -9,7 +9,6 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.viewer.resources;
 
-import org.eclipse.core.runtime.Platform;
 import org.osgi.service.component.annotations.Component;
 
 import com.elektrobit.ebrace.core.interactor.api.common.UseCaseFactoryInstance;
@@ -26,7 +25,7 @@ public class DefaultResourcesCreator implements StartupDoneListener, CreateResou
     @Override
     public void onApplicationStarted()
     {
-        String docURL = new UserDoc( Platform.getInstallLocation().getURL() ).getDocURL();
+        String docURL = new UserDoc().getDocURL();
         createResourceUseCase.createAndOpenHtmlView( "Quick Start", docURL );
         createResourceUseCase.unregister();
     }
