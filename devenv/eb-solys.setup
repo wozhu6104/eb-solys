@@ -102,6 +102,16 @@
           url="http://download.eclipse.org/cbi/tpd/3.0.0-SNAPSHOT/"/>
     </setupTask>
     <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="EclipseFX"
+        label="EclipseFX">
+      <requirement
+          name="org.eclipse.fx.ide.feature.feature.group"/>
+      <repository
+          url="http://download.eclipse.org/releases/2018-09"/>
+      <description></description>
+    </setupTask>
+    <setupTask
         xsi:type="setup:CompoundTask"
         name="Preferences">
       <setupTask
@@ -142,17 +152,6 @@
         name="EB solys">
       <description>Set EB solys default target platform</description>
     </setupTask>
-	<!--
-    <setupTask
-        xsi:type="setup:ResourceCopyTask"
-        id="copyLombokToEclipseFolder"
-        excludedTriggers="BOOTSTRAP"
-        predecessor="ebsolys.targetplatform"
-        sourceURL="${clone.solys.location|uri}/src/org.projectlombok.lombok/lombok-1.16.6.jar"
-        targetURL="${installation.location|uri}/eclipse/lombok.jar">
-      <description>Copy lombok.jar to Eclipse Folder</description>
-    </setupTask>
-	-->
     <setupTask
         xsi:type="setup:EclipseIniTask"
         id="vmArgsLombok"
