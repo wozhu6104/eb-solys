@@ -11,6 +11,7 @@ location "http://download.eclipse.org/releases/neon" {
 	org.eclipse.jdt.feature.group
 	org.eclipse.platform.feature.group
 	org.eclipse.pde.feature.group
+	org.eclipse.fx.ide.feature.feature.group
 }
 
 location "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases" {
