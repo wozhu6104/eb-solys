@@ -106,7 +106,7 @@ public final class NonNullUtils {
      *             If the stream itself or any of its values are null
      * @since 2.0
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "null" })
     public static <T> Stream<@NonNull T> checkNotNullContents(@Nullable Stream<T> stream) {
         if (stream == null) {
             throw new NullPointerException();

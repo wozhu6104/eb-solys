@@ -43,7 +43,7 @@ It should be used by experienced software engineers.
 #configure_the_maximum_file_size_in_MB
 -solys-file-size-limit=250
       </programArgs>
-      <vmArgs>-XX:MaxPermSize=512M -Dfile.encoding=UTF-8 -Duser.timezone=UTC
+      <vmArgs>-XX:MaxPermSize=512M -Dfile.encoding=UTF-8 -Duser.timezone=UTC -Dorg.eclipse.update.reconcile=false
       </vmArgs>
       <vmArgsLin>-Dorg.eclipse.swt.browser.DefaultType=mozilla
          <argsX86>-Xmx900m</argsX86>
@@ -136,7 +136,6 @@ It should be used by experienced software engineers.
    </features>
 
    <configurations>
-      <plugin id="com.elektrobit.ebrace.application" autoStart="false" startLevel="0" />
       <plugin id="com.elektrobit.ebrace.chronograph" autoStart="true" startLevel="0" />
       <plugin id="com.elektrobit.ebrace.core.datamanager" autoStart="true" startLevel="0" />
       <plugin id="com.elektrobit.ebrace.core.datamanager.timemarker" autoStart="true" startLevel="0" />
