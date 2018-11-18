@@ -29,11 +29,13 @@ import com.elektrobit.ebrace.core.interactor.api.resources.tree.ModelNameNotifyC
 import com.elektrobit.ebrace.core.interactor.api.resources.tree.ModelNameNotifyUseCase;
 import com.elektrobit.ebrace.viewer.resources.editor.ResourcesModelEditorInput;
 
+import javafx.concurrent.Worker;
 import javafx.embed.swt.FXCanvas;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebView;
 import lombok.extern.log4j.Log4j;
+import netscape.javascript.JSObject;
 
 @Log4j
 public class BrowserEditor extends EditorPart implements HtmlViewChangedCallback, ModelNameNotifyCallback
@@ -45,6 +47,7 @@ public class BrowserEditor extends EditorPart implements HtmlViewChangedCallback
     private HtmlViewNotifyUseCase htmlNotifyUseCase;
     private ModelNameNotifyUseCase modelNameNotifyUseCase;
     private FXCanvas browserCanvas;
+    private CallScriptJSBridge scriptJSBridge;
 
     @Override
     public void doSave(IProgressMonitor monitor)
@@ -96,11 +99,22 @@ public class BrowserEditor extends EditorPart implements HtmlViewChangedCallback
         modelNameNotifyUseCase.register( editorInput.getModel() );
         browserCanvas = new FXCanvas( parent, SWT.NONE );
         browserCanvas.setScene( createScene() );
+        scriptJSBridge = new CallScriptJSBridge();
+        webView.getEngine().setJavaScriptEnabled( true );
+        webView.getEngine().getLoadWorker().stateProperty().addListener( (obs, old, neww) -> {
+            if (neww == Worker.State.SUCCEEDED)
+            {
+                JSObject window = (JSObject)webView.getEngine().executeScript( "window" );
+                window.setMember( "solysScript", scriptJSBridge );
+            }
+        } );
+
         webView.getEngine().load( model.getURL() );
-        // FIXME: rage - Implement browser bridge for FX Browser
+
+        // FIXME: rage - To be implemented for new fx browser
         // new JumpToTimeMarkerFunction( browser, "jumpToTimeMarker" );
+        // FIXME: rage - Implemented/Test with params
         // new CallScriptFromJS( browser, "callSolysScript" );
-        updateURI( model.getURL() );
     }
 
     private static Scene createScene()
@@ -159,8 +173,8 @@ public class BrowserEditor extends EditorPart implements HtmlViewChangedCallback
     @Override
     public void onJavaScriptFunctionRequested(String function, String arg)
     {
-        // FIXME: rage - Implement browser bridge for FX Browser
-        // String call = function + "(" + arg + ");";
-        // browser.execute( call );
+        // FIXME: rage - No plan how to test
+        String call = function + "(" + arg + ");";
+        webView.getEngine().executeScript( call );
     }
 }
