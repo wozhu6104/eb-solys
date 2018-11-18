@@ -158,7 +158,7 @@
         excludedTriggers="BOOTSTRAP"
         predecessor="clone.solys"
         option="-javaagent"
-        value=":../git/eb-solys/src/org.projectlombok.lombok/lombok-1.16.6.jar"
+        value=":${clone.solys.location}/src/org.projectlombok.lombok/lombok-1.16.6.jar"
         vm="true">
       <description>Set lombok.jar option</description>
     </setupTask>
