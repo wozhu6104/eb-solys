@@ -39,7 +39,7 @@ public class DataInput
                 if (nextMessage != null)
                 {
                     String jsonResult = parser.parse( nextMessage );
-                    if (jsonEventHandler != null)
+                    if (jsonEventHandler != null && jsonResult != null)
                     {
                         jsonEventHandler.handle( jsonResult );
                     }

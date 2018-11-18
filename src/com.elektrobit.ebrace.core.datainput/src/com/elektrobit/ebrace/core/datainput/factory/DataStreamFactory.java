@@ -12,6 +12,7 @@ package com.elektrobit.ebrace.core.datainput.factory;
 import com.elektrobit.ebrace.core.datainput.api.DataStream;
 import com.elektrobit.ebrace.core.datainput.service.DataStreamDescriptor;
 import com.elektrobit.ebrace.core.datainput.stream.FileDataStream;
+import com.elektrobit.ebrace.core.datainput.stream.SerialDataStream;
 import com.elektrobit.ebrace.core.datainput.stream.TCPClientDataStream;
 
 import lombok.extern.log4j.Log4j;
@@ -36,6 +37,8 @@ public class DataStreamFactory
                 }
             case "file" :
                 return new FileDataStream( descriptor.jsonObjectValueOf( "stream.details" ) );
+            case "serial" :
+                return new SerialDataStream( descriptor.jsonObjectValueOf( "stream.details" ) );
             default : {
                 log.warn( "no data stream for the type " + streamType + "available" );
                 return null;
