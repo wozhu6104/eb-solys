@@ -35,7 +35,7 @@ public class CallScriptJSBridge
         runScriptUseCase.runScriptWithGlobalMethod( scriptModel.getScriptInfo(), methodName );
     }
 
-    public void startScript(String scriptName, String methodName, Object... params)
+    public void startScriptWithParams(String scriptName, String methodName, Object... params)
     {
         RaceScriptResourceModel scriptModel = obtainScriptModel( scriptName, methodName );
         RunScriptInteractionUseCase runScriptUseCase = UseCaseFactoryInstance.get().makeRunScriptInteractionUseCase();
