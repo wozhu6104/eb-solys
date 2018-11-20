@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="EB solys" uid="com.elektrobit.ebrace.product" id="org.eclipse.platform.ide" application="com.elektrobit.ebrace.application.client" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="EB solys" uid="com.elektrobit.ebrace.product" id="com.elektrobit.ebrace.application.product_application" application="com.elektrobit.ebrace.application.client" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/com.elektrobit.ebrace.viewer/icons/window_images/eb-race-logo-about-64.png"/>
