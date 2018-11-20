@@ -245,6 +245,19 @@
             pattern="com.elektrobit.ebrace.common.*"/>
       </workingSet>
     </setupTask>
+    <setupTask
+	    xsi:type="setup:CompoundTask"
+	    filter="(osgi.os=linux)"
+	    name="OnlyLinux"
+	    >
+      <setupTask
+          xsi:type="setup:EclipseIniTask"
+          id="gtk2"
+          option="--launcher.GTK_version"
+          value="2">
+        <description>Set GTK 2 on linux</description>
+      </setupTask>
+    </setupTask>
   </stream>
   <logicalProjectContainer
       xsi:type="setup:ProjectCatalog"
