@@ -15,6 +15,7 @@ import com.elektrobit.ebrace.common.checks.RangeCheckUtils;
 import com.elektrobit.ebrace.core.interactor.api.selectelement.SelectElementsInteractionCallback;
 import com.elektrobit.ebrace.core.interactor.api.selectelement.SelectElementsInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.SelectedElementsService;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.TimebasedObject;
 
@@ -45,14 +46,8 @@ public class SelectElementsInteractionUseCaseImpl implements SelectElementsInter
     @Override
     public void selectedResource(final List<TimebasedObject> events)
     {
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                selectedElmntService.setSelectedElements( events );
-            }
-        } );
+        UseCaseExecutor.schedule( new UseCaseRunnable( "SelectElementsInteractionUseCase.selectedResource",
+                                                       () -> selectedElmntService.setSelectedElements( events ) ) );
     }
 
 }

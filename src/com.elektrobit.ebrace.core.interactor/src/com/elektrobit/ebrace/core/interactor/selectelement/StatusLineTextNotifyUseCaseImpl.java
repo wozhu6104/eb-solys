@@ -16,6 +16,7 @@ import com.elektrobit.ebrace.core.interactor.api.common.UIExecutor;
 import com.elektrobit.ebrace.core.interactor.api.selectelement.StatusLineTextNotifyCallback;
 import com.elektrobit.ebrace.core.interactor.api.selectelement.StatusLineTextNotifyUseCase;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.preferences.api.PreferencesService;
 import com.elektrobit.ebsolys.core.targetdata.api.listener.SelectedElementsChangedListener;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.SelectedElementsService;
@@ -49,7 +50,9 @@ public class StatusLineTextNotifyUseCaseImpl implements StatusLineTextNotifyUseC
     private String calculateTimeStamp(List<TimebasedObject> timeStamps)
     {
         if (timeStamps.isEmpty() || timeStamps.size() == 1)
+        {
             return "";
+        }
 
         long diff = timeStamps.get( timeStamps.size() - 1 ).getTimestamp() - timeStamps.get( 0 ).getTimestamp();
 
@@ -71,16 +74,8 @@ public class StatusLineTextNotifyUseCaseImpl implements StatusLineTextNotifyUseC
     @Override
     public void onNewTimeStamps(final List<TimebasedObject> timeStamps)
     {
-
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                postNewTime( calculateTimeStamp( timeStamps ) );
-
-            }
-        } );
+        UseCaseExecutor.schedule( new UseCaseRunnable( "StatusLineTextNotifyUseCase.onNewTimeStamps",
+                                                       () -> postNewTime( calculateTimeStamp( timeStamps ) ) ) );
     }
 
     private void postNewTime(final String newStatus)
@@ -91,7 +86,9 @@ public class StatusLineTextNotifyUseCaseImpl implements StatusLineTextNotifyUseC
             public void run()
             {
                 if (statusCallback != null)
+                {
                     statusCallback.onNewStatus( newStatus );
+                }
             }
         } );
     }

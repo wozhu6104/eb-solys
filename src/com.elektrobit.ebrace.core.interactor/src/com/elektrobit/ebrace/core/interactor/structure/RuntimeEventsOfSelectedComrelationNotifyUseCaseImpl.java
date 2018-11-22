@@ -21,6 +21,7 @@ import com.elektrobit.ebrace.core.interactor.api.table.RowFormatter;
 import com.elektrobit.ebrace.core.interactor.api.tableinput.TableData;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseRepeatedTask;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.interactor.tableinput.TimeMarkerMixer;
 import com.elektrobit.ebrace.core.interactor.tableinput.filter.FilterUtil;
 import com.elektrobit.ebsolys.core.targetdata.api.ModelElement;
@@ -140,18 +141,15 @@ public class RuntimeEventsOfSelectedComrelationNotifyUseCaseImpl
         if (hasDataInDataManagerChanged() || hasSelectionChanged( selectedComRelations ) || filterTextChanged
                 || timemarkerChanged)
         {
-            UseCaseExecutor.schedule( new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    filterTextChanged = false;
-                    timemarkerChanged = false;
-                    runtimeEventProviderStateId = runtimeEventProvider.getStateId();
-                    List<?> runtimeEvents = collectData( selectedComRelations );
-                    postResult( runtimeEvents );
-                }
-            } );
+            UseCaseExecutor
+                    .schedule( new UseCaseRunnable( "RuntimeEventsOfSelectedComrelationNotifyUseCase.collectAndPostData",
+                                                    () -> {
+                                                        filterTextChanged = false;
+                                                        timemarkerChanged = false;
+                                                        runtimeEventProviderStateId = runtimeEventProvider.getStateId();
+                                                        List<?> runtimeEvents = collectData( selectedComRelations );
+                                                        postResult( runtimeEvents );
+                                                    } ) );
         }
     }
 

@@ -15,6 +15,7 @@ import com.elektrobit.ebrace.core.interactor.api.connect.ConnectionToTargetInter
 import com.elektrobit.ebrace.core.interactor.api.connect.ConnectionToTargetInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.api.resources.model.connection.ConnectionModel;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService;
 
 public class ConnectionToTargetInteractionUseCaseImpl implements ConnectionToTargetInteractionUseCase
@@ -47,10 +48,7 @@ public class ConnectionToTargetInteractionUseCaseImpl implements ConnectionToTar
     public void connect(final ConnectionModel connectionModel)
     {
         RangeCheckUtils.assertReferenceParameterNotNull( "connectionModel", connectionModel );
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
+        UseCaseExecutor.schedule( new UseCaseRunnable( "ConnectionToTargetInteractionUseCase.connect", () -> {
             {
                 if (callback != null)
                 {
@@ -65,7 +63,7 @@ public class ConnectionToTargetInteractionUseCaseImpl implements ConnectionToTar
                     }
                 }
             }
-        } );
+        } ) );
     }
 
     private void postOnConnectedToCallback()
