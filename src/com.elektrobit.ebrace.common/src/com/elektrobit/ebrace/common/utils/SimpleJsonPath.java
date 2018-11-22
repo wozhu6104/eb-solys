@@ -22,7 +22,7 @@ public class SimpleJsonPath
 
     public SimpleJsonPath(String jsonString)
     {
-        this( new JsonParser().parse( jsonString ).getAsJsonObject() );
+        this( StringToJsonObjectTransformer.transform( jsonString ) );
     }
 
     public SimpleJsonPath(JsonObject target)
