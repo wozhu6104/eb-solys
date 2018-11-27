@@ -9,7 +9,9 @@
  ******************************************************************************/
 package de.systemticks.ebrace.core.eventhook.registry.api;
 
+import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
+
 public interface EventHookRegistry
 {
-    public void callFor(String eventJson);
+    public void callFor(RuntimeEvent<?> event);
 }

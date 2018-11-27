@@ -11,6 +11,8 @@ package test.de.systemticks.ebrace.core.eventhook;
 
 import org.junit.BeforeClass;
 
+import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
+
 import de.systemticks.ebrace.core.eventhook.impl.EventHookRegistryServiceImpl;
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
@@ -48,8 +50,9 @@ public class EventHookRegistryTest
         registry = new EventHookRegistryServiceImpl();
         testHook = new EventHook()
         {
+
             @Override
-            public void onEvent(String event)
+            public void onEvent(RuntimeEvent<?> event)
             {
                 indicator++;
             }

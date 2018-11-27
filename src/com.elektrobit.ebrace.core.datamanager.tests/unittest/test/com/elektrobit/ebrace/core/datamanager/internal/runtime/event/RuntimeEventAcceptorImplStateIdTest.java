@@ -22,6 +22,7 @@ import com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.Comman
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 
+import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
 import junit.framework.Assert;
 
 public class RuntimeEventAcceptorImplStateIdTest
@@ -42,7 +43,8 @@ public class RuntimeEventAcceptorImplStateIdTest
         runtimeEventAcceptorImpl = new RuntimeEventAcceptorImpl( runtimeEventChannelManager,
                                                                  null,
                                                                  runtimeEventNotifier,
-                                                                 new ChannelListenerNotifierImpl() );
+                                                                 new ChannelListenerNotifierImpl(),
+                                                                 Mockito.mock( EventHookRegistry.class ) );
 
         channel = runtimeEventAcceptorImpl.createRuntimeEventChannel( "TestChannel", Unit.TEXT, "" );
 

@@ -20,8 +20,6 @@ import com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAccepto
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor;
 
-import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
-
 @Component
 public class JsonEventHandlerImpl implements JsonEventHandler
 {
@@ -31,7 +29,6 @@ public class JsonEventHandlerImpl implements JsonEventHandler
     private TimeSegmentAcceptorService timeSegmentAcceptor;
 
     private JsonToEvent handler;
-    private EventHookRegistry eventHookRegistry;
 
     public JsonEventHandlerImpl()
     {
@@ -42,14 +39,12 @@ public class JsonEventHandlerImpl implements JsonEventHandler
     public void handle(String jsonEvent)
     {
         handler.handle( jsonEvent );
-        eventHookRegistry.callFor( jsonEvent );
     }
 
     @Override
     public void handle(JsonEvent event)
     {
         handler.handle( event );
-        eventHookRegistry.callFor( event.toString() );
     }
 
     @Activate
@@ -106,14 +101,4 @@ public class JsonEventHandlerImpl implements JsonEventHandler
         this.timeSegmentAcceptor = null;
     }
 
-    @Reference
-    public void bindEventHookService(EventHookRegistry eventHookRegistry)
-    {
-        this.eventHookRegistry = eventHookRegistry;
-    }
-
-    public void unbindTimeSegmentAcceptor(EventHookRegistry eventHookRegistry)
-    {
-        this.eventHookRegistry = null;
-    }
 }

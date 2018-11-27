@@ -18,6 +18,7 @@ import java.util.Set;
 import org.osgi.service.component.annotations.Component;
 
 import com.elektrobit.ebrace.common.utils.GenericOSGIServiceTracker;
+import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
 
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHookCollector;
@@ -49,7 +50,7 @@ public class EventHookRegistryServiceImpl implements EventHookRegistry
     }
 
     @Override
-    public void callFor(String event)
+    public void callFor(RuntimeEvent<?> event)
     {
         collector.getEventHooks().forEach( hook -> hook.onEvent( event ) );
     }

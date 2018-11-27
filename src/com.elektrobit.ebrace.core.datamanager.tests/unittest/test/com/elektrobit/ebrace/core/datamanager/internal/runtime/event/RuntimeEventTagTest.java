@@ -25,6 +25,8 @@ import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeE
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventTag;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 
+import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
+
 public class RuntimeEventTagTest
 {
     private RuntimeEventAcceptorImpl runtimeEventAcceptor;
@@ -38,11 +40,11 @@ public class RuntimeEventTagTest
         runtimeEventAcceptor = new RuntimeEventAcceptorImpl( channelManager,
                                                              null,
                                                              Mockito.mock( RuntimeEventNotifier.class ),
-                                                             new ChannelListenerNotifierImpl() );
+                                                             new ChannelListenerNotifierImpl(),
+                                                             Mockito.mock( EventHookRegistry.class ) );
 
-        RuntimeEventChannel<String> channel = runtimeEventAcceptor.createOrGetRuntimeEventChannel( "Channel",
-                                                                                                   Unit.TEXT,
-                                                                                                   "" );
+        RuntimeEventChannel<String> channel = runtimeEventAcceptor
+                .createOrGetRuntimeEventChannel( "Channel", Unit.TEXT, "" );
         runtimeEventAcceptor.acceptEventMicros( 100000, channel, null, "" );
     }
 
@@ -59,9 +61,8 @@ public class RuntimeEventTagTest
     @Test
     public void setTagWasSuccessfull()
     {
-        RuntimeEvent<?> runtimeEvent = runtimeEventAcceptor.setTag( runtimeEventAcceptor.getAllRuntimeEvents().get( 0 ),
-                                                                    RuntimeEventTag.ERROR,
-                                                                    "My Description" );
+        RuntimeEvent<?> runtimeEvent = runtimeEventAcceptor
+                .setTag( runtimeEventAcceptor.getAllRuntimeEvents().get( 0 ), RuntimeEventTag.ERROR, "My Description" );
 
         Assert.assertTrue( "Expecting that RuntimeEvent is tagged return true.", runtimeEvent.isTagged() );
         Assert.assertEquals( RuntimeEventTag.ERROR, runtimeEvent.getTag() );

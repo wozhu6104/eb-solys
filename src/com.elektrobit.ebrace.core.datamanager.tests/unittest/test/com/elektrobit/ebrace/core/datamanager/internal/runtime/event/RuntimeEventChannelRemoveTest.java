@@ -27,6 +27,8 @@ import com.elektrobit.ebrace.core.datamanager.internal.runtime.event.api.Runtime
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 
+import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
+
 public class RuntimeEventChannelRemoveTest
 {
 
@@ -39,7 +41,8 @@ public class RuntimeEventChannelRemoveTest
 
                                                                                          new ModelElementPoolImpl(),
                                                                                          Mockito.mock( RuntimeEventNotifier.class ),
-                                                                                         Mockito.mock( ChannelListenerNotifier.class ) );
+                                                                                         Mockito.mock( ChannelListenerNotifier.class ),
+                                                                                         Mockito.mock( EventHookRegistry.class ) );
 
     private final StructureAcceptorImpl structureAcceptor = new StructureAcceptorImpl();
 
