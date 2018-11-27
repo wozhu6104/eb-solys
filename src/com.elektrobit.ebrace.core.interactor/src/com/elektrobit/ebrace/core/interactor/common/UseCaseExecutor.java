@@ -59,19 +59,16 @@ public class UseCaseExecutor
 
     public static void schedule(UseCaseRunnable r)
     {
-        System.out.println( "schedule" );
         getUseCaseExecutor().schedule( r );
     }
 
     public static void scheduleDelayed(TimerTask task, long delay)
     {
-        System.out.println( "scheduleDelayed" );
         getUseCaseExecutor().scheduleDelayed( task, delay );
     }
 
     public static UseCaseRepeatedTask scheduleRepeated(UseCaseRepeatedTask task, long periodMs)
     {
-        System.out.println( "scheduleRepeated" );
         getUseCaseExecutor().scheduleRepeated( task, periodMs );
         return task;
     }

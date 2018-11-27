@@ -12,7 +12,9 @@ Require-Bundle: org.eclipse.core.runtime,
  com.elektrobit.ebrace.core.importerregistry;bundle-version="1.0.0",
  com.google.gson;bundle-version="2.1.0",
  de.systemticks.ebrace.core.eventhook,
- com.elektrobit.ebrace.common
+ com.elektrobit.ebrace.common,
+ org.projectlombok.lombok;bundle-version="1.0.0",
+ com.elektrobit.ebrace.targetdata.dlt
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Eclipse-ExtensibleAPI: true
