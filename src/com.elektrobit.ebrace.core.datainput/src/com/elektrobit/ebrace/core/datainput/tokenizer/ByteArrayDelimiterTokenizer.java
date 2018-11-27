@@ -60,7 +60,7 @@ public class ByteArrayDelimiterTokenizer extends DataStreamTokenizer
                 messageBuffer.write( nextByte );
             }
         }
-        hasNextMessage = false;
+        // hasNextMessage = false;
         return bufferToMessage();
     }
 
