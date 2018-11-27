@@ -20,14 +20,14 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.elektrobit.ebrace.common.utils.HexStringHelper;
+import com.elektrobit.ebrace.targetdata.dlt.api.Measurement;
+import com.elektrobit.ebrace.targetdata.dlt.api.ProcCpuEntry;
+import com.elektrobit.ebrace.targetdata.dlt.api.ProcMemEntry;
 import com.elektrobit.ebrace.targetdata.dlt.internal.BytesFromStreamReaderImpl;
 import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessage;
 import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessageWithStorageHeaderParser;
 import com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator;
 import com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser.DltProcPayloadParser;
-import com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser.Measurement;
-import com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser.ProcCpuEntry;
-import com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser.ProcMemEntry;
 
 public class DltProcPayloadParserTest
 {
