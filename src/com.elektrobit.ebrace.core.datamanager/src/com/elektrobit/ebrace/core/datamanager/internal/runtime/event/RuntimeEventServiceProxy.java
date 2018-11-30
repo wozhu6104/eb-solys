@@ -18,6 +18,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import com.elektrobit.ebrace.core.datamanager.api.channels.ChannelListenerNotifier;
 import com.elektrobit.ebrace.core.datamanager.api.channels.RuntimeEventChannelManager;
+import com.elektrobit.ebrace.core.datamanager.internal.runtime.event.db.DatabaseHandler;
 import com.elektrobit.ebsolys.core.targetdata.api.ModelElement;
 import com.elektrobit.ebsolys.core.targetdata.api.ModelElementPool;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
@@ -33,6 +34,8 @@ import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeE
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventTag;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 
+import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
+
 @Component(immediate = true)
 public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEventProvider, ClearChunkDataListener
 {
@@ -40,6 +43,8 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     private ModelElementPool modelElementPool;
     private RuntimeEventChannelManager runtimeEventChannelManager;
     private ChannelListenerNotifier channelListenerNotifier;
+    private DataStorageAccess databaseAccess;
+    private DatabaseHandler dbHandler;
 
     public RuntimeEventServiceProxy()
     {
@@ -66,6 +71,20 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public void unsetModelElementPool(ModelElementPool modelElementPool)
     {
         this.modelElementPool = null;
+    }
+
+    @Reference
+    public void setDatabaseAccess(DataStorageAccess dbAccess)
+    {
+        this.databaseAccess = dbAccess;
+        dbHandler = new DatabaseHandler( dbAccess );
+        dbHandler.init();
+    }
+
+    public void unsetDatabaseAccess(DataStorageAccess dbAccess)
+    {
+        dbHandler.release();
+        this.databaseAccess = null;
     }
 
     @Reference
@@ -175,6 +194,7 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public <T> RuntimeEventChannel<T> createOrGetRuntimeEventChannel(DataSourceContext context, String name,
             Unit<T> unit, String description)
     {
+        dbHandler.manageDataSources( context, name, unit );
         return runtimeEventAcceptorImpl.createOrGetRuntimeEventChannel( context, name, unit, description );
     }
 
@@ -195,6 +215,7 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public <T> RuntimeEvent<T> acceptEvent(long timestamp, RuntimeEventChannel<T> channel, ModelElement modelElement,
             T value)
     {
+        dbHandler.manageEvent( timestamp, channel, value );
         return runtimeEventAcceptorImpl.acceptEvent( timestamp, channel, modelElement, value );
     }
 

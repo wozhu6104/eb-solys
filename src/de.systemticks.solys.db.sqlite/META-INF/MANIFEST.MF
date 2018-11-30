@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sqlite
+Bundle-SymbolicName: de.systemticks.solys.db.sqlite
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: de.systemticks.solys.db.sqlite
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro
+Bundle-ClassPath: libs/sqlite-jdbc-3.25.2.jar,
+ .
+Export-Package: de.systemticks.solys.db.sqlite.api
+Service-Component: OSGI-INF/de.systemticks.solys.db.sqlite.impl.SQLiteAccessor.xml
+Bundle-ActivationPolicy: lazy
+
