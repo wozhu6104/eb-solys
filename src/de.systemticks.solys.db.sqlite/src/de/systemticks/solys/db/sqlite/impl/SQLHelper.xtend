@@ -40,9 +40,9 @@ class SQLHelper {
 		'''		
 	}
 	
-	def static createIndex(String table, String field) {
+	def static createIndex(String table, String... fields) {
 		'''
-			CREATE INDEX idx_«table»_«field» ON «table» («field»)
+			CREATE INDEX idx_«table»_«fields.join('_')» ON «table» («fields.join(",")»)
 		'''
 	}
 
