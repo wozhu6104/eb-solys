@@ -89,17 +89,17 @@ public class SQLiteAccessor implements DataStorageAccess
 
         executeSingleStatement( SQLHelper.dropTable( "cpu" ) );
         executeSingleStatement( SQLHelper.createTableForDoubleEvents( "cpu" ) );
-        executeSingleStatement( SQLHelper.createIndex( "cpu", "eId" ) );
-        executeSingleStatement( SQLHelper.createIndex( "cpu", "eChannelId" ) );
+        // executeSingleStatement( SQLHelper.createIndex( "cpu", "eId" ) );
+        executeSingleStatement( SQLHelper.createIndex( "cpu", "eChannelId", "eValue" ) );
 
         executeSingleStatement( SQLHelper.dropTable( "mem" ) );
         executeSingleStatement( SQLHelper.createTableForIntEvents( "mem" ) );
-        executeSingleStatement( SQLHelper.createIndex( "mem", "eId" ) );
-        executeSingleStatement( SQLHelper.createIndex( "mem", "eChannelId" ) );
+        // executeSingleStatement( SQLHelper.createIndex( "mem", "eId" ) );
+        executeSingleStatement( SQLHelper.createIndex( "mem", "eChannelId", "eValue" ) );
 
         executeSingleStatement( SQLHelper.dropTable( "channels" ) );
         executeSingleStatement( SQLHelper.createTableForChannelMapping( "channels" ) );
-        executeSingleStatement( SQLHelper.createIndex( "channels", "cId" ) );
+        // executeSingleStatement( SQLHelper.createIndex( "channels", "cId" ) );
 
         return true;
     }
@@ -183,21 +183,30 @@ public class SQLiteAccessor implements DataStorageAccess
     }
 
     @Override
+    public <T> List<BaseEvent<T>> getMaxEventsFromAllChannels(String storage, Class<T> class1)
+    {
+        return createBaseEventsFromQuery( SQLHelper.createMaxFromAllChannels( storage ),
+                                          TypeResultBuilderFactory.create( class1 ) );
+    }
+
+    @Override
     public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int cId, Class<T> class1)
+    {
+        return createBaseEventsFromQuery( SQLHelper.createAllEventsFromChannel( storage, cId ),
+                                          TypeResultBuilderFactory.create( class1 ) );
+    }
+
+    private <T> List<BaseEvent<T>> createBaseEventsFromQuery(CharSequence query, TypedResultBuilder<T> builder)
     {
 
         List<BaseEvent<T>> result = new ArrayList<>();
 
-        String query = SQLHelper.createAllEventsFromChannel( storage, cId ).toString();
-
-        TypedResultBuilder<T> builder = TypeResultBuilderFactory.create( class1 );
+        System.out.println( query );
 
         if (builder == null)
         {
             return result;
         }
-
-        System.out.println( query );
 
         Statement stmt;
         try
@@ -205,7 +214,7 @@ public class SQLiteAccessor implements DataStorageAccess
             stmt = connection.createStatement();
             stmt.setFetchSize( 100 );
 
-            ResultSet rs = stmt.executeQuery( query );
+            ResultSet rs = stmt.executeQuery( query.toString() );
 
             while (rs.next())
             {
@@ -219,6 +228,7 @@ public class SQLiteAccessor implements DataStorageAccess
         }
 
         return result;
+
     }
 
     @Override
@@ -301,4 +311,5 @@ public class SQLiteAccessor implements DataStorageAccess
         return result;
 
     }
+
 }

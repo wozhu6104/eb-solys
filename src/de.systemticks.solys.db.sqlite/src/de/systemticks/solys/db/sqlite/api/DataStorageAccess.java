@@ -23,7 +23,9 @@ public interface DataStorageAccess {
 	public <T> boolean bulkImportBaseEvents(String storage, List<BaseEvent<T>> events, Class<T> class1);
 
 	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, Class<T> class1);
-	
+
+	public <T> List<BaseEvent<T>> getMaxEventsFromAllChannels(String storage, Class<T> class1);
+
 	public <T> List<StatsItem<T>> getStatisticOverTime(String storage, int channeldId, int interval, Class<T> class1);
 	
 	public List<Channel> getAllChannels();

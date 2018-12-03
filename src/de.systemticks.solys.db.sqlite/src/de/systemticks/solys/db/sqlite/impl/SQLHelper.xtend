@@ -11,7 +11,7 @@ class SQLHelper {
 	def static createTableForIntEvents(String name) {
 		'''
 			CREATE TABLE «name»
-			(eId INT NOT NULL,
+			(eId INTEGER PRIMARY KEY,
 			 eTimestamp INT8 NOT NULL,
 			 eValue INT NOT NULL,
 			 eChannelId INT NOT NULL)
@@ -25,7 +25,7 @@ class SQLHelper {
 	def static createTableForDoubleEvents(String name) {
 		'''
 			CREATE TABLE «name»
-			(eId INT NOT NULL,
+			(eId INTEGER PRIMARY KEY,
 			 eTimestamp INT8 NOT NULL,
 			 eValue REAL NOT NULL,
 			 eChannelId INT NOT NULL)
@@ -35,7 +35,7 @@ class SQLHelper {
 	def static createTableForChannelMapping(String name) {
 		'''
 			CREATE TABLE «name»
-			(cId INT NOT NULL,
+			(cId INTEGER PRIMARY KEY,
 			 cName TEXT NOT NULL)
 		'''		
 	}
@@ -62,8 +62,18 @@ class SQLHelper {
 		'''
 		SELECT MIN(«storage».eTimestamp) as t, AVG(«storage».eValue) as avg_v, MAX(«storage».eValue) as max_v, MIN(«storage».eValue) as min_v, «storage».eChannelId
 		from «storage»
-		where cpu.eChannelId=«channelId»
+		where «storage».eChannelId=«channelId»
 		group by «storage».eTimestamp / «interval»
+		'''
+	}
+	
+	def static createMaxFromAllChannels(String storage) {
+		'''
+		select «storage».eId, «storage».eTimestamp, MAX(«storage».eValue) as max_v, «storage».eChannelId
+		from «storage»
+		group by «storage».eChannelId
+		having max_v > 0
+		order by max_v desc
 		'''
 	}
 	
