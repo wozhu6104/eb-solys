@@ -9,19 +9,16 @@
  ******************************************************************************/
 package de.systemticks.ebrace.eventhooks.regextochannelhook;
 
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import com.elektrobit.ebrace.common.utils.UnitConverter;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
-import com.elektrobit.ebrace.targetdata.dlt.api.DltProcStatStatmEventConverter;
-import com.elektrobit.ebrace.targetdata.dlt.api.Measurement;
-import com.elektrobit.ebrace.targetdata.dlt.api.ProcCpuEntry;
-import com.elektrobit.ebrace.targetdata.dlt.api.ProcMemEntry;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
 import com.google.gson.Gson;
 
@@ -31,11 +28,16 @@ import de.systemticks.ebrace.eventhooks.regextochannelhook.api.RegExToChannelEve
 @Component(service = EventHook.class)
 public class RegExToChannelEventHookImpl implements RegExToChannelEventHook
 {
+    private static final Logger LOG = Logger.getLogger( RegExToChannelEventHookImpl.class );
     private JsonEventHandler jsonEventHandler = null;
-    private final DltProcStatStatmEventConverter parser = new DltProcStatStatmEventConverter();
+    private final String expression = "(?<cpu>\\d+.\\d+) % cpu consumed by process (?<processname>[^\\s]+) .*pid : (?<pid>[0-9]+) .*";
+    private final Pattern pattern;
+    private Matcher matcher;
 
     public RegExToChannelEventHookImpl()
     {
+        pattern = Pattern.compile( expression );
+        LOG.info( "initialized RegEx to Channel Event Hook with expression: " + expression );
     }
 
     @Reference
@@ -52,55 +54,26 @@ public class RegExToChannelEventHookImpl implements RegExToChannelEventHook
     @Override
     public void onEvent(RuntimeEvent<?> event)
     {
-        if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.stat" ))
+        if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.cpup" ))
         {
             JsonEvent oldEvent = new Gson().fromJson( event.getValue().toString(), JsonEvent.class );
             String summaryString = oldEvent.getValue().getDetails().getAsJsonObject().get( "payload" ).getAsJsonObject()
                     .get( "0" ).toString();
             summaryString = summaryString.substring( 1, summaryString.length() - 7 );
-
-            Measurement<ProcCpuEntry> parseCpuData = null;
-            Measurement<ProcMemEntry> parseMemData = null;
-
-            if (summaryString.split( " " )[1].toLowerCase().trim().equals( "stat" ))
+            matcher = pattern.matcher( summaryString );
+            if (matcher.find())
             {
-                parseCpuData = parser.parseCpuData( event.getTimestamp(), summaryString );
-            }
-            else if (summaryString.split( " " )[1].toLowerCase().trim().equals( "statm" ))
-            {
-                parseMemData = parser.parseMemData( event.getTimestamp(), summaryString );
+                JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
+                                                    "cpu." + matcher.group( "processname" ),
+                                                    new JsonEventValue( Double.parseDouble( matcher.group( "cpu" ) ),
+                                                                        null ),
+                                                    null,
+                                                    null );
+                jsonEventHandler.handle( newEvent );
             }
 
-            if (parseCpuData != null)
-            {
-                Map<Integer, ProcCpuEntry> pidToMeasurement = parseCpuData.getPidToMeasurement();
-                for (ProcCpuEntry entry : pidToMeasurement.values())
-                {
-                    double perProcessCpuUsage = (100000 * entry.getCpuUsage() / entry.getTimestamp());
-                    JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                        "cpu.proc." + entry.getProcName(),
-                                                        new JsonEventValue( perProcessCpuUsage, null ),
-                                                        null,
-                                                        null );
-                    jsonEventHandler.handle( newEvent );
-
-                }
-            }
-            else if (parseMemData != null)
-            {
-                Map<Integer, ProcMemEntry> pidToMeasurement = parseMemData.getPidToMeasurement();
-                for (ProcMemEntry entry : pidToMeasurement.values())
-                {
-                    JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                        "mem.proc." + entry.getProcName(),
-                                                        new JsonEventValue( UnitConverter
-                                                                .convertBytesToKB( entry.getMemoryUsage() ), null ),
-                                                        null,
-                                                        null );
-                    jsonEventHandler.handle( newEvent );
-                }
-            }
         }
+
     }
 
 }
