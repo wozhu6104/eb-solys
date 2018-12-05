@@ -18,5 +18,7 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Eclipse-ExtensibleAPI: true
-Service-Component: OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.RegExToChannelEventHookImpl.xml
+Service-Component: OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonDommHook.xml,
+ OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonCpupHook.xml,
+ OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonDomcHook.xml
 Export-Package: de.systemticks.ebrace.eventhooks.regextochannelhook

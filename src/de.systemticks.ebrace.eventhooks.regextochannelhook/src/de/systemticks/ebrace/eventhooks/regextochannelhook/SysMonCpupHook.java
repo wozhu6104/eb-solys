@@ -26,15 +26,15 @@ import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.eventhooks.regextochannelhook.api.RegExToChannelEventHook;
 
 @Component(service = EventHook.class)
-public class RegExToChannelEventHookImpl implements RegExToChannelEventHook
+public class SysMonCpupHook implements RegExToChannelEventHook
 {
-    private static final Logger LOG = Logger.getLogger( RegExToChannelEventHookImpl.class );
+    private static final Logger LOG = Logger.getLogger( SysMonCpupHook.class );
     private JsonEventHandler jsonEventHandler = null;
     private final String expression = "(?<cpu>\\d+.\\d+) % cpu consumed by process (?<processname>[^\\s]+) .*pid : (?<pid>[0-9]+) .*";
     private final Pattern pattern;
     private Matcher matcher;
 
-    public RegExToChannelEventHookImpl()
+    public SysMonCpupHook()
     {
         pattern = Pattern.compile( expression );
         LOG.info( "initialized RegEx to Channel Event Hook with expression: " + expression );
