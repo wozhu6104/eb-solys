@@ -30,7 +30,7 @@ public class SysMonDomcHook implements RegExToChannelEventHook
 {
     private static final Logger LOG = Logger.getLogger( SysMonDomcHook.class );
     private JsonEventHandler jsonEventHandler = null;
-    private final String expression = "RSS memory used by domain \\\\\"(?<domainname>[^\\s]+)\\\\\" : (?<rss>[0-9]+) KB.*";
+    private final String expression = "Domain \\\\\\\"(?<domainname>[^\\\\s]+)\\\\\\\" consumed (?<cpu>[0-9]+) % cpu in the last interval.*";
 
     private final Pattern pattern;
     private Matcher matcher;
@@ -55,7 +55,7 @@ public class SysMonDomcHook implements RegExToChannelEventHook
     @Override
     public void onEvent(RuntimeEvent<?> event)
     {
-        if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.domm" ))
+        if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.domc" ))
         {
             JsonEvent oldEvent = new Gson().fromJson( event.getValue().toString(), JsonEvent.class );
             String summaryString = oldEvent.getValue().getDetails().getAsJsonObject().get( "payload" ).getAsJsonObject()
@@ -65,8 +65,8 @@ public class SysMonDomcHook implements RegExToChannelEventHook
             if (matcher.find())
             {
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    "domain." + matcher.group( "domainname" ) + ".mem",
-                                                    new JsonEventValue( Long.parseLong( matcher.group( "rss" ) ),
+                                                    "domain." + "cpu." + matcher.group( "domainname" ),
+                                                    new JsonEventValue( Double.parseDouble( matcher.group( "cpu" ) ),
                                                                         null ),
                                                     null,
                                                     null );

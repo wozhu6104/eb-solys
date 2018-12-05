@@ -3,6 +3,6 @@
    <service>
       <provide interface="de.systemticks.ebrace.core.eventhook.registry.api.EventHook"/>
    </service>
-   <implementation class="de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonDommHook"/>
    <reference bind="bindJsonService" interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler" name="JsonService" unbind="unbindJsonService"/>
+   <implementation class="de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonDommHook"/>
 </scr:component>

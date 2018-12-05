@@ -64,7 +64,7 @@ public class SysMonCpupHook implements RegExToChannelEventHook
             if (matcher.find())
             {
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    "cpu." + matcher.group( "processname" ) + ":"
+                                                    "process.cpu." + matcher.group( "processname" ) + ":"
                                                             + matcher.group( "pid" ),
                                                     new JsonEventValue( Double.parseDouble( matcher.group( "cpu" ) ),
                                                                         null ),

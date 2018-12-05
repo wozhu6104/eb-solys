@@ -26,16 +26,15 @@ import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.eventhooks.regextochannelhook.api.RegExToChannelEventHook;
 
 @Component(service = EventHook.class)
-public class SysMonDommHook implements RegExToChannelEventHook
+public class SysMonMempHook implements RegExToChannelEventHook
 {
-    private static final Logger LOG = Logger.getLogger( SysMonDommHook.class );
+    private static final Logger LOG = Logger.getLogger( SysMonMempHook.class );
     private JsonEventHandler jsonEventHandler = null;
-    private final String expression = "RSS memory used by domain \\\\\"(?<domainname>[^\\s]+)\\\\\" : (?<rss>[0-9]+) KB.*";
-
+    private final String expression = "RSS: (?<rss>\\d+) MB PSS: (?<pss>\\d+) MB USS: (?<uss>\\d+) MB for process (?<processname>[^\\s]+)\\(pid:(?<pid>\\d+)\\)";
     private final Pattern pattern;
     private Matcher matcher;
 
-    public SysMonDommHook()
+    public SysMonMempHook()
     {
         pattern = Pattern.compile( expression );
         LOG.info( "initialized RegEx to Channel Event Hook with expression: " + expression );
@@ -55,7 +54,7 @@ public class SysMonDommHook implements RegExToChannelEventHook
     @Override
     public void onEvent(RuntimeEvent<?> event)
     {
-        if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.domm" ))
+        if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.mbud" ))
         {
             JsonEvent oldEvent = new Gson().fromJson( event.getValue().toString(), JsonEvent.class );
             String summaryString = oldEvent.getValue().getDetails().getAsJsonObject().get( "payload" ).getAsJsonObject()
@@ -65,11 +64,26 @@ public class SysMonDommHook implements RegExToChannelEventHook
             if (matcher.find())
             {
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    "domain." + "mem." + matcher.group( "domainname" ),
+                                                    "process.mem.rss." + matcher.group( "processname" ) + ":"
+                                                            + matcher.group( "pid" ),
                                                     new JsonEventValue( Long.parseLong( matcher.group( "rss" ) ),
                                                                         null ),
                                                     null,
                                                     null );
+                jsonEventHandler.handle( newEvent );
+                newEvent = new JsonEvent( event.getTimestamp(),
+                                          "process.mem.uss." + matcher.group( "processname" ) + ":"
+                                                  + matcher.group( "pid" ),
+                                          new JsonEventValue( Long.parseLong( matcher.group( "uss" ) ), null ),
+                                          null,
+                                          null );
+                jsonEventHandler.handle( newEvent );
+                newEvent = new JsonEvent( event.getTimestamp(),
+                                          "process.mem.pss." + matcher.group( "processname" ) + ":"
+                                                  + matcher.group( "pid" ),
+                                          new JsonEventValue( Long.parseLong( matcher.group( "pss" ) ), null ),
+                                          null,
+                                          null );
                 jsonEventHandler.handle( newEvent );
             }
 
