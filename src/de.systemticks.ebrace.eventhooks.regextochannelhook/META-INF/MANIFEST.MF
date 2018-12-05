@@ -21,5 +21,7 @@ Eclipse-ExtensibleAPI: true
 Service-Component: OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonCpupHook.xml,
  OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonDommHook.xml,
  OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonDomcHook.xml,
- OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonMempHook.xml
+ OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonMempHook.xml,
+ OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonCpusHook.xml,
+ OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonMemsHook.xml
 Export-Package: de.systemticks.ebrace.eventhooks.regextochannelhook
