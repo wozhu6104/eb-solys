@@ -9,30 +9,17 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.viewer.resources;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.net.URL;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
 public class UserDocTest
 {
-
     @Test
-    public void localUserdocInstalled() throws Exception
+    public void pathToUserdocNotNOTFOUND() throws Exception
     {
-        URL installationFolder = new File( "../com.elektrobit.ebrace.ui.ecl.browser.test" ).toURI().toURL();
+        String url = new UserDoc().getDocURL();
 
-        assertEquals( installationFolder + "userdoc/intro/index.html", new UserDoc( installationFolder ).getDocURL() );
+        assertFalse( url.equals( "NOT-FOUND" ) );
     }
-
-    @Test
-    public void localUserdocNotInstalled() throws Exception
-    {
-        assertEquals( "http://er01545p:8989/userContent/ci/latest-stable/userdoc/intro/index.html",
-                      new UserDoc( new URL( "file:///nonsense" ) ).getDocURL() );
-
-    }
-
 }
