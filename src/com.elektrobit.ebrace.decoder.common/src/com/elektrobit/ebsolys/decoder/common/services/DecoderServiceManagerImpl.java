@@ -71,7 +71,7 @@ public final class DecoderServiceManagerImpl implements DecoderServiceManager
                 Object channelOfService = references.getProperty( ServiceConstants.CHANNEL_NAME );
                 if (channelOfService instanceof String)
                 {
-                    if (channelName.startsWith( (String)channelOfService ))
+                    if (channelName.contains( (String)channelOfService ))
                     {
                         DecoderService foundDecoder = (DecoderService)FrameworkUtil.getBundle( this.getClass() )
                                 .getBundleContext().getService( references );
@@ -84,7 +84,7 @@ public final class DecoderServiceManagerImpl implements DecoderServiceManager
                     String[] channelsOfService = (String[])channelOfService;
                     for (String nextChannel : channelsOfService)
                     {
-                        if (channelName.startsWith( nextChannel ))
+                        if (channelName.contains( nextChannel ))
                         {
                             DecoderService foundDecoder = (DecoderService)FrameworkUtil.getBundle( this.getClass() )
                                     .getBundleContext().getService( references );
