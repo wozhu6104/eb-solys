@@ -99,22 +99,18 @@ public class BrowserEditor extends EditorPart implements HtmlViewChangedCallback
         modelNameNotifyUseCase.register( editorInput.getModel() );
         browserCanvas = new FXCanvas( parent, SWT.NONE );
         browserCanvas.setScene( createScene() );
-        scriptJSBridge = new CallScriptJSBridge();
         webView.getEngine().setJavaScriptEnabled( true );
+        webView.setContextMenuEnabled( true );
         webView.getEngine().getLoadWorker().stateProperty().addListener( (obs, old, neww) -> {
             if (neww == Worker.State.SUCCEEDED)
             {
                 JSObject window = (JSObject)webView.getEngine().executeScript( "window" );
-                window.setMember( "solysScript", scriptJSBridge );
+                window.setMember( "solysScript", new CallScriptJSBridge() );
+                window.setMember( "solysMarker", new JumpToTimeMarkerFunction() );
             }
         } );
 
         webView.getEngine().load( model.getURL() );
-
-        // FIXME: rage - To be implemented for new fx browser
-        // new JumpToTimeMarkerFunction( browser, "jumpToTimeMarker" );
-        // FIXME: rage - Implemented/Test with params
-        // new CallScriptFromJS( browser, "callSolysScript" );
     }
 
     private static Scene createScene()
@@ -173,7 +169,6 @@ public class BrowserEditor extends EditorPart implements HtmlViewChangedCallback
     @Override
     public void onJavaScriptFunctionRequested(String function, String arg)
     {
-        // FIXME: rage - No plan how to test
         String call = function + "(" + arg + ");";
         webView.getEngine().executeScript( call );
     }

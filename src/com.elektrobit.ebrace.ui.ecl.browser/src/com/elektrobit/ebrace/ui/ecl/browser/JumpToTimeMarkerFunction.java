@@ -9,33 +9,20 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.ui.ecl.browser;
 
-import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.browser.BrowserFunction;
-
 import com.elektrobit.ebrace.common.utils.GenericOSGIServiceTracker;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarker;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager;
 
-public class JumpToTimeMarkerFunction extends BrowserFunction
+public class JumpToTimeMarkerFunction
 {
 
     private final GenericOSGIServiceTracker<TimeMarkerManager> timeMarkerManagerTracker = new GenericOSGIServiceTracker<TimeMarkerManager>( TimeMarkerManager.class );
 
-    JumpToTimeMarkerFunction(Browser browser, String name)
+    public void jump(long timestamp)
     {
-        super( browser, name );
-    }
-
-    @Override
-    public Object function(Object[] arguments)
-    {
-        if (arguments != null && arguments[0] != null)
-        {
-            TimeMarkerManager timeMarkerManager = timeMarkerManagerTracker.getService();
-            TimeMarker marker = timeMarkerManager.getTimeMarkerForTimestamp( Long.parseLong( (String)arguments[0] ) );
-            timeMarkerManager.setCurrentSelectedTimeMarker( marker );
-        }
-        return null;
+        TimeMarkerManager timeMarkerManager = timeMarkerManagerTracker.getService();
+        TimeMarker marker = timeMarkerManager.getTimeMarkerForTimestamp( timestamp );
+        timeMarkerManager.setCurrentSelectedTimeMarker( marker );
     }
 
 }
