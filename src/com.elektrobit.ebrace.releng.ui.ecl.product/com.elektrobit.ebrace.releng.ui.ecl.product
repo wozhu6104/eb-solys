@@ -33,7 +33,14 @@ Build-TAG: {2}
 #configure_the_maximum_file_size_in_MB
 -solys-file-size-limit=250
       </programArgs>
+<<<<<<< HEAD
       <vmArgs>-XX:MaxPermSize=512M -Dfile.encoding=UTF-8 -Duser.timezone=UTC -Dorg.eclipse.update.reconcile=false -Dosgi.framework.extensions=org.eclipse.fx.osgi
+=======
+      <programArgsLin>--launcher.GTK_version
+2
+      </programArgsLin>
+      <vmArgs>-XX:MaxPermSize=512M -Dfile.encoding=UTF-8 -Duser.timezone=UTC -Dorg.eclipse.update.reconcile=false
+>>>>>>> refs/heads/master
       </vmArgs>
       <vmArgsLin>-Dorg.eclipse.swt.browser.DefaultType=mozilla
          <argsX86>-Xmx900m</argsX86>
