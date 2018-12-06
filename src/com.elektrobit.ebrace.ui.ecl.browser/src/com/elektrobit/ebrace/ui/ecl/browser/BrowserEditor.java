@@ -48,6 +48,7 @@ public class BrowserEditor extends EditorPart implements HtmlViewChangedCallback
     private ModelNameNotifyUseCase modelNameNotifyUseCase;
     private FXCanvas browserCanvas;
     private CallScriptJSBridge scriptJSBridge;
+    private SelectTimeMarkerJSBridge jumpToTimeMarkerFunction;
 
     @Override
     public void doSave(IProgressMonitor monitor)
@@ -99,14 +100,16 @@ public class BrowserEditor extends EditorPart implements HtmlViewChangedCallback
         modelNameNotifyUseCase.register( editorInput.getModel() );
         browserCanvas = new FXCanvas( parent, SWT.NONE );
         browserCanvas.setScene( createScene() );
+        scriptJSBridge = new CallScriptJSBridge();
+        jumpToTimeMarkerFunction = new SelectTimeMarkerJSBridge();
         webView.getEngine().setJavaScriptEnabled( true );
         webView.setContextMenuEnabled( true );
         webView.getEngine().getLoadWorker().stateProperty().addListener( (obs, old, neww) -> {
             if (neww == Worker.State.SUCCEEDED)
             {
                 JSObject window = (JSObject)webView.getEngine().executeScript( "window" );
-                window.setMember( "solysScript", new CallScriptJSBridge() );
-                window.setMember( "solysMarker", new JumpToTimeMarkerFunction() );
+                window.setMember( "solysScript", scriptJSBridge );
+                window.setMember( "solysMarker", jumpToTimeMarkerFunction );
             }
         } );
 

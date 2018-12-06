@@ -13,16 +13,27 @@ import com.elektrobit.ebrace.common.utils.GenericOSGIServiceTracker;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarker;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager;
 
-public class JumpToTimeMarkerFunction
+public class SelectTimeMarkerJSBridge
 {
 
     private final GenericOSGIServiceTracker<TimeMarkerManager> timeMarkerManagerTracker = new GenericOSGIServiceTracker<TimeMarkerManager>( TimeMarkerManager.class );
 
-    public void jump(long timestamp)
+    public void selectByTime(long timestamp)
     {
         TimeMarkerManager timeMarkerManager = timeMarkerManagerTracker.getService();
         TimeMarker marker = timeMarkerManager.getTimeMarkerForTimestamp( timestamp );
         timeMarkerManager.setCurrentSelectedTimeMarker( marker );
+    }
+
+    public void selectByName(String name)
+    {
+        TimeMarkerManager timeMarkerManager = timeMarkerManagerTracker.getService();
+        TimeMarker marker = timeMarkerManager.getAllTimeMarkers().stream()
+                .filter( nextMarker -> nextMarker.getName().equals( name ) ).findFirst().get();
+        if (marker != null)
+        {
+            timeMarkerManager.setCurrentSelectedTimeMarker( marker );
+        }
     }
 
 }
