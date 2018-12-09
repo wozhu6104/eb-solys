@@ -64,15 +64,35 @@ def createMarkerForHighCpuLoad() {
 }
 ```
 
-## Build
+## Setup development environment
 
 ### Prerequisites
 
-* Latest eclipse for plugin development installed
-* Java 8 or higher
-* Maven 3.3.1
+*currently this is only tested on Windows*
 
-### Build GUI Executable
+* Install Oracle Java SDK 8 from https://www.oracle.com/technetwork/java/javase/downloads/index.html
+* Install Maven >= 3.3.1 from https://maven.apache.org/download.cgi
+* Download Eclipse installer for your platform from https://www.eclipse.org/downloads/
+* Run Eclipse installer
+    - change to advanced mode
+    - select Eclipse for RCP and RAP Developers > Next
+    - add project setup file via '+'
+    - select Github Projects
+    - paste https://raw.githubusercontent.com/Elektrobit/eb-solys/master/devenv/eb-solys.setup > OK
+    - select EB Solys entry under GithubProjects > <User> > Next
+    - adapt installation folder if required ('Show all variables') > Next > Finish
+    - During installation accept unsigned content and licenses as requested
+    - Eclipse will start automatically after a while and will run some setup tasks (you can monitor the progress by observing the Eclipse task bar or clicking on the icons in the bottom right corner)
+    - Click Finish to restart Eclipse
+    - There is more installation to be done ;-) again observe the Eclipse task bar or click on the icons
+    - If you encounter a build problem, click OK and trigger a clean build (Project > Clean)
+
+## Starting EB solys
+
+* open /com.elektrobit.ebrace.releng.ui.ecl.product/com.elektrobit.ebrace.releng.ui.ecl.product
+* click Launch an Eclipse application
+
+## Maven CLI build of GUI Executable
 
 ```
 cd src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
