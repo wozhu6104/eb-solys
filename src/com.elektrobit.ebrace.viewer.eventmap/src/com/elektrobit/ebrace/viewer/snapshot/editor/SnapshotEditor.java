@@ -56,7 +56,7 @@ public class SnapshotEditor extends EditorPart
             ModelNameNotifyCallback
 {
     private final String CONTEXT_MENU_ID = "com.elektrobit.ebrace.viewer.eventmap.editor.contextmenu";
-    private final ListenerList listeners = new ListenerList();
+    private final ListenerList<ISelectionChangedListener> listeners = new ListenerList<>();
     private ChannelColorUseCase channelColorUseCase;
     private ChannelsSnapshotDecoderComposite eventMapDecoder;
     private ModelNameNotifyUseCase modelNameNotifyUseCase;
@@ -147,10 +147,11 @@ public class SnapshotEditor extends EditorPart
     {
         Transfer[] dropTransferTypes = new Transfer[]{RuntimeEventChannelTransfer.getInstance()};
 
-        eventMapDecoder.getFilteredTree().getViewer().addDropSupport( DND.DROP_MOVE | DND.DROP_COPY,
-                                                                      dropTransferTypes,
-                                                                      new RuntimeeventChannelDropTargetAdapter( ((ResourcesModelEditorInput)getEditorInput())
-                                                                              .getModel(), Object.class ) );
+        eventMapDecoder.getFilteredTree().getViewer()
+                .addDropSupport( DND.DROP_MOVE | DND.DROP_COPY,
+                                 dropTransferTypes,
+                                 new RuntimeeventChannelDropTargetAdapter( ((ResourcesModelEditorInput)getEditorInput())
+                                         .getModel(), Object.class ) );
     }
 
     private void updateChannelList()
