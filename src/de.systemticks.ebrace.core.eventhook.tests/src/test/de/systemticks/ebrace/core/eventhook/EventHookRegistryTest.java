@@ -17,6 +17,7 @@ import de.systemticks.ebrace.core.eventhook.impl.EventHookRegistryServiceImpl;
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
 
+//FIXME: rage - Update Test
 public class EventHookRegistryTest
 {
     // @formatter:off
