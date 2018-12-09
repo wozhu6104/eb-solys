@@ -4,9 +4,9 @@
       <provide interface="com.elektrobit.ebrace.core.importerregistry.api.Importer"/>
    </service>
    <reference bind="bind" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" unbind="unbind"/>
-   <reference bind="bindDltChannelFromLogInfoCreator" cardinality="1..1" interface="com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator" name="DltChannelFromLogInfoCreator" policy="static" unbind="unbindDltChannelFromLogInfoCreator"/>
-   <reference bind="bindProtocolMessageDispatcher" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher" name="ProtocolMessageDispatcher" policy="static" unbind="unbindProtocolMessageDispatcher"/>
-   <reference bind="bindTimeMarkerManager" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager" name="TimeMarkerManager" policy="static" unbind="unbindTimeMarkerManager"/>
-   <reference bind="bindTimestampProvider" cardinality="1..1" interface="com.elektrobit.ebrace.chronograph.api.TimestampProvider" name="TimestampProvider" policy="static" unbind="unbindTimestampProvider"/>
+   <reference bind="bindDltChannelFromLogInfoCreator" interface="com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator" name="DltChannelFromLogInfoCreator" unbind="unbindDltChannelFromLogInfoCreator"/>
+   <reference bind="bindProtocolMessageDispatcher" interface="com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher" name="ProtocolMessageDispatcher" unbind="unbindProtocolMessageDispatcher"/>
+   <reference bind="bindTimeMarkerManager" interface="com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager" name="TimeMarkerManager" unbind="unbindTimeMarkerManager"/>
+   <reference bind="bindTimestampProvider" interface="com.elektrobit.ebrace.chronograph.api.TimestampProvider" name="TimestampProvider" unbind="unbindTimestampProvider"/>
    <implementation class="com.elektrobit.ebrace.targetdata.dlt.internal.DltLogImporterService"/>
 </scr:component>

@@ -17,6 +17,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.osgi.services
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/com.elektrobit.ebrace.targetadapter.socketreader.service.SocketReaderFactory.xml
 Import-Package: org.osgi.service.component;version="1.1.0"
 Eclipse-ExtensibleAPI: true
+Service-Component: OSGI-INF/com.elektrobit.ebrace.targetadapter.socketreader.service.SocketReaderFactory.xml

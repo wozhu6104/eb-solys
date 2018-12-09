@@ -25,19 +25,19 @@ Require-Bundle: org.eclipse.core.runtime,
  com.elektrobit.ebrace.dev.prof.agent;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.DltAdaptorFactory.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltMessageDispatcher.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltConnectionType.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.DltStreamImporterService.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.DltControlMessageServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.DltLogImporterService.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltConnectionFactory.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.GetAllDltChannelsMessageSenderService.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreatorImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.DltRawAdaptorFactory.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.newapiimpl.DltMessageServiceImpl.xml
 Import-Package: org.osgi.service.component;version="1.1.0"
 Eclipse-ExtensibleAPI: true
 Export-Package: com.elektrobit.ebrace.targetdata.dlt.api,
  com.elektrobit.ebrace.targetdata.dlt.internal,
  com.elektrobit.ebrace.targetdata.dlt.newapi
+Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltMessageDispatcher.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltConnectionType.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.DltRawAdaptorFactory.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.DltStreamImporterService.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltConnectionFactory.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.newapiimpl.DltMessageServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.GetAllDltChannelsMessageSenderService.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.DltAdaptorFactory.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreatorImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.DltControlMessageServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.dlt.internal.DltLogImporterService.xml

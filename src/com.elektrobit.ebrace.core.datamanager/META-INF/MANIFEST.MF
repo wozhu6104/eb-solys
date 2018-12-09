@@ -22,19 +22,19 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0",
  de.systemticks.ebrace.core.eventhook
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.channels.impl.RuntimeEventChannelManagerImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.listener.ChannelListenerNotifierImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.color.ChannelColorProviderServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.reset.ClearChunkDataNotifierImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.model.comrelation.ComRelationAcceptorImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.ModelElementPoolImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.reset.ResetNotifierImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.runtime.event.RuntimeEventServiceProxy.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.runtime.event.SelectedElementsServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.model.structure.StructureAcceptorImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.model.structure.StructureSelectionServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.runtime.event.TargetHeaderMetaDataServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.model.structure.TreeNodeCheckStateServiceImpl.xml
 Export-Package: com.elektrobit.ebrace.core.datamanager.api.channels
 Eclipse-ExtensibleAPI: true
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.runtime.event.RuntimeEventServiceProxy.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.color.ChannelColorProviderServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.reset.ResetNotifierImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.model.comrelation.ComRelationAcceptorImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.channels.impl.RuntimeEventChannelManagerImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.runtime.event.TargetHeaderMetaDataServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.ModelElementPoolImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.runtime.event.SelectedElementsServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.model.structure.TreeNodeCheckStateServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.model.structure.StructureSelectionServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.listener.ChannelListenerNotifierImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.internal.model.structure.StructureAcceptorImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datamanager.reset.ClearChunkDataNotifierImpl.xml
 

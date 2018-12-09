@@ -25,8 +25,8 @@ Require-Bundle: org.eclipse.core.runtime,
  com.elektrobit.ebrace.targetadapter.communicator.api
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.importer.internal.NetworkDataImporter.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.importer.internal.racefile.RaceFileImporterProxy.xml
 Eclipse-ExtensibleAPI: true
 Import-Package: com.elektrobit.ebrace.core.importerregistry.api
+Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.importer.internal.racefile.RaceFileImporterProxy.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.importer.internal.NetworkDataImporter.xml
 

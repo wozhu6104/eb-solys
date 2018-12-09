@@ -18,8 +18,8 @@ Require-Bundle: org.projectlombok.lombok,
  dk.thibaut.serial;bundle-version="1.0.0"
 Export-Package: com.elektrobit.ebrace.core.datainput.api
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
 Service-Component: OSGI-INF/com.elektrobit.ebrace.core.datainput.service.DataInputServiceImpl.xml,
  OSGI-INF/com.elektrobit.ebrace.core.datainput.dlt.DltStreamTokenizer.xml,
  OSGI-INF/com.elektrobit.ebrace.core.datainput.dlt.DltFileTokenizer.xml,
  OSGI-INF/com.elektrobit.ebrace.core.datainput.dlt.DltStreamParser.xml
-Bundle-ClassPath: .

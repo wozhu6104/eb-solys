@@ -5,9 +5,9 @@ Bundle-SymbolicName: com.elektrobit.ebrace.core.usermessagelogger
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: ELEKTROBIT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.usermessagelogger.internal.UserMessageLoggerImpl.xml
 Export-Package: com.elektrobit.ebrace.core.usermessagelogger.api
 Eclipse-ExtensibleAPI: true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.osgi.services,
  com.elektrobit.ebrace.core.interactor.api;bundle-version="1.0.0"
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.usermessagelogger.internal.UserMessageLoggerImpl.xml

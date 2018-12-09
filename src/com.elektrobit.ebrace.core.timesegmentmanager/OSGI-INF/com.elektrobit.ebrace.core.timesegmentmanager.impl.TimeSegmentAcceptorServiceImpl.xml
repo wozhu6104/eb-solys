@@ -4,8 +4,8 @@
       <provide interface="com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService"/>
       <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataListener"/>
    </service>
-   <reference bind="bindChannelColorProviderService" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.color.ChannelColorProviderService" name="ChannelColorProviderService" policy="static" unbind="unbindChannelColorProviderService"/>
-   <reference bind="bindChannelListenerNotifier" cardinality="1..1" interface="com.elektrobit.ebrace.core.datamanager.api.channels.ChannelListenerNotifier" name="ChannelListenerNotifier" policy="static" unbind="unbindChannelListenerNotifier"/>
-   <reference bind="bindRuntimeEventChannelManager" cardinality="1..1" interface="com.elektrobit.ebrace.core.datamanager.api.channels.RuntimeEventChannelManager" name="RuntimeEventChannelManager" policy="static" unbind="unbindRuntimeEventChannelManager"/>
+   <reference bind="bindChannelColorProviderService" interface="com.elektrobit.ebsolys.core.targetdata.api.color.ChannelColorProviderService" name="ChannelColorProviderService" unbind="unbindChannelColorProviderService"/>
+   <reference bind="bindChannelListenerNotifier" interface="com.elektrobit.ebrace.core.datamanager.api.channels.ChannelListenerNotifier" name="ChannelListenerNotifier" unbind="unbindChannelListenerNotifier"/>
+   <reference bind="bindRuntimeEventChannelManager" interface="com.elektrobit.ebrace.core.datamanager.api.channels.RuntimeEventChannelManager" name="RuntimeEventChannelManager" unbind="unbindRuntimeEventChannelManager"/>
    <implementation class="com.elektrobit.ebrace.core.timesegmentmanager.impl.TimeSegmentAcceptorServiceImpl"/>
 </scr:component>

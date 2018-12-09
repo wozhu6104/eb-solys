@@ -7,5 +7,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: com.elektrobit.ebrace.core.scriptconsolefactory.api,
  org.eclipse.osgi.services,
  com.elektrobit.ebrace.racescript.interface
-Service-Component: OSGI-INF/com.elektrobit.ebrace.ui.console.scriptconsole.impl.AutomationScriptConsoleFactoryService.xml
 Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/com.elektrobit.ebrace.ui.console.scriptconsole.impl.AutomationScriptConsoleFactoryService.xml

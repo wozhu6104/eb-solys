@@ -10,8 +10,8 @@ Require-Bundle: org.eclipse.osgi,
  org.eclipse.osgi.services,
  com.elektrobit.ebrace.common,
  com.elektrobit.ebrace.core.targetdata.api
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.importerregistry.internal.impl.ImporterRegistryServiceImpl.xml
 Export-Package: com.elektrobit.ebrace.core.importerregistry.api
 Bundle-ActivationPolicy: lazy
 Eclipse-ExtensibleAPI: true
 Import-Package: org.eclipse.core.runtime
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.importerregistry.internal.impl.ImporterRegistryServiceImpl.xml
