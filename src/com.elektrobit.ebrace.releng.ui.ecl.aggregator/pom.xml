@@ -125,6 +125,9 @@
 		<module>../org.eclipse.tracecompass.common.core</module>
 		<module>../com.elektrobit.ebrace.core.datainput</module>
 		
+		<module>../de.systemticks.ebrace.core.eventhook</module>
+		<module>../dk.thibaut.serial</module>
+		<module>../de.systemticks.ebrace.eventhooks.regextochannelhook</module>
 		<!-- <module>../</module> -->
 		
 		<module>../com.elektrobit.ebrace.core.usermessagelogger.tests</module>
