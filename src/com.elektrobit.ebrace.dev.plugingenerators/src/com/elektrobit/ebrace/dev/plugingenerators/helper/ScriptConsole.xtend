@@ -1,6 +1,5 @@
 package com.elektrobit.ebrace.dev.plugingenerators.helper
 
-
 import org.eclipse.ui.console.ConsolePlugin
 import org.eclipse.ui.console.IOConsole
 import org.eclipse.ui.console.IOConsoleOutputStream
@@ -8,7 +7,7 @@ import org.eclipse.ui.console.MessageConsole
 
 class ScriptConsole {
 	
-	private val IOConsoleOutputStream outputStream
+	val IOConsoleOutputStream outputStream
 	
 	new(String consoleName) {
 		val console = new MessageConsole(consoleName, null)
