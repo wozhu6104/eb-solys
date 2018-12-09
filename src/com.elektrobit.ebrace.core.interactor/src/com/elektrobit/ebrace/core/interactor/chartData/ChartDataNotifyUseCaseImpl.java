@@ -25,6 +25,7 @@ import com.elektrobit.ebrace.core.interactor.api.resources.model.ResourceModel;
 import com.elektrobit.ebrace.core.interactor.api.resources.model.chart.ChartModel;
 import com.elektrobit.ebrace.core.interactor.api.resources.model.chart.ChartTypes;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences;
 import com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences.ANALYSIS_TIMESPAN_CHANGE_REASON;
 import com.elektrobit.ebrace.core.preferences.listener.AnalysisTimespanChangedListener;
@@ -102,19 +103,15 @@ public class ChartDataNotifyUseCaseImpl
     private void collectAndPostNewData()
     {
         LOG.info( "Starting chart data collection " + runMode );
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
+        UseCaseExecutor.schedule( new UseCaseRunnable( "ChartDataNotifyUseCase.collectAndPostNewData", () -> {
+            Object result = collectData();
+            if (result != null)
             {
-                Object result = collectData();
-                if (result != null)
-                {
-                    LOG.info( "Chart data collection done " + runMode );
-                    postDataToCallBack( result );
-                }
+                LOG.info( "Chart data collection done " + runMode );
+                postDataToCallBack( result );
             }
-        } );
+        } ) );
+
     }
 
     private void postDataToCallBack(final Object result)

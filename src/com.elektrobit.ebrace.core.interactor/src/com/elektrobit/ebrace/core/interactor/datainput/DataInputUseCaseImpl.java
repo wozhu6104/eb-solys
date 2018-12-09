@@ -18,6 +18,7 @@ import com.elektrobit.ebrace.core.interactor.api.createresource.CreateConnection
 import com.elektrobit.ebrace.core.interactor.api.createresource.CreateConnectionInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.api.datainput.DataInputUseCase;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 
 public class DataInputUseCaseImpl implements DataInputUseCase, CreateConnectionInteractionCallback
 {
@@ -41,14 +42,8 @@ public class DataInputUseCaseImpl implements DataInputUseCase, CreateConnectionI
     @Override
     public void startReading(String dataInputId)
     {
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                service.startReading( dataInputId );
-            }
-        } );
+        UseCaseExecutor.schedule( new UseCaseRunnable( "DataInputUseCase.startReading",
+                                                       () -> service.startReading( dataInputId ) ) );
     }
 
     @Override
@@ -60,14 +55,8 @@ public class DataInputUseCaseImpl implements DataInputUseCase, CreateConnectionI
     @Override
     public void startReadingAllInputs()
     {
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                service.startReadingAllInputs();
-            }
-        } );
+        UseCaseExecutor.schedule( new UseCaseRunnable( "DataInputUseCase.startReadingAllInputs",
+                                                       () -> service.startReadingAllInputs() ) );
 
     }
 

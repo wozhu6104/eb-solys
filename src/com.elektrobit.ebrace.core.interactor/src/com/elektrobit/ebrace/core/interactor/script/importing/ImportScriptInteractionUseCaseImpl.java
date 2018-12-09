@@ -16,6 +16,7 @@ import com.elektrobit.ebrace.core.interactor.api.common.UIExecutor;
 import com.elektrobit.ebrace.core.interactor.api.script.importing.ImportScriptInteractionCallback;
 import com.elektrobit.ebrace.core.interactor.api.script.importing.ImportScriptInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.scriptimporter.api.ImportScriptStatusListener;
 import com.elektrobit.ebrace.core.scriptimporter.api.ScriptImporterService;
 
@@ -40,14 +41,8 @@ public class ImportScriptInteractionUseCaseImpl implements ImportScriptInteracti
     {
         RangeCheckUtils.assertReferenceParameterNotNull( "scriptFile", xtendFile );
 
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                scriptImporterService.importUserScript( xtendFile );
-            }
-        } );
+        UseCaseExecutor.schedule( new UseCaseRunnable( "ImportScriptInteractionUseCase.importUserScript",
+                                                       () -> scriptImporterService.importUserScript( xtendFile ) ) );
 
     }
 
@@ -56,14 +51,9 @@ public class ImportScriptInteractionUseCaseImpl implements ImportScriptInteracti
     {
         RangeCheckUtils.assertReferenceParameterNotNull( "scriptFile", xtendFile );
 
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                scriptImporterService.importPreinstalledScript( xtendFile );
-            }
-        } );
+        UseCaseExecutor
+                .schedule( new UseCaseRunnable( "ImportScriptInteractionUseCase.importPreinstalledScript",
+                                                () -> scriptImporterService.importPreinstalledScript( xtendFile ) ) );
 
     }
 

@@ -20,6 +20,7 @@ import com.elektrobit.ebrace.core.interactor.api.common.UIExecutorIF;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutorIF;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseRepeatedTask;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 
 public class UseCaseBaseTest
 {
@@ -57,7 +58,7 @@ public class UseCaseBaseTest
         }
 
         @Override
-        public void schedule(Runnable r)
+        public void schedule(UseCaseRunnable r)
         {
             r.run();
         }
@@ -74,7 +75,9 @@ public class UseCaseBaseTest
             for (UseCaseRepeatedTask timerTask : repeatedTasks)
             {
                 if (!timerTask.isCancelled())
+                {
                     timerTask.execute();
+                }
             }
         }
     }

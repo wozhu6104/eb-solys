@@ -3,6 +3,6 @@
    <service>
       <provide interface="com.elektrobit.ebrace.core.datamanager.api.channels.RuntimeEventChannelManager"/>
    </service>
-   <reference bind="bindCommandLineParser" cardinality="1..1" interface="com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.CommandLineParser" name="CommandLineParser" policy="static" unbind="unbindCommandLineParser"/>
+   <reference bind="bindCommandLineParser" interface="com.elektrobit.ebrace.platform.commandlineparser.extern.interfaces.CommandLineParser" name="CommandLineParser" unbind="unbindCommandLineParser"/>
    <implementation class="com.elektrobit.ebrace.core.datamanager.internal.channels.impl.RuntimeEventChannelManagerImpl"/>
 </scr:component>

@@ -18,6 +18,7 @@ import com.elektrobit.ebrace.core.interactor.api.tableinput.FilteredTableInputNo
 import com.elektrobit.ebrace.core.interactor.api.tableinput.FilteredTableNotifyCallback;
 import com.elektrobit.ebrace.core.interactor.api.tableinput.TableData;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.interactor.tableinput.filter.FilterUtil;
 
 public class FilteredTableInputNotifyUseCaseImpl implements FilteredTableInputNotifyUseCase
@@ -45,17 +46,11 @@ public class FilteredTableInputNotifyUseCaseImpl implements FilteredTableInputNo
     @Override
     public void collectAndPostNewData()
     {
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                TableData filterResultData = FilterUtil.filter( dataCollector.collectData(),
-                                                                filterText,
-                                                                rowFormatters );
-                postCollectedTableInputToCallBack( filterResultData );
-            }
-        } );
+        UseCaseExecutor.schedule( new UseCaseRunnable( "FilteredTableInputNotifyUseCase.collectAndPostNewData", () -> {
+            TableData filterResultData = FilterUtil.filter( dataCollector.collectData(), filterText, rowFormatters );
+            postCollectedTableInputToCallBack( filterResultData );
+        } ) );
+
     }
 
     private void postCollectedTableInputToCallBack(final TableData filterResultData)

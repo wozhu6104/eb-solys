@@ -25,6 +25,7 @@ import com.elektrobit.ebrace.core.interactor.api.resources.model.ResourceModel;
 import com.elektrobit.ebrace.core.interactor.channelValues.comparator.DecodedRuntimeEventValueEntryComparator;
 import com.elektrobit.ebrace.core.interactor.channelValues.comparator.RuntimeEventChannelNameComparator;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences;
 import com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences.ANALYSIS_TIMESPAN_CHANGE_REASON;
 import com.elektrobit.ebrace.core.preferences.api.UserInteractionPreferences;
@@ -106,14 +107,9 @@ public class ChannelsSnapshotNotifyUseCaseImpl
 
     private void updateRuntimeEventValuesForTimestamp()
     {
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                processEventsAndPostInput();
-            }
-        } );
+        UseCaseExecutor
+                .schedule( new UseCaseRunnable( "ChannelsSnapshotNotifyUseCase.updateRuntimeEventValuesForTimestamp",
+                                                () -> processEventsAndPostInput() ) );
     }
 
     private void processEventsAndPostInput()

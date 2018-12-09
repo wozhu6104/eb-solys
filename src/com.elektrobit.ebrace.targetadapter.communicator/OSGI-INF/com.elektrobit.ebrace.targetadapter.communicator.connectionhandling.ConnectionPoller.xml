@@ -3,7 +3,7 @@
    <service>
       <provide interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionStatusListener"/>
    </service>
-   <reference bind="setConnectionService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService" name="ConnectionService" policy="static" unbind="unsetConnectionService"/>
-   <reference bind="setSendMessageToTargetService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.SendMessageToTargetService" name="SendMessageToTargetService" policy="static" unbind="unsetSendMessageToTargetService"/>
+   <reference bind="setConnectionService" interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService" name="ConnectionService" unbind="unsetConnectionService"/>
+   <reference bind="setSendMessageToTargetService" interface="com.elektrobit.ebrace.targetadapter.communicator.api.SendMessageToTargetService" name="SendMessageToTargetService" unbind="unsetSendMessageToTargetService"/>
    <implementation class="com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.ConnectionPoller"/>
 </scr:component>

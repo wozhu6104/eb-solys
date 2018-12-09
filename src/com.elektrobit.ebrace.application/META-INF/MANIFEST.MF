@@ -39,5 +39,5 @@ Import-Package: com.elektrobit.ebrace.targetadapter.communicator.services,
  com.elektrobit.ebsolys.core.targetdata.api.timemarker
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Eclipse-ExtensibleAPI: true
-Service-Component: OSGI-INF/com.elektrobit.ebrace.application.VersionImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.application.ApplicationStartedNotifier.xml
+Service-Component: OSGI-INF/com.elektrobit.ebrace.application.ApplicationStartedNotifier.xml,
+ OSGI-INF/com.elektrobit.ebrace.application.VersionImpl.xml

@@ -5,9 +5,9 @@ Bundle-SymbolicName: com.elektrobit.ebrace.targetdata.decoder.stfevents
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: ELEKTROBIT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Service-Component: OSGI-INF/com.elektrobit.ebrace.stfevents.STFEventDecoder.xml
 Require-Bundle: com.elektrobit.ebrace.decoder.common;bundle-version="1.0.0",
  com.elektrobit.ebrace.core.targetdata.api;bundle-version="1.0.0",
  com.elektrobit.ebrace.common,
  org.eclipse.osgi.services
 Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/com.elektrobit.ebrace.stfevents.STFEventDecoder.xml

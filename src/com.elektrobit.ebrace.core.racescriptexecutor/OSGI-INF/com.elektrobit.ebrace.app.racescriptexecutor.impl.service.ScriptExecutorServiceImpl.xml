@@ -3,6 +3,6 @@
    <service>
       <provide interface="com.elektrobit.ebrace.core.racescriptexecutor.api.ScriptExecutorService"/>
    </service>
-   <reference bind="bindScriptLoader" cardinality="1..1" interface="com.elektrobit.ebrace.core.racescriptexecutor.api.ScriptMethodLoader" name="ScriptLoader" policy="static" unbind="unbindScriptLoader"/>
+   <reference bind="bindScriptLoader" interface="com.elektrobit.ebrace.core.racescriptexecutor.api.ScriptMethodLoader" name="ScriptLoader" unbind="unbindScriptLoader"/>
    <implementation class="com.elektrobit.ebrace.app.racescriptexecutor.impl.service.ScriptExecutorServiceImpl"/>
 </scr:component>

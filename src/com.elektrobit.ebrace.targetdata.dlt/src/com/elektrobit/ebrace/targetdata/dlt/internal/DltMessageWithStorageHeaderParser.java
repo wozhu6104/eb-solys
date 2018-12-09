@@ -16,6 +16,7 @@ import java.util.List;
 import com.elektrobit.ebrace.targetadapter.communicator.api.BytesFromStreamReader;
 import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 import com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator;
+import com.elektrobit.ebrace.targetdata.dlt.newapiimpl.DltMessageServiceImpl;
 
 public class DltMessageWithStorageHeaderParser implements MessageReader<DltMessage>
 {
@@ -23,11 +24,11 @@ public class DltMessageWithStorageHeaderParser implements MessageReader<DltMessa
     final static int EXTENDED_HEADER_SIZE = 10;
     final static byte[] expectedPattern = new byte[]{68, 76, 84, 1};
 
-    private final DltStreamMessageServiceImpl withoutStorageHeaderParser;
+    private final DltMessageServiceImpl withoutStorageHeaderParser;
 
     public DltMessageWithStorageHeaderParser(DltChannelFromLogInfoCreator channelFromLogInfoCreator)
     {
-        withoutStorageHeaderParser = new DltStreamMessageServiceImpl( channelFromLogInfoCreator );
+        withoutStorageHeaderParser = new DltMessageServiceImpl( channelFromLogInfoCreator );
     }
 
     @Override

@@ -23,6 +23,7 @@ import com.elektrobit.ebrace.core.interactor.api.common.UIExecutor;
 import com.elektrobit.ebrace.core.interactor.common.NotificationAccumulator;
 import com.elektrobit.ebrace.core.interactor.common.NotificationAccumulatorCallback;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.ChannelTreeNode;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannelsChangedListener;
@@ -64,15 +65,8 @@ public class ChannelTreeNodeNotifyUseCaseImpl
     @Override
     public void onAccumulatedNotification()
     {
-        UseCaseExecutor.schedule( new Runnable()
-        {
-
-            @Override
-            public void run()
-            {
-                computeTreeAndPostToCallback();
-            }
-        } );
+        UseCaseExecutor.schedule( new UseCaseRunnable( "ChannelTreeNodeNotifyUseCase.onAccumulatedNotification",
+                                                       () -> computeTreeAndPostToCallback() ) );
     }
 
     private void computeTreeAndPostToCallback()

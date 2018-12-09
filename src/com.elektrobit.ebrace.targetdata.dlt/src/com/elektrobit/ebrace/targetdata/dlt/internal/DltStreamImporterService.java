@@ -17,6 +17,7 @@ import com.elektrobit.ebrace.core.importerregistry.api.Importer;
 import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 import com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher;
 import com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator;
+import com.elektrobit.ebrace.targetdata.dlt.newapiimpl.DltMessageServiceImpl;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager;
 
@@ -29,7 +30,7 @@ public class DltStreamImporterService extends DltAbstractImporter
     @Override
     protected MessageReader<DltMessage> getMessageParser()
     {
-        return new DltStreamMessageServiceImpl( dltChannelFromLogInfoCreator );
+        return new DltMessageServiceImpl( dltChannelFromLogInfoCreator );
     }
 
     @Reference

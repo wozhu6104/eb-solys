@@ -21,7 +21,7 @@ import com.elektrobit.ebrace.targetadapter.communicator.services.MessageDispatch
 import com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher;
 import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessage;
 import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessageProcessor;
-import com.elektrobit.ebrace.targetdata.dlt.internal.DltStreamMessageServiceImpl;
+import com.elektrobit.ebrace.targetdata.dlt.newapiimpl.DltMessageServiceImpl;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager;
@@ -56,7 +56,7 @@ public class DltMessageDispatcher implements MessageDispatcher
     @Override
     public MessageReader<?> getMessageReader()
     {
-        return new DltStreamMessageServiceImpl( dltChannelFromLogInfoCreator );
+        return new DltMessageServiceImpl( dltChannelFromLogInfoCreator );
     }
 
     @Override

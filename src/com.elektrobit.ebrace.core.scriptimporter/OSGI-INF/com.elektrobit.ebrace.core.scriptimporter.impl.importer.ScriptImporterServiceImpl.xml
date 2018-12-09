@@ -3,8 +3,8 @@
    <service>
       <provide interface="com.elektrobit.ebrace.core.scriptimporter.api.ScriptImporterService"/>
    </service>
-   <reference bind="bindRaceScriptLoader" cardinality="1..1" interface="com.elektrobit.ebrace.core.racescriptexecutor.api.RaceScriptLoader" name="RaceScriptLoader" policy="static" unbind="unbindRaceScriptLoader"/>
-   <reference bind="bindResourcesModelManager" cardinality="1..1" interface="com.elektrobit.ebrace.resources.api.manager.ResourcesModelManager" name="ResourcesModelManager" policy="static" unbind="unbindResourcesModelManager"/>
-   <reference bind="bindScriptProjectBuilder" cardinality="1..1" interface="com.elektrobit.ebrace.core.scriptimporter.api.ScriptProjectBuilderService" name="ScriptProjectBuilder" policy="static" unbind="unbindScriptProjectBuilder"/>
+   <reference bind="bindRaceScriptLoader" interface="com.elektrobit.ebrace.core.racescriptexecutor.api.RaceScriptLoader" name="RaceScriptLoader" unbind="unbindRaceScriptLoader"/>
+   <reference bind="bindResourcesModelManager" interface="com.elektrobit.ebrace.resources.api.manager.ResourcesModelManager" name="ResourcesModelManager" unbind="unbindResourcesModelManager"/>
+   <reference bind="bindScriptProjectBuilder" interface="com.elektrobit.ebrace.core.scriptimporter.api.ScriptProjectBuilderService" name="ScriptProjectBuilder" unbind="unbindScriptProjectBuilder"/>
    <implementation class="com.elektrobit.ebrace.core.scriptimporter.impl.importer.ScriptImporterServiceImpl"/>
 </scr:component>

@@ -7,19 +7,17 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package com.elektrobit.ebrace.core.datainput.tokenizer;
+package com.elektrobit.ebrace.core.datainput.dlt;
 
 import java.io.IOException;
 
-import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.Component;
 
 import com.elektrobit.ebrace.core.datainput.api.DataStreamTokenizer;
-import com.elektrobit.ebrace.targetdata.dlt.newapi.DltStreamMessageService;
 
+@Component
 public class DltStreamTokenizer extends DataStreamTokenizer
 {
-    private DltStreamMessageService dltStreamMessageService;
-
     public DltStreamTokenizer()
     {
     }
@@ -27,23 +25,18 @@ public class DltStreamTokenizer extends DataStreamTokenizer
     @Override
     public byte[] readNextMessage() throws IOException
     {
-        return dltStreamMessageService.tokenizeNextMessage( stream );
+        byte[] buffer = null;
+        DltMessage nextMessage = new DltMessageHelper().getNextMessage( stream );
+        if (nextMessage != null)
+        {
+            buffer = nextMessage.serialize();
+        }
+        return buffer;
     }
 
     @Override
     public String getId()
     {
-        return "Dlt Stream Tokenizer";
-    }
-
-    @Reference
-    public void bindDltStreamMessageService(DltStreamMessageService dltStreamMessageService)
-    {
-        this.dltStreamMessageService = dltStreamMessageService;
-    }
-
-    public void unbindDltStreamMessageService(DltStreamMessageService dltStreamMessageService)
-    {
-        this.dltStreamMessageService = null;
+        return "dlt-stream-header";
     }
 }

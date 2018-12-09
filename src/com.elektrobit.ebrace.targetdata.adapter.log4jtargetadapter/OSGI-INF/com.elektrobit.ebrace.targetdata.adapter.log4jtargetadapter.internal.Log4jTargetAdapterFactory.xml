@@ -4,8 +4,8 @@
    <service>
       <provide interface="com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory"/>
    </service>
-   <reference bind="bindComRelationAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" policy="static" unbind="unbindComRelationAcceptor"/>
-   <reference bind="bindRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unbindRuntimeEventAcceptor"/>
-   <reference bind="bindTimestampProvider" cardinality="1..1" interface="com.elektrobit.ebrace.chronograph.api.TimestampProvider" name="TimestampProvider" policy="static" unbind="unbindTimestampProvider"/>
+   <reference bind="bindComRelationAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" unbind="unbindComRelationAcceptor"/>
+   <reference bind="bindRuntimeEventAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" unbind="unbindRuntimeEventAcceptor"/>
+   <reference bind="bindTimestampProvider" interface="com.elektrobit.ebrace.chronograph.api.TimestampProvider" name="TimestampProvider" unbind="unbindTimestampProvider"/>
    <implementation class="com.elektrobit.ebrace.targetdata.adapter.log4jtargetadapter.internal.Log4jTargetAdapterFactory"/>
 </scr:component>

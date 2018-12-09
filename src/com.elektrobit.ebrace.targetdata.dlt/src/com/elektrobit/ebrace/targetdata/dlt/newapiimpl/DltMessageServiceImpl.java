@@ -7,7 +7,7 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package com.elektrobit.ebrace.targetdata.dlt.internal;
+package com.elektrobit.ebrace.targetdata.dlt.newapiimpl;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -22,25 +22,34 @@ import com.elektrobit.ebrace.common.checks.RangeCheckUtils;
 import com.elektrobit.ebrace.common.utils.HexStringHelper;
 import com.elektrobit.ebrace.targetadapter.communicator.api.BytesFromStreamReader;
 import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
+import com.elektrobit.ebrace.targetdata.dlt.internal.BytesFromStreamReaderImpl;
+import com.elektrobit.ebrace.targetdata.dlt.internal.DltExtendedHeader;
+import com.elektrobit.ebrace.targetdata.dlt.internal.DltLogInfoType;
+import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessage;
+import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessageParseException;
+import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessageWithStorageHeaderParser;
+import com.elektrobit.ebrace.targetdata.dlt.internal.DltPayload;
+import com.elektrobit.ebrace.targetdata.dlt.internal.DltStandardHeader;
 import com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator;
-import com.elektrobit.ebrace.targetdata.dlt.newapi.DltStreamMessageService;
+import com.elektrobit.ebrace.targetdata.dlt.newapi.DltMessageService;
 
 @Component
-public class DltStreamMessageServiceImpl implements MessageReader<DltMessage>, DltStreamMessageService
+public class DltMessageServiceImpl implements MessageReader<DltMessage>, DltMessageService
 {
     final static int STANDARD_HEADER_SIZE = 4;
     final static int EXTENDED_HEADER_SIZE = 10;
 
     private int offset = 0;
     private DltChannelFromLogInfoCreator dltChannelFromLogInfoCreator;
+    private DltMessageWithStorageHeaderParser dltMessageWithStorageHaderParser;
 
-    public DltStreamMessageServiceImpl(DltChannelFromLogInfoCreator dltChannelFromLogInfoCreator)
+    public DltMessageServiceImpl(DltChannelFromLogInfoCreator dltChannelFromLogInfoCreator)
     {
         RangeCheckUtils.assertReferenceParameterNotNull( "dltChannelFromLogInfoCreator", dltChannelFromLogInfoCreator );
         this.dltChannelFromLogInfoCreator = dltChannelFromLogInfoCreator;
     }
 
-    public DltStreamMessageServiceImpl()
+    public DltMessageServiceImpl()
     {
     }
 
@@ -56,12 +65,6 @@ public class DltStreamMessageServiceImpl implements MessageReader<DltMessage>, D
     }
 
     @Override
-    public byte[] tokenizeNextMessage(BufferedInputStream stream) throws IOException
-    {
-        return readNextMessageUnChecked( new BytesFromStreamReaderImpl( stream ) ).toByteArrayWithUnparsedPayload();
-    }
-
-    @Override
     public String createEvent(byte[] message)
     {
         try
@@ -72,6 +75,19 @@ public class DltStreamMessageServiceImpl implements MessageReader<DltMessage>, D
         {
             return "";
         }
+    }
+
+    @Override
+    public byte[] tokenizeNextMessageFileHeader(BufferedInputStream stream) throws IOException
+    {
+        return dltMessageWithStorageHaderParser.readNextMessageUnChecked( new BytesFromStreamReaderImpl( stream ) )
+                .toByteArrayWithUnparsedPayload();
+    }
+
+    @Override
+    public byte[] tokenizeNextMessageStreamHeader(BufferedInputStream stream) throws IOException
+    {
+        return readNextMessageUnChecked( new BytesFromStreamReaderImpl( stream ) ).toByteArrayWithUnparsedPayload();
     }
 
     @Override
@@ -429,5 +445,4 @@ public class DltStreamMessageServiceImpl implements MessageReader<DltMessage>, D
         }
         return " [" + printableResponseCode + "]";
     }
-
 }

@@ -13,9 +13,13 @@ Require-Bundle: org.projectlombok.lombok,
  com.elektrobit.ebrace.targetdata.json,
  com.elektrobit.ebrace.targetdata.dlt;bundle-version="1.0.0",
  com.elektrobit.ebrace.core.targetdata.api,
- org.apache.log4j
+ org.apache.log4j,
+ com.elektrobit.ebrace.targetadapter.communicator.api,
+ dk.thibaut.serial;bundle-version="1.0.0"
 Export-Package: com.elektrobit.ebrace.core.datainput.api
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.datainput.service.DataInputServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.datainput.parser.DltStreamParser.xml
 Bundle-ClassPath: .
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.datainput.service.DataInputServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datainput.dlt.DltStreamTokenizer.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datainput.dlt.DltFileTokenizer.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.datainput.dlt.DltStreamParser.xml

@@ -11,6 +11,7 @@ package com.elektrobit.ebrace.core.interactor.actionexecution;
 
 import com.elektrobit.ebrace.core.interactor.api.actionexecution.ExecuteSTimeSegmentActionInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.STimeSegment;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.STimeSegmentClickAction;
 
@@ -23,7 +24,9 @@ public class ExecuteSTimeSegmentActionInteractionUseCaseImpl implements ExecuteS
 
         if (clickAction != null)
         {
-            UseCaseExecutor.schedule( () -> clickAction.onSTimeSegmentClicked( segment ) );
+            UseCaseExecutor
+                    .schedule( new UseCaseRunnable( "ExecuteSTimeSegmentActionInteractionUseCase.executeClickAction",
+                                                    () -> clickAction.onSTimeSegmentClicked( segment ) ) );
         }
     }
 }

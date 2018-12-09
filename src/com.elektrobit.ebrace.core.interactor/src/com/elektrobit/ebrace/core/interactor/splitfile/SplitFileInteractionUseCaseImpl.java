@@ -13,6 +13,7 @@ import com.elektrobit.ebrace.core.interactor.api.common.UIExecutor;
 import com.elektrobit.ebrace.core.interactor.api.splitfile.SplitFileInteractionCallback;
 import com.elektrobit.ebrace.core.interactor.api.splitfile.SplitFileInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.tracefile.api.SplitFileListener;
 import com.elektrobit.ebrace.core.tracefile.api.SplitFileService;
 
@@ -31,14 +32,8 @@ public class SplitFileInteractionUseCaseImpl implements SplitFileListener, Split
     @Override
     public void startSplitting(final String path)
     {
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                splitFileService.startSplittingFile( path );
-            }
-        } );
+        UseCaseExecutor.schedule( new UseCaseRunnable( "SplitFileInteractionUseCase.startSplitting",
+                                                       () -> splitFileService.startSplittingFile( path ) ) );
     }
 
     private void registerForUpdates()
