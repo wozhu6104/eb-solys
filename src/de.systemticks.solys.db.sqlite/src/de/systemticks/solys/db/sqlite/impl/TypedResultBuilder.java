@@ -10,6 +10,6 @@ public interface TypedResultBuilder<T>
 
     public StatsItem<T> createStatsItem(ResultSet rs);
 
-    public BaseEvent<T> createBaseEvent(ResultSet rs);
+    public BaseEvent<T> createBaseEvent(ResultSet rs, boolean withChannel);
 
 }

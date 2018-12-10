@@ -600,21 +600,16 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
     public <T> RuntimeEventChannel<T> createOrGetRuntimeEventChannel(DataSourceContext context, String name,
             Unit<T> unit, String description, List<String> valueColumns)
     {
-        return runtimeEventChannelManager.createOrGetRuntimeEventChannel( context,
-                                                                          name,
-                                                                          unit,
-                                                                          description,
-                                                                          valueColumns );
+        return runtimeEventChannelManager
+                .createOrGetRuntimeEventChannel( context, name, unit, description, valueColumns );
     }
 
     @Override
     public <T> RuntimeEventChannel<T> createOrGetRuntimeEventChannel(String channelName, Unit<T> unit,
             String channelDescription, List<String> valueColumns)
     {
-        return runtimeEventChannelManager.createOrGetRuntimeEventChannel( channelName,
-                                                                          unit,
-                                                                          channelDescription,
-                                                                          valueColumns );
+        return runtimeEventChannelManager
+                .createOrGetRuntimeEventChannel( channelName, unit, channelDescription, valueColumns );
     }
 
     @Override
@@ -673,6 +668,13 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
     public void removeChannelRemovedListener(ChannelRemovedListener listener)
     {
         channelRemovedListeners.remove( listener );
+    }
+
+    @Override
+    public void commit()
+    {
+        // TODO Auto-generated method stub
+
     }
 
 }

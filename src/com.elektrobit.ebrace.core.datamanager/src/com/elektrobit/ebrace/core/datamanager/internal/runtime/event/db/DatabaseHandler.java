@@ -10,16 +10,21 @@
 package com.elektrobit.ebrace.core.datamanager.internal.runtime.event.db;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
+import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.LineChartData;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 
 import de.systemticks.solys.db.sqlite.api.BaseEvent;
+import de.systemticks.solys.db.sqlite.api.Channel;
 import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
+import de.systemticks.solys.db.sqlite.api.StatsItem;
 
 public class DatabaseHandler
 {
@@ -30,8 +35,10 @@ public class DatabaseHandler
     private final boolean fileMode;
     private final List<BaseEvent<Double>> cpuEvents = new ArrayList<>();
     private final List<BaseEvent<Integer>> memEvents = new ArrayList<>();
+    private List<Channel> channelsFromDb;
     private final static int BULK_IMPORT_THRESHOLD = 1000;
-    private final static String DB_NAME = "runtimeevent.db";
+    // private final static String DB_NAME = "runtimeevent.db";
+    private final static String DB_NAME = ":memory:";
 
     public DatabaseHandler(DataStorageAccess access)
     {
@@ -45,13 +52,27 @@ public class DatabaseHandler
         access.openReadAndWrite( DB_NAME );
     }
 
-    public void release()
+    public void commit()
     {
         if (cpuEvents.size() > 0)
         {
             access.bulkImportBaseEvents( "cpu", cpuEvents, Double.class );
+            cpuEvents.clear();
+        }
+        if (memEvents.size() > 0)
+        {
+            access.bulkImportBaseEvents( "mem", memEvents, Integer.class );
+            memEvents.clear();
         }
         access.commit();
+        if (channelsFromDb == null || channelsFromDb.size() == 0)
+        {
+            channelsFromDb = access.getAllChannels();
+        }
+    }
+
+    public void release()
+    {
         access.shutDown();
     }
 
@@ -78,7 +99,11 @@ public class DatabaseHandler
                     cpuEvents.add( createCpuEvent( cName, (Double)value, globalEventId, timestamp ) );
                     if (cpuEvents.size() == BULK_IMPORT_THRESHOLD)
                     {
+                        long t1 = System.currentTimeMillis();
+                        // sendCpuEvents( cpuEvents.stream().collect( Collectors.toList() ) );
                         access.bulkImportBaseEvents( "cpu", cpuEvents, Double.class );
+                        long t2 = System.currentTimeMillis();
+                        System.out.println( "Bulk import : " + (t2 - t1) + " msec" );
                         cpuEvents.clear();
                     }
                 }
@@ -87,6 +112,7 @@ public class DatabaseHandler
                     memEvents.add( createMemoryEvent( cName, ((Long)value).intValue(), globalEventId, timestamp ) );
                     if (memEvents.size() == BULK_IMPORT_THRESHOLD)
                     {
+                        // sendMemEvents( memEvents.stream().collect( Collectors.toList() ) );
                         access.bulkImportBaseEvents( "mem", memEvents, Integer.class );
                         memEvents.clear();
                     }
@@ -97,6 +123,20 @@ public class DatabaseHandler
                 }
             }
         }
+    }
+
+    private void sendCpuEvents(List<BaseEvent<Double>> lcpuEvents)
+    {
+        new Thread( () -> {
+            access.bulkImportBaseEvents( "cpu", lcpuEvents, Double.class );
+        } ).start();
+    }
+
+    private void sendMemEvents(List<BaseEvent<Integer>> lmemEvents)
+    {
+        new Thread( () -> {
+            access.bulkImportBaseEvents( "mem", lmemEvents, Integer.class );
+        } ).start();
     }
 
     private BaseEvent<Double> createCpuEvent(String cName, double cpu, int eventId, long timestamp)
@@ -121,6 +161,124 @@ public class DatabaseHandler
         event.setTimestamp( timestamp );
 
         return event;
+    }
+
+    private int getChannelId(String name)
+    {
+
+        for (Channel c : channelsFromDb)
+        {
+            if (name.endsWith( c.getName() ))
+            {
+                return c.getId();
+            }
+        }
+
+        return -1;
+    }
+
+    public LineChartData createLineChartDataZoom(List<RuntimeEventChannel<?>> channels, long startTimestamp,
+            long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
+    {
+
+        int cId = getChannelId( channels.get( 0 ).getName() );
+
+        // List<StatsItem<Double>> aggregatedStats = access.getStatisticOverTime( "cpu", cId, (int) (aggregationTime /
+        // 1000), Double.class );
+
+        List<BaseEvent<Double>> events = access
+                .getAllEventsFromChannel( "cpu", cId, startTimestamp / 1000, endTimestamp / 1000, Double.class );
+
+        LineChartData chartData = new LineChartData()
+        {
+
+            @Override
+            public List<Long> getTimestamps()
+            {
+                return events.stream().map( e -> e.getTimestamp() * 1000 ).collect( Collectors.toList() );
+            }
+
+            @Override
+            public Map<RuntimeEventChannel<?>, List<Number>> getSeriesData()
+            {
+                List<Number> series = events.stream().map( e -> (Number)e.getValue() ).collect( Collectors.toList() );
+                Map<RuntimeEventChannel<?>, List<Number>> result = new HashMap<>();
+                result.put( channels.get( 0 ), series );
+                return result;
+            }
+
+            @Override
+            public double getMinValue()
+            {
+                return 0;
+            }
+
+            @Override
+            public double getMaxValueStacked()
+            {
+                return events.stream().map( e -> e.getValue() ).max( Comparator.comparing( Double::valueOf ) ).get();
+            }
+
+            @Override
+            public double getMaxValue()
+            {
+                return events.stream().map( e -> e.getValue() ).max( Comparator.comparing( Double::valueOf ) ).get();
+            }
+        };
+
+        return chartData;
+    }
+
+    public LineChartData createLineChartDataOverview(List<RuntimeEventChannel<?>> channels, long startTimestamp,
+            long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
+    {
+
+        int cId = getChannelId( channels.get( 0 ).getName() );
+
+        List<StatsItem<Double>> aggregatedStats = access
+                .getStatisticOverTime( "cpu", cId, (int)(aggregationTime / 1000), Double.class );
+
+        LineChartData chartData = new LineChartData()
+        {
+
+            @Override
+            public List<Long> getTimestamps()
+            {
+                return aggregatedStats.stream().map( e -> e.getTimestamp() * 1000 ).collect( Collectors.toList() );
+            }
+
+            @Override
+            public Map<RuntimeEventChannel<?>, List<Number>> getSeriesData()
+            {
+                List<Number> series = aggregatedStats.stream().map( e -> (Number)e.getMaximum() )
+                        .collect( Collectors.toList() );
+                Map<RuntimeEventChannel<?>, List<Number>> result = new HashMap<>();
+                result.put( channels.get( 0 ), series );
+                return result;
+            }
+
+            @Override
+            public double getMinValue()
+            {
+                return 0;
+            }
+
+            @Override
+            public double getMaxValueStacked()
+            {
+                return aggregatedStats.stream().map( e -> e.getMaximum() )
+                        .max( Comparator.comparing( Double::valueOf ) ).get();
+            }
+
+            @Override
+            public double getMaxValue()
+            {
+                return aggregatedStats.stream().map( e -> e.getMaximum() )
+                        .max( Comparator.comparing( Double::valueOf ) ).get();
+            }
+        };
+
+        return chartData;
     }
 
 }

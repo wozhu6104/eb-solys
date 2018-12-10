@@ -30,7 +30,7 @@ public class IntegerResultBuilder implements TypedResultBuilder<Integer> {
 	}
 
 	@Override
-	public BaseEvent<Integer> createBaseEvent(ResultSet rs) {
+	public BaseEvent<Integer> createBaseEvent(ResultSet rs, boolean withChannel) {
 
 		BaseEvent<Integer> event = new BaseEvent<>();
 
@@ -40,7 +40,14 @@ public class IntegerResultBuilder implements TypedResultBuilder<Integer> {
             event.setTimestamp( rs.getLong( 2 ) );
             event.setValue( rs.getInt( 3 ) );
             event.setChannelId( rs.getInt( 4 ) );
-            event.setChannelName( "" );
+            if(withChannel) 
+            {
+            	event.setChannelName( rs.getString(5));
+            }
+            else 
+            {
+                event.setChannelName( "" );            	
+            }
 
         }
         catch (SQLException e)
@@ -50,5 +57,6 @@ public class IntegerResultBuilder implements TypedResultBuilder<Integer> {
 
         return event;
 	}
+
 
 }

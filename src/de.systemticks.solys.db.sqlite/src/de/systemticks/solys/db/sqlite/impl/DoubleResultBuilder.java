@@ -31,7 +31,7 @@ public class DoubleResultBuilder implements TypedResultBuilder<Double>
     }
 
     @Override
-    public BaseEvent<Double> createBaseEvent(ResultSet rs)
+    public BaseEvent<Double> createBaseEvent(ResultSet rs, boolean withChannel)
     {
 
         BaseEvent<Double> event = new BaseEvent<>();
@@ -42,7 +42,14 @@ public class DoubleResultBuilder implements TypedResultBuilder<Double>
             event.setTimestamp( rs.getLong( 2 ) );
             event.setValue( rs.getDouble( 3 ) );
             event.setChannelId( rs.getInt( 4 ) );
-            event.setChannelName( "" );
+            if(withChannel) 
+            {
+            	event.setChannelName( rs.getString(5));
+            }
+            else 
+            {
+                event.setChannelName( "" );            	
+            }
 
         }
         catch (SQLException e)

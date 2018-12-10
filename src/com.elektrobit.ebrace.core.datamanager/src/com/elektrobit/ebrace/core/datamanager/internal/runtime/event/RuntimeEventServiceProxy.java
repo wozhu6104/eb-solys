@@ -87,6 +87,12 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
         this.databaseAccess = null;
     }
 
+    @Override
+    public void commit()
+    {
+        dbHandler.commit();
+    }
+
     @Reference
     public void setRuntimeEventChannelManager(RuntimeEventChannelManager runtimeEventChannelManager)
     {
@@ -255,12 +261,32 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public LineChartData getLineChartData(List<RuntimeEventChannel<?>> channels, long startTimestamp, long endTimestamp,
             boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
     {
-        return runtimeEventAcceptorImpl.getLineChartData( channels,
+        if (aggregationTime == null)
+        {
+            return dbHandler.createLineChartDataZoom( channels,
+                                                      startTimestamp,
+                                                      endTimestamp,
+                                                      dataAsBars,
+                                                      aggregationTime,
+                                                      aggregateForStackedMode );
+        }
+
+        else
+        {
+            return dbHandler.createLineChartDataOverview( channels,
                                                           startTimestamp,
                                                           endTimestamp,
                                                           dataAsBars,
                                                           aggregationTime,
                                                           aggregateForStackedMode );
+
+            // return runtimeEventAcceptorImpl.getLineChartData( channels,
+            // startTimestamp,
+            // endTimestamp,
+            // dataAsBars,
+            // aggregationTime,
+            // aggregateForStackedMode );
+        }
     }
 
     @Override

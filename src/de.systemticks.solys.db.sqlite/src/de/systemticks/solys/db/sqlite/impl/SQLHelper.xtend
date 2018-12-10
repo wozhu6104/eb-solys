@@ -54,7 +54,41 @@ class SQLHelper {
 
 	def static createAllEventsFromChannel(String storage, int channelId) {
 		'''
-		SELECT eId, eTimestamp, eValue, eChannelId FROM «storage» WHERE eChannelId = «channelId»
+		SELECT «storage».eId, «storage».eTimestamp, «storage».eValue, «storage».eChannelId 
+		FROM «storage» 
+		WHERE «storage».eChannelId = «channelId»
+		ORDER BY «storage».eTimestamp
+		'''
+	}
+
+	def static createAllEventsFromChannel(String storage, int channelId, long from, long to) 
+	{
+		'''
+		SELECT «storage».eId, «storage».eTimestamp, «storage».eValue, «storage».eChannelId, channels.cName
+		FROM «storage», channels 
+		WHERE «storage».eChannelId = «channelId» «timestampFilter(storage, from, to)» AND «storage».eChannelId = channels.cId
+		ORDER BY «storage».eTimestamp
+		'''
+	}
+
+	def static createEventsAtTimestamp(String storage, long timestamp) 
+	{
+		'''
+		SELECT o.eId, o.eTimestamp, o.eValue, o.eChannelId, channels.cName
+		  FROM «storage» o, channels
+		  JOIN ( 
+			SELECT DISTINCT(snap.eTimestamp) AS ts, MIN(ABS(snap.eTimestamp - «timestamp»))
+		           FROM «storage» snap
+		       ) s
+		    ON s.ts = o.eTimestamp AND o.eValue > 0 AND o.eChannelId = channels.cId
+			ORDER BY o.eValue DESC		
+		'''	
+	}
+
+	def static timestampFilter(String storage, long from, long to)
+	{
+		'''
+		«IF from != -1»AND «storage».eTimestamp >= «from»«ENDIF»«IF to != -1» AND «storage».eTimestamp <= «to»«ENDIF»
 		'''
 	}
 

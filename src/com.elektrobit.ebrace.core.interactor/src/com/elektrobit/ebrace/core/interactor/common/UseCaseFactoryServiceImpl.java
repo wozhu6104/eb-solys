@@ -588,7 +588,11 @@ public class UseCaseFactoryServiceImpl implements UseCaseFactoryService
     @Override
     public OpenFileInteractionUseCase makeLoadFileInteractionUseCase(OpenFileInteractionCallback callback)
     {
-        return new LoadFileInteractionUseCaseImpl( callback, loadFileService, importerRegistry, userMessageLogger );
+        return new LoadFileInteractionUseCaseImpl( callback,
+                                                   loadFileService,
+                                                   importerRegistry,
+                                                   userMessageLogger,
+                                                   runtimeEventAcceptor );
     }
 
     @Override

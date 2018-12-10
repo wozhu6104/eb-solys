@@ -53,7 +53,8 @@ public class LoadFileInteractionUseCaseTest extends UseCaseBaseTest
         loadFileInteractionUseCase = new LoadFileInteractionUseCaseImpl( mockedCallback,
                                                                          mockedLoadFileService,
                                                                          mockedImporterRegistry,
-                                                                         mockedUserMessageLogger );
+                                                                         mockedUserMessageLogger,
+                                                                         null );
 
         File temporaryBinFile = temporaryFolder.newFile( "file.bin" );
         fileName = temporaryBinFile.getAbsolutePath();

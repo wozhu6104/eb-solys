@@ -23,6 +23,7 @@ import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
 import com.elektrobit.ebrace.core.tracefile.api.LoadFileProgressListener;
 import com.elektrobit.ebrace.core.tracefile.api.LoadFileService;
 import com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger;
+import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
 
 public class LoadFileInteractionUseCaseImpl implements OpenFileInteractionUseCase, LoadFileProgressListener
 {
@@ -35,9 +36,11 @@ public class LoadFileInteractionUseCaseImpl implements OpenFileInteractionUseCas
     private final UserMessageLogger userMessageLogger;
     private final ImporterRegistry importerRegistry;
     private boolean resultOk;
+    private final RuntimeEventAcceptor runtimeEventAcceptor;
 
     public LoadFileInteractionUseCaseImpl(OpenFileInteractionCallback callback, LoadFileService loadFileService,
-            ImporterRegistry importerRegistry, UserMessageLogger userMessageLogger)
+            ImporterRegistry importerRegistry, UserMessageLogger userMessageLogger,
+            RuntimeEventAcceptor runtimeEventAcceptor)
     {
         RangeCheckUtils.assertReferenceParameterNotNull( "callback", callback );
         RangeCheckUtils.assertReferenceParameterNotNull( "loadFileService", loadFileService );
@@ -48,6 +51,7 @@ public class LoadFileInteractionUseCaseImpl implements OpenFileInteractionUseCas
         this.loadFileService = loadFileService;
         this.importerRegistry = importerRegistry;
         this.userMessageLogger = userMessageLogger;
+        this.runtimeEventAcceptor = runtimeEventAcceptor;
 
         loadFileService.registerFileProgressListener( this );
     }
@@ -198,6 +202,7 @@ public class LoadFileInteractionUseCaseImpl implements OpenFileInteractionUseCas
     @Override
     public void onLoadFileDone(long fileStartTime, long fileEndTime, long chunkStartTime, long chunkEndTime)
     {
+        runtimeEventAcceptor.commit();
     }
 
     @Override

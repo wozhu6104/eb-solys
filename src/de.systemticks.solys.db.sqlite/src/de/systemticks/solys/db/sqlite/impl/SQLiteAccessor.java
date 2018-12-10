@@ -196,6 +196,21 @@ public class SQLiteAccessor implements DataStorageAccess
                                           TypeResultBuilderFactory.create( class1 ) );
     }
 
+	@Override
+	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, 
+			long fromTimestamp, long toTimestamp, Class<T> class1) {
+
+		return createBaseEventsFromQuery( SQLHelper.createAllEventsFromChannel(storage, channeldId, fromTimestamp, toTimestamp), 
+                TypeResultBuilderFactory.create( class1 ) );
+
+	}
+    
+	@Override
+	public <T> List<BaseEvent<T>> getEventsAtTimestamp(String storage, long timestamp, Class<T> class1) {
+		return createBaseEventsFromQuery(SQLHelper.createEventsAtTimestamp(storage, timestamp), 
+				TypeResultBuilderFactory.create( class1 ));
+	}	
+    
     private <T> List<BaseEvent<T>> createBaseEventsFromQuery(CharSequence query, TypedResultBuilder<T> builder)
     {
 
@@ -215,10 +230,11 @@ public class SQLiteAccessor implements DataStorageAccess
             stmt.setFetchSize( 100 );
 
             ResultSet rs = stmt.executeQuery( query.toString() );
+            boolean withChannel = (rs.getMetaData().getColumnCount() == 5)?true:false;
 
             while (rs.next())
             {
-                result.add( builder.createBaseEvent( rs ) );
+                result.add( builder.createBaseEvent( rs, withChannel ) );
             }
 
         }

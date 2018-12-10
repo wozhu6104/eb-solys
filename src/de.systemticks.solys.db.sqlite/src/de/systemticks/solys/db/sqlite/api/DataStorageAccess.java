@@ -22,7 +22,11 @@ public interface DataStorageAccess {
 	 */
 	public <T> boolean bulkImportBaseEvents(String storage, List<BaseEvent<T>> events, Class<T> class1);
 
+	public <T> List<BaseEvent<T>> getEventsAtTimestamp(String storage, long timestamp, Class<T> class1);
+
 	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, Class<T> class1);
+
+	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, long fromTimestamp, long toTimestamp, Class<T> class1 );
 
 	public <T> List<BaseEvent<T>> getMaxEventsFromAllChannels(String storage, Class<T> class1);
 
