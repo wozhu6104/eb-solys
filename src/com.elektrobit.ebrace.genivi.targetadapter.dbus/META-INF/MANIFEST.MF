@@ -5,7 +5,6 @@ Bundle-SymbolicName: com.elektrobit.ebrace.genivi.targetadapter.dbus;singleton:=
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: ELEKTROBIT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Service-Component: OSGI-INF/com.elektrobit.ebrace.genivi.targetadapter.dbus.bundlemanager.DBusTargetAdapterFactory.xml
 Import-Package: com.elektrobit.ebrace.chronograph.api,
  com.google.protobuf,
  org.apache.log4j,
@@ -22,3 +21,4 @@ Export-Package: com.elektrobit.ebrace.genivi.targetadapter.dbus,
  com.elektrobit.ebrace.genivi.targetadapter.dbus.bundlemanager
 Bundle-ActivationPolicy: lazy
 Eclipse-ExtensibleAPI: true
+Service-Component: OSGI-INF/com.elektrobit.ebrace.genivi.targetadapter.dbus.bundlemanager.DBusTargetAdapterFactory.xml

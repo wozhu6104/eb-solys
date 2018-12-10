@@ -4,9 +4,9 @@
    <service>
       <provide interface="com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory"/>
    </service>
-   <reference bind="setComRelationAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" policy="static" unbind="unsetComRelationAcceptor"/>
-   <reference bind="setReadProcessRegistryIF" cardinality="1..1" interface="com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.api.ReadProcessRegistryIF" name="ReadProcessRegistryIF" policy="static" unbind="unsetReadProcessRegistryIF"/>
-   <reference bind="setRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unsetRuntimeEventAcceptor"/>
-   <reference bind="setStructureAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor" name="StructureAcceptor" policy="static" unbind="unsetStructureAcceptor"/>
+   <reference bind="setComRelationAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" unbind="unsetComRelationAcceptor"/>
+   <reference bind="setReadProcessRegistryIF" interface="com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.api.ReadProcessRegistryIF" name="ReadProcessRegistryIF" unbind="unsetReadProcessRegistryIF"/>
+   <reference bind="setRuntimeEventAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" unbind="unsetRuntimeEventAcceptor"/>
+   <reference bind="setStructureAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor" name="StructureAcceptor" unbind="unsetStructureAcceptor"/>
    <implementation class="com.elektrobit.ebrace.genivi.targetadapter.dbus.bundlemanager.DBusTargetAdapterFactory"/>
 </scr:component>

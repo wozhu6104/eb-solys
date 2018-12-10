@@ -10,7 +10,7 @@ Require-Bundle: com.elektrobit.ebrace.core.targetdata.api;bundle-version="1.0.0"
  com.elektrobit.ebrace.core.preferences
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.datamanager.timemarker.model.TimeMarkerManagerImpl.xml
 Export-Package: com.elektrobit.ebrace.core.datamanager.timemarker.util
 Eclipse-ExtensibleAPI: true
 Import-Package: org.apache.log4j
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.datamanager.timemarker.model.TimeMarkerManagerImpl.xml

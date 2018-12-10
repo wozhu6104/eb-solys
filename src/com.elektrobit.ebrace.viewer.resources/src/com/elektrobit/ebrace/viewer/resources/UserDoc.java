@@ -14,22 +14,19 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import com.elektrobit.ebrace.common.utils.FileHelper;
+
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 public class UserDoc
 {
 
-    private static final String PATH_TO_USERDOC_START_PAGE = "userdoc/intro/index.html";
+    private static final String USERDOC_PLUGIN_ID = "com.elektrobit.ebsolys.userdoc";
+    private static final String PATH_TO_INDEX_FILE = "/target/generated-docs/index.html";
 
-    private static final String LATEST_USER_DOC = "http://er01545p:8989/userContent/ci/latest-stable/"
-            + PATH_TO_USERDOC_START_PAGE;
-
-    private URL installationPath = null;
-
-    public UserDoc(URL installationPath)
+    public UserDoc()
     {
-        this.installationPath = installationPath;
     }
 
     public String getDocURL()
@@ -37,8 +34,8 @@ public class UserDoc
         URL localUserDoc = null;
         try
         {
-            final String pathToUserdoc = installationPath.toExternalForm() + PATH_TO_USERDOC_START_PAGE;
-            localUserDoc = new URL( pathToUserdoc );
+            localUserDoc = FileHelper.locateFileInBundle( USERDOC_PLUGIN_ID, PATH_TO_INDEX_FILE ).toURL();
+
             if (localUserDocExists( localUserDoc ))
             {
                 final String localUserDocPath = localUserDoc.toExternalForm();
@@ -46,7 +43,7 @@ public class UserDoc
             }
             else
             {
-                log.info( "No local user documentation found, because file not exists: " + pathToUserdoc );
+                log.info( "No local user documentation found, because file not exists: " + localUserDoc );
             }
         }
         catch (MalformedURLException | URISyntaxException e)
@@ -54,11 +51,12 @@ public class UserDoc
             log.warn( "This should never happen, because userdoc URL should always have correct syntax!" );
         }
 
-        return LATEST_USER_DOC;
+        return "NOT-FOUND";
     }
 
     private boolean localUserDocExists(URL localUserDoc) throws URISyntaxException
     {
         return new File( localUserDoc.toURI() ).exists();
     }
+
 }

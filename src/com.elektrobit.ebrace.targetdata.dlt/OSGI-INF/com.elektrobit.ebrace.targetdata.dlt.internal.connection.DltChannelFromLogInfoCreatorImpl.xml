@@ -3,6 +3,6 @@
    <service>
       <provide interface="com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator"/>
    </service>
-   <reference bind="bindRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unbindRuntimeEventAcceptor"/>
+   <reference bind="bindRuntimeEventAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" unbind="unbindRuntimeEventAcceptor"/>
    <implementation class="com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreatorImpl"/>
 </scr:component>

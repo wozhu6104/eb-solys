@@ -27,10 +27,10 @@ Export-Package:
  com.elektrobit.ebrace.targetadapter.communicator.connectionhandling,
  com.elektrobit.ebrace.targetadapter.communicator.constants,
  com.elektrobit.ebrace.targetadapter.communicator.services
-Service-Component: OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.eventdispatcher.EventDispatcherImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.TargetAgentConnectionType.xml,
- OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.raweventlogger.RawEventLoggerImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.services.ConnectionServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.targetagent.TargetAgentConnectionFactory.xml,
- OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.ConnectionPoller.xml
 Eclipse-ExtensibleAPI: true
+Service-Component: OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.targetagent.TargetAgentConnectionFactory.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.ConnectionPoller.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.raweventlogger.RawEventLoggerImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.eventdispatcher.EventDispatcherImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.TargetAgentConnectionType.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetadapter.communicator.services.ConnectionServiceImpl.xml

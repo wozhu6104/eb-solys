@@ -22,9 +22,9 @@ Require-Bundle: com.elektrobit.ebrace.protobuf.messagedefinitions,
  com.elektrobit.ebrace.core.preferences,
  com.elektrobit.ebrace.core.interactor.api
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.tracefile.internal.FileSizeLimitServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.tracefile.internal.SplitFileServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.tracefile.internal.LoadFileServiceImpl.xml
 Export-Package: com.elektrobit.ebrace.core.tracefile.api
 Eclipse-ExtensibleAPI: true
 Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.tracefile.internal.FileSizeLimitServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.tracefile.internal.SplitFileServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.tracefile.internal.LoadFileServiceImpl.xml

@@ -3,7 +3,7 @@
    <service>
       <provide interface="com.elektrobit.ebrace.core.tracefile.api.SplitFileService"/>
    </service>
-   <reference bind="bindFileSizeLimitService" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.importer.FileSizeLimitService" name="FileSizeLimitService" policy="static" unbind="unbindFileSizeLimitService"/>
-   <reference bind="bindUserMessageLogger" cardinality="1..1" interface="com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger" name="UserMessageLogger" policy="static" unbind="unbindUserMessageLogger"/>
+   <reference bind="bindFileSizeLimitService" interface="com.elektrobit.ebsolys.core.targetdata.api.importer.FileSizeLimitService" name="FileSizeLimitService" unbind="unbindFileSizeLimitService"/>
+   <reference bind="bindUserMessageLogger" interface="com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger" name="UserMessageLogger" unbind="unbindUserMessageLogger"/>
    <implementation class="com.elektrobit.ebrace.core.tracefile.internal.SplitFileServiceImpl"/>
 </scr:component>

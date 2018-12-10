@@ -40,7 +40,7 @@ public class MapCombo extends Combo
     }
 
     @Override
-    public void setItems(String[] items)
+    public void setItems(String... items)
     {
         throw new UnsupportedOperationException( "Please use setItems( List<MapComboItem> items )" );
     }
