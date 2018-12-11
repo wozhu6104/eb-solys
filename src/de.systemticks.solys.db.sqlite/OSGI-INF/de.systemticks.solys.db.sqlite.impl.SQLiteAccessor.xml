@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" immediate="true" name="de.systemticks.solys.db.sqlite.impl.SQLiteAccessor">
+   <service>
+      <provide interface="de.systemticks.solys.db.sqlite.api.DataStorageAccess"/>
+   </service>
+   <implementation class="de.systemticks.solys.db.sqlite.impl.SQLiteAccessor"/>
+</scr:component>

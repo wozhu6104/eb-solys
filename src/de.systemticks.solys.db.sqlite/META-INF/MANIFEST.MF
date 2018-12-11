@@ -14,4 +14,5 @@ Bundle-ClassPath: libs/sqlite-jdbc-3.25.2.jar,
 Export-Package: de.systemticks.solys.db.sqlite.api
 Service-Component: OSGI-INF/de.systemticks.solys.db.sqlite.impl.SQLiteAccessor.xml
 Bundle-ActivationPolicy: lazy
+Import-Package: org.osgi.service.component.annotations
 
