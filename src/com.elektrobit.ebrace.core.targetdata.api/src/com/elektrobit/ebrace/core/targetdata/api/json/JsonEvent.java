@@ -18,6 +18,7 @@ public class JsonEvent
 {
     private final Long uptime;
     private final String channel;
+    private String channelDescription;
     private final JsonEventValue value;
     private final Long duration;
     private final JsonEventEdge edge;
