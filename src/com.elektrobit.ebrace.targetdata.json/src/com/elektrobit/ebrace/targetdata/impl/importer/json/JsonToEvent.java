@@ -126,6 +126,11 @@ public class JsonToEvent implements NodeAgent<TreeNode>
     private void handleChannelCreation(JsonEvent event)
     {
         String channelName = event.getChannel();
+        String channelDescription = this.channelDescription;
+        if (event.getChannelDescription() != null)
+        {
+            channelDescription = event.getChannelDescription();
+        }
         Object summary = event.getValue().getSummary();
 
         JsonElement details = event.getValue().getDetails();
