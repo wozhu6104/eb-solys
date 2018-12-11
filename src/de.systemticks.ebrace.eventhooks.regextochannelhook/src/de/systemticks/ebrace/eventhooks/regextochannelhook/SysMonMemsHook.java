@@ -12,7 +12,6 @@ package de.systemticks.ebrace.eventhooks.regextochannelhook;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -24,11 +23,12 @@ import com.google.gson.Gson;
 
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.eventhooks.regextochannelhook.api.RegExToChannelEventHook;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Component(service = EventHook.class)
 public class SysMonMemsHook implements RegExToChannelEventHook
 {
-    private static final Logger LOG = Logger.getLogger( SysMonMemsHook.class );
     private JsonEventHandler jsonEventHandler = null;
     private final String expression = "MemTotal: (?<memtotal>\\d+.\\d+) MB MemAvailable: (?<memavail>\\d+.\\d+) MB Buffers: (?<membuffers>\\d+.\\d+) MB Cached: (?<memcache>\\d+.\\d+) MB Shmem: (?<shmem>\\d+.\\d+) MB SUnreclaim_kB: (?<sunreclaim>\\d+.\\d+) MB";
     private final Pattern pattern;
@@ -36,8 +36,8 @@ public class SysMonMemsHook implements RegExToChannelEventHook
 
     public SysMonMemsHook()
     {
+        log.debug( "initialized RegEx to Channel Event Hook with expression: " + expression );
         pattern = Pattern.compile( expression );
-        LOG.info( "initialized RegEx to Channel Event Hook with expression: " + expression );
     }
 
     @Reference

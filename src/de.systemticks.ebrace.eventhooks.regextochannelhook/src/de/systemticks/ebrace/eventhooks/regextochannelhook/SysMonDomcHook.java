@@ -12,7 +12,6 @@ package de.systemticks.ebrace.eventhooks.regextochannelhook;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -24,11 +23,12 @@ import com.google.gson.Gson;
 
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.eventhooks.regextochannelhook.api.RegExToChannelEventHook;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Component(service = EventHook.class)
 public class SysMonDomcHook implements RegExToChannelEventHook
 {
-    private static final Logger LOG = Logger.getLogger( SysMonDomcHook.class );
     private JsonEventHandler jsonEventHandler = null;
     private final String expression = "Domain \\\\\\\"(?<domainname>[^\\\\s]+)\\\\\\\" consumed (?<cpu>[0-9]+) % cpu in the last interval.*";
 
@@ -37,8 +37,8 @@ public class SysMonDomcHook implements RegExToChannelEventHook
 
     public SysMonDomcHook()
     {
+        log.debug( "initialized RegEx to Channel Event Hook with expression: " + expression );
         pattern = Pattern.compile( expression );
-        LOG.info( "initialized RegEx to Channel Event Hook with expression: " + expression );
     }
 
     @Reference

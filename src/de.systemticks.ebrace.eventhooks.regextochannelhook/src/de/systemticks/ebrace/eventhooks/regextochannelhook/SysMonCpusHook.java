@@ -12,7 +12,6 @@ package de.systemticks.ebrace.eventhooks.regextochannelhook;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -24,11 +23,12 @@ import com.google.gson.Gson;
 
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.eventhooks.regextochannelhook.api.RegExToChannelEventHook;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Component(service = EventHook.class)
 public class SysMonCpusHook implements RegExToChannelEventHook
 {
-    private static final Logger LOG = Logger.getLogger( SysMonCpusHook.class );
     private JsonEventHandler jsonEventHandler = null;
     private final String expression = "CPU usage in interval : (?<cpu>\\d+.\\d+)% iowait: (?<iowait>\\d+)% cpu since boot : (?<cpuboot>\\d+.\\d+)% Total thread cpu load : (?<cputhread>\\d+.\\d+)%";
     private final Pattern pattern;
@@ -36,8 +36,8 @@ public class SysMonCpusHook implements RegExToChannelEventHook
 
     public SysMonCpusHook()
     {
+        log.debug( "initialized RegEx to Channel Event Hook with expression: " + expression );
         pattern = Pattern.compile( expression );
-        LOG.info( "initialized RegEx to Channel Event Hook with expression: " + expression );
     }
 
     @Reference
@@ -69,6 +69,7 @@ public class SysMonCpusHook implements RegExToChannelEventHook
                                                                         null ),
                                                     null,
                                                     null );
+                newEvent.setChannelDescription( "System cpu usage in percentage of last interval. Min 0, max 100." );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
                                           "system.iowait",
@@ -81,6 +82,7 @@ public class SysMonCpusHook implements RegExToChannelEventHook
                                           new JsonEventValue( Double.parseDouble( matcher.group( "cpuboot" ) ), null ),
                                           null,
                                           null );
+                newEvent.setChannelDescription( "Average system cpu usage in percentage since boot. Min 0, max 100." );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
                                           "system.cpu.thread",
