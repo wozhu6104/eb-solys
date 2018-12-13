@@ -177,6 +177,67 @@ public class DatabaseHandler
         return -1;
     }
 
+    private <T> List<ChartData> getAggregatedEventsFromChannel(String storage, int channelId, int aggregationTime,
+            Class<T> _class)
+    {
+        return access.getStatisticOverTime( storage, channelId, aggregationTime / 1000, _class ).stream()
+                .map( e -> new ChartData( e.getTimestamp(), (Number)e.getMaximum() ) ).collect( Collectors.toList() );
+
+    }
+
+    public LineChartData createLineChartDataOverview2(List<RuntimeEventChannel<?>> channels, long startTimestamp,
+            long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
+    {
+
+        List<List<ChartData>> allEvents = new ArrayList<>();
+
+        for (RuntimeEventChannel<?> c : channels)
+        {
+            List<ChartData> events = getAggregatedEventsFromChannel( "cpu",
+                                                                    getChannelId( c.getName() ),
+                                                                    aggregationTime.intValue(),
+                                                                    Double.class );
+
+            allEvents.add( events );
+        }
+
+        LineChartDataFromDB lineChartDataCreator = new LineChartDataFromDB( allEvents, channels );
+        lineChartDataCreator.build();
+
+        return lineChartDataCreator;
+    }
+
+    private <T> List<ChartData> getAllEventsFromChannel(String storage, int channelId, long startTimestamp,
+            long endTimestamp, Class<T> _class)
+    {
+        return access.getAllEventsFromChannel( storage, channelId, startTimestamp / 1000, endTimestamp / 1000, _class )
+                .stream().map( e -> new ChartData( e.getTimestamp(), (Number)e.getValue() ) )
+                .collect( Collectors.toList() );
+    }
+
+    public LineChartData createLineChartDataZoom2(List<RuntimeEventChannel<?>> channels, long startTimestamp,
+            long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
+    {
+
+        List<List<ChartData>> allEvents = new ArrayList<>();
+
+        for (RuntimeEventChannel<?> c : channels)
+        {
+            List<ChartData> events = getAllEventsFromChannel( "cpu",
+                                                             getChannelId( c.getName() ),
+                                                             startTimestamp,
+                                                             endTimestamp,
+                                                             Double.class );
+
+            allEvents.add( events );
+        }
+
+        LineChartDataFromDB lineChartDataCreator = new LineChartDataFromDB( allEvents, channels );
+        lineChartDataCreator.build();
+
+        return lineChartDataCreator;
+    }
+
     public LineChartData createLineChartDataZoom(List<RuntimeEventChannel<?>> channels, long startTimestamp,
             long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
     {

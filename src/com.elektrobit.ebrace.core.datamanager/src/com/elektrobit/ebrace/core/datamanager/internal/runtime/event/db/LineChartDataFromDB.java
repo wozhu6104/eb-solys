@@ -10,6 +10,7 @@
 package com.elektrobit.ebrace.core.datamanager.internal.runtime.event.db;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -19,16 +20,15 @@ import java.util.stream.Collectors;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.LineChartData;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 
-import de.systemticks.solys.db.sqlite.api.BaseEvent;
-import de.systemticks.solys.db.sqlite.api.Channel;
-
 public class LineChartDataFromDB implements LineChartData
 {
 
-    private final List<List<BaseEvent<Number>>> allEvents;
-    private final List<Channel> channels;
+    private final List<List<ChartData>> allEvents;
+    private final List<RuntimeEventChannel<?>> channels;
+    private List<Long> allTimeStamps;
+    private final Map<RuntimeEventChannel<?>, List<Number>> seriesData = new HashMap<>();
 
-    public LineChartDataFromDB(List<List<BaseEvent<Number>>> allEvents, List<Channel> channels)
+    public LineChartDataFromDB(List<List<ChartData>> allEvents, List<RuntimeEventChannel<?>> channels)
     {
         this.allEvents = allEvents;
         this.channels = channels;
@@ -37,34 +37,61 @@ public class LineChartDataFromDB implements LineChartData
     public void build()
     {
 
-    }
-
-    @Override
-    public Map<RuntimeEventChannel<?>, List<Number>> getSeriesData()
-    {
-        return null;
-    }
-
-    @Override
-    public List<Long> getTimestamps()
-    {
-
+        seriesData.clear();
         Set<Long> timeStamps = new LinkedHashSet<>();
 
-        for (List<BaseEvent<Number>> channelEvents : allEvents)
+        for (List<ChartData> channelEvents : allEvents)
         {
             timeStamps.addAll( channelEvents.stream().map( e -> e.getTimestamp() * 1000 )
                     .collect( Collectors.toList() ) );
         }
 
-        return new ArrayList<Long>( timeStamps );
+        allTimeStamps = new ArrayList<Long>( timeStamps );
+        int cIdx = 0;
+
+        for (List<ChartData> channelEvents : allEvents)
+        {
+            List<Number> series = new ArrayList<>();
+            int evtIdx = 0;
+
+            for (int t = 0; t < allTimeStamps.size(); t++)
+            {
+                if (evtIdx < channelEvents.size())
+                {
+                    ChartData evt = channelEvents.get( evtIdx );
+                    if (allTimeStamps.get( t ) == evt.getTimestamp() * 1000)
+                    {
+                        series.add( evt.getValue() );
+                        evtIdx += 1;
+                    }
+                    else
+                    {
+                        series.add( null );
+                    }
+                }
+            }
+            seriesData.put( channels.get( cIdx++ ), series );
+        }
+
+    }
+
+    @Override
+    public Map<RuntimeEventChannel<?>, List<Number>> getSeriesData()
+    {
+        return seriesData;
+    }
+
+    @Override
+    public List<Long> getTimestamps()
+    {
+        return allTimeStamps;
     }
 
     @Override
     public double getMaxValue()
     {
         // TODO Auto-generated method stub
-        return 0;
+        return 50;
     }
 
     @Override
@@ -78,7 +105,7 @@ public class LineChartDataFromDB implements LineChartData
     public double getMaxValueStacked()
     {
         // TODO Auto-generated method stub
-        return 0;
+        return 50;
     }
 
 }

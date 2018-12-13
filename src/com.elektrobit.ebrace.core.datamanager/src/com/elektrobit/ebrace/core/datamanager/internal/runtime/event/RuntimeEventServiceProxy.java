@@ -263,22 +263,22 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     {
         if (aggregationTime == null)
         {
-            return dbHandler.createLineChartDataZoom( channels,
-                                                      startTimestamp,
-                                                      endTimestamp,
-                                                      dataAsBars,
-                                                      aggregationTime,
-                                                      aggregateForStackedMode );
+            return dbHandler.createLineChartDataZoom2( channels,
+                                                       startTimestamp,
+                                                       endTimestamp,
+                                                       dataAsBars,
+                                                       aggregationTime,
+                                                       aggregateForStackedMode );
         }
 
         else
         {
-            return dbHandler.createLineChartDataOverview( channels,
-                                                          startTimestamp,
-                                                          endTimestamp,
-                                                          dataAsBars,
-                                                          aggregationTime,
-                                                          aggregateForStackedMode );
+            return dbHandler.createLineChartDataOverview2( channels,
+                                                           startTimestamp,
+                                                           endTimestamp,
+                                                           dataAsBars,
+                                                           aggregationTime,
+                                                           aggregateForStackedMode );
 
             // return runtimeEventAcceptorImpl.getLineChartData( channels,
             // startTimestamp,
