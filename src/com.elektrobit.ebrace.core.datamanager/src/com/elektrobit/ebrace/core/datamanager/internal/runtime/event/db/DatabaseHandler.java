@@ -10,7 +10,6 @@
 package com.elektrobit.ebrace.core.datamanager.internal.runtime.event.db;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,6 @@ import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 import de.systemticks.solys.db.sqlite.api.BaseEvent;
 import de.systemticks.solys.db.sqlite.api.Channel;
 import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
-import de.systemticks.solys.db.sqlite.api.StatsItem;
 
 public class DatabaseHandler
 {
@@ -36,7 +34,7 @@ public class DatabaseHandler
     private final List<BaseEvent<Double>> cpuEvents = new ArrayList<>();
     private final List<BaseEvent<Integer>> memEvents = new ArrayList<>();
     private List<Channel> channelsFromDb;
-    private final static int BULK_IMPORT_THRESHOLD = 1000;
+    private final static int BULK_IMPORT_SIZE = 1000;
     // private final static String DB_NAME = "runtimeevent.db";
     private final static String DB_NAME = ":memory:";
 
@@ -97,10 +95,9 @@ public class DatabaseHandler
                 if (cName.startsWith( "cpu" ))
                 {
                     cpuEvents.add( createCpuEvent( cName, (Double)value, globalEventId, timestamp ) );
-                    if (cpuEvents.size() == BULK_IMPORT_THRESHOLD)
+                    if (cpuEvents.size() == BULK_IMPORT_SIZE)
                     {
                         long t1 = System.currentTimeMillis();
-                        // sendCpuEvents( cpuEvents.stream().collect( Collectors.toList() ) );
                         access.bulkImportBaseEvents( "cpu", cpuEvents, Double.class );
                         long t2 = System.currentTimeMillis();
                         System.out.println( "Bulk import : " + (t2 - t1) + " msec" );
@@ -110,9 +107,8 @@ public class DatabaseHandler
                 else if (cName.startsWith( "mem" ))
                 {
                     memEvents.add( createMemoryEvent( cName, ((Long)value).intValue(), globalEventId, timestamp ) );
-                    if (memEvents.size() == BULK_IMPORT_THRESHOLD)
+                    if (memEvents.size() == BULK_IMPORT_SIZE)
                     {
-                        // sendMemEvents( memEvents.stream().collect( Collectors.toList() ) );
                         access.bulkImportBaseEvents( "mem", memEvents, Integer.class );
                         memEvents.clear();
                     }
@@ -123,20 +119,6 @@ public class DatabaseHandler
                 }
             }
         }
-    }
-
-    private void sendCpuEvents(List<BaseEvent<Double>> lcpuEvents)
-    {
-        new Thread( () -> {
-            access.bulkImportBaseEvents( "cpu", lcpuEvents, Double.class );
-        } ).start();
-    }
-
-    private void sendMemEvents(List<BaseEvent<Integer>> lmemEvents)
-    {
-        new Thread( () -> {
-            access.bulkImportBaseEvents( "mem", lmemEvents, Integer.class );
-        } ).start();
     }
 
     private BaseEvent<Double> createCpuEvent(String cName, double cpu, int eventId, long timestamp)
@@ -177,15 +159,7 @@ public class DatabaseHandler
         return -1;
     }
 
-    private <T> List<ChartData> getAggregatedEventsFromChannel(String storage, int channelId, int aggregationTime,
-            Class<T> _class)
-    {
-        return access.getStatisticOverTime( storage, channelId, aggregationTime / 1000, _class ).stream()
-                .map( e -> new ChartData( e.getTimestamp(), (Number)e.getMaximum() ) ).collect( Collectors.toList() );
-
-    }
-
-    public LineChartData createLineChartDataOverview2(List<RuntimeEventChannel<?>> channels, long startTimestamp,
+    public LineChartData createLineChartDataOverview(List<RuntimeEventChannel<?>> channels, long startTimestamp,
             long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
     {
 
@@ -193,10 +167,13 @@ public class DatabaseHandler
 
         for (RuntimeEventChannel<?> c : channels)
         {
-            List<ChartData> events = getAggregatedEventsFromChannel( "cpu",
-                                                                    getChannelId( c.getName() ),
-                                                                    aggregationTime.intValue(),
-                                                                    Double.class );
+            List<ChartData> events = access
+                    .getStatisticOverTime( "cpu",
+                                           getChannelId( c.getName() ),
+                                           (int)microToMilli( aggregationTime ),
+                                           Double.class )
+                    .stream().map( e -> new ChartData( e.getTimestamp(), e.getMaximum() ) )
+                    .collect( Collectors.toList() );
 
             allEvents.add( events );
         }
@@ -207,139 +184,35 @@ public class DatabaseHandler
         return lineChartDataCreator;
     }
 
-    private <T> List<ChartData> getAllEventsFromChannel(String storage, int channelId, long startTimestamp,
-            long endTimestamp, Class<T> _class)
+    private long microToMilli(long micro)
     {
-        return access.getAllEventsFromChannel( storage, channelId, startTimestamp / 1000, endTimestamp / 1000, _class )
-                .stream().map( e -> new ChartData( e.getTimestamp(), (Number)e.getValue() ) )
-                .collect( Collectors.toList() );
-    }
-
-    public LineChartData createLineChartDataZoom2(List<RuntimeEventChannel<?>> channels, long startTimestamp,
-            long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
-    {
-
-        List<List<ChartData>> allEvents = new ArrayList<>();
-
-        for (RuntimeEventChannel<?> c : channels)
-        {
-            List<ChartData> events = getAllEventsFromChannel( "cpu",
-                                                             getChannelId( c.getName() ),
-                                                             startTimestamp,
-                                                             endTimestamp,
-                                                             Double.class );
-
-            allEvents.add( events );
-        }
-
-        LineChartDataFromDB lineChartDataCreator = new LineChartDataFromDB( allEvents, channels );
-        lineChartDataCreator.build();
-
-        return lineChartDataCreator;
+        return micro / 1000;
     }
 
     public LineChartData createLineChartDataZoom(List<RuntimeEventChannel<?>> channels, long startTimestamp,
             long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
     {
 
-        int cId = getChannelId( channels.get( 0 ).getName() );
+        List<List<ChartData>> allEvents = new ArrayList<>();
 
-        // List<StatsItem<Double>> aggregatedStats = access.getStatisticOverTime( "cpu", cId, (int) (aggregationTime /
-        // 1000), Double.class );
-
-        List<BaseEvent<Double>> events = access
-                .getAllEventsFromChannel( "cpu", cId, startTimestamp / 1000, endTimestamp / 1000, Double.class );
-
-        LineChartData chartData = new LineChartData()
+        for (RuntimeEventChannel<?> c : channels)
         {
+            List<ChartData> events = access
+                    .getAllEventsFromChannel( "cpu",
+                                              getChannelId( c.getName() ),
+                                              microToMilli( startTimestamp ),
+                                              microToMilli( endTimestamp ),
+                                              Double.class )
+                    .stream().map( e -> new ChartData( e.getTimestamp(), e.getValue() ) )
+                    .collect( Collectors.toList() );
 
-            @Override
-            public List<Long> getTimestamps()
-            {
-                return events.stream().map( e -> e.getTimestamp() * 1000 ).collect( Collectors.toList() );
-            }
+            allEvents.add( events );
+        }
 
-            @Override
-            public Map<RuntimeEventChannel<?>, List<Number>> getSeriesData()
-            {
-                List<Number> series = events.stream().map( e -> (Number)e.getValue() ).collect( Collectors.toList() );
-                Map<RuntimeEventChannel<?>, List<Number>> result = new HashMap<>();
-                result.put( channels.get( 0 ), series );
-                return result;
-            }
+        LineChartDataFromDB lineChartDataCreator = new LineChartDataFromDB( allEvents, channels );
+        lineChartDataCreator.build();
 
-            @Override
-            public double getMinValue()
-            {
-                return 0;
-            }
-
-            @Override
-            public double getMaxValueStacked()
-            {
-                return events.stream().map( e -> e.getValue() ).max( Comparator.comparing( Double::valueOf ) ).get();
-            }
-
-            @Override
-            public double getMaxValue()
-            {
-                return events.stream().map( e -> e.getValue() ).max( Comparator.comparing( Double::valueOf ) ).get();
-            }
-        };
-
-        return chartData;
-    }
-
-    public LineChartData createLineChartDataOverview(List<RuntimeEventChannel<?>> channels, long startTimestamp,
-            long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
-    {
-
-        int cId = getChannelId( channels.get( 0 ).getName() );
-
-        List<StatsItem<Double>> aggregatedStats = access
-                .getStatisticOverTime( "cpu", cId, (int)(aggregationTime / 1000), Double.class );
-
-        LineChartData chartData = new LineChartData()
-        {
-
-            @Override
-            public List<Long> getTimestamps()
-            {
-                return aggregatedStats.stream().map( e -> e.getTimestamp() * 1000 ).collect( Collectors.toList() );
-            }
-
-            @Override
-            public Map<RuntimeEventChannel<?>, List<Number>> getSeriesData()
-            {
-                List<Number> series = aggregatedStats.stream().map( e -> (Number)e.getMaximum() )
-                        .collect( Collectors.toList() );
-                Map<RuntimeEventChannel<?>, List<Number>> result = new HashMap<>();
-                result.put( channels.get( 0 ), series );
-                return result;
-            }
-
-            @Override
-            public double getMinValue()
-            {
-                return 0;
-            }
-
-            @Override
-            public double getMaxValueStacked()
-            {
-                return aggregatedStats.stream().map( e -> e.getMaximum() )
-                        .max( Comparator.comparing( Double::valueOf ) ).get();
-            }
-
-            @Override
-            public double getMaxValue()
-            {
-                return aggregatedStats.stream().map( e -> e.getMaximum() )
-                        .max( Comparator.comparing( Double::valueOf ) ).get();
-            }
-        };
-
-        return chartData;
+        return lineChartDataCreator;
     }
 
 }

@@ -10,6 +10,7 @@
 package com.elektrobit.ebrace.core.datamanager.internal.runtime.event.db;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -27,6 +28,7 @@ public class LineChartDataFromDB implements LineChartData
     private final List<RuntimeEventChannel<?>> channels;
     private List<Long> allTimeStamps;
     private final Map<RuntimeEventChannel<?>, List<Number>> seriesData = new HashMap<>();
+    private double stackedMax = 0;
 
     public LineChartDataFromDB(List<List<ChartData>> allEvents, List<RuntimeEventChannel<?>> channels)
     {
@@ -46,7 +48,14 @@ public class LineChartDataFromDB implements LineChartData
                     .collect( Collectors.toList() ) );
         }
 
-        allTimeStamps = new ArrayList<Long>( timeStamps );
+        allTimeStamps = (new ArrayList<Long>( timeStamps )).stream().sorted().collect( Collectors.toList() );
+
+        Double[] stackedValues = new Double[allTimeStamps.size()];
+        for (int i = 0; i < stackedValues.length; i++)
+        {
+            stackedValues[i] = 0.0;
+        }
+
         int cIdx = 0;
 
         for (List<ChartData> channelEvents : allEvents)
@@ -63,16 +72,22 @@ public class LineChartDataFromDB implements LineChartData
                     {
                         series.add( evt.getValue() );
                         evtIdx += 1;
+                        stackedValues[t] += (double)evt.getValue();
                     }
                     else
                     {
                         series.add( null );
                     }
                 }
+                else
+                {
+                    series.add( null );
+                }
             }
             seriesData.put( channels.get( cIdx++ ), series );
         }
 
+        stackedMax = Arrays.asList( stackedValues ).stream().mapToDouble( v -> v ).max().getAsDouble();
     }
 
     @Override
@@ -91,7 +106,7 @@ public class LineChartDataFromDB implements LineChartData
     public double getMaxValue()
     {
         // TODO Auto-generated method stub
-        return 50;
+        return stackedMax;
     }
 
     @Override
@@ -105,7 +120,7 @@ public class LineChartDataFromDB implements LineChartData
     public double getMaxValueStacked()
     {
         // TODO Auto-generated method stub
-        return 50;
+        return stackedMax;
     }
 
 }

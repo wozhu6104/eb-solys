@@ -2,15 +2,15 @@ package de.systemticks.solys.db.sqlite.impl
 
 class SQLHelper {
 
-//        CREATE TABLE ï¿½desc.storageï¿½
-//        (ï¿½FOR f: desc.mapping SEPARATOR ","ï¿½
-//         ï¿½f.nameï¿½ ï¿½f.toDBTypeï¿½ ï¿½f.toNotNullï¿½
-//        ï¿½ENDFORï¿½);
+//        CREATE TABLE «desc.storage»
+//        («FOR f: desc.mapping SEPARATOR ","»
+//         «f.name» «f.toDBType» «f.toNotNull»
+//        «ENDFOR»);
 	
 	
 	def static createTableForIntEvents(String name) {
 		'''
-			CREATE TABLE Â«nameÂ»
+			CREATE TABLE «name»
 			(eId INTEGER PRIMARY KEY,
 			 eTimestamp INT8 NOT NULL,
 			 eValue INT NOT NULL,
@@ -24,7 +24,7 @@ class SQLHelper {
 
 	def static createTableForDoubleEvents(String name) {
 		'''
-			CREATE TABLE Â«nameÂ»
+			CREATE TABLE «name»
 			(eId INTEGER PRIMARY KEY,
 			 eTimestamp INT8 NOT NULL,
 			 eValue REAL NOT NULL,
@@ -34,7 +34,7 @@ class SQLHelper {
 	
 	def static createTableForChannelMapping(String name) {
 		'''
-			CREATE TABLE Â«nameÂ»
+			CREATE TABLE «name»
 			(cId INTEGER PRIMARY KEY,
 			 cName TEXT NOT NULL)
 		'''		
@@ -42,32 +42,32 @@ class SQLHelper {
 	
 	def static createIndex(String table, String... fields) {
 		'''
-			CREATE INDEX idx_Â«tableÂ»_Â«fields.join('_')Â» ON Â«tableÂ» (Â«fields.join(",")Â»)
+			CREATE INDEX idx_«table»_«fields.join('_')» ON «table» («fields.join(",")»)
 		'''
 	}
 
 //	def static createPreparedStmt(EventDescriptor desc) {
 //		'''
-//		INSERT INTO ï¿½desc.storageï¿½ (ï¿½FOR f:desc.mapping SEPARATOR ','ï¿½ï¿½f.nameï¿½ï¿½ENDFORï¿½) values (ï¿½FOR f: desc.mapping SEPARATOR","ï¿½?ï¿½ENDFORï¿½);
+//		INSERT INTO «desc.storage» («FOR f:desc.mapping SEPARATOR ','»«f.name»«ENDFOR») values («FOR f: desc.mapping SEPARATOR","»?«ENDFOR»);
 //		'''.toString
 //	}
 
 	def static createAllEventsFromChannel(String storage, int channelId) {
 		'''
-		SELECT Â«storageÂ».eId, Â«storageÂ».eTimestamp, Â«storageÂ».eValue, Â«storageÂ».eChannelId 
-		FROM Â«storageÂ» 
-		WHERE Â«storageÂ».eChannelId = Â«channelIdÂ»
-		ORDER BY Â«storageÂ».eTimestamp
+		SELECT «storage».eId, «storage».eTimestamp, «storage».eValue, «storage».eChannelId 
+		FROM «storage» 
+		WHERE «storage».eChannelId = «channelId»
+		ORDER BY «storage».eTimestamp
 		'''
 	}
 
 	def static createAllEventsFromChannel(String storage, int channelId, long from, long to) 
 	{
 		'''
-		SELECT Â«storageÂ».eId, Â«storageÂ».eTimestamp, Â«storageÂ».eValue, Â«storageÂ».eChannelId, channels.cName
-		FROM Â«storageÂ», channels 
-		WHERE Â«storageÂ».eChannelId = Â«channelIdÂ» Â«timestampFilter(storage, from, to)Â» AND Â«storageÂ».eChannelId = channels.cId
-		ORDER BY Â«storageÂ».eTimestamp
+		SELECT «storage».eId, «storage».eTimestamp, «storage».eValue, «storage».eChannelId, channels.cName
+		FROM «storage», channels 
+		WHERE «storage».eChannelId = «channelId» «timestampFilter(storage, from, to)» AND «storage».eChannelId = channels.cId
+		ORDER BY «storage».eTimestamp
 		'''
 	}
 
@@ -75,10 +75,10 @@ class SQLHelper {
 	{
 		'''
 		SELECT o.eId, o.eTimestamp, o.eValue, o.eChannelId, channels.cName
-		  FROM Â«storageÂ» o, channels
+		  FROM «storage» o, channels
 		  JOIN ( 
-			SELECT DISTINCT(snap.eTimestamp) AS ts, MIN(ABS(snap.eTimestamp - Â«timestampÂ»))
-		           FROM Â«storageÂ» snap
+			SELECT DISTINCT(snap.eTimestamp) AS ts, MIN(ABS(snap.eTimestamp - «timestamp»))
+		           FROM «storage» snap
 		       ) s
 		    ON s.ts = o.eTimestamp AND o.eValue > 0 AND o.eChannelId = channels.cId
 			ORDER BY o.eValue DESC		
@@ -88,24 +88,24 @@ class SQLHelper {
 	def static timestampFilter(String storage, long from, long to)
 	{
 		'''
-		Â«IF from != -1Â»AND Â«storageÂ».eTimestamp >= Â«fromÂ»Â«ENDIFÂ»Â«IF to != -1Â» AND Â«storageÂ».eTimestamp <= Â«toÂ»Â«ENDIFÂ»
+		«IF from != -1»AND «storage».eTimestamp >= «from»«ENDIF»«IF to != -1» AND «storage».eTimestamp <= «to»«ENDIF»
 		'''
 	}
 
 	def static createStatistics(String storage, int channelId, int interval) {
 		'''
-		SELECT MIN(Â«storageÂ».eTimestamp) as t, AVG(Â«storageÂ».eValue) as avg_v, MAX(Â«storageÂ».eValue) as max_v, MIN(Â«storageÂ».eValue) as min_v, Â«storageÂ».eChannelId
-		from Â«storageÂ»
-		where Â«storageÂ».eChannelId=Â«channelIdÂ»
-		group by Â«storageÂ».eTimestamp / Â«intervalÂ»
+		SELECT MIN(«storage».eTimestamp) as t, AVG(«storage».eValue) as avg_v, MAX(«storage».eValue) as max_v, MIN(«storage».eValue) as min_v, «storage».eChannelId
+		from «storage»
+		where «storage».eChannelId=«channelId»
+		group by «storage».eTimestamp / «interval»
 		'''
 	}
 	
-	def static createMaxFromAllChannels(String storage) { 
+	def static createMaxFromAllChannels(String storage) {
 		'''
-		select Â«storageÂ».eId, Â«storageÂ».eTimestamp, MAX(Â«storageÂ».eValue) as max_v, Â«storageÂ».eChannelId
-		from Â«storageÂ»
-		group by Â«storageÂ».eChannelId
+		select «storage».eId, «storage».eTimestamp, MAX(«storage».eValue) as max_v, «storage».eChannelId
+		from «storage»
+		group by «storage».eChannelId
 		having max_v > 0
 		order by max_v desc
 		'''
