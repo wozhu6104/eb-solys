@@ -70,7 +70,7 @@
                             <backend>html5</backend>
                             <sourceHighlighter>coderay</sourceHighlighter>
                             <attributes>
-                                <stylesheet>resources/foundation.css</stylesheet>								
+                                <stylesheet>resources\foundation.css</stylesheet>								
                                 <icons>font</icons>
                                 <toc>left</toc>								
                                 <toclevels>5</toclevels>								

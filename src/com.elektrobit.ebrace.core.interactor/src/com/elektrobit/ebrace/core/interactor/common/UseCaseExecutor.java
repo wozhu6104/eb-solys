@@ -24,6 +24,7 @@ public class UseCaseExecutor
     private static UseCaseExecutorIF getUseCaseExecutor()
     {
         if (useCaseExecutor == null)
+        {
             useCaseExecutor = new UseCaseExecutorIF()
             {
                 final Timer taskTimer = new Timer( "UseCaseExecutor timer" );
@@ -42,17 +43,21 @@ public class UseCaseExecutor
                 }
 
                 @Override
-                public void schedule(Runnable r)
+                public void schedule(UseCaseRunnable r)
                 {
                     if (r != null)
+                    {
+
                         executorService.execute( r );
+                    }
                 }
             };
+        }
 
         return useCaseExecutor;
     }
 
-    public static void schedule(Runnable r)
+    public static void schedule(UseCaseRunnable r)
     {
         getUseCaseExecutor().schedule( r );
     }

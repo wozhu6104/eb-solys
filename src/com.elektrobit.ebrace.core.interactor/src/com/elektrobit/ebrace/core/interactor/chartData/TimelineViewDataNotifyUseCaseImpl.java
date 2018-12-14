@@ -21,6 +21,7 @@ import com.elektrobit.ebrace.core.interactor.api.common.UIExecutor;
 import com.elektrobit.ebrace.core.interactor.api.resources.model.ResourceModel;
 import com.elektrobit.ebrace.core.interactor.api.resources.model.timelineview.TimelineViewModel;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService;
 import com.elektrobit.ebrace.resources.api.manager.ResourceChangedListener;
 import com.elektrobit.ebrace.resources.api.manager.ResourcesModelManager;
@@ -67,7 +68,8 @@ public class TimelineViewDataNotifyUseCaseImpl
 
     private void triggerDataCollection()
     {
-        UseCaseExecutor.schedule( () -> collectAndPostData() );
+        UseCaseExecutor.schedule( new UseCaseRunnable( "TimelineViewDataNotifyUseCase.triggerDataCollection",
+                                                       () -> collectAndPostData() ) );
     }
 
     @SuppressWarnings("unchecked")

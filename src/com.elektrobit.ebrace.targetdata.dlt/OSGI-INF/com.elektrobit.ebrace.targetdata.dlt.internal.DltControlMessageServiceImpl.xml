@@ -3,7 +3,7 @@
    <service>
       <provide interface="com.elektrobit.ebrace.targetdata.dlt.api.DltControlMessageService"/>
    </service>
-   <reference bind="bindConnectionService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService" name="ConnectionService" policy="static" unbind="unbindConnectionService"/>
-   <reference bind="bindTargetMessageBroadcastService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.SendMessageToTargetService" name="TargetMessageBroadcastService" policy="static" unbind="unbindTargetMessageBroadcastService"/>
+   <reference bind="bindConnectionService" interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService" name="ConnectionService" unbind="unbindConnectionService"/>
+   <reference bind="bindTargetMessageBroadcastService" interface="com.elektrobit.ebrace.targetadapter.communicator.api.SendMessageToTargetService" name="TargetMessageBroadcastService" unbind="unbindTargetMessageBroadcastService"/>
    <implementation class="com.elektrobit.ebrace.targetdata.dlt.internal.DltControlMessageServiceImpl"/>
 </scr:component>

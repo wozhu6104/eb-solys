@@ -13,5 +13,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.projectlombok.lombok;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.adapter.networkpacketsniffer.internal.NetworkPacketSnifferAdapterFactory.xml
 Eclipse-ExtensibleAPI: true
+Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.adapter.networkpacketsniffer.internal.NetworkPacketSnifferAdapterFactory.xml

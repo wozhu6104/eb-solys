@@ -511,4 +511,32 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="com.elektrobit.ebsolys.userdoc"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.systemticks.ebrace.core.eventhook"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.systemticks.ebrace.eventhooks.regextochannelhook"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.systemticks.solys.db.sqlite"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

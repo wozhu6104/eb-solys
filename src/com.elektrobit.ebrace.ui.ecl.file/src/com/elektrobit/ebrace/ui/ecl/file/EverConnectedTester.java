@@ -15,18 +15,13 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
-import com.elektrobit.ebrace.common.utils.GenericOSGIServiceTracker;
 import com.elektrobit.ebrace.core.interactor.api.common.UseCaseFactoryInstance;
 import com.elektrobit.ebrace.core.interactor.api.connect.ConnectionStateNotifyCallback;
-import com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService;
 import com.elektrobit.ebrace.viewer.common.constants.ViewIDs;
 
 public class EverConnectedTester extends PropertyTester implements ConnectionStateNotifyCallback
 {
     private final String PROPERTY_NAME_PREVIOUSLY_CONNECTED_MODE = "isEverConnected";
-
-    private final ConnectionService connectionService = new GenericOSGIServiceTracker<ConnectionService>( ConnectionService.class )
-            .getService();
 
     public EverConnectedTester()
     {
@@ -38,20 +33,9 @@ public class EverConnectedTester extends PropertyTester implements ConnectionSta
     {
         if (PROPERTY_NAME_PREVIOUSLY_CONNECTED_MODE.equals( property ))
         {
-            return isEverConnectedMode();
+            return true;
         }
         return false;
-    }
-
-    private boolean isEverConnectedMode()
-    {
-
-        boolean isPreviouslyConnected = false;
-        if (connectionService.everConnected())
-        {
-            isPreviouslyConnected = true;
-        }
-        return isPreviouslyConnected;
     }
 
     /**

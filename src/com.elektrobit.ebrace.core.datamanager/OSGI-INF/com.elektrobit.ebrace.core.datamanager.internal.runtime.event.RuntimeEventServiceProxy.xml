@@ -7,6 +7,7 @@
    </service>
    <reference bind="bind" interface="com.elektrobit.ebrace.core.datamanager.api.channels.ChannelListenerNotifier" unbind="unbind"/>
    <reference bind="setDatabaseAccess" interface="de.systemticks.solys.db.sqlite.api.DataStorageAccess" name="DatabaseAccess" unbind="unsetDatabaseAccess"/>
+   <reference bind="bindEventHookRegistry" interface="de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry" name="EventHookRegistry" unbind="unbindEventHookRegistry"/>
    <reference bind="setModelElementPool" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.ModelElementPool" name="ModelElementPool" policy="static" unbind="unsetModelElementPool"/>
    <reference bind="setRuntimeEventChannelManager" cardinality="1..1" interface="com.elektrobit.ebrace.core.datamanager.api.channels.RuntimeEventChannelManager" name="RuntimeEventChannelManager" policy="static" unbind="unsetRuntimeEventChannelManager"/>
    <implementation class="com.elektrobit.ebrace.core.datamanager.internal.runtime.event.RuntimeEventServiceProxy"/>

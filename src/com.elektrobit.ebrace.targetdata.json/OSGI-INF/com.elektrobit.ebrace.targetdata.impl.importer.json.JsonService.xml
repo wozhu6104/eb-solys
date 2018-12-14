@@ -3,6 +3,6 @@
    <service>
       <provide interface="com.elektrobit.ebrace.core.importerregistry.api.Importer"/>
    </service>
-   <reference bind="bindJsonEventHandler" cardinality="1..1" interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler" name="JsonEventHandler" policy="static" unbind="unbindJsonEventHandler"/>
+   <reference bind="bindJsonEventHandler" interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler" name="JsonEventHandler" unbind="unbindJsonEventHandler"/>
    <implementation class="com.elektrobit.ebrace.targetdata.impl.importer.json.JsonService"/>
 </scr:component>

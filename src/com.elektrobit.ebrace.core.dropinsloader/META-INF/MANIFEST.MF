@@ -10,5 +10,5 @@ Require-Bundle: org.eclipse.osgi.services,
  org.apache.log4j,
  com.elektrobit.ebrace.core.interactor.api;bundle-version="1.0.0",
  com.elektrobit.ebrace.core.usermessagelogger
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.dropinsloader.impl.DropinsLoaderServiceImpl.xml
 Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.dropinsloader.impl.DropinsLoaderServiceImpl.xml

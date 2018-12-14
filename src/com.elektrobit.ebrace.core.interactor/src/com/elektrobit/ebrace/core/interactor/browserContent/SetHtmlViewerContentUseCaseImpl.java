@@ -13,6 +13,7 @@ import com.elektrobit.ebrace.core.htmldata.api.HtmlDataService;
 import com.elektrobit.ebrace.core.interactor.api.browsercontent.SetHtmlViewContentInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.api.resources.model.htmlview.HtmlViewModel;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 
 public class SetHtmlViewerContentUseCaseImpl implements SetHtmlViewContentInteractionUseCase
 {
@@ -32,29 +33,24 @@ public class SetHtmlViewerContentUseCaseImpl implements SetHtmlViewContentIntera
     @Override
     public void setContent(final HtmlViewModel model, final String text)
     {
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
+        UseCaseExecutor.schedule( new UseCaseRunnable( "SetHtmlViewerContentUseCase.setContent", () -> {
+            if (htmlDataService != null)
             {
-                if (htmlDataService != null)
-                    htmlDataService.setHtmlViewText( model, text );
+                htmlDataService.setHtmlViewText( model, text );
             }
-        } );
+        } ) );
+
     }
 
     @Override
     public void callJavaScriptFunction(final HtmlViewModel model, final String function, final String arg)
     {
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
+        UseCaseExecutor.schedule( new UseCaseRunnable( "SetHtmlViewerContentUseCase.callJavaScriptFunction", () -> {
+            if (htmlDataService != null)
             {
-                if (htmlDataService != null)
-                    htmlDataService.callJavaScriptFunction( model, function, arg );
+                htmlDataService.callJavaScriptFunction( model, function, arg );
             }
-        } );
+        } ) );
 
     }
 

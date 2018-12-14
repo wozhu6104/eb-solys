@@ -42,6 +42,8 @@ import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeE
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.util.RuntimeEventTimestampComparator;
 
+import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
+
 public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEventProvider
 {
     private final static Logger LOG = Logger.getLogger( RuntimeEventAcceptorImpl.class );
@@ -60,15 +62,17 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
 
     private final ChannelListenerNotifier channelListenerNotifier;
     private final List<ChannelRemovedListener> channelRemovedListeners;
+    private final EventHookRegistry eventhookRegistry;
 
     public RuntimeEventAcceptorImpl(RuntimeEventChannelManager runtimeEventChannelManager,
             ModelElementPool modelElementPool, RuntimeEventNotifier runtimeEventNotifier,
-            ChannelListenerNotifier channelListenerNotifier)
+            ChannelListenerNotifier channelListenerNotifier, EventHookRegistry eventhookRegistry)
     {
         this.runtimeEventChannelManager = runtimeEventChannelManager;
         this.modelElementPool = modelElementPool;
         this.runtimeEventNotifier = runtimeEventNotifier;
         this.channelListenerNotifier = channelListenerNotifier;
+        this.eventhookRegistry = eventhookRegistry;
         channelRemovedListeners = new CopyOnWriteArrayList<>();
     }
 
@@ -147,6 +151,7 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
         stateID++;
 
         channelListenerNotifier.notifyChannelChanged( channel );
+        // eventhookRegistry.callFor( newRuntimeEvent );
 
         return newRuntimeEvent;
     }

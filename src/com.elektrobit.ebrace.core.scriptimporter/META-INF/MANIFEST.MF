@@ -19,7 +19,7 @@ Require-Bundle: org.eclipse.osgi.services,
  com.elektrobit.ebrace.core.preferences;bundle-version="1.0.0",
  com.elektrobit.ebrace.resources.api,
  org.eclipse.jdt.launching
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.scriptimporter.impl.importer.ScriptImporterServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.scriptimporter.impl.project.ScriptProjectBuilderServiceImpl.xml
 Bundle-ActivationPolicy: lazy
 Export-Package: com.elektrobit.ebrace.core.scriptimporter.api
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.scriptimporter.impl.project.ScriptProjectBuilderServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.scriptimporter.impl.importer.ScriptImporterServiceImpl.xml

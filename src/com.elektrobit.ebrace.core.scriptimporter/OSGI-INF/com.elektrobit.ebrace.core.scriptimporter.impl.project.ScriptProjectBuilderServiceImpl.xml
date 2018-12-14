@@ -4,6 +4,6 @@
       <provide interface="com.elektrobit.ebrace.core.scriptimporter.api.ScriptProjectBuilderService"/>
       <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.StartupDoneListener"/>
    </service>
-   <reference bind="bindPreferencesService" cardinality="1..1" interface="com.elektrobit.ebrace.core.preferences.api.PreferencesService" name="PreferencesService" policy="static" unbind="unbindPreferencesService"/>
+   <reference bind="bindPreferencesService" interface="com.elektrobit.ebrace.core.preferences.api.PreferencesService" name="PreferencesService" unbind="unbindPreferencesService"/>
    <implementation class="com.elektrobit.ebrace.core.scriptimporter.impl.project.ScriptProjectBuilderServiceImpl"/>
 </scr:component>

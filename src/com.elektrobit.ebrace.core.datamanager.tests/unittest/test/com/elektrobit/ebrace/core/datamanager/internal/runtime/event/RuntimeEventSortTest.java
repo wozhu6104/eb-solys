@@ -24,6 +24,8 @@ import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeE
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 
+import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
+
 public class RuntimeEventSortTest
 {
     private RuntimeEventAcceptorImpl acceptor;
@@ -39,7 +41,8 @@ public class RuntimeEventSortTest
         acceptor = new RuntimeEventAcceptorImpl( channelManager,
                                                  null,
                                                  runtimeEventNotifier,
-                                                 new ChannelListenerNotifierImpl() );
+                                                 new ChannelListenerNotifierImpl(),
+                                                 Mockito.mock( EventHookRegistry.class ) );
         RuntimeEventChannel<Long> channel = acceptor.createOrGetRuntimeEventChannel( "test", Unit.COUNT, "" );
         acceptor.acceptEventMicros( 1000000, channel, null, 2L );
         acceptor.acceptEventMicros( 999999, channel, null, 1L );

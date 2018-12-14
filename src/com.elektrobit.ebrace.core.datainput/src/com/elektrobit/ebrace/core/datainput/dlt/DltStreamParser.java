@@ -7,27 +7,29 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser;
+package com.elektrobit.ebrace.core.datainput.dlt;
 
-import lombok.Data;
+import org.osgi.service.component.annotations.Component;
 
-@Data
-public class ProcPidStatm
+import com.elektrobit.ebrace.core.datainput.api.DataStreamParser;
+
+@Component
+public class DltStreamParser implements DataStreamParser
 {
-    public final static int RESIDENT_SET_SIZE_FIELD_NR = 1;
-    private int PageSize;
-    private int Rss;
-    private int Text;
-    private int Data;
-    private int Lib;
-    private int Shared;
-    private int Size;
-    private int Dirty;
+    public DltStreamParser()
+    {
+    }
 
     @Override
-    public String toString()
+    public String parse(byte[] message)
     {
-        return "{MemInfo:   " + Rss + "}";
+        return new DltMessageHelper().createEvent( message );
+    }
+
+    @Override
+    public String getId()
+    {
+        return "dlt";
     }
 
 }

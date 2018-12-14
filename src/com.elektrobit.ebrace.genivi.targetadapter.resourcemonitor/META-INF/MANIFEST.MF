@@ -14,9 +14,9 @@ Require-Bundle: com.google.protobuf;bundle-version="2.4.1",
  org.eclipse.osgi.services
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Service-Component: OSGI-INF/com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.ResourceMonitorControllerFactory.xml,
- OSGI-INF/com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.processregistry.ProcessRegistryImpl.xml
 Import-Package: org.osgi.framework;version="1.8.0",
  org.osgi.service.component
 Export-Package: com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.api
 Eclipse-ExtensibleAPI: true
+Service-Component: OSGI-INF/com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.processregistry.ProcessRegistryImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.genivi.targetadapter.resourcemonitor.ResourceMonitorControllerFactory.xml

@@ -5,6 +5,6 @@
       <provide interface="com.elektrobit.ebsolys.decoder.common.services.DecoderService"/>
       <provide interface="com.elektrobit.ebrace.core.preferences.listener.PreferencesListener"/>
    </service>
-   <reference bind="bindPreferencesService" cardinality="1..1" interface="com.elektrobit.ebrace.core.preferences.api.PreferencesService" name="PreferencesService" policy="static" unbind="unbindPreferencesService"/>
+   <reference bind="bindPreferencesService" interface="com.elektrobit.ebrace.core.preferences.api.PreferencesService" name="PreferencesService" unbind="unbindPreferencesService"/>
    <implementation class="com.elektrobit.ebrace.decoder.protobuf.services.StringDecoderService"/>
 </scr:component>

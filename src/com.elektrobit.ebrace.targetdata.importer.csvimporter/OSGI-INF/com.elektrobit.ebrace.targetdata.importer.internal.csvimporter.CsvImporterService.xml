@@ -3,6 +3,6 @@
    <service>
       <provide interface="com.elektrobit.ebrace.core.importerregistry.api.Importer"/>
    </service>
-   <implementation class="com.elektrobit.ebrace.targetdata.importer.internal.csvimporter.CsvImporterService"/>
    <reference bind="bindJsonService" interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler" name="JsonService" unbind="unbindJsonService"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.importer.internal.csvimporter.CsvImporterService"/>
 </scr:component>

@@ -31,6 +31,7 @@ import com.elektrobit.ebrace.core.interactor.api.tableinput.RuntimeEventTableDat
 import com.elektrobit.ebrace.core.interactor.api.tableinput.TableData;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseRepeatedTask;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.interactor.tableinput.filter.FilterUtil;
 import com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences;
 import com.elektrobit.ebrace.core.preferences.api.UserInteractionPreferences;
@@ -156,7 +157,9 @@ public class RuntimeEventTableDataNotifyUseCaseImpl
             runnableRunning = true;
             RuntimeEventTableDataWorker runnableCopy = plannedRunnable;
             plannedRunnable = null;
-            UseCaseExecutor.schedule( runnableCopy );
+            UseCaseExecutor
+                    .schedule( new UseCaseRunnable( "RuntimeEventTableDataNotifyUseCase.postWaitingRunnableIfAny",
+                                                    runnableCopy ) );
         }
     }
 

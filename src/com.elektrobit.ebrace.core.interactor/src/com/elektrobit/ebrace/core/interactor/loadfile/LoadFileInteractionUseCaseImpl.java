@@ -20,6 +20,7 @@ import com.elektrobit.ebrace.core.interactor.api.loadfile.OpenFileInteractionCal
 import com.elektrobit.ebrace.core.interactor.api.loadfile.OpenFileInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.api.usermessagelogger.UserMessageLoggerTypes;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.tracefile.api.LoadFileProgressListener;
 import com.elektrobit.ebrace.core.tracefile.api.LoadFileService;
 import com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger;
@@ -92,15 +93,10 @@ public class LoadFileInteractionUseCaseImpl implements OpenFileInteractionUseCas
 
     private void startLoadingFile(final String pathToFile)
     {
-        UseCaseExecutor.schedule( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                resultOk = loadFileService.loadFile( pathToFile );
-                postResult();
-            }
-        } );
+        UseCaseExecutor.schedule( new UseCaseRunnable( "LoadFileInteractionUseCase.startLoadingFile", () -> {
+            resultOk = loadFileService.loadFile( pathToFile );
+            postResult();
+        } ) );
     }
 
     private void postResult()

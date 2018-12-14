@@ -4,7 +4,7 @@
       <provide interface="com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences"/>
       <provide interface="com.elektrobit.ebrace.core.preferences.listener.UserInteractionPreferencesListener"/>
    </service>
-   <reference bind="setPreferencesService" cardinality="1..1" interface="com.elektrobit.ebrace.core.preferences.api.PreferencesService" name="PreferencesService" policy="static" unbind="unsetPreferencesService"/>
-   <reference bind="setRuntimeEventProvider" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventProvider" name="RuntimeEventProvider" policy="static" unbind="unsetRuntimeEventProvider"/>
+   <reference bind="setPreferencesService" interface="com.elektrobit.ebrace.core.preferences.api.PreferencesService" name="PreferencesService" unbind="unsetPreferencesService"/>
+   <reference bind="setRuntimeEventProvider" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventProvider" name="RuntimeEventProvider" unbind="unsetRuntimeEventProvider"/>
    <implementation class="com.elektrobit.ebrace.core.preferences.impl.AnalysisTimespanPreferencesImpl"/>
 </scr:component>

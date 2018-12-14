@@ -13,6 +13,7 @@ import com.elektrobit.ebrace.core.interactor.api.common.UIExecutor;
 import com.elektrobit.ebrace.core.interactor.api.loaddatachunk.LoadDataChunkInteractionCallback;
 import com.elektrobit.ebrace.core.interactor.api.loaddatachunk.LoadDataChunkInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
+import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.tracefile.api.LoadFileService;
 import com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataNotifier;
 
@@ -48,25 +49,20 @@ public class LoadDataChunkInteractionUseCaseImpl implements LoadDataChunkInterac
         else
         {
             loading = true;
-            UseCaseExecutor.schedule( new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    clearChunkDataNotifier.notifyClearChunkData();
+            UseCaseExecutor.schedule( new UseCaseRunnable( "LoadDataChunkInteractionUseCase.loadDataChunk", () -> {
+                clearChunkDataNotifier.notifyClearChunkData();
 
-                    boolean loadFileSuccessful = loadFileService.loadFileFrom( startTimestamp, desiredChunkLengthTime );
+                boolean loadFileSuccessful = loadFileService.loadFileFrom( startTimestamp, desiredChunkLengthTime );
 
-                    notifyCallback( loadFileService.getStartTimestamp(),
-                                    loadFileService.getEndTimestamp(),
-                                    loadFileService.getChunkStartTimestamp(),
-                                    loadFileService.getChunkEndTimestamp(),
-                                    loadFileSuccessful,
-                                    callback );
+                notifyCallback( loadFileService.getStartTimestamp(),
+                                loadFileService.getEndTimestamp(),
+                                loadFileService.getChunkStartTimestamp(),
+                                loadFileService.getChunkEndTimestamp(),
+                                loadFileSuccessful,
+                                callback );
 
-                    loading = false;
-                }
-            } );
+                loading = false;
+            } ) );
         }
     }
 
@@ -116,6 +112,7 @@ public class LoadDataChunkInteractionUseCaseImpl implements LoadDataChunkInterac
             public void run()
             {
                 if (callback != null)
+                {
                     if (successfull)
                     {
                         notifyCallbackAboutSuccess( fileStartTime,
@@ -128,6 +125,7 @@ public class LoadDataChunkInteractionUseCaseImpl implements LoadDataChunkInterac
                     {
                         notifyCallbackAboutFailure( callback, "LoadFileService couldn't load chunk." );
                     }
+                }
 
             }
         } );

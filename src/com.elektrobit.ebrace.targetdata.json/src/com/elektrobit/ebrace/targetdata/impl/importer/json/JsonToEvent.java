@@ -47,8 +47,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
     private final Map<String, TreeLevelDef> treeLevels = new HashMap<>();
     private Tree tree;
 
-    private final Map<String, RuntimeEventChannel<?>> channels = new HashMap<>();
-
     public JsonToEvent(RuntimeEventAcceptor runtimeEventAcceptor, StructureAcceptor structureAcceptor,
             ComRelationAcceptor comRelationAcceptor, TimeSegmentAcceptorService timeSegmentAcceptor,
             String channelDescription)
@@ -129,41 +127,41 @@ public class JsonToEvent implements NodeAgent<TreeNode>
     {
         String channelName = event.getChannel();
         Object summary = event.getValue().getSummary();
-        if (!channels.containsKey( channelName ))
-        {
 
-            JsonElement details = event.getValue().getDetails();
-            if (details != null)
+        JsonElement details = event.getValue().getDetails();
+        RuntimeEventChannel<?> channel = runtimeEventAcceptor.getRuntimeEventChannel( channelName );
+        if (details != null)
+        {
+            if (channel == null)
             {
-                channels.put( channelName,
-                              runtimeEventAcceptor
-                                      .createOrGetRuntimeEventChannel( channelName,
-                                                                       Unit.TEXT,
-                                                                       channelDescription,
-                                                                       details.getAsJsonObject().entrySet().stream()
-                                                                               .map( entry -> entry.getKey() )
-                                                                               .collect( Collectors.toList() ) ) );
+                runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
+                                                                     Unit.TEXT,
+                                                                     channelDescription,
+                                                                     details.getAsJsonObject().entrySet().stream()
+                                                                             .map( entry -> entry.getKey() )
+                                                                             .collect( Collectors.toList() ) );
             }
-            else
+        }
+        else
+        {
+            if (channel == null)
             {
-                channels.put( channelName,
-                              runtimeEventAcceptor
-                                      .createOrGetRuntimeEventChannel( channelName,
-                                                                       Unit.createCustomUnit( summary.getClass()
-                                                                               .getSimpleName(), summary.getClass() ),
-                                                                       channelDescription ) );
+
+                runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
+                                                                     Unit.createCustomUnit( summary.getClass()
+                                                                             .getSimpleName(), summary.getClass() ),
+                                                                     channelDescription );
             }
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void handleEventCreation(JsonEvent event, ComRelation relation)
     {
         handleChannelCreation( event );
         if (event.getValue().getSummary() instanceof Long)
         {
             runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
-                                                    (RuntimeEventChannel<Long>)channels.get( event.getChannel() ),
+                                                    runtimeEventAcceptor.getRuntimeEventChannel( event.getChannel() ),
                                                     relation,
                                                     (Long)event.getValue().getSummary(),
                                                     "" + event.getValue().getSummary() );
@@ -171,7 +169,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         else if (event.getValue().getSummary() instanceof Double)
         {
             runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
-                                                    (RuntimeEventChannel<Double>)channels.get( event.getChannel() ),
+                                                    runtimeEventAcceptor.getRuntimeEventChannel( event.getChannel() ),
                                                     relation,
                                                     (Double)event.getValue().getSummary(),
                                                     "" + event.getValue().getSummary() );
@@ -179,7 +177,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         else
         {
             runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
-                                                    (RuntimeEventChannel<String>)channels.get( event.getChannel() ),
+                                                    runtimeEventAcceptor.getRuntimeEventChannel( event.getChannel() ),
                                                     relation,
                                                     event.toString(),
                                                     (String)event.getValue().getSummary() );

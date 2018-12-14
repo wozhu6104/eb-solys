@@ -100,4 +100,5 @@ public class JsonEventHandlerImpl implements JsonEventHandler
     {
         this.timeSegmentAcceptor = null;
     }
+
 }

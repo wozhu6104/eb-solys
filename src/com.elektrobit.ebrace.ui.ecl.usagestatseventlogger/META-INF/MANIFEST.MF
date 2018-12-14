@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.osgi.services,
  org.eclipse.e4.ui.workbench,
  com.elektrobit.ebrace.core.interactor.api,
  com.elektrobit.ebrace.dev.usestatlogsannotationloader;bundle-version="1.0.0"
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.usagestatseventlogger.impl.SelectViewOrEditorEventListener.xml,
- OSGI-INF/com.elektrobit.ebrace.core.usagestatseventlogger.impl.AppStartedEventListener.xml,
- OSGI-INF/com.elektrobit.ebrace.core.usagestatseventlogger.impl.AppShutdownStartedEventListener.xml
 Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.usagestatseventlogger.impl.AppStartedEventListener.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.usagestatseventlogger.impl.AppShutdownStartedEventListener.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.usagestatseventlogger.impl.SelectViewOrEditorEventListener.xml

@@ -14,7 +14,6 @@ import java.util.List;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class SimpleJsonPath
 {
@@ -22,7 +21,7 @@ public class SimpleJsonPath
 
     public SimpleJsonPath(String jsonString)
     {
-        this( new JsonParser().parse( jsonString ).getAsJsonObject() );
+        this( StringToJsonObjectTransformer.transform( jsonString ) );
     }
 
     public SimpleJsonPath(JsonObject target)

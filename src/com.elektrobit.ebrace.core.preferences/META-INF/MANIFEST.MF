@@ -5,9 +5,6 @@ Bundle-SymbolicName: com.elektrobit.ebrace.core.preferences
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: ELEKTROBIT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.preferences.impl.PreferencesServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.preferences.impl.UserInteractionPreferencesImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.core.preferences.impl.AnalysisTimespanPreferencesImpl.xml
 Export-Package: com.elektrobit.ebrace.core.preferences.api,
  com.elektrobit.ebrace.core.preferences.listener
 Bundle-ActivationPolicy: lazy
@@ -20,3 +17,6 @@ Require-Bundle: org.apache.log4j,
  org.projectlombok.lombok,
  com.google.gson;bundle-version="2.1.0"
 Eclipse-ExtensibleAPI: true
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.preferences.impl.PreferencesServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.preferences.impl.AnalysisTimespanPreferencesImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.core.preferences.impl.UserInteractionPreferencesImpl.xml

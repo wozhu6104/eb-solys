@@ -3,9 +3,9 @@
    <service>
       <provide interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler"/>
    </service>
-   <implementation class="com.elektrobit.ebrace.targetdata.impl.importer.json.JsonEventHandlerImpl"/>
-   <reference bind="bindComRelationAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" policy="static" unbind="unbindComRelationAcceptor"/>
-   <reference bind="bindRuntimeEventAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" policy="static" unbind="unbindRuntimeEventAcceptor"/>
-   <reference bind="bindStructureAcceptor" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor" name="StructureAcceptor" policy="static" unbind="unbindStructureAcceptor"/>
+   <reference bind="bindComRelationAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" unbind="unbindComRelationAcceptor"/>
+   <reference bind="bindRuntimeEventAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" unbind="unbindRuntimeEventAcceptor"/>
+   <reference bind="bindStructureAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor" name="StructureAcceptor" unbind="unbindStructureAcceptor"/>
    <reference bind="bindTimeSegmentAcceptor" interface="com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService" name="TimeSegmentAcceptor" unbind="unbindTimeSegmentAcceptor"/>
+   <implementation class="com.elektrobit.ebrace.targetdata.impl.importer.json.JsonEventHandlerImpl"/>
 </scr:component>

@@ -12,9 +12,10 @@ package com.elektrobit.ebrace.core.datainput.factory;
 import java.io.IOException;
 
 import com.elektrobit.ebrace.core.datainput.api.DataStreamTokenizer;
+import com.elektrobit.ebrace.core.datainput.dlt.DltFileTokenizer;
+import com.elektrobit.ebrace.core.datainput.dlt.DltStreamTokenizer;
 import com.elektrobit.ebrace.core.datainput.service.DataStreamDescriptor;
 import com.elektrobit.ebrace.core.datainput.tokenizer.ByteArrayDelimiterTokenizer;
-import com.elektrobit.ebrace.core.datainput.tokenizer.DltStreamTokenizer;
 
 import lombok.extern.log4j.Log4j;
 
@@ -32,6 +33,8 @@ public class DataStreamTokenizerFactory
                         .getBytes() );
             case "dlt-stream-header" :
                 return new DltStreamTokenizer();
+            case "dlt-file-header" :
+                return new DltFileTokenizer();
             default : {
                 log.warn( "no tokenizer for the type " + tokenizerType + "available" );
                 return null;

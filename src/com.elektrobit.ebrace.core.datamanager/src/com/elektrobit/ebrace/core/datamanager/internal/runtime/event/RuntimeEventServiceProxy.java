@@ -34,6 +34,7 @@ import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeE
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventTag;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 
+import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
 import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
 
 @Component(immediate = true)
@@ -45,6 +46,7 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     private ChannelListenerNotifier channelListenerNotifier;
     private DataStorageAccess databaseAccess;
     private DatabaseHandler dbHandler;
+    private EventHookRegistry eventhookRegistry;
 
     public RuntimeEventServiceProxy()
     {
@@ -115,12 +117,24 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
         this.channelListenerNotifier = null;
     }
 
+    @Reference
+    public void bindEventHookRegistry(EventHookRegistry eventhookRegistry)
+    {
+        this.eventhookRegistry = eventhookRegistry;
+    }
+
+    public void unbindEventHookRegistry(EventHookRegistry eventhookRegistry)
+    {
+        this.eventhookRegistry = null;
+    }
+
     protected void activate(ComponentContext componentContext)
     {
         runtimeEventAcceptorImpl = new RuntimeEventAcceptorImpl( runtimeEventChannelManager,
                                                                  modelElementPool,
                                                                  new RuntimeEventNotifierImpl(),
-                                                                 channelListenerNotifier );
+                                                                 channelListenerNotifier,
+                                                                 eventhookRegistry );
     }
 
     @Override

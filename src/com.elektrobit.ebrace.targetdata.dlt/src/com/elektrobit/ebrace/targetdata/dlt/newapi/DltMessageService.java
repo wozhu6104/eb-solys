@@ -7,15 +7,16 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser;
+package com.elektrobit.ebrace.targetdata.dlt.newapi;
 
-import lombok.Data;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 
-@Data
-public class ProcCpuEntry
+public interface DltMessageService
 {
-    private final long timestamp;
-    private final String procName;
-    private final long cpuUsage;
+    String createEvent(byte[] message);
 
+    byte[] tokenizeNextMessageStreamHeader(BufferedInputStream stream) throws IOException;
+
+    byte[] tokenizeNextMessageFileHeader(BufferedInputStream stream) throws IOException;
 }

@@ -3,7 +3,7 @@
    <service>
       <provide interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ResetNotifier"/>
    </service>
-   <reference bind="bindClearChunkDataNotifier" cardinality="1..1" interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataNotifier" name="ClearChunkDataNotifier" policy="static" unbind="unbindClearChunkDataNotifier"/>
-   <reference bind="bindTargetAdapterCommunicatorControlService" cardinality="1..1" interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService" name="TargetAdapterCommunicatorControlService" policy="static" unbind="unbindTargetAdapterCommunicatorControlService"/>
+   <reference bind="bindClearChunkDataNotifier" interface="com.elektrobit.ebsolys.core.targetdata.api.reset.ClearChunkDataNotifier" name="ClearChunkDataNotifier" unbind="unbindClearChunkDataNotifier"/>
+   <reference bind="bindTargetAdapterCommunicatorControlService" interface="com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService" name="TargetAdapterCommunicatorControlService" unbind="unbindTargetAdapterCommunicatorControlService"/>
    <implementation class="com.elektrobit.ebrace.core.datamanager.reset.ResetNotifierImpl"/>
 </scr:component>

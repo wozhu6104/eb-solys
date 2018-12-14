@@ -13,7 +13,7 @@ import java.util.TimerTask;
 
 public interface UseCaseExecutorIF
 {
-    public void schedule(Runnable r);
+    public void schedule(UseCaseRunnable r);
 
     /**
      * Schedule TimerTask and execute it once after <i>delay</i> miliseconds. WARNING: Do not perform any long lasting

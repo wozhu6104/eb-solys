@@ -21,8 +21,8 @@ import org.mockito.Mockito;
 import com.elektrobit.ebrace.common.utils.HexStringHelper;
 import com.elektrobit.ebrace.targetdata.dlt.internal.BytesFromStreamReaderImpl;
 import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessage;
-import com.elektrobit.ebrace.targetdata.dlt.internal.DltStreamMessageServiceImpl;
 import com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator;
+import com.elektrobit.ebrace.targetdata.dlt.newapiimpl.DltMessageServiceImpl;
 
 public class DltNonVerboseMessageParserTest
 {
@@ -66,7 +66,7 @@ public class DltNonVerboseMessageParserTest
     {
         byte[] decimalsString = HexStringHelper.hexStringToByteArray( hexString );
         InputStream stream = new ByteArrayInputStream( decimalsString );
-        DltStreamMessageServiceImpl dltMessageParser = new DltStreamMessageServiceImpl( Mockito
+        DltMessageServiceImpl dltMessageParser = new DltMessageServiceImpl( Mockito
                 .mock( DltChannelFromLogInfoCreator.class ) );
         BytesFromStreamReaderImpl readerImpl = new BytesFromStreamReaderImpl( stream );
         return dltMessageParser.readNextMessage( readerImpl );

@@ -9,6 +9,6 @@ Require-Bundle: org.eclipse.osgi.services,
  com.plantuml.plantuml-jar-epl-8055;bundle-version="1.0.0",
  org.projectlombok.lombok,
  org.apache.log4j
-Service-Component: OSGI-INF/com.elektrobit.ebrace.core.plantumlrenderer.impl.PlantUmlRendererServiceImpl.xml
 Bundle-ActivationPolicy: lazy
 Export-Package: com.elektrobit.ebrace.core.plantumlrenderer.api
+Service-Component: OSGI-INF/com.elektrobit.ebrace.core.plantumlrenderer.impl.PlantUmlRendererServiceImpl.xml

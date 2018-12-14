@@ -13,11 +13,11 @@ import java.util.List;
 
 import com.elektrobit.ebrace.chronograph.api.TimestampProvider;
 import com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher;
+import com.elektrobit.ebrace.targetdata.dlt.api.Measurement;
+import com.elektrobit.ebrace.targetdata.dlt.api.ProcCpuEntry;
+import com.elektrobit.ebrace.targetdata.dlt.api.ProcMemEntry;
 import com.elektrobit.ebrace.targetdata.dlt.internal.dbusmsgtoprotomsg.DbusMsgToProtoMsg;
 import com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser.DltProcPayloadParser;
-import com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser.Measurement;
-import com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser.ProcCpuEntry;
-import com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser.ProcMemEntry;
 import com.elektrobit.ebrace.targetdata.dlt.internal.runtimeEventCreator.DltRuntimeEventCreator;
 import com.elektrobit.ebrace.targetdata.dlt.internal.runtimeEventCreator.DltRuntimeEventCreatorImpl;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;

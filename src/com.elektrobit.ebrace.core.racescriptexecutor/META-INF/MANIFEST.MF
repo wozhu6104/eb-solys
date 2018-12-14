@@ -37,6 +37,6 @@ Require-Bundle: com.elektrobit.ebrace.core.targetdata.api,
 Bundle-ActivationPolicy: lazy
 Eclipse-ExtensibleAPI: true
 Export-Package: com.elektrobit.ebrace.app.racescriptexecutor.impl.service
-Service-Component: OSGI-INF/com.elektrobit.ebrace.app.racescriptexecutor.impl.service.RaceScriptLoaderImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.app.racescriptexecutor.impl.service.ScriptExecutorServiceImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.app.racescriptexecutor.impl.service.ScriptMethodLoaderImpl.xml
+Service-Component: OSGI-INF/com.elektrobit.ebrace.app.racescriptexecutor.impl.service.ScriptExecutorServiceImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.app.racescriptexecutor.impl.service.ScriptMethodLoaderImpl.xml,
+ OSGI-INF/com.elektrobit.ebrace.app.racescriptexecutor.impl.service.RaceScriptLoaderImpl.xml
