@@ -29,6 +29,7 @@ public class LineChartDataFromDB implements LineChartData
     private List<Long> allTimeStamps;
     private final Map<RuntimeEventChannel<?>, List<Number>> seriesData = new HashMap<>();
     private double stackedMax = 0;
+    private double localMax = 0;
 
     public LineChartDataFromDB(List<List<ChartData>> allEvents, List<RuntimeEventChannel<?>> channels)
     {
@@ -51,9 +52,11 @@ public class LineChartDataFromDB implements LineChartData
         allTimeStamps = (new ArrayList<Long>( timeStamps )).stream().sorted().collect( Collectors.toList() );
 
         Double[] stackedValues = new Double[allTimeStamps.size()];
+        Double[] localMaxValues = new Double[allTimeStamps.size()];
         for (int i = 0; i < stackedValues.length; i++)
         {
             stackedValues[i] = 0.0;
+            localMaxValues[i] = 0.0;
         }
 
         int cIdx = 0;
@@ -73,6 +76,10 @@ public class LineChartDataFromDB implements LineChartData
                         series.add( evt.getValue() );
                         evtIdx += 1;
                         stackedValues[t] += (double)evt.getValue();
+                        if (localMaxValues[t] < (double)evt.getValue())
+                        {
+                            localMaxValues[t] = (double)evt.getValue();
+                        }
                     }
                     else
                     {
@@ -87,7 +94,11 @@ public class LineChartDataFromDB implements LineChartData
             seriesData.put( channels.get( cIdx++ ), series );
         }
 
-        stackedMax = Arrays.asList( stackedValues ).stream().mapToDouble( v -> v ).max().getAsDouble();
+        if (!allTimeStamps.isEmpty())
+        {
+            stackedMax = Arrays.asList( stackedValues ).stream().mapToDouble( v -> v ).max().getAsDouble();
+            localMax = Arrays.asList( localMaxValues ).stream().mapToDouble( v -> v ).max().getAsDouble();
+        }
     }
 
     @Override
@@ -106,7 +117,7 @@ public class LineChartDataFromDB implements LineChartData
     public double getMaxValue()
     {
         // TODO Auto-generated method stub
-        return stackedMax;
+        return localMax;
     }
 
     @Override
