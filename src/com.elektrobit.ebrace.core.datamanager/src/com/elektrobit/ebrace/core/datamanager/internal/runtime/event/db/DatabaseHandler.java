@@ -159,60 +159,86 @@ public class DatabaseHandler
         return -1;
     }
 
-    public LineChartData createLineChartDataOverview(List<RuntimeEventChannel<?>> channels, long startTimestamp,
-            long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
-    {
-
-        List<List<ChartData>> allEvents = new ArrayList<>();
-
-        for (RuntimeEventChannel<?> c : channels)
-        {
-            List<ChartData> events = access
-                    .getStatisticOverTime( "cpu",
-                                           getChannelId( c.getName() ),
-                                           (int)microToMilli( aggregationTime ),
-                                           Double.class )
-                    .stream().map( e -> new ChartData( e.getTimestamp(), e.getMaximum() ) )
-                    .collect( Collectors.toList() );
-
-            allEvents.add( events );
-        }
-
-        LineChartDataFromDB lineChartDataCreator = new LineChartDataFromDB( allEvents, channels );
-        lineChartDataCreator.build();
-
-        return lineChartDataCreator;
-    }
-
     private long microToMilli(long micro)
     {
         return micro / 1000;
     }
 
-    public LineChartData createLineChartDataZoom(List<RuntimeEventChannel<?>> channels, long startTimestamp,
+    public LineChartData createLineChartData(List<RuntimeEventChannel<?>> channels, long startTimestamp,
             long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
     {
-
         List<List<ChartData>> allEvents = new ArrayList<>();
 
-        for (RuntimeEventChannel<?> c : channels)
+        // Overview Chart
+        if (aggregationTime != null)
         {
-            List<ChartData> events = access
-                    .getAllEventsFromChannel( "cpu",
-                                              getChannelId( c.getName() ),
-                                              microToMilli( startTimestamp ),
-                                              microToMilli( endTimestamp ),
-                                              Double.class )
-                    .stream().map( e -> new ChartData( e.getTimestamp(), e.getValue() ) )
-                    .collect( Collectors.toList() );
+            for (RuntimeEventChannel<?> c : channels)
+            {
+                ChannelInfo cInfo = getChannelInfo( c.getName() );
+                List<ChartData> events = access
+                        .getStatisticOverTime( cInfo.storage,
+                                               getChannelId( c.getName() ),
+                                               (int)microToMilli( aggregationTime ),
+                                               cInfo._class )
+                        .stream().map( e -> new ChartData( e.getTimestamp(), (Number)e.getMaximum() ) )
+                        .collect( Collectors.toList() );
 
-            allEvents.add( events );
+                allEvents.add( events );
+            }
+        }
+        // Zoom Chart
+        else
+        {
+            for (RuntimeEventChannel<?> c : channels)
+            {
+                ChannelInfo cInfo = getChannelInfo( c.getName() );
+                List<ChartData> events = access
+                        .getAllEventsFromChannel( cInfo.storage,
+                                                  getChannelId( c.getName() ),
+                                                  microToMilli( startTimestamp ),
+                                                  microToMilli( endTimestamp ),
+                                                  cInfo._class )
+                        .stream().map( e -> new ChartData( e.getTimestamp(), (Number)e.getValue() ) )
+                        .collect( Collectors.toList() );
+
+                allEvents.add( events );
+            }
         }
 
         LineChartDataFromDB lineChartDataCreator = new LineChartDataFromDB( allEvents, channels );
         lineChartDataCreator.build();
 
         return lineChartDataCreator;
+    }
+
+    private ChannelInfo getChannelInfo(String channelName)
+    {
+        if (channelName.matches( ".*cpu\\..*" ))
+        {
+            return new ChannelInfo( "cpu", Double.class );
+        }
+        else if (channelName.matches( ".*mem\\..*" ))
+        {
+            return new ChannelInfo( "mem", Integer.class );
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+}
+
+class ChannelInfo
+{
+    public String storage;
+    public Class<?> _class;
+
+    public ChannelInfo(String storage, Class<?> _class)
+    {
+        super();
+        this.storage = storage;
+        this._class = _class;
     }
 
 }

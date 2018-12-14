@@ -75,10 +75,10 @@ public class LineChartDataFromDB implements LineChartData
                     {
                         series.add( evt.getValue() );
                         evtIdx += 1;
-                        stackedValues[t] += (double)evt.getValue();
-                        if (localMaxValues[t] < (double)evt.getValue())
+                        stackedValues[t] += evt.getValue().doubleValue();
+                        if (localMaxValues[t] < evt.getValue().doubleValue())
                         {
-                            localMaxValues[t] = (double)evt.getValue();
+                            localMaxValues[t] = evt.getValue().doubleValue();
                         }
                     }
                     else
