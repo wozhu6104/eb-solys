@@ -74,7 +74,6 @@ public class SQLiteAccessor implements DataStorageAccess {
 			if (f.exists()) {
 				f.delete();
 			}
-
 		}
 
 		if (!open(id)) {

@@ -5,7 +5,7 @@ class SQLHelper {
 
 	def static createTableForAnyEvents(String origin, int id, Object obj) {
 		'''
-			CREATE TABLE «origin»_«id»
+			CREATE TABLE «buildTableName(origin, id)»
 			(eId INTEGER PRIMARY KEY,
 			 eTimestamp INT8 NOT NULL,
 			 eValue «obj.toSQLType» NOT NULL)
@@ -56,6 +56,7 @@ class SQLHelper {
 		'''
 	}
 
+	//FIXME - To be adapted to new ER-structure
 	def static createAllEventsFromChannel(String storage, int channelId) {
 		'''
 		SELECT «storage».eId, «storage».eTimestamp, «storage».eValue, «storage».eChannelId 
@@ -65,14 +66,20 @@ class SQLHelper {
 		'''
 	}
 
-	def static createAllEventsFromChannel(String storage, int channelId, long from, long to) 
+	def static createAllEventsFromChannel(String origin, int channelId, long from, long to) 
 	{
+		val table = buildTableName(origin, channelId)
 		'''
-		SELECT «storage».eId, «storage».eTimestamp, «storage».eValue, «storage».eChannelId, channels.cName
-		FROM «storage», channels 
-		WHERE «storage».eChannelId = «channelId» «timestampFilter(storage, from, to)» AND «storage».eChannelId = channels.cId
-		ORDER BY «storage».eTimestamp
+		SELECT «table».eId, «table».eTimestamp, «table».eValue, channels.cId, channels.cName
+		FROM «table», channels 
+		WHERE channels.cId = «channelId» «timestampFilter(table, from, to)»
+		ORDER BY «table».eTimestamp
 		'''
+	}
+
+	private def static buildTableName(String origin, int channelId) 
+	{
+		origin + "_" + channelId;
 	}
 
 	def static createEventsAtTimestamp(String storage, long timestamp) 
@@ -96,12 +103,13 @@ class SQLHelper {
 		'''
 	}
 
-	def static createStatistics(String storage, int channelId, int interval) {
+	def static createStatistics(String origin, int channelId, int interval) {
+		val table = buildTableName(origin, channelId)
 		'''
-		SELECT MIN(«storage».eTimestamp) as t, AVG(«storage».eValue) as avg_v, MAX(«storage».eValue) as max_v, MIN(«storage».eValue) as min_v, «storage».eChannelId
-		from «storage»
-		where «storage».eChannelId=«channelId»
-		group by «storage».eTimestamp / «interval»
+		SELECT MIN(«table».eTimestamp) as t, AVG(«table».eValue) as avg_v, MAX(«table».eValue) as max_v, MIN(«table».eValue) as min_v, channels.cId
+		from «table», channels
+		where channels.cId=«channelId»
+		group by «table».eTimestamp / «interval»
 		'''
 	}
 	
