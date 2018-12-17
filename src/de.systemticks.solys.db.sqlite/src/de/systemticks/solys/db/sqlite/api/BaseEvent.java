@@ -4,8 +4,9 @@ public class BaseEvent<T> {
 
 	long timestamp;
 	int eventId;
-	String channelName;
+	String origin;
 	int channelId;
+	String channelname;
 	T value;
 	
 	public long getTimestamp() {
@@ -20,11 +21,11 @@ public class BaseEvent<T> {
 	public void setEventId(int eventId) {
 		this.eventId = eventId;
 	}
-	public String getChannelName() {
-		return channelName;
+	public String getOrigin() {
+		return origin;
 	}
-	public void setChannelName(String channelName) {
-		this.channelName = channelName;
+	public void setOrigin(String origin) {
+		this.origin = origin;
 	}
 	public int getChannelId() {
 		return channelId;
@@ -37,6 +38,12 @@ public class BaseEvent<T> {
 	}
 	public void setValue(T value) {
 		this.value = value;
+	}
+	public String getChannelname() {
+		return channelname;
+	}
+	public void setChannelname(String channelname) {
+		this.channelname = channelname;
 	}
 	
 	

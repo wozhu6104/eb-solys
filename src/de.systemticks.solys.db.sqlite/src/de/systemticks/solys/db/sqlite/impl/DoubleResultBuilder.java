@@ -44,11 +44,11 @@ public class DoubleResultBuilder implements TypedResultBuilder<Double>
             event.setChannelId( rs.getInt( 4 ) );
             if(withChannel) 
             {
-            	event.setChannelName( rs.getString(5));
+            	event.setOrigin( rs.getString(5));
             }
             else 
             {
-                event.setChannelName( "" );            	
+                event.setOrigin( "" );            	
             }
 
         }

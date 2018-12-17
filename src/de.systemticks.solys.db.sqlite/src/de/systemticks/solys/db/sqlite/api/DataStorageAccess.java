@@ -13,14 +13,7 @@ public interface DataStorageAccess {
 	
 	public boolean commit();
 	
-	/**
-	 * Import a list of base events. Bulk imports are preferred due to performance reasons
-	 * @param storage Defines the storage. Currently supported values are "cpu" and "mem"
-	 * @param events The list of events to be stored
-	 * @param class1 Defines the type of the value, the BaseEvent is carrying. Supported is Double and Integer
-	 * @return
-	 */
-	public <T> boolean bulkImportBaseEvents(String storage, List<BaseEvent<T>> events, Class<T> class1);
+	public boolean bulkImportAnyBaseEvents(List<BaseEvent<?>> events);
 
 	public <T> List<BaseEvent<T>> getEventsAtTimestamp(String storage, long timestamp, Class<T> class1);
 

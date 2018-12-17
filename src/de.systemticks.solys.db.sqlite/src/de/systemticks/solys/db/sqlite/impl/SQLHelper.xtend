@@ -2,41 +2,37 @@ package de.systemticks.solys.db.sqlite.impl
 
 class SQLHelper {
 
-//        CREATE TABLE «desc.storage»
-//        («FOR f: desc.mapping SEPARATOR ","»
-//         «f.name» «f.toDBType» «f.toNotNull»
-//        «ENDFOR»);
-	
-	
-	def static createTableForIntEvents(String name) {
+
+	def static createTableForAnyEvents(String origin, int id, Object obj) {
 		'''
-			CREATE TABLE «name»
+			CREATE TABLE «origin»_«id»
 			(eId INTEGER PRIMARY KEY,
 			 eTimestamp INT8 NOT NULL,
-			 eValue INT NOT NULL,
-			 eChannelId INT NOT NULL)
+			 eValue «obj.toSQLType» NOT NULL)
 		'''
 	}
 
+	private def static toSQLType(Object o)
+	{
+		switch o.class.simpleName {
+			case 'Double' : 'REAL'
+			case 'Integer' : 'INT'
+			case 'String' : 'TEXT'
+			default : 'ERROR'
+		}
+	}
+	
 	def static dropTable(String name) {
 		'DROP TABLE IF EXISTS '+name
-	}
-
-	def static createTableForDoubleEvents(String name) {
-		'''
-			CREATE TABLE «name»
-			(eId INTEGER PRIMARY KEY,
-			 eTimestamp INT8 NOT NULL,
-			 eValue REAL NOT NULL,
-			 eChannelId INT NOT NULL)
-		'''
 	}
 	
 	def static createTableForChannelMapping(String name) {
 		'''
 			CREATE TABLE «name»
 			(cId INTEGER PRIMARY KEY,
-			 cName TEXT NOT NULL)
+			 cName TEXT NOT NULL,
+			 cNature TEXT NOT NULL,
+			 cType INT2 NOT NULL)
 		'''		
 	}
 	
@@ -46,11 +42,19 @@ class SQLHelper {
 		'''
 	}
 
-//	def static createPreparedStmt(EventDescriptor desc) {
-//		'''
-//		INSERT INTO «desc.storage» («FOR f:desc.mapping SEPARATOR ','»«f.name»«ENDFOR») values («FOR f: desc.mapping SEPARATOR","»?«ENDFOR»);
-//		'''.toString
-//	}
+	def static insertValueIntoEventTable(String table)
+	{
+		'''
+		INSERT INTO «table» (eId, eTimestamp, eValue) values (?, ?, ?)
+		'''
+	}
+
+	def static insertIntoChannelMappingTable(int id, String name, String nature, String type)
+	{
+		'''
+		INSERT INTO channels (cId, cName, cNature, cType) values («id», '«name»', '«nature»', '«type»')
+		'''
+	}
 
 	def static createAllEventsFromChannel(String storage, int channelId) {
 		'''
@@ -113,7 +117,7 @@ class SQLHelper {
 	
 	def static createAllChannels() {
 		'''
-		SELECT channels.cId, channels.cName FROM channels ORDER BY channels.cName
+		SELECT channels.cId, channels.cName, channels.cNature, channels.cType FROM channels ORDER BY channels.cName
 		'''
 	}
 	

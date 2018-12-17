@@ -31,12 +31,14 @@ public class DatabaseHandler
     private final Map<String, String> channels = new HashMap<>();
     private int globalEventId;
     private final boolean fileMode;
-    private final List<BaseEvent<Double>> cpuEvents = new ArrayList<>();
-    private final List<BaseEvent<Integer>> memEvents = new ArrayList<>();
+    // private final List<BaseEvent<Double>> cpuEvents = new ArrayList<>();
+    // private final List<BaseEvent<Integer>> memEvents = new ArrayList<>();
+    private final List<BaseEvent<?>> anyEvents = new ArrayList<>();
     private List<Channel> channelsFromDb;
     private final static int BULK_IMPORT_SIZE = 1000;
     // private final static String DB_NAME = "runtimeevent.db";
     private final static String DB_NAME = ":memory:";
+    // private final static String DB_NAME = "multitable.db";
 
     public DatabaseHandler(DataStorageAccess access)
     {
@@ -52,15 +54,10 @@ public class DatabaseHandler
 
     public void commit()
     {
-        if (cpuEvents.size() > 0)
+        if (anyEvents.size() > 0)
         {
-            access.bulkImportBaseEvents( "cpu", cpuEvents, Double.class );
-            cpuEvents.clear();
-        }
-        if (memEvents.size() > 0)
-        {
-            access.bulkImportBaseEvents( "mem", memEvents, Integer.class );
-            memEvents.clear();
+            access.bulkImportAnyBaseEvents( anyEvents );
+            anyEvents.clear();
         }
         access.commit();
         if (channelsFromDb == null || channelsFromDb.size() == 0)
@@ -94,23 +91,23 @@ public class DatabaseHandler
                 globalEventId++;
                 if (cName.startsWith( "cpu" ))
                 {
-                    cpuEvents.add( createCpuEvent( cName, (Double)value, globalEventId, timestamp ) );
-                    if (cpuEvents.size() == BULK_IMPORT_SIZE)
+                    anyEvents.add( createCpuEvent( cName, (Double)value, globalEventId, timestamp ) );
+                    if (anyEvents.size() == BULK_IMPORT_SIZE)
                     {
                         long t1 = System.currentTimeMillis();
-                        access.bulkImportBaseEvents( "cpu", cpuEvents, Double.class );
+                        access.bulkImportAnyBaseEvents( anyEvents );
                         long t2 = System.currentTimeMillis();
                         System.out.println( "Bulk import : " + (t2 - t1) + " msec" );
-                        cpuEvents.clear();
+                        anyEvents.clear();
                     }
                 }
                 else if (cName.startsWith( "mem" ))
                 {
-                    memEvents.add( createMemoryEvent( cName, ((Long)value).intValue(), globalEventId, timestamp ) );
-                    if (memEvents.size() == BULK_IMPORT_SIZE)
+                    anyEvents.add( createMemoryEvent( cName, ((Long)value).intValue(), globalEventId, timestamp ) );
+                    if (anyEvents.size() == BULK_IMPORT_SIZE)
                     {
-                        access.bulkImportBaseEvents( "mem", memEvents, Integer.class );
-                        memEvents.clear();
+                        access.bulkImportAnyBaseEvents( anyEvents );
+                        anyEvents.clear();
                     }
                 }
                 else
@@ -121,26 +118,28 @@ public class DatabaseHandler
         }
     }
 
-    private BaseEvent<Double> createCpuEvent(String cName, double cpu, int eventId, long timestamp)
+    private BaseEvent<Double> createCpuEvent(String channelName, double cpu, int eventId, long timestamp)
     {
 
         BaseEvent<Double> event = new BaseEvent<>();
-        event.setChannelName( cName );
+        event.setChannelname( channelName );
         event.setValue( cpu );
         event.setEventId( eventId );
         event.setTimestamp( timestamp );
+        event.setOrigin( "cpu" );
 
         return event;
     }
 
-    private BaseEvent<Integer> createMemoryEvent(String cName, int mem, int eventId, long timestamp)
+    private BaseEvent<Integer> createMemoryEvent(String channelName, int mem, int eventId, long timestamp)
     {
 
         BaseEvent<Integer> event = new BaseEvent<>();
-        event.setChannelName( cName );
+        event.setChannelname( channelName );
         event.setValue( mem );
         event.setEventId( eventId );
         event.setTimestamp( timestamp );
+        event.setOrigin( "mem" );
 
         return event;
     }

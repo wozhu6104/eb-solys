@@ -1,5 +1,6 @@
 package de.systemticks.solys.db.sqlite.impl;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,314 +19,266 @@ import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
 import de.systemticks.solys.db.sqlite.api.StatsItem;
 
 @Component
-public class SQLiteAccessor implements DataStorageAccess
-{
+public class SQLiteAccessor implements DataStorageAccess {
 
-    private Connection connection;
-    HashMap<String, Integer> channelMap = new HashMap<>();
-    private int channelId = 1;
+	private Connection connection;
+	HashMap<String, Integer> channelMap = new HashMap<>();
+	private int channelId = 1;
 
-    private boolean open(String name)
-    {
-        try
-        {
-            Class.forName( "org.sqlite.JDBC" );
-            connection = DriverManager.getConnection( "jdbc:sqlite:" + name );
-            connection.setAutoCommit( false );
-            return true;
-        }
-        catch (ClassNotFoundException | SQLException e)
-        {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
-
-    private boolean close()
-    {
-        try
-        {
-            connection.commit();
-            connection.close();
-            return true;
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    private boolean executeSingleStatement(CharSequence sqlStmt)
-    {
-
-        System.out.println( "Executing SQL: " + sqlStmt );
-
-        Statement stmt;
-        try
-        {
-            stmt = connection.createStatement();
-            stmt.executeUpdate( sqlStmt.toString() );
-            stmt.close();
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean openReadAndWrite(String id)
-    {
-
-        if (!open( id ))
-        {
-            return false;
-        }
-
-        executeSingleStatement( SQLHelper.dropTable( "cpu" ) );
-        executeSingleStatement( SQLHelper.createTableForDoubleEvents( "cpu" ) );
-        // executeSingleStatement( SQLHelper.createIndex( "cpu", "eId" ) );
-        executeSingleStatement( SQLHelper.createIndex( "cpu", "eChannelId", "eValue" ) );
-
-        executeSingleStatement( SQLHelper.dropTable( "mem" ) );
-        executeSingleStatement( SQLHelper.createTableForIntEvents( "mem" ) );
-        // executeSingleStatement( SQLHelper.createIndex( "mem", "eId" ) );
-        executeSingleStatement( SQLHelper.createIndex( "mem", "eChannelId", "eValue" ) );
-
-        executeSingleStatement( SQLHelper.dropTable( "channels" ) );
-        executeSingleStatement( SQLHelper.createTableForChannelMapping( "channels" ) );
-        // executeSingleStatement( SQLHelper.createIndex( "channels", "cId" ) );
-
-        return true;
-    }
-
-    @Override
-    public boolean shutDown()
-    {
-        return close();
-    }
-
-    @Override
-    public <T> boolean bulkImportBaseEvents(String storage, List<BaseEvent<T>> events, Class<T> class1)
-    {
-
-        try
-        {
-            String stmt = "INSERT INTO " + storage + " (eId, eTimestamp, eValue, eChannelId) values " + "(?, ?, ?, ?)";
-
-            PreparedStatement ps = connection.prepareStatement( stmt );
-
-            for (BaseEvent<T> e : events)
-            {
-
-                int cId = handleChannelName( e.getChannelName() );
-                ps.setInt( 1, e.getEventId() );
-                ps.setLong( 2, e.getTimestamp() );
-                // FIXME - No good implementation
-                if (class1.getName().equals( "java.lang.Double" ))
-                {
-                    ps.setDouble( 3, (Double)class1.cast( e.getValue() ) );
-                }
-                else if (class1.getName().equals( "java.lang.Integer" ))
-                {
-                    ps.setInt( 3, (Integer)class1.cast( e.getValue() ) );
-                }
-                ps.setInt( 4, cId );
-                ps.addBatch();
-            }
-
-            ps.executeBatch();
-            ps.close();
-
-        }
-        catch (SQLException e1)
-        {
-            e1.printStackTrace();
-            return false;
-        }
-
-        return true;
-    }
-
-    private int handleChannelName(String channelName)
-    {
-
-        if (!channelMap.containsKey( channelName ))
-        {
-            channelId += 1;
-            channelMap.put( channelName, channelId );
-            executeSingleStatement( "INSERT INTO channels (cId, cName) values (" + channelId + ", '" + channelName
-                    + "')" );
-        }
-
-        return channelMap.get( channelName );
-
-    }
-
-    @Override
-    public boolean commit()
-    {
-        try
-        {
-            connection.commit();
-            return true;
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
-    public <T> List<BaseEvent<T>> getMaxEventsFromAllChannels(String storage, Class<T> class1)
-    {
-        return createBaseEventsFromQuery( SQLHelper.createMaxFromAllChannels( storage ),
-                                          TypeResultBuilderFactory.create( class1 ) );
-    }
-
-    @Override
-    public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int cId, Class<T> class1)
-    {
-        return createBaseEventsFromQuery( SQLHelper.createAllEventsFromChannel( storage, cId ),
-                                          TypeResultBuilderFactory.create( class1 ) );
-    }
-
-	@Override
-	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, 
-			long fromTimestamp, long toTimestamp, Class<T> class1) {
-
-		return createBaseEventsFromQuery( SQLHelper.createAllEventsFromChannel(storage, channeldId, fromTimestamp, toTimestamp), 
-                TypeResultBuilderFactory.create( class1 ) );
+	private boolean open(String name) {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			connection = DriverManager.getConnection("jdbc:sqlite:" + name);
+			connection.setAutoCommit(false);
+			return true;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 
 	}
-    
+
+	private boolean close() {
+		try {
+			connection.commit();
+			connection.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	private boolean executeSingleStatement(CharSequence sqlStmt) {
+
+		System.out.println("Executing SQL: " + sqlStmt);
+
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			stmt.executeUpdate(sqlStmt.toString());
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean openReadAndWrite(String id) {
+
+		if (!id.equals(":memory:")) {
+			File f = new File(id);
+			if (f.exists()) {
+				f.delete();
+			}
+
+		}
+
+		if (!open(id)) {
+			return false;
+		}
+
+		executeSingleStatement(SQLHelper.createTableForChannelMapping("channels"));
+
+		return true;
+	}
+
+	@Override
+	public boolean shutDown() {
+		return close();
+	}
+
+	@Override
+	public boolean bulkImportAnyBaseEvents(List<BaseEvent<?>> events) {
+
+		for (BaseEvent<?> e : events) {
+
+			int cId = handleChannelName(e);
+
+			String stmt = SQLHelper.insertValueIntoEventTable(e.getOrigin() + "_" + cId).toString();
+			PreparedStatement ps;
+			try {
+				ps = connection.prepareStatement(stmt);
+				ps.setInt(1, e.getEventId());
+				ps.setLong(2, e.getTimestamp());
+				if (e.getValue() instanceof Double) {
+					ps.setDouble(3, (double) e.getValue());
+					ps.executeUpdate();
+					ps.close();
+				} else if (e.getValue() instanceof Integer) {
+					ps.setInt(3, (int) e.getValue());
+					ps.executeUpdate();
+					ps.close();
+				} else {
+					// drop it
+				}
+
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+		return false;
+	}
+
+	private int handleChannelName(BaseEvent<?> e) {
+		if (!channelMap.containsKey(e.getChannelname())) {
+			channelId += 1;
+			channelMap.put(e.getChannelname(), channelId);
+
+			// NEW Channel - create a new table and a new entry the channel mapping table
+			executeSingleStatement(SQLHelper.createTableForAnyEvents(e.getOrigin(), channelId,
+					e.getValue()));
+
+			executeSingleStatement(SQLHelper.insertIntoChannelMappingTable(channelId, e.getChannelname(), e.getOrigin(),
+					e.getValue().getClass().getSimpleName()));
+		}
+
+		return channelMap.get(e.getChannelname());
+	}
+
+	@Override
+	public boolean commit() {
+		try {
+			connection.commit();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public <T> List<BaseEvent<T>> getMaxEventsFromAllChannels(String storage, Class<T> class1) {
+		return createBaseEventsFromQuery(SQLHelper.createMaxFromAllChannels(storage),
+				TypeResultBuilderFactory.create(class1));
+	}
+
+	@Override
+	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int cId, Class<T> class1) {
+		return createBaseEventsFromQuery(SQLHelper.createAllEventsFromChannel(storage, cId),
+				TypeResultBuilderFactory.create(class1));
+	}
+
+	@Override
+	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, long fromTimestamp,
+			long toTimestamp, Class<T> class1) {
+
+		return createBaseEventsFromQuery(
+				SQLHelper.createAllEventsFromChannel(storage, channeldId, fromTimestamp, toTimestamp),
+				TypeResultBuilderFactory.create(class1));
+
+	}
+
 	@Override
 	public <T> List<BaseEvent<T>> getEventsAtTimestamp(String storage, long timestamp, Class<T> class1) {
-		return createBaseEventsFromQuery(SQLHelper.createEventsAtTimestamp(storage, timestamp), 
-				TypeResultBuilderFactory.create( class1 ));
-	}	
-    
-    private <T> List<BaseEvent<T>> createBaseEventsFromQuery(CharSequence query, TypedResultBuilder<T> builder)
-    {
+		return createBaseEventsFromQuery(SQLHelper.createEventsAtTimestamp(storage, timestamp),
+				TypeResultBuilderFactory.create(class1));
+	}
 
-        List<BaseEvent<T>> result = new ArrayList<>();
+	private <T> List<BaseEvent<T>> createBaseEventsFromQuery(CharSequence query, TypedResultBuilder<T> builder) {
 
-        System.out.println( query );
+		List<BaseEvent<T>> result = new ArrayList<>();
 
-        if (builder == null)
-        {
-            return result;
-        }
+		System.out.println(query);
 
-        Statement stmt;
-        try
-        {
-            stmt = connection.createStatement();
-            stmt.setFetchSize( 100 );
+		if (builder == null) {
+			return result;
+		}
 
-            ResultSet rs = stmt.executeQuery( query.toString() );
-            boolean withChannel = (rs.getMetaData().getColumnCount() == 5)?true:false;
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			stmt.setFetchSize(100);
 
-            while (rs.next())
-            {
-                result.add( builder.createBaseEvent( rs, withChannel ) );
-            }
+			ResultSet rs = stmt.executeQuery(query.toString());
+			boolean withChannel = (rs.getMetaData().getColumnCount() == 5) ? true : false;
 
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+			while (rs.next()) {
+				result.add(builder.createBaseEvent(rs, withChannel));
+			}
 
-        return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-    }
+		return result;
 
-    @Override
-    public boolean openReadOnly(String id)
-    {
-        return open( id );
-    }
+	}
 
-    @Override
-    public <T> List<StatsItem<T>> getStatisticOverTime(String storage, int cId, int interval, Class<T> class1)
-    {
+	@Override
+	public boolean openReadOnly(String id) {
+		return open(id);
+	}
 
-        List<StatsItem<T>> result = new ArrayList<>();
+	@Override
+	public <T> List<StatsItem<T>> getStatisticOverTime(String storage, int cId, int interval, Class<T> class1) {
 
-        TypedResultBuilder<T> builder = TypeResultBuilderFactory.create( class1 );
+		List<StatsItem<T>> result = new ArrayList<>();
 
-        if (builder == null)
-        {
-            return result;
-        }
+		TypedResultBuilder<T> builder = TypeResultBuilderFactory.create(class1);
 
-        String query = SQLHelper.createStatistics( storage, cId, interval ).toString();
+		if (builder == null) {
+			return result;
+		}
 
-        System.out.println( query );
+		String query = SQLHelper.createStatistics(storage, cId, interval).toString();
 
-        Statement stmt;
-        try
-        {
-            stmt = connection.createStatement();
-            stmt.setFetchSize( 100 );
+		System.out.println(query);
 
-            ResultSet rs = stmt.executeQuery( query );
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			stmt.setFetchSize(100);
 
-            while (rs.next())
-            {
-                result.add( builder.createStatsItem( rs ) );
-            }
+			ResultSet rs = stmt.executeQuery(query);
 
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+			while (rs.next()) {
+				result.add(builder.createStatsItem(rs));
+			}
 
-        return result;
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-    @Override
-    public List<Channel> getAllChannels()
-    {
+		return result;
+	}
 
-        List<Channel> result = new ArrayList<>();
+	@Override
+	public List<Channel> getAllChannels() {
 
-        String query = SQLHelper.createAllChannels().toString();
+		List<Channel> result = new ArrayList<>();
 
-        System.out.println( query );
+		String query = SQLHelper.createAllChannels().toString();
 
-        Statement stmt;
-        try
-        {
-            stmt = connection.createStatement();
-            stmt.setFetchSize( 100 );
+		System.out.println(query);
 
-            ResultSet rs = stmt.executeQuery( query );
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			stmt.setFetchSize(100);
 
-            while (rs.next())
-            {
-                Channel c = new Channel();
-                c.setId( rs.getInt( 1 ) );
-                c.setName( rs.getString( 2 ) );
-                result.add( c );
-            }
+			ResultSet rs = stmt.executeQuery(query);
 
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+			while (rs.next()) {
+				Channel c = new Channel();
+				c.setId(rs.getInt(1));
+				c.setName(rs.getString(2));
+				c.setNature(rs.getString(3));
+				c.setType(rs.getString(4));
+				result.add(c);
+			}
 
-        return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-    }
+		return result;
+
+	}
 
 }
