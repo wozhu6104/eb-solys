@@ -68,7 +68,12 @@ public class DatabaseHandler
 
     public void release()
     {
+        long t1 = System.currentTimeMillis();
+        access.backup( "backup.db" );
         access.shutDown();
+        long t2 = System.currentTimeMillis();
+        System.out.println( "Backup in-memory DB into file : " + (t2 - t1) + " msec" );
+
     }
 
     public <T> void manageDataSources(DataSourceContext context, String name, Unit<T> unit)
@@ -92,27 +97,23 @@ public class DatabaseHandler
                 if (cName.startsWith( "cpu" ))
                 {
                     anyEvents.add( createCpuEvent( cName, (Double)value, globalEventId, timestamp ) );
-                    if (anyEvents.size() == BULK_IMPORT_SIZE)
-                    {
-                        long t1 = System.currentTimeMillis();
-                        access.bulkImportAnyBaseEvents( anyEvents );
-                        long t2 = System.currentTimeMillis();
-                        System.out.println( "Bulk import : " + (t2 - t1) + " msec" );
-                        anyEvents.clear();
-                    }
                 }
                 else if (cName.startsWith( "mem" ))
                 {
                     anyEvents.add( createMemoryEvent( cName, ((Long)value).intValue(), globalEventId, timestamp ) );
-                    if (anyEvents.size() == BULK_IMPORT_SIZE)
-                    {
-                        access.bulkImportAnyBaseEvents( anyEvents );
-                        anyEvents.clear();
-                    }
                 }
                 else
                 {
                     // Ignore event. Not written into DB
+                }
+
+                if (anyEvents.size() == BULK_IMPORT_SIZE)
+                {
+                    long t1 = System.currentTimeMillis();
+                    access.bulkImportAnyBaseEvents( anyEvents );
+                    long t2 = System.currentTimeMillis();
+                    System.out.println( "Bulk import : " + (t2 - t1) + " msec" );
+                    anyEvents.clear();
                 }
             }
         }

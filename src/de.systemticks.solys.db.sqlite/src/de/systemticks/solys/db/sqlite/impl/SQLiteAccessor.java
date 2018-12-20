@@ -90,46 +90,76 @@ public class SQLiteAccessor implements DataStorageAccess {
 		return close();
 	}
 
+//	@Override
+//	public boolean bulkImportAnyBaseEvents(List<BaseEvent<?>> events) {
+//
+//		for (BaseEvent<?> e : events) {
+//
+//			int cId = handleChannelName(e);
+//
+//			String stmt = SQLHelper.insertValueIntoEventTable(e.getOrigin() + "_" + cId).toString();
+//			PreparedStatement ps;
+//			try {
+//				ps = connection.prepareStatement(stmt);
+//				ps.setInt(1, e.getEventId());
+//				ps.setLong(2, e.getTimestamp());
+//				if (e.getValue() instanceof Double) {
+//					ps.setDouble(3, (double) e.getValue());
+//					ps.executeUpdate();
+//					ps.close();
+//				} else if (e.getValue() instanceof Integer) {
+//					ps.setInt(3, (int) e.getValue());
+//					ps.executeUpdate();
+//					ps.close();
+//				} else {
+//					// drop it
+//				}
+//
+//			} catch (SQLException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//				return false;
+//			}
+//		}
+//
+//		return true;
+//	}
+
 	@Override
 	public boolean bulkImportAnyBaseEvents(List<BaseEvent<?>> events) {
-
-		for (BaseEvent<?> e : events) {
-
-			int cId = handleChannelName(e);
-
-			String stmt = SQLHelper.insertValueIntoEventTable(e.getOrigin() + "_" + cId).toString();
-			PreparedStatement ps;
-			try {
-				ps = connection.prepareStatement(stmt);
-				ps.setInt(1, e.getEventId());
-				ps.setLong(2, e.getTimestamp());
-				if (e.getValue() instanceof Double) {
-					ps.setDouble(3, (double) e.getValue());
-					ps.executeUpdate();
-					ps.close();
-				} else if (e.getValue() instanceof Integer) {
-					ps.setInt(3, (int) e.getValue());
-					ps.executeUpdate();
-					ps.close();
-				} else {
-					// drop it
-				}
-
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+		
+		try {
+			Statement stmt = connection.createStatement();
+			
+			for (BaseEvent<?> e : events) {			
+				int cId = handleChannelName(e);				
+				stmt.addBatch(SQLHelper.insertValueIntoEventTableUnprepared(
+						e.getOrigin() + "_" + cId, e.getEventId(), e.getTimestamp(), e.getValue()).toString());				
 			}
+			
+			stmt.executeBatch();
+			stmt.close();
+									
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
+		
 		return false;
 	}
 
+	
 	private int handleChannelName(BaseEvent<?> e) {
 		if (!channelMap.containsKey(e.getChannelname())) {
+
+			// Event with a new channel arrived
+			// Need to create a new ChannelId
+			// Create a new table, that carries events for this channel
+			// Update the Channel Mapping Table
+
 			channelId += 1;
 			channelMap.put(e.getChannelname(), channelId);
 
-			// NEW Channel - create a new table and a new entry the channel mapping table
 			executeSingleStatement(SQLHelper.createTableForAnyEvents(e.getOrigin(), channelId,
 					e.getValue()));
 
@@ -151,6 +181,22 @@ public class SQLiteAccessor implements DataStorageAccess {
 		return false;
 	}
 
+	@Override
+	public boolean backup(String filename) {
+		
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate("backup to "+filename);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
 	@Override
 	public <T> List<BaseEvent<T>> getMaxEventsFromAllChannels(String storage, Class<T> class1) {
 		return createBaseEventsFromQuery(SQLHelper.createMaxFromAllChannels(storage),
@@ -279,5 +325,6 @@ public class SQLiteAccessor implements DataStorageAccess {
 		return result;
 
 	}
+
 
 }

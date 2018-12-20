@@ -26,4 +26,6 @@ public interface DataStorageAccess {
 	public <T> List<StatsItem<T>> getStatisticOverTime(String storage, int channeldId, int interval, Class<T> class1);
 	
 	public List<Channel> getAllChannels();
+	
+	public boolean backup(String filename);
 }
