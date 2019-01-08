@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="EB solys" sequenceNumber="1544349884">
+<target name="EB solys" sequenceNumber="1546964435">
   <locations>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.equinox.executable.feature.group" version="3.6.300.v20161122-1740"/>
@@ -96,7 +96,7 @@
       <repository location="http://download.eclipse.org/tools/cdt/releases/9.2"/>
     </location>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.linuxtools.dataviewers.feature.feature.group" version="7.0.2.201809272014"/>
+      <unit id="org.eclipse.linuxtools.dataviewers.feature.feature.group" version="7.1.0.201812121718"/>
       <unit id="org.swtchart" version="0.10.0.v201605200358"/>
       <repository location="https://ftp.fau.de/eclipse/linuxtools/update/"/>
     </location>
