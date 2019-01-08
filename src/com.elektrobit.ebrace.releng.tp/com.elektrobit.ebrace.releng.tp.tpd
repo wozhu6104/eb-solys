@@ -95,7 +95,7 @@ location "http://download.eclipse.org/tools/cdt/releases/9.2" {
 
 }
 location "https://ftp.fau.de/eclipse/linuxtools/update/" {
-	org.eclipse.linuxtools.dataviewers.feature.feature.group
+	org.eclipse.linuxtools.dataviewers.feature.feature.group [7.1.0,7.2.0)
 	org.swtchart
 }
 //Tracecompass END
