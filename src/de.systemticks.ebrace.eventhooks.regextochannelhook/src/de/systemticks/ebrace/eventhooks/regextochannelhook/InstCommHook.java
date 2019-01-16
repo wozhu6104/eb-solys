@@ -16,9 +16,12 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventEdge;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
 import de.systemticks.ebrace.eventhooks.regextochannelhook.api.RegExToChannelEventHook;
@@ -30,9 +33,10 @@ public class InstCommHook implements RegExToChannelEventHook
     // private final String expression = "CPU usage in interval : (?<cpu>\\d+.\\d+)% iowait: (?<iowait>\\d+)% cpu since
     // boot : (?<cpuboot>\\d+.\\d+)% Total thread cpu load : (?<cputhread>\\d+.\\d+)%";
     // private final String expression = "(?<source>.*)->(?<dest>.*)\\|(?<type>[REQ|RES])\\|(?<payload>.*)";
-    private final String expression = "(?<source>[\\w|\\d|\\.]+)->(?<dest>[\\w|\\d|\\.]+)|.*";
+    private final String expression = "(?<source>([A-Za-z]|[0-9]|[\\.])+)->(?<dest>([A-Za-z]|[0-9]|[\\.])+)\\|(?<type>(REQ|RES)+)\\|(?<payload>.*)";
     private final Pattern pattern;
     private Matcher matcher;
+    private final JsonParser parser = new JsonParser();
 
     public InstCommHook()
     {
@@ -60,21 +64,40 @@ public class InstCommHook implements RegExToChannelEventHook
             String summaryString = oldEvent.getValue().getDetails().getAsJsonObject().get( "payload" ).getAsJsonObject()
                     .get( "0" ).toString();
             summaryString = summaryString.substring( 1, summaryString.length() - 7 );
+            if (summaryString.endsWith( "\\n" ))
+            {
+                summaryString = summaryString.substring( 0, summaryString.length() - 2 );
+            }
+
             matcher = pattern.matcher( summaryString );
             if (matcher.find())
             {
                 System.out.println( matcher.group( "source" ) );
                 System.out.println( matcher.group( "dest" ) );
-                // System.out.println( matcher.group( "type" ) );
-                // System.out.println( matcher.group( "payload" ) );
-                // JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                // "system.cpu.last",
-                // new JsonEventValue( Double.parseDouble( matcher.group( "cpu" ) ),
-                // null ),
-                // null,
-                // null );
-                // newEvent.setChannelDescription( "System cpu usage in percentage of last interval. Min 0, max 100." );
-                // jsonEventHandler.handle( newEvent );
+                System.out.println( matcher.group( "type" ) );
+                String payload = matcher.group( "payload" );
+                System.out.println( payload.trim() );
+
+                String rawType = matcher.group( "type" );
+                String type = "request";
+                String summary = "->";
+                if (rawType.equals( "RES" ))
+                {
+                    type = "response";
+                    summary = "<-";
+                }
+
+                summary += " " + payload.replaceAll( "\"", "" );
+
+                JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
+                                                    "com.someip",
+                                                    new JsonEventValue( summary, null ),
+                                                    null,
+                                                    new JsonEventEdge( matcher.group( "source" ),
+                                                                       matcher.group( "dest" ),
+                                                                       type ) );
+
+                jsonEventHandler.handle( newEvent );
 
             }
 

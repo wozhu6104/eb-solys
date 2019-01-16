@@ -10,6 +10,7 @@
 package test.de.systemticks.ebrace.eventhooks.regextochannelhook;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +22,7 @@ public class InstCommHookRegexTest
     @Test
     public void testName() throws Exception
     {
-        String expr = "(?<source>[0-9|a-z|A-Z|\\.]+)->(?<dest>[0-9|a-z|A-Z|\\.]+)\\|.*";
+        String expr = "(?<source>([A-Za-z]|[0-9]|[\\.])+)->(?<dest>([A-Za-z]|[0-9]|[\\.])+)\\|(?<type>(REQ|RES)+)\\|(?<payload>.*)";
         String example = "APP1.MOD1->APP2.MOD2|REQ|{\"method\":\"setSpeed\",\"speed\":100}";
 
         Pattern pattern = Pattern.compile( expr );
@@ -30,6 +31,19 @@ public class InstCommHookRegexTest
 
         assertEquals( "APP1.MOD1", matcher.group( "source" ) );
         assertEquals( "APP2.MOD2", matcher.group( "dest" ) );
+        assertEquals( "REQ", matcher.group( "type" ) );
+        assertEquals( "{\"method\":\"setSpeed\",\"speed\":100}", matcher.group( "payload" ) );
 
+    }
+
+    @Test
+    public void bla() throws Exception
+    {
+        String expr = "([A-Za-z]|[0-9])+";
+        String example = "hello1234";
+
+        Pattern pattern = Pattern.compile( expr );
+        Matcher matcher = pattern.matcher( example );
+        assertTrue( matcher.matches() );
     }
 }
