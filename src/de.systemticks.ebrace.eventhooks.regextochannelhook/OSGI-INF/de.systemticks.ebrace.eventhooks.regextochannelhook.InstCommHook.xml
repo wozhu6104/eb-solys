@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="de.systemticks.ebrace.eventhooks.regextochannelhook.InstCommHook">
+   <service>
+      <provide interface="de.systemticks.ebrace.core.eventhook.registry.api.EventHook"/>
+   </service>
+   <reference bind="bindJsonService" interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler" name="JsonService" unbind="unbindJsonService"/>
+   <implementation class="de.systemticks.ebrace.eventhooks.regextochannelhook.InstCommHook"/>
+</scr:component>
