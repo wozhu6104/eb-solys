@@ -29,10 +29,14 @@ import com.elektrobit.ebrace.core.interactor.api.resources.tree.ModelNameNotifyC
 import com.elektrobit.ebrace.core.interactor.api.resources.tree.ModelNameNotifyUseCase;
 import com.elektrobit.ebrace.viewer.resources.editor.ResourcesModelEditorInput;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
+import javafx.concurrent.Worker.State;
 import javafx.embed.swt.FXCanvas;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import lombok.extern.log4j.Log4j;
 import netscape.javascript.JSObject;
@@ -173,6 +177,18 @@ public class BrowserEditor extends EditorPart implements HtmlViewChangedCallback
     public void onJavaScriptFunctionRequested(String function, String arg)
     {
         String call = function + "(" + arg + ");";
-        webView.getEngine().executeScript( call );
+
+        final WebEngine engine = webView.getEngine();
+        engine.getLoadWorker().stateProperty().addListener( new ChangeListener<State>()
+        {
+            @Override
+            public void changed(ObservableValue ov, State oldState, State newState)
+            {
+                if (newState == State.SUCCEEDED)
+                {
+                    engine.executeScript( call );
+                }
+            }
+        } );
     }
 }
