@@ -151,7 +151,7 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
         stateID++;
 
         channelListenerNotifier.notifyChannelChanged( channel );
-        // eventhookRegistry.callFor( newRuntimeEvent );
+        eventhookRegistry.callFor( newRuntimeEvent );
 
         return newRuntimeEvent;
     }
