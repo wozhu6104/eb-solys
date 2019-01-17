@@ -29,23 +29,6 @@ public class EventHookRegistryServiceImpl implements EventHookRegistry
 
     public EventHookRegistryServiceImpl()
     {
-        // hooks = new EventHookCollector()
-        // {
-        // @Override
-        // public List<EventHook> getEventHooks()
-        // {
-        // GenericOSGIServiceTracker<EventHook> serviceTracker = new GenericOSGIServiceTracker<EventHook>(
-        // EventHook.class );
-        // Map<Object, Properties> servicesMap = serviceTracker.getServices( EventHook.class.getName() );
-        // Set<Object> eventHookObjects = servicesMap.keySet();
-        // List<EventHook> eventHooks = new ArrayList<EventHook>();
-        // for (Object eventHookObject : eventHookObjects)
-        // {
-        // eventHooks.add( (EventHook)eventHookObject );
-        // }
-        // return eventHooks;
-        // }
-        // }.getEventHooks();
     }
 
     @Reference(policy = ReferencePolicy.DYNAMIC, cardinality = ReferenceCardinality.MULTIPLE)
