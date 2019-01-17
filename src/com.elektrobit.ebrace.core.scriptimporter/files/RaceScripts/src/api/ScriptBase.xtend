@@ -229,7 +229,7 @@ class ScriptBase {
 	 * @param plantUmlText Plant UML string that shall be shown.
 	 * @param htmlViewName Name of HTML view the shows the Plant UML image.    
 	 */
-	def showPlantUmlInHtmlView(String plantUmlText, String htmlViewName) {
+	def showPlantUmlInHtmlViewSVG(String plantUmlText, String htmlViewName) {
 		var pathToSVG = htmlViewName.toLowerCase
 		pathToSVG = pathToSVG.replaceAll("\\s","")
 		pathToSVG += "-plantuml.svg"
@@ -242,6 +242,22 @@ class ScriptBase {
 		htmlView.content = 
 		'''
 			<html><object data="«pathToSVG»" type="image/svg+xml"/></html>
+		'''
+	}
+	
+	def showPlantUmlInHtmlView(String plantUmlText, String htmlViewName) {
+		var pathToPNG = htmlViewName.toLowerCase
+		pathToPNG = pathToPNG.replaceAll("\\s","")
+		pathToPNG += "-plantuml.png"
+		
+		new File(pathToPNG).deleteOnExit()
+		
+		plantUmlText.plantUmlToPNG(pathToPNG)		
+		
+		val htmlView = createOrGetHtmlView(htmlViewName)
+		htmlView.content = 
+		'''
+			<html><object data="«pathToPNG»" type="image/png"/></html>
 		'''
 	}
 	

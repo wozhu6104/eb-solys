@@ -9,49 +9,42 @@
  ******************************************************************************/
 package de.systemticks.ebrace.core.eventhook.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
 
-import com.elektrobit.ebrace.common.utils.GenericOSGIServiceTracker;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
 
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
-import de.systemticks.ebrace.core.eventhook.registry.api.EventHookCollector;
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
 
 @Component(immediate = true, enabled = true)
 public class EventHookRegistryServiceImpl implements EventHookRegistry
 {
-    private final EventHookCollector collector;
+    private final Set<EventHook> hooks = new CopyOnWriteArraySet<>();
 
     public EventHookRegistryServiceImpl()
     {
-        collector = new EventHookCollector()
-        {
-            @Override
-            public List<EventHook> getEventHooks()
-            {
-                GenericOSGIServiceTracker<EventHook> serviceTracker = new GenericOSGIServiceTracker<EventHook>( EventHook.class );
-                Map<Object, Properties> servicesMap = serviceTracker.getServices( EventHook.class.getName() );
-                Set<Object> eventHookObjects = servicesMap.keySet();
-                List<EventHook> eventHooks = new ArrayList<EventHook>();
-                for (Object eventHookObject : eventHookObjects)
-                {
-                    eventHooks.add( (EventHook)eventHookObject );
-                }
-                return eventHooks;
-            }
-        };
+    }
+
+    @Reference(policy = ReferencePolicy.DYNAMIC, cardinality = ReferenceCardinality.MULTIPLE)
+    public void bindEventHook(EventHook hook)
+    {
+        hooks.add( hook );
+    }
+
+    public void unbindEventHook(EventHook hook)
+    {
+        hooks.remove( hook );
     }
 
     @Override
     public void callFor(RuntimeEvent<?> event)
     {
-        collector.getEventHooks().forEach( hook -> hook.onEvent( event ) );
+        hooks.forEach( hook -> hook.onEvent( event ) );
     }
 }
