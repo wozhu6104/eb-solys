@@ -57,7 +57,8 @@ public class InstCommHook implements RegExToChannelEventHook
     @Override
     public void onEvent(RuntimeEvent<?> event)
     {
-        if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.sina.sinc" ))
+        if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.sina.sinc" )
+                || event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.comm.ara" ))
         {
 
             JsonEvent oldEvent = new Gson().fromJson( event.getValue().toString(), JsonEvent.class );
@@ -72,12 +73,7 @@ public class InstCommHook implements RegExToChannelEventHook
             matcher = pattern.matcher( summaryString );
             if (matcher.find())
             {
-                System.out.println( matcher.group( "source" ) );
-                System.out.println( matcher.group( "dest" ) );
-                System.out.println( matcher.group( "type" ) );
                 String payload = matcher.group( "payload" );
-                System.out.println( payload.trim() );
-
                 String rawType = matcher.group( "type" );
                 String type = "request";
                 String summary = "->";
