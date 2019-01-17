@@ -3,5 +3,6 @@
    <service>
       <provide interface="de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry"/>
    </service>
+   <reference bind="bindEventHook" cardinality="0..n" interface="de.systemticks.ebrace.core.eventhook.registry.api.EventHook" name="EventHook" policy="dynamic" unbind="unbindEventHook"/>
    <implementation class="de.systemticks.ebrace.core.eventhook.impl.EventHookRegistryServiceImpl"/>
 </scr:component>
