@@ -15,8 +15,8 @@ script:
 - mvn clean verify
 deploy:
   provider: releases
-  api_key: 481750d05b982b4e6727e40a77092a5f29082912
-  file: src/com.elektrobit.ebrace.releng.ui.ecl.product/target/products/com.elektrobit.ebrace.product-win32.win32.x86_64.zip
+  api_key:  "n0HwqfZ3yEsNXTqJvY/yAMBKCEHr3eRP9NJ+xdiLvUC2DHKqxkxMxBYY19sDTnXKU0N3zRWdY2n7KljLCFLR4wqjRXeDLZ5qKqfvr+Qkjw15xgiG7it2Os4AWS6xZjLMYD6sDiCzwneT9327SgGzh2aClewdCk4Ivi57jZF+lWOJxwJ/5anG7dc3dfDN/F5peLpZNYcWfWKLDDz7HaItfdtxzJ2sHOEWAnZGwFkL4k4UkG8dtWIs4A0rnFCdqkaeR+L8i6irAPiS1kir69ATcUbhFBwMvY3OAwfXfW0JTPmTniEzfzWwiL39Wu1rlJGgGP/6bPwhYNpCDnGC5juZtDe3sGfPcnF7Kz8mWC2STWiMK4plAY+qWZlAtyihRgJWNkqXCwaf2SrSPynM45oTw0opqSfnPrzpm//u4vze9ARaryHSv/UnHT/RkZK/3/KBnNZmt9Inq3/eyroFzF2asLKXCITdfbYmDMyvwg/Tb6hK+5wHIN2nE71ilpppZRgpjAq5umRM/K5HNgddreqpMnsh1BOHypuJUrN80xMGckxz9yfqm3tE4rzRRwslzPQFTJXdQXtMTYVmlyjNfDUnw62XE+cM40cNb35pDtyk1IPwJO+QX93nAW9W4FljHWjydet1ozBhLpiFBhw9K/kdyGlffvUDCAnJD4JZN9Qd4a4="
+  file: "src/com.elektrobit.ebrace.releng.ui.ecl.product/target/products/com.elektrobit.ebrace.product-win32.win32.x86_64.zip"
   skip_cleanup: true
   on:
     tags: true
