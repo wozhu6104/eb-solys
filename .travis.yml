@@ -13,3 +13,10 @@ before_install:
 script:
 - cd src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
 - mvn clean verify
+deploy:
+  provider: releases
+  api_key: 481750d05b982b4e6727e40a77092a5f29082912
+  file: src/com.elektrobit.ebrace.releng.ui.ecl.product/target/products/com.elektrobit.ebrace.product-win32.win32.x86_64.zip
+  skip_cleanup: true
+  on:
+    tags: true
