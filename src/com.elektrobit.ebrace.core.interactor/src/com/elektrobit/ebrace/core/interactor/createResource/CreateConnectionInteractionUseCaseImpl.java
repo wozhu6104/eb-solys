@@ -11,6 +11,7 @@ package com.elektrobit.ebrace.core.interactor.createResource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.elektrobit.ebrace.common.checks.RangeCheckUtils;
 import com.elektrobit.ebrace.core.interactor.api.createresource.CreateConnectionInteractionCallback;
@@ -49,6 +50,24 @@ public class CreateConnectionInteractionUseCaseImpl implements CreateConnectionI
         else
         {
             callback.onPortInvalid( port );
+            return null;
+        }
+    }
+
+    @Override
+    public ConnectionModel getConnection(String name, String host, int port)
+    {
+        Optional<ConnectionModel> matchingConnection = resourcesModelManager.getConnections().stream()
+                .map( c -> (ConnectionModel)c )
+                .filter( c -> c.getName().equals( name ) && c.getPort() == port && c.getHost().equals( host ) )
+                .findFirst();
+
+        if (matchingConnection.isPresent())
+        {
+            return matchingConnection.get();
+        }
+        else
+        {
             return null;
         }
     }

@@ -125,6 +125,27 @@ public class ScriptContextImpl implements ScriptContext, ClearAllDataInteraction
     }
 
     @Override
+    public SConnection createOrGetConnection(String name, String host, int port, boolean saveDataToFile)
+    {
+        SConnection result = getConnection( name, host, port );
+
+        if (result == null)
+        {
+            result = createConnection( name, host, port, saveDataToFile );
+        }
+
+        return result;
+    }
+
+    @Override
+    public SConnection getConnection(String name, String host, int port)
+    {
+        ScriptConnectionCreator connectionCreator = new ScriptConnectionCreator( scriptConsole );
+        SConnection connection = connectionCreator.getConnection( name, host, port );
+        return connection;
+    }
+
+    @Override
     public boolean connectToTarget(SConnection connection)
     {
         ScriptTargetConnector scriptTargetConnector = new ScriptTargetConnector( connection );

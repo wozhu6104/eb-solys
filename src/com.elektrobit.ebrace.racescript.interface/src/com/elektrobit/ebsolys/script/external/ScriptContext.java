@@ -45,7 +45,25 @@ public interface ScriptContext extends UIResourcesContext
     public void clearAllData();
 
     /**
-     * Create a new connection that can be later use to connect to target.
+     * Create a new connection that can be later used to connect to target.
+     * 
+     * @deprecated Use createOrGetConnection instead
+     * @param name
+     *            Name of connection visible in the UI
+     * @param host
+     *            Host name or IP address of the target
+     * @param port
+     *            Port to connect to at target (port of Target Agent)
+     * @param saveDataToFile
+     *            if true, incoming data will be saved in the recordings folder
+     * @return
+     */
+    @Deprecated
+    public SConnection createConnection(String name, String host, int port, boolean saveDataToFile);
+
+    /**
+     * Try to retrieve an existing connection. If not available then create a new connection. The connection can be
+     * later used to connect to target.
      * 
      * @param name
      *            Name of connection visible in the UI
@@ -57,7 +75,20 @@ public interface ScriptContext extends UIResourcesContext
      *            if true, incoming data will be saved in the recordings folder
      * @return
      */
-    public SConnection createConnection(String name, String host, int port, boolean saveDataToFile);
+    public SConnection createOrGetConnection(String name, String host, int port, boolean saveDataToFile);
+
+    /**
+     * Retrieve an existing connection that can be later used to connect to target.
+     * 
+     * @param name
+     *            Name of connection visible in the UI
+     * @param host
+     *            Host name or IP address of the target
+     * @param port
+     *            Port to connect to at target (port of Target Agent)
+     * @return An existing connection if found, null otherwise
+     */
+    public SConnection getConnection(String name, String host, int port);
 
     /**
      * Connect to target described by {@code connection}.
