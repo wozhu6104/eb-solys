@@ -47,6 +47,7 @@ public interface ScriptContext extends UIResourcesContext
     /**
      * Create a new connection that can be later used to connect to target.
      * 
+     * @deprecated Use createOrGetConnection instead
      * @param name
      *            Name of connection visible in the UI
      * @param host
@@ -57,6 +58,7 @@ public interface ScriptContext extends UIResourcesContext
      *            if true, incoming data will be saved in the recordings folder
      * @return
      */
+    @Deprecated
     public SConnection createConnection(String name, String host, int port, boolean saveDataToFile);
 
     /**
