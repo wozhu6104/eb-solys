@@ -52,6 +52,24 @@ public class ScriptConnectionCreator implements CreateConnectionInteractionCallb
         return sConnection;
     }
 
+    public SConnection getConnection(String name, String address, int port)
+    {
+        CreateConnectionInteractionUseCase createConnectionUseCase = UseCaseFactoryInstance.get()
+                .makeCreateConnectionInteractionUseCase( this );
+
+        ConnectionModel connection = createConnectionUseCase.getConnection( name, address, port );
+
+        if (connection == null)
+        {
+            return null;
+        }
+        else
+        {
+            SConnection sConnection = new SConnectionImpl( connection );
+            return sConnection;
+        }
+    }
+
     @Override
     public void onPortInvalid(int port)
     {
