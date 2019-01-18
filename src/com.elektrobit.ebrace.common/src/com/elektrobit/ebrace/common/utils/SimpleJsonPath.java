@@ -31,7 +31,21 @@ public class SimpleJsonPath
 
     public String stringValueOf(String key)
     {
-        return getByPath( key ).getAsString();
+        JsonElement value = getByPath( key );
+
+        if (value == null)
+        {
+            return "";
+        }
+
+        if (value.isJsonPrimitive())
+        {
+            return value.getAsString();
+        }
+        else
+        {
+            return value.toString();
+        }
     }
 
     public JsonObject jsonObjectValueOf(String key)

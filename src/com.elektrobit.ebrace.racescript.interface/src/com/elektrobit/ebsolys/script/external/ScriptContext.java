@@ -86,7 +86,7 @@ public interface ScriptContext extends UIResourcesContext
      *            Host name or IP address of the target
      * @param port
      *            Port to connect to at target (port of Target Agent)
-     * @return
+     * @return An existing connection if found, null otherwise
      */
     public SConnection getConnection(String name, String host, int port);
 

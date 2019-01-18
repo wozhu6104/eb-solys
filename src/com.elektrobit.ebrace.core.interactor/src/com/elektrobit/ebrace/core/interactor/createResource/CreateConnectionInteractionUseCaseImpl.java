@@ -66,7 +66,6 @@ public class CreateConnectionInteractionUseCaseImpl implements CreateConnectionI
         {
             return matchingConnection.get();
         }
-
         else
         {
             return null;
