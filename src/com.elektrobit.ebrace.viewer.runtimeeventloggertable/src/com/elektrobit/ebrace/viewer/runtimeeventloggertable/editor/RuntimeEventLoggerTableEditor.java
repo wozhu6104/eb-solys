@@ -173,6 +173,12 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
     private final Set<RuntimeEventChannel<?>> currentChannels = new HashSet<>();
     private AllChannelsNotifyUseCase allChannelsNotifyUseCase;
 
+    private TableViewerColumn analysisColumn;
+
+    private TableViewerColumn tagColumn;
+
+    private TableViewerColumn colorColumn;
+
     @Override
     public void init(IEditorSite site, IEditorInput input) throws PartInitException
     {
@@ -307,7 +313,11 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
         filteredTable.getViewer().getTable().setRedraw( false );
         TableColumnWidthProvider widthProvider = new TableColumnWidthProvider( tableContainer.getClientArea().width,
                                                                                valueColumns.size() - 1 );
+        analysisColumn.getColumn()
+                .setWidth( TableColumnWidthProvider.FixedColumnWidths.ANALYSIS_TIMESPAN_COLUMN_WIDTH.getWidth() );
         timestampColumn.getColumn().setWidth( (int)(widthProvider.getTimestampColumnWidth()) );
+        tagColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.TAG_COLUMN_WIDTH.getWidth() );
+        colorColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.COLOR_COLUMN_WIDTH.getWidth() );
         valueColumns.stream().forEach( current -> {
             TableColumn currentColumn = current.getColumn();
             long width = currentColumn.getText().toLowerCase().equals( "value" )
@@ -353,9 +363,7 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
     {
         CellLabelProvider labelProvider = new AnalysisTimespanColumnLabelProvider( analysisTimespanPreferences,
                                                                                    userInteractionPreferences );
-        TableViewerColumn analysisColumn = filteredTable.createColumn( "", labelProvider );
-        analysisColumn.getColumn()
-                .setWidth( TableColumnWidthProvider.FixedColumnWidths.ANALYSIS_TIMESPAN_COLUMN_WIDTH.getWidth() );
+        analysisColumn = filteredTable.createColumn( "", labelProvider );
         analysisColumn.getColumn().setResizable( false );
     }
 
@@ -375,8 +383,7 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
                                                                                new ImageCreator( this.getTreeViewer()
                                                                                        .getControl() ),
                                                                                backgroundColorCreator );
-        TableViewerColumn tagColumn = filteredTable.createColumn( "", tagColumnLabelProvider );
-        tagColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.TAG_COLUMN_WIDTH.getWidth() );
+        tagColumn = filteredTable.createColumn( "", tagColumnLabelProvider );
         tagColumn.getColumn().setResizable( false );
 
         ColumnViewerToolTipSupport.enableFor( tagColumn.getViewer() );
@@ -434,8 +441,7 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
     private void createColorColumn()
     {
         labelProvider = new ColorColumnLabelProvider();
-        TableViewerColumn colorColumn = filteredTable.createColumn( "", labelProvider );
-        colorColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.COLOR_COLUMN_WIDTH.getWidth() );
+        colorColumn = filteredTable.createColumn( "", labelProvider );
         colorColumn.getColumn().setResizable( false );
     }
 
