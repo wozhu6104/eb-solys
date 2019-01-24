@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
@@ -64,23 +65,23 @@ public class SysMonMempHook implements RegExToChannelEventHook
             if (matcher.find())
             {
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    "process.mem.rss." + matcher.group( "processname" ) + ":"
-                                                            + matcher.group( "pid" ),
+                                                    new JsonChannel( "process.mem.rss." + matcher.group( "processname" )
+                                                            + ":" + matcher.group( "pid" ), "", null ),
                                                     new JsonEventValue( Long.parseLong( matcher.group( "rss" ) ),
                                                                         null ),
                                                     null,
                                                     null );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
-                                          "process.mem.uss." + matcher.group( "processname" ) + ":"
-                                                  + matcher.group( "pid" ),
+                                          new JsonChannel( "process.mem.uss." + matcher.group( "processname" ) + ":"
+                                                  + matcher.group( "pid" ), "", null ),
                                           new JsonEventValue( Long.parseLong( matcher.group( "uss" ) ), null ),
                                           null,
                                           null );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
-                                          "process.mem.pss." + matcher.group( "processname" ) + ":"
-                                                  + matcher.group( "pid" ),
+                                          new JsonChannel( "process.mem.pss." + matcher.group( "processname" ) + ":"
+                                                  + matcher.group( "pid" ), "", null ),
                                           new JsonEventValue( Long.parseLong( matcher.group( "pss" ) ), null ),
                                           null,
                                           null );

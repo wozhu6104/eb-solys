@@ -103,7 +103,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
     private void handleTimeSegmentEventCreation(JsonEvent event, ComRelation relation)
     {
         RuntimeEventChannel<STimeSegment> channel = runtimeEventAcceptor
-                .createOrGetRuntimeEventChannel( event.getChannel(), Unit.TIMESEGMENT, channelDescription );
+                .createOrGetRuntimeEventChannel( event.getChannel().getName(), Unit.TIMESEGMENT, channelDescription );
 
         RuntimeEventChannel<String> segmentEventChannel = runtimeEventAcceptor
                 .createOrGetRuntimeEventChannel( event.getChannel() + "_segmentBoundaries",
@@ -123,42 +123,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         timeSegmentAcceptor.add( channel, startEvent, endEvent );
     }
 
-    private void handleChannelCreation(JsonEvent event)
-    {
-        String channelName = event.getChannel();
-        String channelDescription = this.channelDescription;
-        if (event.getChannelDescription() != null)
-        {
-            channelDescription = event.getChannelDescription();
-        }
-        Object summary = event.getValue().getSummary();
-
-        JsonElement details = event.getValue().getDetails();
-        RuntimeEventChannel<?> channel = runtimeEventAcceptor.getRuntimeEventChannel( channelName );
-        if (details != null)
-        {
-            if (channel == null)
-            {
-                runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
-                                                                     Unit.TEXT,
-                                                                     channelDescription,
-                                                                     details.getAsJsonObject().entrySet().stream()
-                                                                             .map( entry -> entry.getKey() )
-                                                                             .collect( Collectors.toList() ) );
-            }
-        }
-        else
-        {
-            if (channel == null)
-            {
-
-                runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
-                                                                     Unit.createCustomUnit( summary.getClass()
-                                                                             .getSimpleName(), summary.getClass() ),
-                                                                     channelDescription );
-            }
-        }
-    }
 
     private void handleEventCreation(JsonEvent event, ComRelation relation)
     {
@@ -166,7 +130,8 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         if (event.getValue().getSummary() instanceof Long)
         {
             runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
-                                                    runtimeEventAcceptor.getRuntimeEventChannel( event.getChannel() ),
+                                                    runtimeEventAcceptor
+                                                            .getRuntimeEventChannel( event.getChannel().getName() ),
                                                     relation,
                                                     (Long)event.getValue().getSummary(),
                                                     "" + event.getValue().getSummary() );
@@ -174,7 +139,8 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         else if (event.getValue().getSummary() instanceof Double)
         {
             runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
-                                                    runtimeEventAcceptor.getRuntimeEventChannel( event.getChannel() ),
+                                                    runtimeEventAcceptor
+                                                            .getRuntimeEventChannel( event.getChannel().getName() ),
                                                     relation,
                                                     (Double)event.getValue().getSummary(),
                                                     "" + event.getValue().getSummary() );
@@ -182,12 +148,49 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         else
         {
             runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
-                                                    runtimeEventAcceptor.getRuntimeEventChannel( event.getChannel() ),
+                                                    runtimeEventAcceptor
+                                                            .getRuntimeEventChannel( event.getChannel().getName() ),
                                                     relation,
                                                     event.toString(),
                                                     (String)event.getValue().getSummary() );
         }
     }
+
+    private void handleChannelCreation(JsonEvent event)
+    {
+        String channelName = event.getChannel().getName();
+        Object summary = event.getValue().getSummary();
+
+        JsonElement details = event.getValue().getDetails();
+        RuntimeEventChannel<?> channel = runtimeEventAcceptor.getRuntimeEventChannel( channelName );
+        if (channel == null)
+        {
+            if (details != null)
+            {
+                runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
+                                                                     Unit.TEXT,
+                                                                     event.getChannel().getDescription(),
+                                                                     details.getAsJsonObject().entrySet().stream()
+                                                                             .map( entry -> entry.getKey() )
+                                                                             .collect( Collectors.toList() ) );
+            }
+            else
+            {
+
+                String unitDescription = summary.getClass().getSimpleName();
+                if (event.getChannel().getUnitDescription() != null)
+                {
+                    unitDescription = event.getChannel().getUnitDescription();
+                }
+                runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
+                                                                     Unit.createCustomUnit( unitDescription,
+                                                                                            summary.getClass() ),
+                                                                     event.getChannel().getDescription() );
+            }
+        }
+
+    }
+
 
     private ComRelation processStructuredEvent(JsonEventEdge edge)
     {

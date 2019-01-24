@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
@@ -65,7 +66,9 @@ public class SysMonDommHook implements RegExToChannelEventHook
             if (matcher.find())
             {
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    "domain." + "mem." + matcher.group( "domainname" ),
+                                                    new JsonChannel( "domain." + "mem." + matcher.group( "domainname" ),
+                                                                     "",
+                                                                     null ),
                                                     new JsonEventValue( Long.parseLong( matcher.group( "rss" ) ),
                                                                         null ),
                                                     null,

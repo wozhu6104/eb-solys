@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventEdge;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
@@ -86,7 +87,7 @@ public class InstCommHook implements RegExToChannelEventHook
                 summary += " " + payload.replaceAll( "\"", "" );
 
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    "com.someip",
+                                                    new JsonChannel( "com.someip", "", null ),
                                                     new JsonEventValue( summary, null ),
                                                     null,
                                                     new JsonEventEdge( matcher.group( "source" ),

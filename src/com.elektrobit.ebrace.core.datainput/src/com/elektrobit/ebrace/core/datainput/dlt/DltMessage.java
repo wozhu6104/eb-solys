@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.elektrobit.ebrace.common.utils.StringHelper;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
 import com.google.gson.JsonObject;
@@ -56,12 +57,9 @@ public class DltMessage
     public String toJson()
     {
         JsonEventValue value = constructJsonEventValue();
-        JsonEvent event = new JsonEvent( standardHeader.getTimeStamp() * 100,
-                                         "trace.dlt." + extendedHeader.getApplicationId() + "."
-                                                 + extendedHeader.getContextId(),
-                                         value,
-                                         null,
-                                         null );
+        JsonChannel channel = new JsonChannel( "trace.dlt." + extendedHeader.getApplicationId() + "."
+                + extendedHeader.getContextId(), "", "Text" );
+        JsonEvent event = new JsonEvent( standardHeader.getTimeStamp() * 100, channel, value, null, null );
         return event.toString();
     }
 
