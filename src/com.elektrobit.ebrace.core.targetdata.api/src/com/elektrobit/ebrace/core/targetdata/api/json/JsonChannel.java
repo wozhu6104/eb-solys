@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2018 Elektrobit Automotive GmbH
+ * Copyright (C) 2018 systemticks GmbH
  * 
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -7,13 +7,22 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  ******************************************************************************/
-package com.elektrobit.ebrace.targetdata.importer.internal.csvimporter.api;
+package com.elektrobit.ebrace.core.targetdata.api.json;
 
-import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventNew;
+import com.google.gson.Gson;
 
-public interface Transformer
+import lombok.Data;
+
+@Data
+public class JsonChannel
 {
-    public JsonEventNew transformEvent(String input);
+    private final String name;
+    private final String description;
+    private final String unitDescription;
 
-    public void acquireMetaData(String hint, String path);
+    @Override
+    public String toString()
+    {
+        return new Gson().toJson( this );
+    }
 }

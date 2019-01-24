@@ -24,7 +24,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventNew;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
 import com.elektrobit.ebrace.targetdata.importer.internal.csvimporter.api.Transformer;
 import com.google.gson.JsonObject;
@@ -101,7 +102,7 @@ public class CsvToJsonTransformer implements Transformer
     }
 
     @Override
-    public JsonEvent transformEvent(String input)
+    public JsonEventNew transformEvent(String input)
     {
         String[] eventFields = input.split( spec.getSeparator() );
         int index = 0;
@@ -122,14 +123,17 @@ public class CsvToJsonTransformer implements Transformer
             object.addProperty( fieldTag, resolvePropertyValueFromFields( fieldTag, eventFields ) );
         }
 
-        JsonEvent event = new JsonEvent( Long
+        JsonEventNew event = new JsonEventNew( Long
                 .parseLong( resolvePropertyValueFromFields( CsvSpecification.UPTIME_TAG, eventFields ) ),
-                                         resolvePropertyValueFromFields( CsvSpecification.CHANNEL_TAG, eventFields ),
-                                         new JsonEventValue( resolvePropertyValueFromFields( CsvSpecification.SUMMARY_TAG,
-                                                                                             eventFields ),
-                                                             null ),
-                                         0l,
-                                         null );
+                                               new JsonChannel( resolvePropertyValueFromFields( CsvSpecification.CHANNEL_TAG,
+                                                                                                eventFields ),
+                                                                "",
+                                                                null ),
+                                               new JsonEventValue( resolvePropertyValueFromFields( CsvSpecification.SUMMARY_TAG,
+                                                                                                   eventFields ),
+                                                                   null ),
+                                               0l,
+                                               null );
 
         return event;
     }

@@ -13,9 +13,10 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventNew;
 import com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService;
+import com.elektrobit.ebrace.targetdata.impl.importer.json.util.JsonEventHelper;
 import com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.structure.StructureAcceptor;
@@ -42,9 +43,9 @@ public class JsonEventHandlerImpl implements JsonEventHandler
     }
 
     @Override
-    public void handle(JsonEvent event)
+    public void handle(JsonEventNew event)
     {
-        handler.handle( event );
+        handler.handle( JsonEventHelper.transformNew2OldEvent( event ) );
     }
 
     @Activate
