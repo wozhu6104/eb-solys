@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventEdge;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventEdge;
 import com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService;
 import com.elektrobit.ebrace.targetdata.impl.importer.json.util.NodeAgent;
 import com.elektrobit.ebrace.targetdata.impl.importer.json.util.StructuredNodeNameToNodeTree;
@@ -162,29 +162,32 @@ public class JsonToEvent implements NodeAgent<TreeNode>
 
         JsonElement details = event.getValue().getDetails();
         RuntimeEventChannel<?> channel = runtimeEventAcceptor.getRuntimeEventChannel( channelName );
-        if (details != null)
+        if (channel == null)
         {
-            if (channel == null)
+            if (details != null)
             {
                 runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
                                                                      Unit.TEXT,
-                                                                     channelDescription,
+                                                                     event.getChannel().getDescription(),
                                                                      details.getAsJsonObject().entrySet().stream()
                                                                              .map( entry -> entry.getKey() )
                                                                              .collect( Collectors.toList() ) );
             }
-        }
-        else
-        {
-            if (channel == null)
+            else
             {
 
+                String unitDescription = summary.getClass().getSimpleName();
+                if (event.getChannel().getUnitDescription() != null)
+                {
+                    unitDescription = event.getChannel().getUnitDescription();
+                }
                 runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
-                                                                     Unit.createCustomUnit( summary.getClass()
-                                                                             .getSimpleName(), summary.getClass() ),
-                                                                     channelDescription );
+                                                                     Unit.createCustomUnit( unitDescription,
+                                                                                            summary.getClass() ),
+                                                                     event.getChannel().getDescription() );
             }
         }
+
     }
 
     private ComRelation processStructuredEvent(JsonEventEdge edge)
