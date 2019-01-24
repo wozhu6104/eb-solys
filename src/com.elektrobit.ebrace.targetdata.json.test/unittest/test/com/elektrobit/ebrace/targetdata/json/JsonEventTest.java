@@ -13,8 +13,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventEdge;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -22,25 +23,25 @@ import com.google.gson.JsonParser;
 public class JsonEventTest
 {
 
-    private static final String EXPECTED_JSON_1 = "{\"uptime\":1234,\"channel\":\"cpu\",\"value\":{\"summary\":12,\"details\":{\"param\":12}},\"duration\":0,\"edge\":{\"source\":\"A\",\"destination\":\"B\",\"type\":\"request\"}}";
-    private static final String EXPECTED_JSON_2 = "{\"uptime\":1234,\"channel\":\"cpu\",\"value\":{\"summary\":\"Hello\",\"details\":{\"param\":12}},\"duration\":0,\"edge\":{\"source\":\"A\",\"destination\":\"B\",\"type\":\"request\"}}";
+    private static final String EXPECTED_JSON_1 = "{\"uptime\":1234,\"channel\":{\"name\":\"cpu\",\"description\":\"\"},\"value\":{\"summary\":12,\"details\":{\"param\":12}},\"duration\":0,\"edge\":{\"source\":\"A\",\"destination\":\"B\",\"type\":\"request\"}}";
+    private static final String EXPECTED_JSON_2 = "{\"uptime\":1234,\"channel\":{\"name\":\"cpu\",\"description\":\"\"},\"value\":{\"summary\":\"Hello\",\"details\":{\"param\":12}},\"duration\":0,\"edge\":{\"source\":\"A\",\"destination\":\"B\",\"type\":\"request\"}}";
     private static JsonEvent INPUT_EVENT_1 = new JsonEvent( 1234l,
-                                                            "cpu",
-                                                            new JsonEventValue( 12,
-                                                                                new JsonParser()
-                                                                                        .parse( "{\"param\":12}" )
-                                                                                        .getAsJsonObject() ),
-                                                            0l,
-                                                            new JsonEventEdge( "A", "B", "request" ) );
+                                                                  new JsonChannel( "cpu", "", null ),
+                                                                  new JsonEventValue( 12,
+                                                                                      new JsonParser()
+                                                                                              .parse( "{\"param\":12}" )
+                                                                                              .getAsJsonObject() ),
+                                                                  0l,
+                                                                  new JsonEventEdge( "A", "B", "request" ) );
 
     private static JsonEvent INPUT_EVENT_2 = new JsonEvent( 1234l,
-                                                            "cpu",
-                                                            new JsonEventValue( "Hello",
-                                                                                new JsonParser()
-                                                                                        .parse( "{\"param\":12}" )
-                                                                                        .getAsJsonObject() ),
-                                                            0l,
-                                                            new JsonEventEdge( "A", "B", "request" ) );
+                                                                  new JsonChannel( "cpu", "", null ),
+                                                                  new JsonEventValue( "Hello",
+                                                                                      new JsonParser()
+                                                                                              .parse( "{\"param\":12}" )
+                                                                                              .getAsJsonObject() ),
+                                                                  0l,
+                                                                  new JsonEventEdge( "A", "B", "request" ) );
 
     @Test
     public void serializedCorrectly1()

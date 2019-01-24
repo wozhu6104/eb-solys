@@ -15,8 +15,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import com.elektrobit.ebrace.common.utils.UnitConverter;
-import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
 import com.elektrobit.ebrace.targetdata.dlt.api.DltProcStatStatmEventConverter;
 import com.elektrobit.ebrace.targetdata.dlt.api.Measurement;
@@ -78,10 +79,12 @@ public class RegExToChannelEventHookImpl implements RegExToChannelEventHook
                 {
                     double perProcessCpuUsage = (100000 * entry.getCpuUsage() / entry.getTimestamp());
                     JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                        "cpu.proc." + entry.getProcName(),
-                                                        new JsonEventValue( perProcessCpuUsage, null ),
-                                                        null,
-                                                        null );
+                                                              new JsonChannel( "cpu.proc." + entry.getProcName(),
+                                                                               "",
+                                                                               "Percent" ),
+                                                              new JsonEventValue( perProcessCpuUsage, null ),
+                                                              null,
+                                                              null );
                     jsonEventHandler.handle( newEvent );
 
                 }
@@ -92,11 +95,14 @@ public class RegExToChannelEventHookImpl implements RegExToChannelEventHook
                 for (ProcMemEntry entry : pidToMeasurement.values())
                 {
                     JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                        "mem.proc." + entry.getProcName(),
-                                                        new JsonEventValue( UnitConverter
-                                                                .convertBytesToKB( entry.getMemoryUsage() ), null ),
-                                                        null,
-                                                        null );
+                                                              new JsonChannel( "mem.proc." + entry.getProcName(),
+                                                                               "",
+                                                                               "MB" ),
+                                                              new JsonEventValue( UnitConverter
+                                                                      .convertBytesToKB( entry.getMemoryUsage() ),
+                                                                                  null ),
+                                                              null,
+                                                              null );
                     jsonEventHandler.handle( newEvent );
                 }
             }

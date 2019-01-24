@@ -13,5 +13,5 @@ public interface JsonEventHandler
 {
     public void handle(String jsonEvent);
 
-    public void handle(JsonEventNew event);
+    public void handle(JsonEvent event);
 }

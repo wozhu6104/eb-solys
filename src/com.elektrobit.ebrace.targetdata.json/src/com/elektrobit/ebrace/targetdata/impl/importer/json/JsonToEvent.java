@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventEdge;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.timesegmentmanager.api.TimeSegmentAcceptorService;
 import com.elektrobit.ebrace.targetdata.impl.importer.json.util.NodeAgent;
 import com.elektrobit.ebrace.targetdata.impl.importer.json.util.StructuredNodeNameToNodeTree;
@@ -103,7 +103,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
     private void handleTimeSegmentEventCreation(JsonEvent event, ComRelation relation)
     {
         RuntimeEventChannel<STimeSegment> channel = runtimeEventAcceptor
-                .createOrGetRuntimeEventChannel( event.getChannel(), Unit.TIMESEGMENT, channelDescription );
+                .createOrGetRuntimeEventChannel( event.getChannel().getName(), Unit.TIMESEGMENT, channelDescription );
 
         RuntimeEventChannel<String> segmentEventChannel = runtimeEventAcceptor
                 .createOrGetRuntimeEventChannel( event.getChannel() + "_segmentBoundaries",
@@ -123,9 +123,41 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         timeSegmentAcceptor.add( channel, startEvent, endEvent );
     }
 
+    private void handleEventCreation(JsonEvent event, ComRelation relation)
+    {
+        handleChannelCreation( event );
+        if (event.getValue().getSummary() instanceof Long)
+        {
+            runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
+                                                    runtimeEventAcceptor
+                                                            .getRuntimeEventChannel( event.getChannel().getName() ),
+                                                    relation,
+                                                    (Long)event.getValue().getSummary(),
+                                                    "" + event.getValue().getSummary() );
+        }
+        else if (event.getValue().getSummary() instanceof Double)
+        {
+            runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
+                                                    runtimeEventAcceptor
+                                                            .getRuntimeEventChannel( event.getChannel().getName() ),
+                                                    relation,
+                                                    (Double)event.getValue().getSummary(),
+                                                    "" + event.getValue().getSummary() );
+        }
+        else
+        {
+            runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
+                                                    runtimeEventAcceptor
+                                                            .getRuntimeEventChannel( event.getChannel().getName() ),
+                                                    relation,
+                                                    event.toString(),
+                                                    (String)event.getValue().getSummary() );
+        }
+    }
+
     private void handleChannelCreation(JsonEvent event)
     {
-        String channelName = event.getChannel();
+        String channelName = event.getChannel().getName();
         Object summary = event.getValue().getSummary();
 
         JsonElement details = event.getValue().getDetails();
@@ -152,35 +184,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
                                                                              .getSimpleName(), summary.getClass() ),
                                                                      channelDescription );
             }
-        }
-    }
-
-    private void handleEventCreation(JsonEvent event, ComRelation relation)
-    {
-        handleChannelCreation( event );
-        if (event.getValue().getSummary() instanceof Long)
-        {
-            runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
-                                                    runtimeEventAcceptor.getRuntimeEventChannel( event.getChannel() ),
-                                                    relation,
-                                                    (Long)event.getValue().getSummary(),
-                                                    "" + event.getValue().getSummary() );
-        }
-        else if (event.getValue().getSummary() instanceof Double)
-        {
-            runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
-                                                    runtimeEventAcceptor.getRuntimeEventChannel( event.getChannel() ),
-                                                    relation,
-                                                    (Double)event.getValue().getSummary(),
-                                                    "" + event.getValue().getSummary() );
-        }
-        else
-        {
-            runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
-                                                    runtimeEventAcceptor.getRuntimeEventChannel( event.getChannel() ),
-                                                    relation,
-                                                    event.toString(),
-                                                    (String)event.getValue().getSummary() );
         }
     }
 

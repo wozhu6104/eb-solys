@@ -9,11 +9,11 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.targetdata.importer.internal.csvimporter.api;
 
-import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventNew;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 
 public interface Transformer
 {
-    public JsonEventNew transformEvent(String input);
+    public JsonEvent transformEvent(String input);
 
     public void acquireMetaData(String hint, String path);
 }
