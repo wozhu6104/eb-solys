@@ -38,13 +38,16 @@ public class SimpleJsonPath
             return "";
         }
 
-        if (value.isJsonPrimitive())
-        {
-            return value.getAsString();
-        }
         else
         {
-            return value.toString();
+            if (value.isJsonPrimitive())
+            {
+                return value.getAsString();
+            }
+            else
+            {
+                return value.toString();
+            }
         }
     }
 
