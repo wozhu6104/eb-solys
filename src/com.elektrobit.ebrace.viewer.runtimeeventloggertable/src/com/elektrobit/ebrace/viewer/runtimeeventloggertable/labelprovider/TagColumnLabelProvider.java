@@ -108,7 +108,7 @@ public class TagColumnLabelProvider extends OwnerDrawLabelProvider
         {
             Rectangle cellBounds = event.getBounds();
             cellBounds.width = CELL_WIDTH_IN_PX;
-            cellBounds.height = CELL_HEIGHT_IN_PX;
+            cellBounds.x = cellBounds.x - 1;
 
             // This paint method is called after Selection or MouseHover paint.
             // That's why we must store the current cell as image,

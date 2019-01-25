@@ -21,6 +21,8 @@ public interface CreateConnectionInteractionUseCase extends BaseUseCase
     public ConnectionModel createConnection(String name, String host, int port, boolean saveToFile,
             ConnectionType connectionType);
 
+    public ConnectionModel getConnection(String name, String host, int port);
+
     public DataInputResourceModel createDataInput(String name);
 
     public List<ConnectionType> getAllConnectionTypes();

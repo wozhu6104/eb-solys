@@ -8,8 +8,19 @@ cache:
   - "$HOME/apache-maven-3.5.0"
 before_install:
 - export M2_HOME=$HOME/apache-maven-3.5.0
-- if [ ! -d $M2_HOME/bin ]; then curl https://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz | tar zxf - -C $HOME; fi
+- if [ ! -d $M2_HOME/bin ]; then curl https://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz
+  | tar zxf - -C $HOME; fi
 - export PATH=$M2_HOME/bin:$PATH
 script:
 - cd src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
 - mvn clean verify
+deploy:
+  provider: releases
+  api_key:
+    secure: FGVYFlEVLiymr2/99QxE8KsrPKfAnvcz5GbTUxvFbfgSfHspJFt2Q+L2/xM7CBZBaq3oiSwphI19YvQe4cfsUmjq6NStuMXOCY9QBOetgXE1i7mQ1W/NnQOXXPAkii3U5zhYLKjk9ccz06DILDuuI185EgvoWwPtOphGvre2AbHK8//k3+uJzhMzpZZAsvq1My52u1cAa71K2m7L2zPLts8d+rh3TsMx9Kb9m7vulvPQzli+sPU2+aUGZoSj0N4TIu1lFDE5Cg6f+21DYsqhvDtolBpS6zbaD+alKdA/WpVTOVLkVIQATSzp1aOJkWhxzlJLSQzKbOTeJgve7lSeYzfQyiOE5/ShBE342L0dUKJUcs5ySqkr+qHMAyPrWyfHBLkiCixKkNF/66a0mlSeVRgi3O/4WXiBZLnEcku7qRnQ/IlHqEN3t3oedZTl4gNEIPJd1BmF3uS7mbAJUDfkvgg98EKFqQ/XbNu2l4zuyH43ZH6evgQTAH+9hjIOzI1VHtYMQPCEMpatB66s35ucd3RW+jjk2YqNPlY3H3YH+3wvwq8AzJ54tTh/sQ50xdYhvGFKLwxgFR8iI0PKvP7T4EpcHyZ+0kp3XT2FLGpAA0ljwpYTK0AhLAnevXmoNutMQEkisYY9EFjLIaoYp6ZJHbiwIwMG0gpw5a6FskTM+Ls=
+  file: ../com.elektrobit.ebrace.releng.ui.ecl.product/target/products/com.elektrobit.ebrace.product-win32.win32.x86_64.zip
+  skip_cleanup: true
+  on:
+    repo: Elektrobit/eb-solys
+    tags: true
+
