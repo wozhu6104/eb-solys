@@ -99,6 +99,13 @@ cd src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
 mvn clean verify
 ```
 
+## Running under Linux
+
+You need to install openjfx otherwise the built-in HTML and javascript features will not work properly.
+```
+sudo apt install openjfx
+```
+
 ## Contact
 
 EB solys development is supported by systemticks GmbH
