@@ -64,27 +64,29 @@ public class SysMonMemsHook implements RegExToChannelEventHook
             matcher = pattern.matcher( summaryString );
             if (matcher.find())
             {
+                double memTotal = Double.parseDouble( matcher.group( "memtotal" ) );
+                double memAvail = Double.parseDouble( matcher.group( "memavail" ) );
+                double memUsed = memTotal - memAvail;
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    new JsonChannel( "system.mem.total", "", null ),
-                                                    new JsonEventValue( Double
-                                                            .parseDouble( matcher.group( "memtotal" ) ), null ),
+                                                    new JsonChannel( "system.mem.total", "", "MB" ),
+                                                    new JsonEventValue( memTotal, null ),
                                                     null,
                                                     null );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
-                                          new JsonChannel( "system.mem.available", "", null ),
-                                          new JsonEventValue( Double.parseDouble( matcher.group( "memavail" ) ), null ),
+                                          new JsonChannel( "system.mem.available", "", "MB" ),
+                                          new JsonEventValue( memAvail, null ),
                                           null,
                                           null );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
-                                          new JsonChannel( "system.mem.cached", "", null ),
+                                          new JsonChannel( "system.mem.cached", "", "MB" ),
                                           new JsonEventValue( Double.parseDouble( matcher.group( "memcache" ) ), null ),
                                           null,
                                           null );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
-                                          new JsonChannel( "system.mem.shmem", "", null ),
+                                          new JsonChannel( "system.mem.shmem", "", "MB" ),
                                           new JsonEventValue( Double.parseDouble( matcher.group( "shmem" ) ), null ),
                                           null,
                                           null );

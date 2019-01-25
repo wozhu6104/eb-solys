@@ -66,7 +66,7 @@ public class SysMonMempHook implements RegExToChannelEventHook
             {
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
                                                     new JsonChannel( "process.mem.rss." + matcher.group( "processname" )
-                                                            + ":" + matcher.group( "pid" ), "", null ),
+                                                            + ":" + matcher.group( "pid" ), "", "MB" ),
                                                     new JsonEventValue( Long.parseLong( matcher.group( "rss" ) ),
                                                                         null ),
                                                     null,

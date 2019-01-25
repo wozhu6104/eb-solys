@@ -74,7 +74,7 @@ public class SysMonCpusHook implements RegExToChannelEventHook
                                                     null );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
-                                          new JsonChannel( "system.iowait", "", null ),
+                                          new JsonChannel( "system.iowait", "", "Percent" ),
                                           new JsonEventValue( Long.parseLong( matcher.group( "iowait" ) ), null ),
                                           null,
                                           null );

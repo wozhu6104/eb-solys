@@ -68,7 +68,7 @@ public class SysMonDomcHook implements RegExToChannelEventHook
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
                                                     new JsonChannel( "domain." + "cpu." + matcher.group( "domainname" ),
                                                                      "",
-                                                                     null ),
+                                                                     "Percent" ),
                                                     new JsonEventValue( Double.parseDouble( matcher.group( "cpu" ) ),
                                                                         null ),
                                                     null,

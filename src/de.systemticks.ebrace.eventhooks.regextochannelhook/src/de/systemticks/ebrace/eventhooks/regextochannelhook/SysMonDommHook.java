@@ -65,12 +65,12 @@ public class SysMonDommHook implements RegExToChannelEventHook
             matcher = pattern.matcher( summaryString );
             if (matcher.find())
             {
+                long valueAsMB = Long.parseLong( matcher.group( "rss" ) ) / 1000;
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
                                                     new JsonChannel( "domain." + "mem." + matcher.group( "domainname" ),
                                                                      "",
-                                                                     null ),
-                                                    new JsonEventValue( Long.parseLong( matcher.group( "rss" ) ),
-                                                                        null ),
+                                                                     "MB" ),
+                                                    new JsonEventValue( valueAsMB, null ),
                                                     null,
                                                     null );
                 jsonEventHandler.handle( newEvent );
