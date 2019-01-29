@@ -33,6 +33,9 @@ import com.elektrobit.ebrace.targetdata.dlt.internal.DltStandardHeader;
 import com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator;
 import com.elektrobit.ebrace.targetdata.dlt.newapi.DltMessageService;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Component
 public class DltMessageServiceImpl implements MessageReader<DltMessage>, DltMessageService
 {
@@ -165,7 +168,20 @@ public class DltMessageServiceImpl implements MessageReader<DltMessage>, DltMess
                         ? "RESPONSE"
                         : "REQUEST";
 
-                String parsedNonVerboseMessage = parseControlMessage( bytesReader, messageLength );
+                String parsedNonVerboseMessage = "";
+                byte[] payload = bytesReader.readNBytes( messageLength );
+                byte[] payloadCopy = Arrays.copyOf( payload, payload.length );
+                try
+                {
+                    parsedNonVerboseMessage = parseControlMessage( payload, messageLength );
+                }
+                catch (Exception e)
+                {
+                    log.error( "Couldn't parse following control message: "
+                            + HexStringHelper.toHexString( message.marshal() ) );
+                    log.error( "Payload of message was: " + HexStringHelper.toHexString( payloadCopy ) );
+                    parsedNonVerboseMessage = HexStringHelper.toHexString( payloadCopy );
+                }
 
                 message.setPayload( Arrays.asList( messageTypeInfoDirection + " " + parsedNonVerboseMessage ) );
             }
@@ -263,6 +279,11 @@ public class DltMessageServiceImpl implements MessageReader<DltMessage>, DltMess
     {
         byte[] payload = bytesReader.readNBytes( bytes );
         return HexStringHelper.toHexString( payload );
+    }
+
+    private String parseControlMessage(byte[] payload, int bytes)
+    {
+        return parseControlMessage( new BytesFromStreamReaderImpl( new ByteArrayInputStream( payload ) ), bytes );
     }
 
     private String parseControlMessage(BytesFromStreamReader bytesReader, int bytes)
