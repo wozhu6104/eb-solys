@@ -409,12 +409,11 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
 
         List<String> channelsWithoutDuplicates = allColumnNames.stream().distinct().collect( Collectors.toList() );
 
-        // "Value" column should be rightmost before the channel column
-        addAdditionalValueColumn( "Value" );
-
         channelsWithoutDuplicates.stream().filter( columnName -> !columnName.equals( "Value" ) )
                 .forEach( columnName -> addAdditionalValueColumn( columnName ) );
 
+        // "Value" column should be rightmost before the channel column
+        addAdditionalValueColumn( "Value" );
     }
 
     private void addAdditionalValueColumn(String columnName)
