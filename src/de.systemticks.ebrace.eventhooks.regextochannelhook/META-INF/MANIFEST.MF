@@ -24,5 +24,6 @@ Service-Component: OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.
  OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonMempHook.xml,
  OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonCpusHook.xml,
  OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.SysMonMemsHook.xml,
- OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.InstCommHook.xml
+ OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.InstCommHook.xml,
+ OSGI-INF/de.systemticks.ebrace.eventhooks.regextochannelhook.RegExToChannelEventHookImpl.xml
 Export-Package: de.systemticks.ebrace.eventhooks.regextochannelhook

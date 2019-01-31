@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
@@ -64,8 +65,8 @@ public class SysMonCpupHook implements RegExToChannelEventHook
             if (matcher.find())
             {
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    "process.cpu." + matcher.group( "processname" ) + ":"
-                                                            + matcher.group( "pid" ),
+                                                    new JsonChannel( "process.cpu." + matcher.group( "processname" )
+                                                            + ":" + matcher.group( "pid" ), "", "Percent" ),
                                                     new JsonEventValue( Double.parseDouble( matcher.group( "cpu" ) ),
                                                                         null ),
                                                     null,

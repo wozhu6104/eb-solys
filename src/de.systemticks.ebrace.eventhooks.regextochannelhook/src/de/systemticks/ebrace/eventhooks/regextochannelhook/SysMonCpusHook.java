@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
@@ -64,28 +65,30 @@ public class SysMonCpusHook implements RegExToChannelEventHook
             if (matcher.find())
             {
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    "system.cpu.last",
+                                                    new JsonChannel( "system.cpu.last",
+                                                                     "System cpu usage in percentage of last interval. Min 0, max 100.",
+                                                                     "Percent" ),
                                                     new JsonEventValue( Double.parseDouble( matcher.group( "cpu" ) ),
                                                                         null ),
                                                     null,
                                                     null );
-                newEvent.setChannelDescription( "System cpu usage in percentage of last interval. Min 0, max 100." );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
-                                          "system.iowait",
+                                          new JsonChannel( "system.iowait", "", "Percent" ),
                                           new JsonEventValue( Long.parseLong( matcher.group( "iowait" ) ), null ),
                                           null,
                                           null );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
-                                          "system.cpu.boot",
+                                          new JsonChannel( "system.cpu.boot",
+                                                           "Average system cpu usage in percentage since boot. Min 0, max 100.",
+                                                           "Percent" ),
                                           new JsonEventValue( Double.parseDouble( matcher.group( "cpuboot" ) ), null ),
                                           null,
                                           null );
-                newEvent.setChannelDescription( "Average system cpu usage in percentage since boot. Min 0, max 100." );
                 jsonEventHandler.handle( newEvent );
                 newEvent = new JsonEvent( event.getTimestamp(),
-                                          "system.cpu.thread",
+                                          new JsonChannel( "system.cpu.thread", "", "Percent" ),
                                           new JsonEventValue( Double.parseDouble( matcher.group( "cputhread" ) ),
                                                               null ),
                                           null,

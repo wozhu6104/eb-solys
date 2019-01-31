@@ -16,6 +16,7 @@ import java.util.List;
 
 import com.elektrobit.ebrace.common.utils.ByteArrayHelper;
 import com.elektrobit.ebrace.common.utils.StringHelper;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
 import com.elektrobit.ebrace.targetadapter.communicator.api.OutgoingMessage;
@@ -129,12 +130,9 @@ public class DltMessage implements OutgoingMessage
     public String toJson()
     {
         JsonEventValue value = constructJsonEventValue();
-        JsonEvent event = new JsonEvent( (long)standardHeader.getTimeStamp(),
-                                         "trace.dlt." + extendedHeader.getApplicationId() + "."
-                                                 + extendedHeader.getContextId(),
-                                         value,
-                                         0l,
-                                         null );
+        JsonChannel channel = new JsonChannel( "trace.dlt." + extendedHeader.getApplicationId() + "."
+                + extendedHeader.getContextId(), "", "Text" );
+        JsonEvent event = new JsonEvent( (long)standardHeader.getTimeStamp(), channel, value, 0l, null );
         return event.toString();
     }
 

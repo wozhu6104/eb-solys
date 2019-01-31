@@ -14,13 +14,11 @@ import com.google.gson.Gson;
 import lombok.Data;
 
 @Data
-public class JsonEvent
+public class JsonChannel
 {
-    private final Long uptime;
-    private final JsonChannel channel;
-    private final JsonEventValue value;
-    private final Long duration;
-    private final JsonEventEdge edge;
+    private final String name;
+    private final String description;
+    private final String unitDescription;
 
     @Override
     public String toString()
