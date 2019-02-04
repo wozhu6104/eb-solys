@@ -245,6 +245,7 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
         getTable().addListener( SWT.MouseWheel, new Listener()
         {
             long lastScrolling = 0;
+            int linesToScroll = 0;
 
             @Override
             public void handleEvent(Event e)
@@ -252,16 +253,11 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
                 e.doit = false;
                 long now = System.currentTimeMillis();
                 long timeSinceLastScroll = now - lastScrolling;
+                linesToScroll -= e.count;
                 if (timeSinceLastScroll > 300)
                 {
-                    if (e.count >= 0)
-                    {
-                        getTable().setTopIndex( getTable().getTopIndex() - 20 );
-                    }
-                    else
-                    {
-                        getTable().setTopIndex( getTable().getTopIndex() + 20 );
-                    }
+                    getTable().setTopIndex( getTable().getTopIndex() + linesToScroll );
+                    linesToScroll = 0;
                     lastScrolling = System.currentTimeMillis();
                 }
             }
