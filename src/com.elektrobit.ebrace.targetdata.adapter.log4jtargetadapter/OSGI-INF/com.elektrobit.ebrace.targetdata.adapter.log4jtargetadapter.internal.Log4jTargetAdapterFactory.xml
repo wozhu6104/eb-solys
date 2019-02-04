@@ -5,6 +5,7 @@
       <provide interface="com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory"/>
    </service>
    <reference bind="bindComRelationAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.comrelation.ComRelationAcceptor" name="ComRelationAcceptor" unbind="unbindComRelationAcceptor"/>
+   <reference bind="bindJsonService" interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler" name="JsonService" unbind="unbindJsonService"/>
    <reference bind="bindRuntimeEventAcceptor" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" name="RuntimeEventAcceptor" unbind="unbindRuntimeEventAcceptor"/>
    <reference bind="bindTimestampProvider" interface="com.elektrobit.ebrace.chronograph.api.TimestampProvider" name="TimestampProvider" unbind="unbindTimestampProvider"/>
    <implementation class="com.elektrobit.ebrace.targetdata.adapter.log4jtargetadapter.internal.Log4jTargetAdapterFactory"/>
