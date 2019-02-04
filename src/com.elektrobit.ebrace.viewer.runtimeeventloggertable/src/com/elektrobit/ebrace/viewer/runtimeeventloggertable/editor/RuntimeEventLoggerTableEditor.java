@@ -37,6 +37,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
@@ -240,6 +242,31 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
     {
         getTable().addMouseListener( new RuntimeEventTableMouseListener( this ) );
         getTable().addMouseTrackListener( new RuntimeEventTableMouseListener( this ) );
+        getTable().addListener( SWT.MouseWheel, new Listener()
+        {
+            long lastScrolling = 0;
+
+            @Override
+            public void handleEvent(Event e)
+            {
+                e.doit = false;
+                long now = System.currentTimeMillis();
+                long timeSinceLastScroll = now - lastScrolling;
+                if (timeSinceLastScroll > 300)
+                {
+                    if (e.count >= 0)
+                    {
+                        getTable().setTopIndex( getTable().getTopIndex() - 20 );
+                    }
+                    else
+                    {
+                        getTable().setTopIndex( getTable().getTopIndex() + 20 );
+                    }
+                    lastScrolling = System.currentTimeMillis();
+                }
+            }
+        } );
+
     }
 
     Table getTable()
