@@ -10,6 +10,7 @@
 package com.elektrobit.ebrace.targetdata.adapter.log4jtargetadapter.internal;
 
 import com.elektrobit.ebrace.chronograph.api.TimestampProvider;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.targetagent.protocol.commondefinitions.TargetAgentProtocolCommonDefinitions;
 import com.elektrobit.ebrace.targetagent.protocol.commondefinitions.TargetAgentProtocolCommonDefinitions.MessageType;
 import com.elektrobit.ebrace.targetdata.adapter.log4j.Log4jTAProto;
@@ -29,11 +30,14 @@ public class Log4jTargetAdapter implements TargetAdapter
 {
 
     private final RuntimeEventAcceptor runtimeEventAcceptor;
+    private final JsonEventHandler jsonEventHandler;
 
     public Log4jTargetAdapter(RuntimeEventAcceptor runtimeEventAcceptor, TimestampProvider tsProvider,
-            ComRelationAcceptor comRelationAcceptor, DataSourceContext dataSourceContext)
+            ComRelationAcceptor comRelationAcceptor, JsonEventHandler jsonEventHandler,
+            DataSourceContext dataSourceContext)
     {
         this.runtimeEventAcceptor = runtimeEventAcceptor;
+        this.jsonEventHandler = jsonEventHandler;
     }
 
     @Override
@@ -49,7 +53,8 @@ public class Log4jTargetAdapter implements TargetAdapter
             try
             {
                 message = Log4jTAProto.LogData.parseFrom( payload );
-                Log4jRuntimeEventCreator.createRuntimeEvent( message, timestamp, runtimeEventAcceptor );
+                Log4jRuntimeEventCreator
+                        .createRuntimeEvent( message, timestamp, runtimeEventAcceptor, jsonEventHandler );
 
             }
             catch (InvalidProtocolBufferException e)

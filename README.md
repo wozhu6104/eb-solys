@@ -99,6 +99,22 @@ cd src/com.elektrobit.ebrace.releng.ui.ecl.aggregator
 mvn clean verify
 ```
 
+The product for your favourite environment can then be found here
+
+```
+cd src/com.elektrobit.ebrace.releng.ui.ecl.product/target/products
+```
+
+Unzip the product and execute the EB solys binary.
+
+
+## Running under Linux
+
+You need to install openjfx otherwise the built-in HTML and javascript features will not work properly.
+```
+sudo apt install openjfx
+```
+
 ## Contact
 
 EB solys development is supported by systemticks GmbH

@@ -16,6 +16,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import com.elektrobit.ebrace.chronograph.api.TimestampProvider;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.BaseTargetAdapterFactory;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.TargetAdaptorFactory;
@@ -29,14 +30,16 @@ public class Log4jTargetAdapterFactory extends BaseTargetAdapterFactory<Log4jTar
     private RuntimeEventAcceptor runtimeEventAcceptor;
     private ComRelationAcceptor comRelationAcceptor;
     private TimestampProvider tsProvider;
+    private JsonEventHandler jsonEventHandler = null;
 
     @Override
     protected Log4jTargetAdapter createNewAdapterInstance(DataSourceContext dataSourceContext)
     {
         return new Log4jTargetAdapter( runtimeEventAcceptor,
-                                              tsProvider,
-                                              comRelationAcceptor,
-                                              dataSourceContext );
+                                       tsProvider,
+                                       comRelationAcceptor,
+                                       jsonEventHandler,
+                                       dataSourceContext );
     }
 
     @Override
@@ -78,4 +81,14 @@ public class Log4jTargetAdapterFactory extends BaseTargetAdapterFactory<Log4jTar
         this.comRelationAcceptor = null;
     }
 
+    @Reference
+    public void bindJsonService(JsonEventHandler jsonEventHandler)
+    {
+        this.jsonEventHandler = jsonEventHandler;
+    }
+
+    public void unbindJsonService(JsonEventHandler jsonEventHandler)
+    {
+        this.jsonEventHandler = null;
+    }
 }
