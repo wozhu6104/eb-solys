@@ -65,34 +65,13 @@ public class SysMonCpusHook implements RegExToChannelEventHook
             if (matcher.find())
             {
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    new JsonChannel( "system.cpu.last",
+                                                    new JsonChannel( "system.cpu",
                                                                      "System cpu usage in percentage of last interval. Min 0, max 100.",
                                                                      "Percent" ),
                                                     new JsonEventValue( Double.parseDouble( matcher.group( "cpu" ) ),
                                                                         null ),
                                                     null,
                                                     null );
-                jsonEventHandler.handle( newEvent );
-                newEvent = new JsonEvent( event.getTimestamp(),
-                                          new JsonChannel( "system.iowait", "", "Percent" ),
-                                          new JsonEventValue( Long.parseLong( matcher.group( "iowait" ) ), null ),
-                                          null,
-                                          null );
-                jsonEventHandler.handle( newEvent );
-                newEvent = new JsonEvent( event.getTimestamp(),
-                                          new JsonChannel( "system.cpu.boot",
-                                                           "Average system cpu usage in percentage since boot. Min 0, max 100.",
-                                                           "Percent" ),
-                                          new JsonEventValue( Double.parseDouble( matcher.group( "cpuboot" ) ), null ),
-                                          null,
-                                          null );
-                jsonEventHandler.handle( newEvent );
-                newEvent = new JsonEvent( event.getTimestamp(),
-                                          new JsonChannel( "system.cpu.thread", "", "Percent" ),
-                                          new JsonEventValue( Double.parseDouble( matcher.group( "cputhread" ) ),
-                                                              null ),
-                                          null,
-                                          null );
                 jsonEventHandler.handle( newEvent );
             }
 
