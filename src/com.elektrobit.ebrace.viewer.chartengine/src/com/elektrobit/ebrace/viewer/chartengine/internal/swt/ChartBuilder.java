@@ -217,7 +217,7 @@ public class ChartBuilder<T> implements ChannelColorCallback
         xAxisPrimary.getScale().setShowOutside( false );
         setDataFormatXAxis();
 
-        xAxisPrimary.setInterval( 1 );
+        xAxisPrimary.setInterval( 2 );
         yAxisPrimary = chart.getPrimaryOrthogonalAxis( xAxisPrimary );
         yAxisPrimary.setType( AxisType.LINEAR_LITERAL );
         yAxisPrimary.getMajorGrid().setTickStyle( TickStyle.LEFT_LITERAL );
