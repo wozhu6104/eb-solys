@@ -34,11 +34,13 @@ public class SysMonCpusHook implements RegExToChannelEventHook
     private final String expression = "CPU usage in interval : (?<cpu>\\d+.\\d+)% iowait: (?<iowait>\\d+)% cpu since boot : (?<cpuboot>\\d+.\\d+)% Total thread cpu load : (?<cputhread>\\d+.\\d+)%";
     private final Pattern pattern;
     private Matcher matcher;
+    private final Gson gson;
 
     public SysMonCpusHook()
     {
         log.debug( "initialized RegEx to Channel Event Hook with expression: " + expression );
         pattern = Pattern.compile( expression );
+        gson = new Gson();
     }
 
     @Reference
@@ -57,7 +59,7 @@ public class SysMonCpusHook implements RegExToChannelEventHook
     {
         if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.cpus" ))
         {
-            JsonEvent oldEvent = new Gson().fromJson( event.getValue().toString(), JsonEvent.class );
+            JsonEvent oldEvent = gson.fromJson( event.getValue().toString(), JsonEvent.class );
             String summaryString = oldEvent.getValue().getDetails().getAsJsonObject().get( "payload" ).getAsJsonObject()
                     .get( "0" ).toString();
             summaryString = summaryString.substring( 1, summaryString.length() - 7 );
