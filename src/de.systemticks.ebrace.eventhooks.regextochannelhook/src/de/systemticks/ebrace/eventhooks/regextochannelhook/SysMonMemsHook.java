@@ -34,11 +34,13 @@ public class SysMonMemsHook implements RegExToChannelEventHook
     private final String expression = "MemTotal: (?<memtotal>\\d+.\\d+) MB MemAvailable: (?<memavail>\\d+.\\d+) MB Buffers: (?<membuffers>\\d+.\\d+) MB Cached: (?<memcache>\\d+.\\d+) MB Shmem: (?<shmem>\\d+.\\d+) MB SUnreclaim_kB: (?<sunreclaim>\\d+.\\d+) MB";
     private final Pattern pattern;
     private Matcher matcher;
+    private final Gson gson;
 
     public SysMonMemsHook()
     {
         log.debug( "initialized RegEx to Channel Event Hook with expression: " + expression );
         pattern = Pattern.compile( expression );
+        gson = new Gson();
     }
 
     @Reference
@@ -57,7 +59,7 @@ public class SysMonMemsHook implements RegExToChannelEventHook
     {
         if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.mems" ))
         {
-            JsonEvent oldEvent = new Gson().fromJson( event.getValue().toString(), JsonEvent.class );
+            JsonEvent oldEvent = gson.fromJson( event.getValue().toString(), JsonEvent.class );
             String summaryString = oldEvent.getValue().getDetails().getAsJsonObject().get( "payload" ).getAsJsonObject()
                     .get( "0" ).toString();
             summaryString = summaryString.substring( 1, summaryString.length() - 7 );
@@ -66,7 +68,6 @@ public class SysMonMemsHook implements RegExToChannelEventHook
             {
                 double memTotal = Double.parseDouble( matcher.group( "memtotal" ) );
                 double memAvail = Double.parseDouble( matcher.group( "memavail" ) );
-                double memUsed = memTotal - memAvail;
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
                                                     new JsonChannel( "system.mem.total", "", "MB" ),
                                                     new JsonEventValue( memTotal, null ),

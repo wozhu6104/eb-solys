@@ -34,11 +34,13 @@ public class SysMonCpusHook implements RegExToChannelEventHook
     private final String expression = "CPU usage in interval : (?<cpu>\\d+.\\d+)% iowait: (?<iowait>\\d+)% cpu since boot : (?<cpuboot>\\d+.\\d+)% Total thread cpu load : (?<cputhread>\\d+.\\d+)%";
     private final Pattern pattern;
     private Matcher matcher;
+    private final Gson gson;
 
     public SysMonCpusHook()
     {
         log.debug( "initialized RegEx to Channel Event Hook with expression: " + expression );
         pattern = Pattern.compile( expression );
+        gson = new Gson();
     }
 
     @Reference
@@ -57,7 +59,7 @@ public class SysMonCpusHook implements RegExToChannelEventHook
     {
         if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.cpus" ))
         {
-            JsonEvent oldEvent = new Gson().fromJson( event.getValue().toString(), JsonEvent.class );
+            JsonEvent oldEvent = gson.fromJson( event.getValue().toString(), JsonEvent.class );
             String summaryString = oldEvent.getValue().getDetails().getAsJsonObject().get( "payload" ).getAsJsonObject()
                     .get( "0" ).toString();
             summaryString = summaryString.substring( 1, summaryString.length() - 7 );
@@ -65,34 +67,13 @@ public class SysMonCpusHook implements RegExToChannelEventHook
             if (matcher.find())
             {
                 JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                    new JsonChannel( "system.cpu.last",
+                                                    new JsonChannel( "system.cpu",
                                                                      "System cpu usage in percentage of last interval. Min 0, max 100.",
                                                                      "Percent" ),
                                                     new JsonEventValue( Double.parseDouble( matcher.group( "cpu" ) ),
                                                                         null ),
                                                     null,
                                                     null );
-                jsonEventHandler.handle( newEvent );
-                newEvent = new JsonEvent( event.getTimestamp(),
-                                          new JsonChannel( "system.iowait", "", "Percent" ),
-                                          new JsonEventValue( Long.parseLong( matcher.group( "iowait" ) ), null ),
-                                          null,
-                                          null );
-                jsonEventHandler.handle( newEvent );
-                newEvent = new JsonEvent( event.getTimestamp(),
-                                          new JsonChannel( "system.cpu.boot",
-                                                           "Average system cpu usage in percentage since boot. Min 0, max 100.",
-                                                           "Percent" ),
-                                          new JsonEventValue( Double.parseDouble( matcher.group( "cpuboot" ) ), null ),
-                                          null,
-                                          null );
-                jsonEventHandler.handle( newEvent );
-                newEvent = new JsonEvent( event.getTimestamp(),
-                                          new JsonChannel( "system.cpu.thread", "", "Percent" ),
-                                          new JsonEventValue( Double.parseDouble( matcher.group( "cputhread" ) ),
-                                                              null ),
-                                          null,
-                                          null );
                 jsonEventHandler.handle( newEvent );
             }
 

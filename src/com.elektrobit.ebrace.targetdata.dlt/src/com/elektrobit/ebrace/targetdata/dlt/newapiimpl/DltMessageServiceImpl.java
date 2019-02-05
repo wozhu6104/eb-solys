@@ -33,6 +33,9 @@ import com.elektrobit.ebrace.targetdata.dlt.internal.DltStandardHeader;
 import com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator;
 import com.elektrobit.ebrace.targetdata.dlt.newapi.DltMessageService;
 
+import lombok.extern.log4j.Log4j;
+
+@Log4j
 @Component
 public class DltMessageServiceImpl implements MessageReader<DltMessage>, DltMessageService
 {
@@ -298,11 +301,17 @@ public class DltMessageServiceImpl implements MessageReader<DltMessage>, DltMess
             {
                 byte[] logInfoTypeBytes = bytesReader.readNBytes( lengthOfPayload );
                 lengthOfPayload = 0;
+                try
+                {
+                    DltLogInfoType dltLogInfoType = new DltLogInfoType( DltLogInfoType.ResponseCode
+                            .get( responseCode[0] ), logInfoTypeBytes, true );
+                    dltChannelFromLogInfoCreator.createChannelsForMessage( dltLogInfoType );
+                }
+                catch (Exception e)
+                {
+                    log.warn( "Couldn't parse Get_LogInfo message." );
+                }
 
-                DltLogInfoType dltLogInfoType = new DltLogInfoType( DltLogInfoType.ResponseCode.get( responseCode[0] ),
-                                                                    logInfoTypeBytes,
-                                                                    true );
-                dltChannelFromLogInfoCreator.createChannelsForMessage( dltLogInfoType );
             }
         }
         else if (serviceId[0] == 0x04)

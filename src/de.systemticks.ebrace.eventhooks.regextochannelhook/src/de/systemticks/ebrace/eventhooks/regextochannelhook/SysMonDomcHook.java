@@ -31,15 +31,17 @@ import lombok.extern.log4j.Log4j;
 public class SysMonDomcHook implements RegExToChannelEventHook
 {
     private JsonEventHandler jsonEventHandler = null;
-    private final String expression = "Domain \\\\\\\"(?<domainname>[^\\\\s]+)\\\\\\\" consumed (?<cpu>[0-9]+) % cpu in the last interval.*";
+    private final String expression = "Domain \\\\\\\"(?<domainname>[^\\s]+)\\\\\\\" consumed (?<cpu>[0-9]+(\\.?[0-9]*)?) % cpu in the last interval.*";
 
     private final Pattern pattern;
     private Matcher matcher;
+    private final Gson gson;
 
     public SysMonDomcHook()
     {
         log.debug( "initialized RegEx to Channel Event Hook with expression: " + expression );
         pattern = Pattern.compile( expression );
+        gson = new Gson();
     }
 
     @Reference
@@ -58,7 +60,7 @@ public class SysMonDomcHook implements RegExToChannelEventHook
     {
         if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.domc" ))
         {
-            JsonEvent oldEvent = new Gson().fromJson( event.getValue().toString(), JsonEvent.class );
+            JsonEvent oldEvent = gson.fromJson( event.getValue().toString(), JsonEvent.class );
             String summaryString = oldEvent.getValue().getDetails().getAsJsonObject().get( "payload" ).getAsJsonObject()
                     .get( "0" ).toString();
             summaryString = summaryString.substring( 1, summaryString.length() - 7 );
@@ -74,6 +76,10 @@ public class SysMonDomcHook implements RegExToChannelEventHook
                                                     null,
                                                     null );
                 jsonEventHandler.handle( newEvent );
+            }
+            else
+            {
+                log.error( "Couldn't parse message: " + event.getSummary() );
             }
 
         }
