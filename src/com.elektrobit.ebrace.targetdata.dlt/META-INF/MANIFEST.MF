@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.core.runtime,
  com.elektrobit.ebrace.targetadapter.communicator.api,
  org.apache.commons.codec;bundle-version="1.6.0",
  com.google.gson,
- com.elektrobit.ebrace.dev.prof.agent;bundle-version="1.0.0"
+ com.elektrobit.ebrace.dev.prof.agent;bundle-version="1.0.0",
+ com.google.guava;bundle-version="15.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: org.osgi.service.component;version="1.1.0"

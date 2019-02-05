@@ -44,7 +44,6 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     private ModelElementPool modelElementPool;
     private RuntimeEventChannelManager runtimeEventChannelManager;
     private ChannelListenerNotifier channelListenerNotifier;
-    private DataStorageAccess databaseAccess;
     private DatabaseHandler dbHandler;
     private EventHookRegistry eventhookRegistry;
 
@@ -78,7 +77,6 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     @Reference
     public void setDatabaseAccess(DataStorageAccess dbAccess)
     {
-        this.databaseAccess = dbAccess;
         dbHandler = new DatabaseHandler( dbAccess );
         dbHandler.init();
     }
@@ -86,7 +84,6 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public void unsetDatabaseAccess(DataStorageAccess dbAccess)
     {
         dbHandler.release();
-        this.databaseAccess = null;
     }
 
     @Override

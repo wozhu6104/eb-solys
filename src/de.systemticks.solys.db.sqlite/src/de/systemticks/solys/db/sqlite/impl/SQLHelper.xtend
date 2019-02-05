@@ -1,5 +1,9 @@
 package de.systemticks.solys.db.sqlite.impl
 
+import java.util.List
+import com.google.gson.Gson
+import com.google.gson.JsonElement
+
 class SQLHelper {
 
 
@@ -12,14 +16,18 @@ class SQLHelper {
 		'''
 	}
 
-//	def static createTableForStructuredEvents(String origin, int id, Object obj) {
-//		'''
-//			CREATE TABLE «buildTableName(origin, id)»
-//			(eId INTEGER PRIMARY KEY,
-//			 eTimestamp INT8 NOT NULL,
-//			 eValue «obj.toSQLType» NOT NULL)
-//		'''
-//	}
+	def static createTableForStructuredEvents(String origin, int id, List<String> details) {
+		'''
+			CREATE TABLE «buildTableName(origin, id)»
+			(eId INTEGER PRIMARY KEY,
+			 eTimestamp INT8 NOT NULL,
+			 eValue TEXT,
+			«FOR key: details SEPARATOR ","»
+			d«key.toFirstUpper» TEXT
+			«ENDFOR»
+			 )
+		'''
+	}
 
 
 	private def static toSQLType(String type)
@@ -58,6 +66,20 @@ class SQLHelper {
 	{
 		'''
 		INSERT INTO «table» (eId, eTimestamp, eValue) values («id», «timestamp», «value»)
+		'''
+	}
+
+	def static insertValueIntoEventTableUnprepared(String table, int id, long timestamp, String jsonString, List<String> keySet)
+	{
+		val gson = new Gson
+		val valueElement = gson.fromJson(jsonString, JsonElement).asJsonObject.get("value").asJsonObject
+		val value = valueElement.get("summary").asString
+		
+		val detailKeys = keySet.map['d'+toFirstUpper].join(', ')
+		val detailedValues = keySet.map[k | "'"+valueElement.get("details").asJsonObject.get(k)?.asString+"'" ].join(', ')		
+				
+		'''
+		INSERT INTO «table» (eId, eTimestamp, eValue, «detailKeys») values («id», «timestamp», '«value.replace("'", "''")»', «detailedValues» )
 		'''
 	}
 

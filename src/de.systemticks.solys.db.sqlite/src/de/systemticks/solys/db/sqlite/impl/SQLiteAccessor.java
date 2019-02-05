@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.osgi.service.component.annotations.Component;
@@ -26,7 +27,7 @@ import de.systemticks.solys.db.sqlite.api.StatsItem;
 public class SQLiteAccessor implements DataStorageAccess {
 
 	private Connection connection;
-	HashMap<String, Integer> channelMap = new HashMap<>();
+    private final Map<Integer, ChannelInfo> channels = new HashMap<>();
 	private int channelId = 1;
 	private Gson gson = new Gson();
 
@@ -137,8 +138,20 @@ public class SQLiteAccessor implements DataStorageAccess {
 			Statement stmt = connection.createStatement();
 
 			for (BaseEvent<?> e : events) {
-				stmt.addBatch(SQLHelper.insertValueIntoEventTableUnprepared(e.getOrigin() + "_" + e.getChannelId(), e.getEventId(),
-						e.getTimestamp(), e.getValue()).toString());
+				ChannelInfo ch = channels.get(e.getChannelId());
+				if(ch != null)
+				{
+					if(ch.keySet == null)
+					{
+						stmt.addBatch(SQLHelper.insertValueIntoEventTableUnprepared(e.getOrigin() + "_" + e.getChannelId(), e.getEventId(),
+								e.getTimestamp(), e.getValue()).toString());											
+					}
+					else
+					{
+						stmt.addBatch(SQLHelper.insertValueIntoEventTableUnprepared(e.getOrigin() + "_" + e.getChannelId(), e.getEventId(),
+								e.getTimestamp(), e.getValue().toString(), ch.keySet).toString());																	
+					}
+				}
 			}
 
 			stmt.executeBatch();
@@ -331,20 +344,33 @@ public class SQLiteAccessor implements DataStorageAccess {
 
 	@Override
 	public int createChannel(String fullname, List<String> keySet) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		channelId += 1;
+		
+		String container = getContainer(fullname);
+
+		executeSingleStatement(SQLHelper.createTableForStructuredEvents(container, channelId, keySet));
+
+		executeSingleStatement(SQLHelper.insertIntoChannelMappingTable(channelId, fullname, container, "Structured"));
+
+		channels.put(channelId, new ChannelInfo("Structured", fullname, keySet, channelId));
+
+		return channelId;
+		
 	}
 
 	@Override
 	public int createChannel(String fullname, String type) {
-		// TODO Auto-generated method stub
-		channelId += 1;
 
+		channelId += 1;
+		
 		String container = getContainer(fullname);
 
 		executeSingleStatement(SQLHelper.createTableForPrimitiveEvents(container, channelId, type));
 
 		executeSingleStatement(SQLHelper.insertIntoChannelMappingTable(channelId, fullname, container, type));
+		
+		channels.put(channelId, new ChannelInfo(type, fullname, null, channelId));
 
 		return channelId;
 	}
@@ -352,5 +378,25 @@ public class SQLiteAccessor implements DataStorageAccess {
 	private String getContainer(String fullChannelname) {
 		return fullChannelname.split("\\.")[0];
 	}
+
+}
+
+class ChannelInfo
+{
+    public String storage;
+    public String type;
+    public String name;
+    public int id;
+    public List<String> keySet;
+
+    public ChannelInfo(String type, String name, List<String> keySet, int id)
+    {
+        super();
+        this.storage = name.split( "\\." )[0];
+        this.type = type;
+        this.name = name;
+        this.keySet = keySet;
+        this.id = id;
+    }
 
 }

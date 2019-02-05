@@ -93,6 +93,8 @@ public class DatabaseHandler
 
     public void release()
     {
+        commit();
+
         long t1 = System.currentTimeMillis();
         access.backup( "backup.db" );
         access.shutDown();
@@ -158,9 +160,14 @@ public class DatabaseHandler
                         // drop event
                     }
                 }
+                // structured events
                 else
                 {
-                    // drop event
+                    anyEvents.add( createStringEvent( dbChannel.name,
+                                                      value.toString(),
+                                                      globalEventId,
+                                                      dbChannel.id,
+                                                      timestamp ) );
                 }
 
                 if (anyEvents.size() == BULK_IMPORT_SIZE)
@@ -203,6 +210,20 @@ public class DatabaseHandler
         BaseEvent<Integer> event = new BaseEvent<>();
         event.setChannelname( channelName );
         event.setValue( intValue );
+        event.setEventId( eventId );
+        event.setTimestamp( timestamp );
+        event.setOrigin( getContainer( channelName ) );
+        event.setChannelId( cId );
+
+        return event;
+    }
+
+    private BaseEvent<String> createStringEvent(String channelName, String text, int eventId, int cId, long timestamp)
+    {
+
+        BaseEvent<String> event = new BaseEvent<>();
+        event.setChannelname( channelName );
+        event.setValue( text );
         event.setEventId( eventId );
         event.setTimestamp( timestamp );
         event.setOrigin( getContainer( channelName ) );
