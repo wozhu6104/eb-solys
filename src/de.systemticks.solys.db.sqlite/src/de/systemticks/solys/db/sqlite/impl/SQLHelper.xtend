@@ -3,20 +3,32 @@ package de.systemticks.solys.db.sqlite.impl
 class SQLHelper {
 
 
-	def static createTableForAnyEvents(String origin, int id, Object obj) {
+	def static createTableForPrimitiveEvents(String origin, int id, String javaType) {
 		'''
 			CREATE TABLE «buildTableName(origin, id)»
 			(eId INTEGER PRIMARY KEY,
 			 eTimestamp INT8 NOT NULL,
-			 eValue «obj.toSQLType» NOT NULL)
+			 eValue «javaType.toSQLType» NOT NULL)
 		'''
 	}
 
-	private def static toSQLType(Object o)
+//	def static createTableForStructuredEvents(String origin, int id, Object obj) {
+//		'''
+//			CREATE TABLE «buildTableName(origin, id)»
+//			(eId INTEGER PRIMARY KEY,
+//			 eTimestamp INT8 NOT NULL,
+//			 eValue «obj.toSQLType» NOT NULL)
+//		'''
+//	}
+
+
+	private def static toSQLType(String type)
 	{
-		switch o.class.simpleName {
+		switch type {
 			case 'Double' : 'REAL'
 			case 'Integer' : 'INT'
+			//FIXME
+			case 'Long' : 'INT'
 			case 'String' : 'TEXT'
 			default : 'ERROR'
 		}
@@ -48,7 +60,6 @@ class SQLHelper {
 		INSERT INTO «table» (eId, eTimestamp, eValue) values («id», «timestamp», «value»)
 		'''
 	}
-
 
 	def static insertValueIntoEventTable(String table)
 	{

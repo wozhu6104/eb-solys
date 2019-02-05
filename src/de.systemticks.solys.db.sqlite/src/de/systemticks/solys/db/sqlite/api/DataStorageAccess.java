@@ -13,19 +13,26 @@ public interface DataStorageAccess {
 	
 	public boolean commit();
 	
+	public boolean backup(String filename);
+	
 	public boolean bulkImportAnyBaseEvents(List<BaseEvent<?>> events);
+		
+	// New methods return JSON
+	public int createChannel(String fullname, List<String> keySet);
 
+	public int createChannel(String fullname, String type);
+	
+	public List<String> getAllChannels();
+
+	public List<String> getAllEventsFromChannel(String storage, int channeldId, long fromTimestamp, long toTimestamp);
+
+	public List<String> getStatisticOverTime(String storage, int cId, int interval);
+	
+	// Legacy
 	public <T> List<BaseEvent<T>> getEventsAtTimestamp(String storage, long timestamp, Class<T> class1);
 
 	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, Class<T> class1);
 
-	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, long fromTimestamp, long toTimestamp, Class<T> class1 );
-
 	public <T> List<BaseEvent<T>> getMaxEventsFromAllChannels(String storage, Class<T> class1);
 
-	public <T> List<StatsItem<T>> getStatisticOverTime(String storage, int channeldId, int interval, Class<T> class1);
-	
-	public List<Channel> getAllChannels();
-	
-	public boolean backup(String filename);
 }

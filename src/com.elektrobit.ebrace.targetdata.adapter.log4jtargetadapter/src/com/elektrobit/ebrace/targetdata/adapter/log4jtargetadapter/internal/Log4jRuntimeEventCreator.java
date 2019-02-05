@@ -52,6 +52,8 @@ public class Log4jRuntimeEventCreator
                         * 1000, parsedMessage.getLogLevel(), value, null, eventEdge );
 
                 jsonEventHandler.handle( evt );
+
+                System.out.println( evt.toString() );
             }
             else
             {

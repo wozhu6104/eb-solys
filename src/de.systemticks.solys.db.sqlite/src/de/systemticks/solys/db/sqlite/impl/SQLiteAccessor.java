@@ -1,17 +1,21 @@
 package de.systemticks.solys.db.sqlite.impl;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.osgi.service.component.annotations.Component;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import de.systemticks.solys.db.sqlite.api.BaseEvent;
 import de.systemticks.solys.db.sqlite.api.Channel;
@@ -24,6 +28,7 @@ public class SQLiteAccessor implements DataStorageAccess {
 	private Connection connection;
 	HashMap<String, Integer> channelMap = new HashMap<>();
 	private int channelId = 1;
+	private Gson gson = new Gson();
 
 	private boolean open(String name) {
 		try {
@@ -127,47 +132,24 @@ public class SQLiteAccessor implements DataStorageAccess {
 
 	@Override
 	public boolean bulkImportAnyBaseEvents(List<BaseEvent<?>> events) {
-		
+
 		try {
 			Statement stmt = connection.createStatement();
-			
-			for (BaseEvent<?> e : events) {			
-				int cId = handleChannelName(e);				
-				stmt.addBatch(SQLHelper.insertValueIntoEventTableUnprepared(
-						e.getOrigin() + "_" + cId, e.getEventId(), e.getTimestamp(), e.getValue()).toString());				
+
+			for (BaseEvent<?> e : events) {
+				stmt.addBatch(SQLHelper.insertValueIntoEventTableUnprepared(e.getOrigin() + "_" + e.getChannelId(), e.getEventId(),
+						e.getTimestamp(), e.getValue()).toString());
 			}
-			
+
 			stmt.executeBatch();
 			stmt.close();
-									
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return false;
-	}
-
-	
-	private int handleChannelName(BaseEvent<?> e) {
-		if (!channelMap.containsKey(e.getChannelname())) {
-
-			// Event with a new channel arrived
-			// Need to create a new ChannelId
-			// Create a new table, that carries events for this channel
-			// Update the Channel Mapping Table
-
-			channelId += 1;
-			channelMap.put(e.getChannelname(), channelId);
-
-			executeSingleStatement(SQLHelper.createTableForAnyEvents(e.getOrigin(), channelId,
-					e.getValue()));
-
-			executeSingleStatement(SQLHelper.insertIntoChannelMappingTable(channelId, e.getChannelname(), e.getOrigin(),
-					e.getValue().getClass().getSimpleName()));
-		}
-
-		return channelMap.get(e.getChannelname());
 	}
 
 	@Override
@@ -183,20 +165,19 @@ public class SQLiteAccessor implements DataStorageAccess {
 
 	@Override
 	public boolean backup(String filename) {
-		
+
 		try {
 			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("backup to "+filename);
+			stmt.executeUpdate("backup to " + filename);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		return true;
 	}
-	
-	
+
 	@Override
 	public <T> List<BaseEvent<T>> getMaxEventsFromAllChannels(String storage, Class<T> class1) {
 		return createBaseEventsFromQuery(SQLHelper.createMaxFromAllChannels(storage),
@@ -209,13 +190,25 @@ public class SQLiteAccessor implements DataStorageAccess {
 				TypeResultBuilderFactory.create(class1));
 	}
 
-	@Override
-	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, long fromTimestamp,
+//	@Override
+	private <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, long fromTimestamp,
 			long toTimestamp, Class<T> class1) {
 
 		return createBaseEventsFromQuery(
 				SQLHelper.createAllEventsFromChannel(storage, channeldId, fromTimestamp, toTimestamp),
 				TypeResultBuilderFactory.create(class1));
+
+	}
+
+	@Override
+	public List<String> getAllEventsFromChannel(String storage, int channeldId, long fromTimestamp, long toTimestamp) {
+
+		// TODO derive class from channelId
+		Type doubleType = new TypeToken<BaseEvent<Double>>() {
+		}.getType();
+
+		return getAllEventsFromChannel(storage, channeldId, fromTimestamp, toTimestamp, Double.class).stream()
+				.map(e -> gson.toJson(e, doubleType)).collect(Collectors.toList());
 
 	}
 
@@ -261,7 +254,17 @@ public class SQLiteAccessor implements DataStorageAccess {
 	}
 
 	@Override
-	public <T> List<StatsItem<T>> getStatisticOverTime(String storage, int cId, int interval, Class<T> class1) {
+	public List<String> getStatisticOverTime(String storage, int cId, int interval) {
+
+		// TODO derive class from channelId
+		Type doubleType = new TypeToken<StatsItem<Double>>() {
+		}.getType();
+
+		return getStatisticOverTime(storage, cId, interval, Double.class).stream().map(e -> gson.toJson(e, doubleType))
+				.collect(Collectors.toList());
+	}
+
+	private <T> List<StatsItem<T>> getStatisticOverTime(String storage, int cId, int interval, Class<T> class1) {
 
 		List<StatsItem<T>> result = new ArrayList<>();
 
@@ -294,9 +297,9 @@ public class SQLiteAccessor implements DataStorageAccess {
 	}
 
 	@Override
-	public List<Channel> getAllChannels() {
+	public List<String> getAllChannels() {
 
-		List<Channel> result = new ArrayList<>();
+		List<String> result = new ArrayList<>();
 
 		String query = SQLHelper.createAllChannels().toString();
 
@@ -315,7 +318,7 @@ public class SQLiteAccessor implements DataStorageAccess {
 				c.setName(rs.getString(2));
 				c.setNature(rs.getString(3));
 				c.setType(rs.getString(4));
-				result.add(c);
+				result.add(gson.toJson(c));
 			}
 
 		} catch (SQLException e) {
@@ -326,5 +329,28 @@ public class SQLiteAccessor implements DataStorageAccess {
 
 	}
 
+	@Override
+	public int createChannel(String fullname, List<String> keySet) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int createChannel(String fullname, String type) {
+		// TODO Auto-generated method stub
+		channelId += 1;
+
+		String container = getContainer(fullname);
+
+		executeSingleStatement(SQLHelper.createTableForPrimitiveEvents(container, channelId, type));
+
+		executeSingleStatement(SQLHelper.insertIntoChannelMappingTable(channelId, fullname, container, type));
+
+		return channelId;
+	}
+
+	private String getContainer(String fullChannelname) {
+		return fullChannelname.split("\\.")[0];
+	}
 
 }

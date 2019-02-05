@@ -13,43 +13,67 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.LineChartData;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import de.systemticks.solys.data.api.DataServiceHost;
 import de.systemticks.solys.db.sqlite.api.BaseEvent;
 import de.systemticks.solys.db.sqlite.api.Channel;
 import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
+import de.systemticks.solys.db.sqlite.api.StatsItem;
 
 public class DatabaseHandler
 {
 
     private final DataStorageAccess access;
-    private final Map<String, String> channels = new HashMap<>();
+    private final Map<String, ChannelInfo> channels = new HashMap<>();
     private int globalEventId;
     private final boolean fileMode;
-    // private final List<BaseEvent<Double>> cpuEvents = new ArrayList<>();
-    // private final List<BaseEvent<Integer>> memEvents = new ArrayList<>();
     private final List<BaseEvent<?>> anyEvents = new ArrayList<>();
     private List<Channel> channelsFromDb;
     private final static int BULK_IMPORT_SIZE = 1000;
-    // private final static String DB_NAME = "runtimeevent.db";
     private final static String DB_NAME = ":memory:";
-    // private final static String DB_NAME = "multitable.db";
+    private final Gson gson;
+    private DataServiceHost service;
 
     public DatabaseHandler(DataStorageAccess access)
     {
         this.access = access;
         globalEventId = 0;
         fileMode = true;
+        gson = new Gson();
     }
 
     public void init()
     {
         access.openReadAndWrite( DB_NAME );
+        openRemoteService();
+    }
+
+    private void openRemoteService()
+    {
+        service = new DataServiceHost();
+
+        Executors.newSingleThreadExecutor().execute( new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                service.start( access );
+            }
+        } );
+    }
+
+    private void stopRemoteService()
+    {
+        service.stop();
     }
 
     public void commit()
@@ -62,7 +86,8 @@ public class DatabaseHandler
         access.commit();
         if (channelsFromDb == null || channelsFromDb.size() == 0)
         {
-            channelsFromDb = access.getAllChannels();
+            channelsFromDb = access.getAllChannels().stream().map( e -> gson.fromJson( e, Channel.class ) )
+                    .collect( Collectors.toList() );
         }
     }
 
@@ -73,16 +98,30 @@ public class DatabaseHandler
         access.shutDown();
         long t2 = System.currentTimeMillis();
         System.out.println( "Backup in-memory DB into file : " + (t2 - t1) + " msec" );
-
+        stopRemoteService();
     }
 
-    public <T> void manageDataSources(DataSourceContext context, String name, Unit<T> unit)
+    public <T> void manageDataSources(DataSourceContext context, String name, Unit<T> unit, List<String> keySet)
     {
-        String key = context.getSourceName() + name;
+        String key = name;
+
+        if (context != null)
+        {
+            key = context.getSourceName() + name;
+        }
 
         if (!channels.containsKey( key ))
         {
-            channels.put( key, name );
+            int cId = -1;
+            if (keySet == null)
+            {
+                cId = access.createChannel( name, unit.getDataType().getSimpleName() );
+            }
+            else
+            {
+                cId = access.createChannel( name, keySet );
+            }
+            channels.put( key, new ChannelInfo( unit.getDataType().getSimpleName(), name, keySet, cId ) );
         }
     }
 
@@ -90,21 +129,38 @@ public class DatabaseHandler
     {
         if (fileMode)
         {
-            String cName = channels.get( channel.getName() );
-            if (cName != null)
+            ChannelInfo dbChannel = channels.get( channel.getName() );
+
+            if (dbChannel != null)
             {
                 globalEventId++;
-                if (cName.startsWith( "cpu" ))
+                // primitive values
+                if (dbChannel.keySet == null)
                 {
-                    anyEvents.add( createCpuEvent( cName, (Double)value, globalEventId, timestamp ) );
-                }
-                else if (cName.startsWith( "mem" ))
-                {
-                    anyEvents.add( createMemoryEvent( cName, ((Long)value).intValue(), globalEventId, timestamp ) );
+                    if (dbChannel.type.contentEquals( "Double" ))
+                    {
+                        anyEvents.add( createDoubleEvent( dbChannel.name,
+                                                          (Double)value,
+                                                          globalEventId,
+                                                          dbChannel.id,
+                                                          timestamp ) );
+                    }
+                    else if (dbChannel.type.contentEquals( "Long" ))
+                    {
+                        anyEvents.add( createIntegerEvent( dbChannel.name,
+                                                           ((Long)value).intValue(),
+                                                           globalEventId,
+                                                           dbChannel.id,
+                                                           timestamp ) );
+                    }
+                    else
+                    {
+                        // drop event
+                    }
                 }
                 else
                 {
-                    // Ignore event. Not written into DB
+                    // drop event
                 }
 
                 if (anyEvents.size() == BULK_IMPORT_SIZE)
@@ -115,32 +171,42 @@ public class DatabaseHandler
                     System.out.println( "Bulk import : " + (t2 - t1) + " msec" );
                     anyEvents.clear();
                 }
+
             }
         }
     }
 
-    private BaseEvent<Double> createCpuEvent(String channelName, double cpu, int eventId, long timestamp)
+    private String getContainer(String fullChannelname)
+    {
+        return fullChannelname.split( "\\." )[0];
+    }
+
+    private BaseEvent<Double> createDoubleEvent(String channelName, double doubleValue, int eventId, int cId,
+            long timestamp)
     {
 
         BaseEvent<Double> event = new BaseEvent<>();
         event.setChannelname( channelName );
-        event.setValue( cpu );
+        event.setValue( doubleValue );
         event.setEventId( eventId );
         event.setTimestamp( timestamp );
-        event.setOrigin( "cpu" );
+        event.setOrigin( getContainer( channelName ) );
+        event.setChannelId( cId );
 
         return event;
     }
 
-    private BaseEvent<Integer> createMemoryEvent(String channelName, int mem, int eventId, long timestamp)
+    private BaseEvent<Integer> createIntegerEvent(String channelName, int intValue, int eventId, int cId,
+            long timestamp)
     {
 
         BaseEvent<Integer> event = new BaseEvent<>();
         event.setChannelname( channelName );
-        event.setValue( mem );
+        event.setValue( intValue );
         event.setEventId( eventId );
         event.setTimestamp( timestamp );
-        event.setOrigin( "mem" );
+        event.setOrigin( getContainer( channelName ) );
+        event.setChannelId( cId );
 
         return event;
     }
@@ -174,14 +240,11 @@ public class DatabaseHandler
         {
             for (RuntimeEventChannel<?> c : channels)
             {
-                ChannelInfo cInfo = getChannelInfo( c.getName() );
                 List<ChartData> events = access
-                        .getStatisticOverTime( cInfo.storage,
+                        .getStatisticOverTime( this.channels.get( c.getName() ).storage,
                                                getChannelId( c.getName() ),
-                                               (int)microToMilli( aggregationTime ),
-                                               cInfo._class )
-                        .stream().map( e -> new ChartData( e.getTimestamp(), (Number)e.getMaximum() ) )
-                        .collect( Collectors.toList() );
+                                               (int)microToMilli( aggregationTime ) )
+                        .stream().map( e -> statsItemToChartData( e ) ).collect( Collectors.toList() );
 
                 allEvents.add( events );
             }
@@ -191,15 +254,12 @@ public class DatabaseHandler
         {
             for (RuntimeEventChannel<?> c : channels)
             {
-                ChannelInfo cInfo = getChannelInfo( c.getName() );
                 List<ChartData> events = access
-                        .getAllEventsFromChannel( cInfo.storage,
+                        .getAllEventsFromChannel( this.channels.get( c.getName() ).storage,
                                                   getChannelId( c.getName() ),
                                                   microToMilli( startTimestamp ),
-                                                  microToMilli( endTimestamp ),
-                                                  cInfo._class )
-                        .stream().map( e -> new ChartData( e.getTimestamp(), (Number)e.getValue() ) )
-                        .collect( Collectors.toList() );
+                                                  microToMilli( endTimestamp ) )
+                        .stream().map( e -> baseEventToChartData( e ) ).collect( Collectors.toList() );
 
                 allEvents.add( events );
             }
@@ -211,20 +271,20 @@ public class DatabaseHandler
         return lineChartDataCreator;
     }
 
-    private ChannelInfo getChannelInfo(String channelName)
+    private ChartData statsItemToChartData(String raw)
     {
-        if (channelName.matches( ".*cpu\\..*" ))
+        StatsItem<Number> e = gson.fromJson( raw, new TypeToken<StatsItem<Number>>()
         {
-            return new ChannelInfo( "cpu", Double.class );
-        }
-        else if (channelName.matches( ".*mem\\..*" ))
+        }.getType() );
+        return new ChartData( e.getTimestamp(), e.getMaximum() );
+    }
+
+    private ChartData baseEventToChartData(String raw)
+    {
+        BaseEvent<Number> e = gson.fromJson( raw, new TypeToken<BaseEvent<Number>>()
         {
-            return new ChannelInfo( "mem", Integer.class );
-        }
-        else
-        {
-            return null;
-        }
+        }.getType() );
+        return new ChartData( e.getTimestamp(), e.getValue() );
     }
 
 }
@@ -232,13 +292,19 @@ public class DatabaseHandler
 class ChannelInfo
 {
     public String storage;
-    public Class<?> _class;
+    public String type;
+    public String name;
+    public int id;
+    public List<String> keySet;
 
-    public ChannelInfo(String storage, Class<?> _class)
+    public ChannelInfo(String type, String name, List<String> keySet, int id)
     {
         super();
-        this.storage = storage;
-        this._class = _class;
+        this.storage = name.split( "\\." )[0];
+        this.type = type;
+        this.name = name;
+        this.keySet = keySet;
+        this.id = id;
     }
 
 }

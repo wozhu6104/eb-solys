@@ -8,10 +8,14 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: com.google.guava,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro
+ org.eclipse.xtend.lib.macro,
+ com.google.gson;bundle-version="2.1.0"
 Bundle-ClassPath: libs/sqlite-jdbc-3.25.2.jar,
+ libs/slf4j-api-1.7.25.jar,
+ libs/libthrift-0.11.0.jar,
  .
-Export-Package: de.systemticks.solys.db.sqlite.api
+Export-Package: de.systemticks.solys.data.api,
+ de.systemticks.solys.db.sqlite.api
 Service-Component: OSGI-INF/de.systemticks.solys.db.sqlite.impl.SQLiteAccessor.xml
 Bundle-ActivationPolicy: lazy
 Import-Package: org.osgi.service.component.annotations

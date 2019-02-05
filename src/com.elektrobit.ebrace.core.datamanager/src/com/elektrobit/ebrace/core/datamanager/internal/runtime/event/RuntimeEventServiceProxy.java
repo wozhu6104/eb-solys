@@ -214,7 +214,7 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public <T> RuntimeEventChannel<T> createOrGetRuntimeEventChannel(DataSourceContext context, String name,
             Unit<T> unit, String description)
     {
-        dbHandler.manageDataSources( context, name, unit );
+        dbHandler.manageDataSources( context, name, unit, null );
         return runtimeEventAcceptorImpl.createOrGetRuntimeEventChannel( context, name, unit, description );
     }
 
@@ -350,6 +350,7 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public <T> RuntimeEvent<T> acceptEventMicros(long timestampUS, RuntimeEventChannel<T> channel,
             ModelElement modelElement, T value)
     {
+        dbHandler.manageEvent( timestampUS, channel, value );
         return runtimeEventAcceptorImpl.acceptEventMicros( timestampUS, channel, modelElement, value );
     }
 
@@ -396,6 +397,7 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public <T> RuntimeEventChannel<T> createOrGetRuntimeEventChannel(String channelName, Unit<T> unit,
             String channelDescription, List<String> valueColumns)
     {
+        dbHandler.manageDataSources( null, channelName, unit, valueColumns );
         return runtimeEventAcceptorImpl
                 .createOrGetRuntimeEventChannel( channelName, unit, channelDescription, valueColumns );
     }
