@@ -58,7 +58,7 @@ public class RuntimeEventTableDataNotifyUseCaseImpl
             FilterScriptCallerListener,
             ChannelsContentChangedListener
 {
-    private static final int UPDATE_TIMER_PERIOD_MS = 3000;
+    private static final int UPDATE_TIMER_PERIOD_MS = 1000;
 
     private RuntimeEventTableDataNotifyCallback callback;
 

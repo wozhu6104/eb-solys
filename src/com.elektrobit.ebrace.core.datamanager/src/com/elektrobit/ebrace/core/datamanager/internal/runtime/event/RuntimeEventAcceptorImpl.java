@@ -24,9 +24,12 @@ import org.apache.log4j.Logger;
 import com.elektrobit.ebrace.common.checks.RangeCheckUtils;
 import com.elektrobit.ebrace.common.memory.MemoryObserver;
 import com.elektrobit.ebrace.common.profiling.PerformanceUtils;
+import com.elektrobit.ebrace.common.utils.GenericOSGIServiceTracker;
 import com.elektrobit.ebrace.core.datamanager.api.channels.ChannelListenerNotifier;
 import com.elektrobit.ebrace.core.datamanager.api.channels.RuntimeEventChannelManager;
 import com.elektrobit.ebrace.core.datamanager.internal.runtime.event.api.RuntimeEventNotifier;
+import com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences;
+import com.elektrobit.ebrace.core.preferences.listener.AnalysisTimespanChangedListener;
 import com.elektrobit.ebsolys.core.targetdata.api.ModelElement;
 import com.elektrobit.ebsolys.core.targetdata.api.ModelElementPool;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
@@ -48,6 +51,67 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
 {
     private final static Logger LOG = Logger.getLogger( RuntimeEventAcceptorImpl.class );
     private final static int EVENT_DELETE_PORTION = 50000;
+
+    private final GenericOSGIServiceTracker<AnalysisTimespanPreferences> analysisTimespanPreferences = new GenericOSGIServiceTracker<AnalysisTimespanPreferences>( AnalysisTimespanPreferences.class,
+                                                                                                                                                                   new AnalysisTimespanPreferences()
+                                                                                                                                                                   {
+
+                                                                                                                                                                       @Override
+                                                                                                                                                                       public long getFullTimespanStart()
+                                                                                                                                                                       {
+                                                                                                                                                                           return 1;
+                                                                                                                                                                       }
+
+                                                                                                                                                                       @Override
+                                                                                                                                                                       public long getFullTimespanEnd()
+                                                                                                                                                                       {
+                                                                                                                                                                           return 60000000;
+                                                                                                                                                                       }
+
+                                                                                                                                                                       @Override
+                                                                                                                                                                       public long getAnalysisTimespanStart()
+                                                                                                                                                                       {
+                                                                                                                                                                           return 1;
+                                                                                                                                                                       }
+
+                                                                                                                                                                       @Override
+                                                                                                                                                                       public long getAnalysisTimespanEnd()
+                                                                                                                                                                       {
+                                                                                                                                                                           return 60000000;
+                                                                                                                                                                       }
+
+                                                                                                                                                                       @Override
+                                                                                                                                                                       public long getAnalysisTimespanLength()
+                                                                                                                                                                       {
+                                                                                                                                                                           return 60000000;
+                                                                                                                                                                       }
+
+                                                                                                                                                                       @Override
+                                                                                                                                                                       public void addTimespanPreferencesChangedListener(
+                                                                                                                                                                               AnalysisTimespanChangedListener analysisTimespanChangedListenerToAdd)
+                                                                                                                                                                       {
+                                                                                                                                                                       }
+
+                                                                                                                                                                       @Override
+                                                                                                                                                                       public void removeTimespanPreferencesChangedListener(
+                                                                                                                                                                               AnalysisTimespanChangedListener analysisTimespanChangedListenerToRemove)
+                                                                                                                                                                       {
+                                                                                                                                                                       }
+
+                                                                                                                                                                       @Override
+                                                                                                                                                                       public void setAnalysisTimespanEnd(
+                                                                                                                                                                               long newValue,
+                                                                                                                                                                               ANALYSIS_TIMESPAN_CHANGE_REASON reason)
+                                                                                                                                                                       {
+                                                                                                                                                                       }
+
+                                                                                                                                                                       @Override
+                                                                                                                                                                       public void setAnalysisTimespanLength(
+                                                                                                                                                                               long analysisTimespanInMillis)
+                                                                                                                                                                       {
+                                                                                                                                                                       }
+
+                                                                                                                                                                   } );
 
     private final List<RuntimeEvent<?>> runtimeEvents = Collections
             .synchronizedList( new ArrayList<RuntimeEvent<?>>() );
@@ -146,7 +210,7 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
 
         runtimeEvents.add( newRuntimeEvent );
         noteIfSortBrokenByLastInsert();
-        removeEventsIfMemoryFull();
+        removeOutdatedEvents();
         runtimeEventNotifier.notifyAboutNewEvent( newRuntimeEvent );
         stateID++;
 
@@ -154,6 +218,32 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
         eventhookRegistry.callFor( newRuntimeEvent );
 
         return newRuntimeEvent;
+    }
+
+    private void removeOutdatedEvents()
+    {
+        if (sortNeeded)
+        {
+            sortEvents();
+        }
+        boolean mustDelete = true;
+        int index = 0;
+        while ((runtimeEvents.get( index ).getTimestamp()) < (getLatestRuntimeEvent().getTimestamp()
+                - analysisTimespanPreferences.getService().getAnalysisTimespanLength()))
+        {
+            // index = 2 ^ index;
+            index++;
+            if (index >= runtimeEvents.size() - 1)
+            {
+                mustDelete = false;
+                break;
+            }
+        }
+        if (mustDelete)
+        {
+
+            runtimeEvents.subList( 0, index ).clear();
+        }
     }
 
     @Override
@@ -200,13 +290,18 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
         {
             return;
         }
-        getSortedReadOnlyListOfRuntimeEvents();
         removeOldEvents();
     }
 
     private synchronized void removeOldEvents()
     {
         LOG.warn( "Limit reached: removing events from Data Manager" );
+
+        if (sortNeeded)
+        {
+            sortEvents();
+            sortNeeded = false;
+        }
 
         int eventsSize = runtimeEvents.size();
         if (eventsSize > 2 * EVENT_DELETE_PORTION)

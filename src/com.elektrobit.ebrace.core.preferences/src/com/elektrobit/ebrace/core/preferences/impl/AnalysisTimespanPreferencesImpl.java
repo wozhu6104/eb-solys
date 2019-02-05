@@ -249,7 +249,7 @@ public class AnalysisTimespanPreferencesImpl implements AnalysisTimespanPreferen
                 updateAnalysisTimespan();
             }
         };
-        timespanUpdateTimer.schedule( timerTask, 1, 3000 );
+        timespanUpdateTimer.schedule( timerTask, 1, 500 );
     }
 
     private void cancelTimespanUpdateTimer()
