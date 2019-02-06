@@ -29,10 +29,10 @@ public interface DataStorageAccess {
 	public List<String> getStatisticOverTime(String storage, int cId, int interval);
 	
 	// Legacy
-	public <T> List<BaseEvent<T>> getEventsAtTimestamp(String storage, long timestamp, Class<T> class1);
-
-	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, Class<T> class1);
-
-	public <T> List<BaseEvent<T>> getMaxEventsFromAllChannels(String storage, Class<T> class1);
+//	public <T> List<BaseEvent<T>> getEventsAtTimestamp(String storage, long timestamp, Class<T> class1);
+//
+//	public <T> List<BaseEvent<T>> getAllEventsFromChannel(String storage, int channeldId, Class<T> class1);
+//
+//	public <T> List<BaseEvent<T>> getMaxEventsFromAllChannels(String storage, Class<T> class1);
 
 }

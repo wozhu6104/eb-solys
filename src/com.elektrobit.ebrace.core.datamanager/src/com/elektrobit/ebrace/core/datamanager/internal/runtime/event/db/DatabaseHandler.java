@@ -21,13 +21,13 @@ import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.LineChar
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import de.systemticks.solys.data.api.DataServiceHost;
 import de.systemticks.solys.db.sqlite.api.BaseEvent;
 import de.systemticks.solys.db.sqlite.api.Channel;
 import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
-import de.systemticks.solys.db.sqlite.api.StatsItem;
 
 public class DatabaseHandler
 {
@@ -86,8 +86,7 @@ public class DatabaseHandler
         access.commit();
         if (channelsFromDb == null || channelsFromDb.size() == 0)
         {
-            channelsFromDb = access.getAllChannels().stream().map( e -> gson.fromJson( e, Channel.class ) )
-                    .collect( Collectors.toList() );
+            channelsFromDb = access.getAllChannels().stream().map( e -> toChannel( e ) ).collect( Collectors.toList() );
         }
     }
 
@@ -292,20 +291,27 @@ public class DatabaseHandler
         return lineChartDataCreator;
     }
 
+    private Channel toChannel(String raw)
+    {
+        JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
+        Channel ch = new Channel();
+        ch.setId( obj.get( "cId" ).getAsInt() );
+        ch.setName( obj.get( "cName" ).getAsString() );
+        ch.setNature( obj.get( "cNature" ).getAsString() );
+        ch.setType( obj.get( "cType" ).getAsString() );
+        return ch;
+    }
+
     private ChartData statsItemToChartData(String raw)
     {
-        StatsItem<Number> e = gson.fromJson( raw, new TypeToken<StatsItem<Number>>()
-        {
-        }.getType() );
-        return new ChartData( e.getTimestamp(), e.getMaximum() );
+        JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
+        return new ChartData( obj.get( "timestamp" ).getAsLong(), obj.get( "max_v" ).getAsNumber() );
     }
 
     private ChartData baseEventToChartData(String raw)
     {
-        BaseEvent<Number> e = gson.fromJson( raw, new TypeToken<BaseEvent<Number>>()
-        {
-        }.getType() );
-        return new ChartData( e.getTimestamp(), e.getValue() );
+        JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
+        return new ChartData( obj.get( "eTimestamp" ).getAsLong(), obj.get( "eValue" ).getAsNumber() );
     }
 
 }

@@ -118,6 +118,19 @@ class SQLHelper {
 		'''
 	}
 
+	def static createAllEventsFromChannel(String origin, int channelId, long from, long to, List<String> keySet) 
+	{
+		val table = buildTableName(origin, channelId)
+		val detailKeys = keySet.map['d'+toFirstUpper].join(', ')
+		
+		'''
+		SELECT «table».eId, «table».eTimestamp, «table».eValue, channels.cId, channels.cName, «detailKeys»
+		FROM «table», channels 
+		WHERE channels.cId = «channelId» «timestampFilter(table, from, to)»
+		ORDER BY «table».eTimestamp
+		'''
+	}
+
 	private def static buildTableName(String origin, int channelId) 
 	{
 		origin + "_" + channelId;
@@ -147,7 +160,7 @@ class SQLHelper {
 	def static createStatistics(String origin, int channelId, int interval) {
 		val table = buildTableName(origin, channelId)
 		'''
-		SELECT MIN(«table».eTimestamp) as t, AVG(«table».eValue) as avg_v, MAX(«table».eValue) as max_v, MIN(«table».eValue) as min_v, channels.cId
+		SELECT MIN(«table».eTimestamp) as timestamp, AVG(«table».eValue) as avg_v, MAX(«table».eValue) as max_v, MIN(«table».eValue) as min_v, channels.cId
 		from «table», channels
 		where channels.cId=«channelId»
 		group by «table».eTimestamp / «interval»
