@@ -259,7 +259,8 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public List<RuntimeEvent<?>> getRuntimeEventForTimeStampIntervalForChannels(long start, long end,
             List<RuntimeEventChannel<?>> channels)
     {
-        return runtimeEventAcceptorImpl.getRuntimeEventForTimeStampIntervalForChannels( start, end, channels );
+        return dbHandler.getRuntimeEventForTimeStampIntervalForChannels( start, end, channels );
+        // return runtimeEventAcceptorImpl.getRuntimeEventForTimeStampIntervalForChannels( start, end, channels );
     }
 
     @Override
@@ -347,7 +348,7 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public <T> RuntimeEvent<T> acceptEventMicros(long timestampUS, RuntimeEventChannel<T> channel,
             ModelElement modelElement, T value)
     {
-        dbHandler.manageEvent( timestampUS, channel, value );
+        dbHandler.manageEvent( timestampUS / 1000, channel, value );
         return runtimeEventAcceptorImpl.acceptEventMicros( timestampUS, channel, modelElement, value );
     }
 

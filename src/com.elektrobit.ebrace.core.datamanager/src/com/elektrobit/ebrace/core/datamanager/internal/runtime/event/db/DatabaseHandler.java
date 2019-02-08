@@ -16,8 +16,10 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+import com.elektrobit.ebrace.core.datamanager.internal.runtime.event.RuntimeEventObjectImpl;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.LineChartData;
+import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 import com.google.gson.Gson;
@@ -78,6 +80,8 @@ public class DatabaseHandler
 
     public void commit()
     {
+        System.out.println( "commit()" );
+
         if (anyEvents.size() > 0)
         {
             access.bulkImportAnyBaseEvents( anyEvents );
@@ -153,6 +157,14 @@ public class DatabaseHandler
                                                            globalEventId,
                                                            dbChannel.id,
                                                            timestamp ) );
+                    }
+                    else if (dbChannel.type.contentEquals( "String" ))
+                    {
+                        anyEvents.add( createStringEvent( dbChannel.name,
+                                                          ((String)value),
+                                                          globalEventId,
+                                                          dbChannel.id,
+                                                          timestamp ) );
                     }
                     else
                     {
@@ -250,6 +262,12 @@ public class DatabaseHandler
         return micro / 1000;
     }
 
+    private long milliToMicro(long milli)
+    {
+        return milli * 1000;
+    }
+
+    // For the charts
     public LineChartData createLineChartData(List<RuntimeEventChannel<?>> channels, long startTimestamp,
             long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
     {
@@ -291,6 +309,27 @@ public class DatabaseHandler
         return lineChartDataCreator;
     }
 
+    // For tables
+    public List<RuntimeEvent<?>> getRuntimeEventForTimeStampIntervalForChannels(long start, long end,
+            List<RuntimeEventChannel<?>> channelsList)
+    {
+        List<RuntimeEvent<?>> events = new ArrayList<>();
+
+        for (RuntimeEventChannel<?> c : channelsList)
+        {
+
+            events.addAll( access
+                    .getAllEventsFromChannel( this.channels.get( c.getName() ).storage,
+                                              getChannelId( c.getName() ),
+                                              microToMilli( start ),
+                                              microToMilli( end ) )
+                    .parallelStream().map( event -> toRuntimeEvent( event, c ) ).collect( Collectors.toList() ) );
+
+        }
+
+        return events;
+    }
+
     private Channel toChannel(String raw)
     {
         JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
@@ -312,6 +351,43 @@ public class DatabaseHandler
     {
         JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
         return new ChartData( obj.get( "eTimestamp" ).getAsLong(), obj.get( "eValue" ).getAsNumber() );
+    }
+
+    private RuntimeEvent<?> toRuntimeEvent(String rawJson, RuntimeEventChannel<?> channel)
+    {
+        JsonObject obj = gson.fromJson( rawJson, JsonElement.class ).getAsJsonObject();
+        long timestamp = milliToMicro( obj.get( "eTimestamp" ).getAsLong() );
+        RuntimeEvent<?> evt = null;
+
+        switch (channel.getUnit().getDataType().getSimpleName())
+        {
+            case "Double" :
+                evt = new RuntimeEventObjectImpl<Double>( timestamp,
+                                                          (RuntimeEventChannel<Double>)channel,
+                                                          0,
+                                                          obj.get( "eValue" ).getAsDouble(),
+                                                          "",
+                                                          null );
+                break;
+            case "Long" :
+                evt = new RuntimeEventObjectImpl<Long>( timestamp,
+                                                        (RuntimeEventChannel<Long>)channel,
+                                                        0,
+                                                        obj.get( "eValue" ).getAsLong(),
+                                                        "",
+                                                        null );
+                break;
+            case "String" :
+                evt = new RuntimeEventObjectImpl<String>( timestamp,
+                                                          (RuntimeEventChannel<String>)channel,
+                                                          0,
+                                                          obj.get( "eValue" ).getAsString(),
+                                                          "",
+                                                          null );
+                break;
+        }
+
+        return evt;
     }
 
 }

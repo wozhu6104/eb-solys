@@ -62,10 +62,17 @@ class SQLHelper {
 		'''
 	}
 
-	def static insertValueIntoEventTableUnprepared(String table, int id, long timestamp, Object value)
+	def dispatch static insertValueIntoEventTableUnprepared(String table, int id, long timestamp, Object value)
 	{
 		'''
 		INSERT INTO «table» (eId, eTimestamp, eValue) values («id», «timestamp», «value»)
+		'''
+	}
+
+	def dispatch static insertValueIntoEventTableUnprepared(String table, int id, long timestamp, String value)
+	{
+		'''
+		INSERT INTO «table» (eId, eTimestamp, eValue) values («id», «timestamp», '«value.replace("'", "''")»')
 		'''
 	}
 
