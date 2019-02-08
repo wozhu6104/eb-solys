@@ -24,10 +24,10 @@ import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 import com.elektrobit.ebrace.targetadapter.communicator.api.OutgoingMessage;
 import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnection;
 import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnectionDownListener;
+import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.DirectStream;
 import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.ProtoMsgCacheDataAvailableListener;
 import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.ProtocolMessageSendThread;
 import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.SocketClosedListener;
-import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.StreamCacheImpl;
 import com.elektrobit.ebrace.targetadapter.communicator.services.MessageDispatcher;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext.SOURCE_TYPE;
@@ -40,7 +40,7 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
     private Socket targetConnectionSocket;
     private boolean isConnected;
     private final ProtocolMessageSendThread sender;
-    private final StreamCacheImpl socketStreamCache;
+    private final DirectStream socketStreamCache;
     private final ConnectionModel connectionModel;
     private Thread readThread;
     private boolean shallRead = false;
@@ -65,14 +65,14 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
         this.connectionModel = connectionModel;
         targetConnectionSocket = null;
 
-        String cacheFileName = "stream-cache" + connectionModel.getHost().replace( ":", "_" ) + "-"
+        String cacheFileName = "/tmp/stream-cache" + connectionModel.getHost().replace( ":", "_" ) + "-"
                 + connectionModel.getPort() + "." + connectionModel.getConnectionType().getExtension() + ".tmp";
 
         messageDispatcher = getMessageDispatcher( connectionModel );
 
         MessageReader<?> messageReader = messageDispatcher.getMessageReader();
 
-        socketStreamCache = new StreamCacheImpl( connectionModel, messageReader, cacheFileName, this );
+        socketStreamCache = new DirectStream( connectionModel, messageReader, cacheFileName, this );
         sender = new ProtocolMessageSendThread( this );
     }
 
@@ -127,16 +127,14 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
     @Deprecated
     public boolean connect()
     {
-        System.out.println( "connect" );
-        startDataReceiving();
         try
         {
-            isConnected = true;
             targetConnectionSocket = new Socket( connectionModel.getHost(), connectionModel.getPort() );
 
             socketStreamCache.start( targetConnectionSocket.getInputStream() );
             sender.start( targetConnectionSocket );
-            System.out.println( "set ip" );
+            startDataReceiving();
+            isConnected = true;
         }
         catch (IOException e)
         {
@@ -153,6 +151,7 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
     @Override
     public boolean disconnect()
     {
+        System.out.println( "Disconnecting..." );
         if (isConnected)
         {
             try
@@ -226,6 +225,10 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
                         if (liveMode)
                         {
                             Object msg = socketStreamCache.getNextMsg();
+//                            if (!shallRead)
+//                            {
+//                                return;
+//                            }
                             if (msg != null)
                             {
                                 messageDispatcher.forwardMessage( msg, connectionModel, dataSourceContext );
@@ -290,7 +293,9 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
         {
             try
             {
-                readThread.join( 100 );
+            	// Wait long enogh that last message can fully read from stream,
+            	// otherwise one message can be lost
+                readThread.join( 5000 );
             }
             catch (InterruptedException e)
             {
