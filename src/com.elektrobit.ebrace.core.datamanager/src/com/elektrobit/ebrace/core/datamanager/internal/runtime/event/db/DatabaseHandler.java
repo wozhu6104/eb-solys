@@ -168,7 +168,7 @@ public class DatabaseHandler
                     }
                     else
                     {
-                        // drop event
+                        System.out.println( "Drop Event fot channel " + channel.getName() );
                     }
                 }
                 // structured events
@@ -323,7 +323,7 @@ public class DatabaseHandler
                                               getChannelId( c.getName() ),
                                               microToMilli( start ),
                                               microToMilli( end ) )
-                    .parallelStream().map( event -> toRuntimeEvent( event, c ) ).collect( Collectors.toList() ) );
+                    .stream().map( event -> toRuntimeEvent( event, c ) ).collect( Collectors.toList() ) );
 
         }
 
@@ -350,13 +350,13 @@ public class DatabaseHandler
     private ChartData baseEventToChartData(String raw)
     {
         JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
-        return new ChartData( obj.get( "eTimestamp" ).getAsLong(), obj.get( "eValue" ).getAsNumber() );
+        return new ChartData( JsonResult.toTimestamp( obj ), JsonResult.toNumber( obj ) );
     }
 
     private RuntimeEvent<?> toRuntimeEvent(String rawJson, RuntimeEventChannel<?> channel)
     {
         JsonObject obj = gson.fromJson( rawJson, JsonElement.class ).getAsJsonObject();
-        long timestamp = milliToMicro( obj.get( "eTimestamp" ).getAsLong() );
+        long timestamp = milliToMicro( JsonResult.toTimestamp( obj ) );
         RuntimeEvent<?> evt = null;
 
         switch (channel.getUnit().getDataType().getSimpleName())
@@ -365,7 +365,7 @@ public class DatabaseHandler
                 evt = new RuntimeEventObjectImpl<Double>( timestamp,
                                                           (RuntimeEventChannel<Double>)channel,
                                                           0,
-                                                          obj.get( "eValue" ).getAsDouble(),
+                                                          JsonResult.toDouble( obj ),
                                                           "",
                                                           null );
                 break;
@@ -373,7 +373,7 @@ public class DatabaseHandler
                 evt = new RuntimeEventObjectImpl<Long>( timestamp,
                                                         (RuntimeEventChannel<Long>)channel,
                                                         0,
-                                                        obj.get( "eValue" ).getAsLong(),
+                                                        JsonResult.toLong( obj ),
                                                         "",
                                                         null );
                 break;
@@ -381,7 +381,7 @@ public class DatabaseHandler
                 evt = new RuntimeEventObjectImpl<String>( timestamp,
                                                           (RuntimeEventChannel<String>)channel,
                                                           0,
-                                                          obj.get( "eValue" ).getAsString(),
+                                                          JsonResult.toString( obj ),
                                                           "",
                                                           null );
                 break;

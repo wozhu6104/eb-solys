@@ -3,6 +3,7 @@ package de.systemticks.solys.db.sqlite.impl
 import java.util.List
 import com.google.gson.Gson
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 
 class SQLHelper {
 
@@ -83,11 +84,19 @@ class SQLHelper {
 		val value = valueElement.get("summary").asString
 		
 		val detailKeys = keySet.map['d'+toFirstUpper].join(', ')
-		val detailedValues = keySet.map[k | "'"+valueElement.get("details").asJsonObject.get(k)?.asString+"'" ].join(', ')		
+		val detailedValues = keySet.map[k | "'"+valueElement.get("details").asJsonObject.toRawJson(k)+"'" ].join(', ')		
 				
 		'''
 		INSERT INTO «table» (eId, eTimestamp, eValue, «detailKeys») values («id», «timestamp», '«value.replace("'", "''")»', «detailedValues» )
 		'''
+	}
+
+	private def static toRawJson(JsonObject obj, String key)
+	{
+		if(obj.get(key).jsonPrimitive)
+			obj.get(key).asString
+		else 
+			obj.get(key).toString
 	}
 
 	def static insertValueIntoEventTable(String table)

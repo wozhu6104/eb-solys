@@ -51,9 +51,10 @@ public class Log4jRuntimeEventCreator
                 JsonEvent evt = new JsonEvent( timestamp.getTimeInMillis()
                         * 1000, parsedMessage.getLogLevel(), value, null, eventEdge );
 
+                System.out.println( evt.toString() );
+
                 jsonEventHandler.handle( evt );
 
-                System.out.println( evt.toString() );
             }
             else
             {
