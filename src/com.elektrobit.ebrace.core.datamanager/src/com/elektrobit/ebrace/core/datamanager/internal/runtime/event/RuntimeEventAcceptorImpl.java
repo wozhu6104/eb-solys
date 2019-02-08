@@ -128,6 +128,8 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
     private final List<ChannelRemovedListener> channelRemovedListeners;
     private final EventHookRegistry eventhookRegistry;
 
+    private final long lastRemoveOudatedEvents = System.currentTimeMillis();
+
     public RuntimeEventAcceptorImpl(RuntimeEventChannelManager runtimeEventChannelManager,
             ModelElementPool modelElementPool, RuntimeEventNotifier runtimeEventNotifier,
             ChannelListenerNotifier channelListenerNotifier, EventHookRegistry eventhookRegistry)
@@ -222,27 +224,37 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
 
     private void removeOutdatedEvents()
     {
-        if (sortNeeded)
-        {
-            sortEvents();
-        }
-        boolean mustDelete = true;
-        int index = 0;
-        while ((runtimeEvents.get( index ).getTimestamp()) < (getLatestRuntimeEvent().getTimestamp()
-                - analysisTimespanPreferences.getService().getAnalysisTimespanLength()))
-        {
-            // index = 2 ^ index;
-            index++;
-            if (index >= runtimeEvents.size() - 1)
-            {
-                mustDelete = false;
-                break;
-            }
-        }
-        if (mustDelete)
+        long now = System.currentTimeMillis();
+        long timeSinceLAstRemoveOutdatedCall = now - lastRemoveOudatedEvents;
+        long analysisTimespanLength = analysisTimespanPreferences.getService().getAnalysisTimespanLength();
+
+        if (timeSinceLAstRemoveOutdatedCall > analysisTimespanLength)
         {
 
-            runtimeEvents.subList( 0, index ).clear();
+            if (sortNeeded)
+            {
+                sortEvents();
+            }
+            boolean mustDelete = true;
+            int index = 0;
+            while ((runtimeEvents.get( index )
+                    .getTimestamp()) < (runtimeEvents.get( runtimeEvents.size() - 1 ).getTimestamp()
+                            - analysisTimespanLength))
+            {
+                // index = 2 ^ index;
+                index++;
+                if (index >= runtimeEvents.size() - 1)
+                {
+                    mustDelete = false;
+                    break;
+                }
+            }
+            if (mustDelete)
+            {
+
+                runtimeEvents.subList( 0, index ).clear();
+            }
+            timeSinceLAstRemoveOutdatedCall = System.currentTimeMillis();
         }
     }
 
