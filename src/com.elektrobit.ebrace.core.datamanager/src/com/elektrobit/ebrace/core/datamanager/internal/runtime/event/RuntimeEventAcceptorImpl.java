@@ -128,7 +128,7 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
     private final List<ChannelRemovedListener> channelRemovedListeners;
     private final EventHookRegistry eventhookRegistry;
 
-    private final long lastRemoveOudatedEvents = System.currentTimeMillis();
+    private long lastRemoveOutdatedEvents = System.currentTimeMillis();
 
     public RuntimeEventAcceptorImpl(RuntimeEventChannelManager runtimeEventChannelManager,
             ModelElementPool modelElementPool, RuntimeEventNotifier runtimeEventNotifier,
@@ -225,12 +225,12 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
     private void removeOutdatedEvents()
     {
         long now = System.currentTimeMillis();
-        long timeSinceLAstRemoveOutdatedCall = now - lastRemoveOudatedEvents;
-        long analysisTimespanLength = analysisTimespanPreferences.getService().getAnalysisTimespanLength();
+        long timeSinceLAstRemoveOutdatedCall = now - lastRemoveOutdatedEvents;
+        long analysisTimespanLengthMicros = analysisTimespanPreferences.getService().getAnalysisTimespanLength();
+        long analysisTimespanLengthMillis = analysisTimespanLengthMicros / 1000;
 
-        if (timeSinceLAstRemoveOutdatedCall > analysisTimespanLength)
+        if (timeSinceLAstRemoveOutdatedCall > analysisTimespanLengthMillis)
         {
-
             if (sortNeeded)
             {
                 sortEvents();
@@ -239,9 +239,8 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
             int index = 0;
             while ((runtimeEvents.get( index )
                     .getTimestamp()) < (runtimeEvents.get( runtimeEvents.size() - 1 ).getTimestamp()
-                            - analysisTimespanLength))
+                            - analysisTimespanLengthMicros))
             {
-                // index = 2 ^ index;
                 index++;
                 if (index >= runtimeEvents.size() - 1)
                 {
@@ -251,10 +250,10 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
             }
             if (mustDelete)
             {
-
                 runtimeEvents.subList( 0, index ).clear();
+                LOG.info( "Removing " + index + " outdated events." );
             }
-            timeSinceLAstRemoveOutdatedCall = System.currentTimeMillis();
+            lastRemoveOutdatedEvents = System.currentTimeMillis();
         }
     }
 
