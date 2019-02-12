@@ -20,13 +20,14 @@ import lombok.extern.log4j.Log4j;
 public class JsonHelper
 {
 
+    private static final JsonParser jsonParser = new JsonParser();
+
     public static String getFieldFromJsonString(String jsonString, String fieldName)
     {
         String result = null;
         JsonElement parse = null;
         try
         {
-            JsonParser jsonParser = new JsonParser();
             parse = jsonParser.parse( jsonString );
         }
         catch (JsonSyntaxException e)
@@ -61,7 +62,6 @@ public class JsonHelper
         {
             try
             {
-                JsonParser jsonParser = new JsonParser();
                 jsonParser.parse( text );
                 return true;
             }
