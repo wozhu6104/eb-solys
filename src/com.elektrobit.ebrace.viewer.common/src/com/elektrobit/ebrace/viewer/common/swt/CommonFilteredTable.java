@@ -52,7 +52,6 @@ import com.elektrobit.ebrace.viewer.common.constants.ActionIdConstants;
 import com.elektrobit.ebrace.viewer.common.listeners.FilteredTextFieldModifyListener;
 import com.elektrobit.ebrace.viewer.common.listeners.SearchTextComboHandler;
 import com.elektrobit.ebrace.viewer.common.listeners.TableLockState;
-import com.elektrobit.ebrace.viewer.common.util.TableLockMouseWheelListener;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.TimebasedObject;
 
 public class CommonFilteredTable
@@ -187,8 +186,6 @@ public class CommonFilteredTable
         }
 
         tableViewer.setContentProvider( contentProvider );
-
-        table.addMouseWheelListener( new TableLockMouseWheelListener( this ) );
 
     }
 
