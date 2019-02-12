@@ -253,10 +253,11 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
                 e.doit = false;
                 long now = System.currentTimeMillis();
                 long timeSinceLastScroll = now - lastScrolling;
-                linesToScroll -= e.count;
+                linesToScroll -= e.count * 3;
                 if (timeSinceLastScroll > 300)
                 {
-                    getTable().setTopIndex( getTable().getTopIndex() + linesToScroll );
+                    int lineIndex = getTable().getTopIndex() + linesToScroll;
+                    getTable().setTopIndex( lineIndex );
                     linesToScroll = 0;
                     lastScrolling = System.currentTimeMillis();
                 }

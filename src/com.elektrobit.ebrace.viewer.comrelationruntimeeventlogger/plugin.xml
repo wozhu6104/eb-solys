@@ -11,38 +11,6 @@
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
-            locationURI="toolbar:com.elektrobit.ebrace.viewer.comrelationruntimeevent.logger">
-         <command
-               commandId="com.elektrobit.ebrace.viewer.lockTable"
-               label="Lock Table"
-               style="push">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="com.elektrobit.ebrace.viewer.tablelockstate.active">
-                  <equals
-                        value="UNLOCKED">
-                  </equals>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="com.elektrobit.ebrace.viewer.unlockTable"
-               label="Unlock Table"
-               style="push">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="com.elektrobit.ebrace.viewer.tablelockstate.active">
-                  <equals
-                        value="LOCKED">
-                  </equals>
-               </with>
-            </visibleWhen>
-         </command>
-      </menuContribution>
-      <menuContribution
-            allPopups="false"
             locationURI="popup:comrelation.runtime.events.menu">
          <command
                commandId="com.elektrobit.ebrace.viewer.common.timemarker.createTimeMarker"

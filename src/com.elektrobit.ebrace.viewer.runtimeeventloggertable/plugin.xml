@@ -186,34 +186,6 @@
                   style="push">
             </command>
             <command
-                  commandId="com.elektrobit.ebrace.viewer.lockTable"
-                  label="Lock Table"
-                  style="push">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="com.elektrobit.ebrace.viewer.tablelockstate.active">
-                     <equals
-                           value="UNLOCKED">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="com.elektrobit.ebrace.viewer.unlockTable"
-                  label="Unlock Table"
-                  style="push">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="com.elektrobit.ebrace.viewer.tablelockstate.active">
-                     <equals
-                           value="LOCKED">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
                   commandId="com.elektrobit.ebrace.viewer.resources.createChartFromTable"
                   style="push">
             </command>
