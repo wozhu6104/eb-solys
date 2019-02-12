@@ -18,7 +18,6 @@ import org.osgi.service.component.annotations.Component;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import de.systemticks.solys.db.sqlite.api.BaseEvent;
 import de.systemticks.solys.db.sqlite.api.Channel;
 import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
 import de.systemticks.solys.db.sqlite.api.FieldMapping;
@@ -112,21 +111,7 @@ public class SQLiteAccessor implements DataStorageAccess {
 				Channel ch = channels.get(e.getChannelId());
 				if (ch != null) {
 					String batchCommand = SQLHelper.insertValueIntoEventTableUnprepared(e, ch.fieldMapping).toString();
-					System.out.println(batchCommand);
 					stmt.addBatch(batchCommand);
-//					if (ch.fieldMapping.size() == 1) {
-//						batchCommand = SQLHelper.insertValueIntoEventTableUnprepared(e.getOrigin() + "_" + e.getChannelId(),
-//								e.getEventId(), e.getTimestamp(), e.getValue()).toString();
-//					} else {
-//						batchCommand = SQLHelper
-//								.insertValueIntoEventTableUnprepared(e.getOrigin() + "_" + e.getChannelId(),
-//										e.getEventId(), e.getTimestamp(), e.getValue().toString(), ch.fieldMapping)
-//								.toString();
-//					}
-//					if(batchCommand != null)
-//					{
-//						stmt.addBatch(batchCommand);						
-//					}
 				}
 			}
 
@@ -134,7 +119,6 @@ public class SQLiteAccessor implements DataStorageAccess {
 			stmt.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -159,7 +143,6 @@ public class SQLiteAccessor implements DataStorageAccess {
 			Statement stmt = connection.createStatement();
 			stmt.executeUpdate("backup to " + filename);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -265,7 +248,6 @@ public class SQLiteAccessor implements DataStorageAccess {
 				jsonResultList.add(gson.toJson(obj));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
