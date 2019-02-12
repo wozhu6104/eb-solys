@@ -15,12 +15,10 @@ public interface DataStorageAccess {
 	
 	public boolean backup(String filename);
 	
-	public boolean bulkImportAnyBaseEvents(List<BaseEvent<?>> events);
+	public boolean bulkImportAnyBaseEvents(List<GenericJsonEvent> events);
 		
 	// New methods return JSON
-	public int createChannel(String fullname, List<String> keySet);
-
-	public int createChannel(String fullname, String type);
+	public int createChannel(String fullname, List<FieldMapping> fieldMapping);
 	
 	public List<String> getAllChannels();
 

@@ -2,34 +2,27 @@ package de.systemticks.solys.db.sqlite.impl
 
 import java.util.List
 import com.google.gson.Gson
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import de.systemticks.solys.db.sqlite.api.FieldMapping
+import de.systemticks.solys.db.sqlite.api.GenericJsonEvent
 
 class SQLHelper {
 
-
-	def static createTableForPrimitiveEvents(String origin, int id, String javaType) {
+	def static createTableForEvents(String origin, int id, List<FieldMapping> fieldMapping) {
 		'''
 			CREATE TABLE «buildTableName(origin, id)»
 			(eId INTEGER PRIMARY KEY,
 			 eTimestamp INT8 NOT NULL,
-			 eValue «javaType.toSQLType» NOT NULL)
+			 «FOR f: fieldMapping SEPARATOR ","»
+			 «IF f.name.contentEquals('value')»
+			 e«f.name.toFirstUpper» «f.type.toSQLType»
+			 «ELSE»
+			 d«f.name.toFirstUpper» «f.type.toSQLType»
+			 «ENDIF»
+			 «ENDFOR»
+			)
 		'''
 	}
-
-	def static createTableForStructuredEvents(String origin, int id, List<String> details) {
-		'''
-			CREATE TABLE «buildTableName(origin, id)»
-			(eId INTEGER PRIMARY KEY,
-			 eTimestamp INT8 NOT NULL,
-			 eValue TEXT,
-			«FOR key: details SEPARATOR ","»
-			d«key.toFirstUpper» TEXT
-			«ENDFOR»
-			 )
-		'''
-	}
-
 
 	private def static toSQLType(String type)
 	{
@@ -53,7 +46,7 @@ class SQLHelper {
 			(cId INTEGER PRIMARY KEY,
 			 cName TEXT NOT NULL,
 			 cNature TEXT NOT NULL,
-			 cType INT2 NOT NULL)
+			 cMapping TEXT NOT NULL)
 		'''		
 	}
 	
@@ -63,37 +56,39 @@ class SQLHelper {
 		'''
 	}
 
-	def dispatch static insertValueIntoEventTableUnprepared(String table, int id, long timestamp, Object value)
+	def static insertValueIntoEventTableUnprepared(GenericJsonEvent event, List<FieldMapping> fieldMapping)
 	{
-		'''
-		INSERT INTO «table» (eId, eTimestamp, eValue) values («id», «timestamp», «value»)
-		'''
-	}
-
-	def dispatch static insertValueIntoEventTableUnprepared(String table, int id, long timestamp, String value)
-	{
-		'''
-		INSERT INTO «table» (eId, eTimestamp, eValue) values («id», «timestamp», '«value.replace("'", "''")»')
-		'''
-	}
-
-	def static insertValueIntoEventTableUnprepared(String table, int id, long timestamp, String jsonString, List<String> keySet)
-	{
-		val gson = new Gson
-		val valueElement = gson.fromJson(jsonString, JsonElement).asJsonObject.get("value").asJsonObject
-		val value = valueElement.get("summary").asString
 		
-		val detailKeys = keySet.map['d'+toFirstUpper].join(', ')
-		val detailedValues = keySet.map[k | "'"+valueElement.get("details").asJsonObject.toRawJson(k)+"'" ].join(', ')		
-				
-		'''
-		INSERT INTO «table» (eId, eTimestamp, eValue, «detailKeys») values («id», «timestamp», '«value.replace("'", "''")»', «detailedValues» )
-		'''
+		if(fieldMapping.size == 1)		
+			'''
+			INSERT INTO «event.buildTableName» (eId, eTimestamp, eValue) values («event.eventId», «event.timestamp», «event.value.toSQLValue» )
+			'''		
+		else {
+			val detailKeys = fieldMapping.drop(1).map['d'+name.toFirstUpper].join(', ')
+			val detailedValues = fieldMapping.drop(1).map[k | event.details.toRawJson(k.name).toSQLValue ].join(', ')		
+			'''
+			INSERT INTO «event.buildTableName» (eId, eTimestamp, eValue, «detailKeys») values («event.eventId», «event.timestamp», «event.value.toString.toSQLValue», «detailedValues» )
+			'''			
+		}				
+
+	}
+
+	private dispatch def static toSQLValue(Object value)
+	{
+		value.toString
+	}
+
+	private dispatch def static toSQLValue(String value)
+	{
+		"'"+value.replace("'", "''")+"'"
 	}
 
 	private def static toRawJson(JsonObject obj, String key)
 	{
-		if(obj.get(key).jsonPrimitive)
+	
+		if(obj.get(key) === null || obj.get(key).isJsonNull) 
+			""
+		else if(obj.get(key).jsonPrimitive)
 			obj.get(key).asString
 		else 
 			obj.get(key).toString
@@ -106,10 +101,14 @@ class SQLHelper {
 		'''
 	}
 
-	def static insertIntoChannelMappingTable(int id, String name, String nature, String type)
+	def static insertIntoChannelMappingTable(int id, String name, String nature, List<FieldMapping> mapping)
 	{
+		val gson = new Gson
+//		'''
+//		INSERT INTO channels (cId, cName, cNature, cMapping) values («id», '«name»', '«nature»', '«gson.toJson(mapping)»')
+//		'''
 		'''
-		INSERT INTO channels (cId, cName, cNature, cType) values («id», '«name»', '«nature»', '«type»')
+		INSERT INTO channels (cId, cName, cNature, cMapping) values («id», '«name»', '«nature»', '')
 		'''
 	}
 
@@ -145,6 +144,11 @@ class SQLHelper {
 		WHERE channels.cId = «channelId» «timestampFilter(table, from, to)»
 		ORDER BY «table».eTimestamp
 		'''
+	}
+
+	private def static buildTableName(GenericJsonEvent event) 
+	{
+		event.channel.split('\\.').head + "_" + event.channelId;
 	}
 
 	private def static buildTableName(String origin, int channelId) 
@@ -195,7 +199,7 @@ class SQLHelper {
 	
 	def static createAllChannels() {
 		'''
-		SELECT channels.cId, channels.cName, channels.cNature, channels.cType FROM channels ORDER BY channels.cName
+		SELECT channels.cId, channels.cName, channels.cNature, channels.cMapping FROM channels ORDER BY channels.cName
 		'''
 	}
 	

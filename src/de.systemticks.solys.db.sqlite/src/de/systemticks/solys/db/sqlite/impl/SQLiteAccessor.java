@@ -19,13 +19,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import de.systemticks.solys.db.sqlite.api.BaseEvent;
+import de.systemticks.solys.db.sqlite.api.Channel;
 import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
+import de.systemticks.solys.db.sqlite.api.FieldMapping;
+import de.systemticks.solys.db.sqlite.api.GenericJsonEvent;
 
 @Component
 public class SQLiteAccessor implements DataStorageAccess {
 
 	private Connection connection;
-	private final Map<Integer, ChannelInfo> channels = new HashMap<>();
+	private final Map<Integer, Channel> channels = new HashMap<>();
 	private int channelId = 1;
 	private Gson gson = new Gson();
 
@@ -100,24 +103,30 @@ public class SQLiteAccessor implements DataStorageAccess {
 	}
 
 	@Override
-	public boolean bulkImportAnyBaseEvents(List<BaseEvent<?>> events) {
+	public boolean bulkImportAnyBaseEvents(List<GenericJsonEvent> events) {
 
 		try {
 			Statement stmt = connection.createStatement();
 
-			for (BaseEvent<?> e : events) {
-				ChannelInfo ch = channels.get(e.getChannelId());
+			for (GenericJsonEvent e : events) {
+				Channel ch = channels.get(e.getChannelId());
 				if (ch != null) {
-					if (ch.keySet == null) {
-						stmt.addBatch(
-								SQLHelper.insertValueIntoEventTableUnprepared(e.getOrigin() + "_" + e.getChannelId(),
-										e.getEventId(), e.getTimestamp(), e.getValue()).toString());
-					} else {
-						stmt.addBatch(SQLHelper
-								.insertValueIntoEventTableUnprepared(e.getOrigin() + "_" + e.getChannelId(),
-										e.getEventId(), e.getTimestamp(), e.getValue().toString(), ch.keySet)
-								.toString());
-					}
+					String batchCommand = SQLHelper.insertValueIntoEventTableUnprepared(e, ch.fieldMapping).toString();
+					System.out.println(batchCommand);
+					stmt.addBatch(batchCommand);
+//					if (ch.fieldMapping.size() == 1) {
+//						batchCommand = SQLHelper.insertValueIntoEventTableUnprepared(e.getOrigin() + "_" + e.getChannelId(),
+//								e.getEventId(), e.getTimestamp(), e.getValue()).toString();
+//					} else {
+//						batchCommand = SQLHelper
+//								.insertValueIntoEventTableUnprepared(e.getOrigin() + "_" + e.getChannelId(),
+//										e.getEventId(), e.getTimestamp(), e.getValue().toString(), ch.fieldMapping)
+//								.toString();
+//					}
+//					if(batchCommand != null)
+//					{
+//						stmt.addBatch(batchCommand);						
+//					}
 				}
 			}
 
@@ -201,36 +210,20 @@ public class SQLiteAccessor implements DataStorageAccess {
 	}
 
 	@Override
-	public int createChannel(String fullname, List<String> keySet) {
+	public int createChannel(String fullname, List<FieldMapping> mapping) {
 
 		channelId += 1;
 
 		String container = getContainer(fullname);
 
-		executeSingleStatement(SQLHelper.createTableForStructuredEvents(container, channelId, keySet));
+		executeSingleStatement(SQLHelper.createTableForEvents(container, channelId, mapping));
 
-		executeSingleStatement(SQLHelper.insertIntoChannelMappingTable(channelId, fullname, container, "Structured"));
+		executeSingleStatement(SQLHelper.insertIntoChannelMappingTable(channelId, fullname, container, mapping));
 
-		channels.put(channelId, new ChannelInfo("Structured", fullname, keySet, channelId));
-
-		return channelId;
-
-	}
-
-	@Override
-	public int createChannel(String fullname, String type) {
-
-		channelId += 1;
-
-		String container = getContainer(fullname);
-
-		executeSingleStatement(SQLHelper.createTableForPrimitiveEvents(container, channelId, type));
-
-		executeSingleStatement(SQLHelper.insertIntoChannelMappingTable(channelId, fullname, container, type));
-
-		channels.put(channelId, new ChannelInfo(type, fullname, null, channelId));
+		channels.put(channelId, new Channel(fullname, channelId, mapping));
 
 		return channelId;
+
 	}
 
 	private String getContainer(String fullChannelname) {
@@ -281,20 +274,3 @@ public class SQLiteAccessor implements DataStorageAccess {
 
 }
 
-class ChannelInfo {
-	public String storage;
-	public String type;
-	public String name;
-	public int id;
-	public List<String> keySet;
-
-	public ChannelInfo(String type, String name, List<String> keySet, int id) {
-		super();
-		this.storage = name.split("\\.")[0];
-		this.type = type;
-		this.name = name;
-		this.keySet = keySet;
-		this.id = id;
-	}
-
-}

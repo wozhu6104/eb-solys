@@ -17,6 +17,7 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import com.elektrobit.ebrace.core.datamanager.internal.runtime.event.RuntimeEventObjectImpl;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.LineChartData;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
@@ -27,18 +28,19 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import de.systemticks.solys.data.api.DataServiceHost;
-import de.systemticks.solys.db.sqlite.api.BaseEvent;
 import de.systemticks.solys.db.sqlite.api.Channel;
 import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
+import de.systemticks.solys.db.sqlite.api.FieldMapping;
+import de.systemticks.solys.db.sqlite.api.GenericJsonEvent;
 
 public class DatabaseHandler
 {
 
     private final DataStorageAccess access;
-    private final Map<String, ChannelInfo> channels = new HashMap<>();
+    private final Map<String, Channel> channels = new HashMap<>();
     private int globalEventId;
     private final boolean fileMode;
-    private final List<BaseEvent<?>> anyEvents = new ArrayList<>();
+    private final List<GenericJsonEvent> anyEvents = new ArrayList<>();
     private List<Channel> channelsFromDb;
     private final static int BULK_IMPORT_SIZE = 1000;
     private final static String DB_NAME = ":memory:";
@@ -117,16 +119,26 @@ public class DatabaseHandler
 
         if (!channels.containsKey( key ))
         {
+            List<FieldMapping> mapping = new ArrayList<>();
             int cId = -1;
             if (keySet == null)
             {
-                cId = access.createChannel( name, unit.getDataType().getSimpleName() );
+                mapping.add( new FieldMapping( "value", unit.getDataType().getSimpleName(), false ) );
             }
             else
             {
-                cId = access.createChannel( name, keySet );
+                mapping.add( new FieldMapping( "value", "String", false ) );
+                keySet.stream().forEach( k -> mapping.add( new FieldMapping( k, "String", false ) ) );
+                if (name.startsWith( "trace.dlt" ))
+                {
+                    mapping.remove( mapping.size() - 1 );
+                    mapping.add( new FieldMapping( "payload", "String", true ) );
+                }
             }
-            channels.put( key, new ChannelInfo( unit.getDataType().getSimpleName(), name, keySet, cId ) );
+
+            cId = access.createChannel( name, mapping );
+
+            channels.put( key, new Channel( name, cId, mapping ) );
         }
     }
 
@@ -134,51 +146,39 @@ public class DatabaseHandler
     {
         if (fileMode)
         {
-            ChannelInfo dbChannel = channels.get( channel.getName() );
+            Channel dbChannel = channels.get( channel.getName() );
 
             if (dbChannel != null)
             {
                 globalEventId++;
                 // primitive values
-                if (dbChannel.keySet == null)
+                if (dbChannel.fieldMapping.size() == 1)
                 {
-                    if (dbChannel.type.contentEquals( "Double" ))
+                    switch (dbChannel.fieldMapping.get( 0 ).getType())
                     {
-                        anyEvents.add( createDoubleEvent( dbChannel.name,
-                                                          (Double)value,
-                                                          globalEventId,
-                                                          dbChannel.id,
-                                                          timestamp ) );
-                    }
-                    else if (dbChannel.type.contentEquals( "Long" ))
-                    {
-                        anyEvents.add( createIntegerEvent( dbChannel.name,
-                                                           ((Long)value).intValue(),
-                                                           globalEventId,
-                                                           dbChannel.id,
-                                                           timestamp ) );
-                    }
-                    else if (dbChannel.type.contentEquals( "String" ))
-                    {
-                        anyEvents.add( createStringEvent( dbChannel.name,
-                                                          ((String)value),
-                                                          globalEventId,
-                                                          dbChannel.id,
-                                                          timestamp ) );
-                    }
-                    else
-                    {
-                        System.out.println( "Drop Event fot channel " + channel.getName() );
+                        case "Double" :
+                        case "Long" :
+                        case "String" :
+                            anyEvents.add( createGenericJsonEvent( dbChannel.name,
+                                                                   value,
+                                                                   globalEventId,
+                                                                   dbChannel.id,
+                                                                   timestamp ) );
+                            break;
+                        default :
+                            System.out.println( "Drop Event" );
+                            break;
+
                     }
                 }
                 // structured events
                 else
                 {
-                    anyEvents.add( createStringEvent( dbChannel.name,
-                                                      value.toString(),
-                                                      globalEventId,
-                                                      dbChannel.id,
-                                                      timestamp ) );
+                    // FIXME - to be removed, when incoming json is already compliant
+                    GenericJsonEvent event = toGenericJson( value.toString() );
+                    event.setEventId( globalEventId );
+                    event.setChannelId( dbChannel.id );
+                    anyEvents.add( event );
                 }
 
                 if (anyEvents.size() == BULK_IMPORT_SIZE)
@@ -194,51 +194,34 @@ public class DatabaseHandler
         }
     }
 
+    private GenericJsonEvent toGenericJson(String origJson)
+    {
+        JsonEvent srcJson = gson.fromJson( origJson, JsonEvent.class );
+        GenericJsonEvent targetJson = new GenericJsonEvent();
+
+        targetJson.setTimestamp( srcJson.getUptime() );
+        targetJson.setChannel( srcJson.getChannel() );
+        targetJson.setValue( srcJson.getValue().getSummary() );
+        targetJson.setDetails( (JsonObject)srcJson.getValue().getDetails() );
+
+        return targetJson;
+    }
+
     private String getContainer(String fullChannelname)
     {
         return fullChannelname.split( "\\." )[0];
     }
 
-    private BaseEvent<Double> createDoubleEvent(String channelName, double doubleValue, int eventId, int cId,
+    private GenericJsonEvent createGenericJsonEvent(String channelName, Object value, int eventId, int cId,
             long timestamp)
     {
 
-        BaseEvent<Double> event = new BaseEvent<>();
-        event.setChannelname( channelName );
-        event.setValue( doubleValue );
+        GenericJsonEvent event = new GenericJsonEvent();
+        event.setChannel( channelName );
+        event.setChannelId( cId );
         event.setEventId( eventId );
         event.setTimestamp( timestamp );
-        event.setOrigin( getContainer( channelName ) );
-        event.setChannelId( cId );
-
-        return event;
-    }
-
-    private BaseEvent<Integer> createIntegerEvent(String channelName, int intValue, int eventId, int cId,
-            long timestamp)
-    {
-
-        BaseEvent<Integer> event = new BaseEvent<>();
-        event.setChannelname( channelName );
-        event.setValue( intValue );
-        event.setEventId( eventId );
-        event.setTimestamp( timestamp );
-        event.setOrigin( getContainer( channelName ) );
-        event.setChannelId( cId );
-
-        return event;
-    }
-
-    private BaseEvent<String> createStringEvent(String channelName, String text, int eventId, int cId, long timestamp)
-    {
-
-        BaseEvent<String> event = new BaseEvent<>();
-        event.setChannelname( channelName );
-        event.setValue( text );
-        event.setEventId( eventId );
-        event.setTimestamp( timestamp );
-        event.setOrigin( getContainer( channelName ) );
-        event.setChannelId( cId );
+        event.setValue( value );
 
         return event;
     }
@@ -248,9 +231,9 @@ public class DatabaseHandler
 
         for (Channel c : channelsFromDb)
         {
-            if (name.endsWith( c.getName() ))
+            if (name.endsWith( c.name ))
             {
-                return c.getId();
+                return c.id;
             }
         }
 
@@ -333,12 +316,9 @@ public class DatabaseHandler
     private Channel toChannel(String raw)
     {
         JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
-        Channel ch = new Channel();
-        ch.setId( obj.get( "cId" ).getAsInt() );
-        ch.setName( obj.get( "cName" ).getAsString() );
-        ch.setNature( obj.get( "cNature" ).getAsString() );
-        ch.setType( obj.get( "cType" ).getAsString() );
-        return ch;
+        return new Channel( obj.get( "cName" ).getAsString(),
+                            obj.get( "cId" ).getAsInt(),
+                            new ArrayList<FieldMapping>() );
     }
 
     private ChartData statsItemToChartData(String raw)
@@ -388,26 +368,6 @@ public class DatabaseHandler
         }
 
         return evt;
-    }
-
-}
-
-class ChannelInfo
-{
-    public String storage;
-    public String type;
-    public String name;
-    public int id;
-    public List<String> keySet;
-
-    public ChannelInfo(String type, String name, List<String> keySet, int id)
-    {
-        super();
-        this.storage = name.split( "\\." )[0];
-        this.type = type;
-        this.name = name;
-        this.keySet = keySet;
-        this.id = id;
     }
 
 }
