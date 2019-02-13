@@ -209,11 +209,6 @@ public class DatabaseHandler
         return targetJson;
     }
 
-    private String getContainer(String fullChannelname)
-    {
-        return fullChannelname.split( "\\." )[0];
-    }
-
     private GenericJsonEvent createGenericJsonEvent(String channelName, Object value, int eventId, int cId,
             long timestamp)
     {
@@ -318,10 +313,8 @@ public class DatabaseHandler
     private Channel toChannel(String raw)
     {
         JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
-        return new Channel( obj.get( "cName" ).getAsString(),
-                            obj.get( "cId" ).getAsInt(),
-                            // FIXME
-                            new FieldMapping( new ArrayList<DetailedField>(), "String" ) );
+        FieldMapping mapping = gson.fromJson( obj.get( "cMapping" ).getAsString(), FieldMapping.class );
+        return new Channel( obj.get( "cName" ).getAsString(), obj.get( "cId" ).getAsInt(), mapping );
     }
 
     private ChartData statsItemToChartData(String raw)

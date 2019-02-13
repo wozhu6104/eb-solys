@@ -107,12 +107,12 @@ class SQLHelper {
 	def static insertIntoChannelMappingTable(int id, String name, String nature, FieldMapping mapping)
 	{
 		val gson = new Gson
-//		'''
-//		INSERT INTO channels (cId, cName, cNature, cMapping) values («id», '«name»', '«nature»', '«gson.toJson(mapping)»')
-//		'''
 		'''
-		INSERT INTO channels (cId, cName, cNature, cMapping) values («id», '«name»', '«nature»', '')
+		INSERT INTO channels (cId, cName, cNature, cMapping) values («id», '«name»', '«nature»', '«gson.toJson(mapping)»')
 		'''
+//		'''
+//		INSERT INTO channels (cId, cName, cNature, cMapping) values («id», '«name»', '«nature»', '')
+//		'''
 	}
 
 	//FIXME - To be adapted to new ER-structure
