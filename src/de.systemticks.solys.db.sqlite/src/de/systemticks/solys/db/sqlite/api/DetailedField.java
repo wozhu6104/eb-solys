@@ -1,14 +1,14 @@
 package de.systemticks.solys.db.sqlite.api;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class FieldMapping {
+public class DetailedField {
 
-	List<DetailedField> details;
-	String valueType;
+	String name;
+	String type;
+	boolean complex;
 
 }

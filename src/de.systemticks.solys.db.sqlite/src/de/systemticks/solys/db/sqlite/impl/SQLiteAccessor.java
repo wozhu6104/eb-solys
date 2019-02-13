@@ -20,6 +20,7 @@ import com.google.gson.JsonObject;
 
 import de.systemticks.solys.db.sqlite.api.Channel;
 import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
+import de.systemticks.solys.db.sqlite.api.DetailedField;
 import de.systemticks.solys.db.sqlite.api.FieldMapping;
 import de.systemticks.solys.db.sqlite.api.GenericJsonEvent;
 
@@ -193,7 +194,7 @@ public class SQLiteAccessor implements DataStorageAccess {
 	}
 
 	@Override
-	public int createChannel(String fullname, List<FieldMapping> mapping) {
+	public int createChannel(String fullname, FieldMapping mapping) {
 
 		channelId += 1;
 
@@ -222,7 +223,7 @@ public class SQLiteAccessor implements DataStorageAccess {
 			String[] colNames = new String[cols];
 			int[] colTypes = new int[cols];
 			for (int i = 0; i < cols; i++) {
-				colNames[i] = meta.getColumnName(i + 1);
+				colNames[i] = meta.getColumnLabel(i + 1);
 				colTypes[i] = meta.getColumnType(i + 1);
 			}
 			while (rs.next()) {

@@ -18,7 +18,7 @@ public interface DataStorageAccess {
 	public boolean bulkImportAnyBaseEvents(List<GenericJsonEvent> events);
 		
 	// New methods return JSON
-	public int createChannel(String fullname, List<FieldMapping> fieldMapping);
+	public int createChannel(String fullname, FieldMapping fieldMapping);
 	
 	public List<String> getAllChannels();
 

@@ -30,6 +30,7 @@ import com.google.gson.JsonObject;
 import de.systemticks.solys.data.api.DataServiceHost;
 import de.systemticks.solys.db.sqlite.api.Channel;
 import de.systemticks.solys.db.sqlite.api.DataStorageAccess;
+import de.systemticks.solys.db.sqlite.api.DetailedField;
 import de.systemticks.solys.db.sqlite.api.FieldMapping;
 import de.systemticks.solys.db.sqlite.api.GenericJsonEvent;
 
@@ -119,21 +120,22 @@ public class DatabaseHandler
 
         if (!channels.containsKey( key ))
         {
-            List<FieldMapping> mapping = new ArrayList<>();
+            List<DetailedField> details = new ArrayList<>();
+            FieldMapping mapping;
             int cId = -1;
             if (keySet == null)
             {
-                mapping.add( new FieldMapping( "value", unit.getDataType().getSimpleName(), false ) );
+                mapping = new FieldMapping( details, unit.getDataType().getSimpleName() );
             }
             else
             {
-                mapping.add( new FieldMapping( "value", "String", false ) );
-                keySet.stream().forEach( k -> mapping.add( new FieldMapping( k, "String", false ) ) );
+                keySet.stream().forEach( k -> details.add( new DetailedField( k, "String", false ) ) );
                 if (name.startsWith( "trace.dlt" ))
                 {
-                    mapping.remove( mapping.size() - 1 );
-                    mapping.add( new FieldMapping( "payload", "String", true ) );
+                    details.remove( details.size() - 1 );
+                    details.add( new DetailedField( "payload", "String", true ) );
                 }
+                mapping = new FieldMapping( details, "String" );
             }
 
             cId = access.createChannel( name, mapping );
@@ -152,9 +154,9 @@ public class DatabaseHandler
             {
                 globalEventId++;
                 // primitive values
-                if (dbChannel.fieldMapping.size() == 1)
+                if (dbChannel.fieldMapping.getDetails().size() == 0)
                 {
-                    switch (dbChannel.fieldMapping.get( 0 ).getType())
+                    switch (dbChannel.fieldMapping.getValueType())
                     {
                         case "Double" :
                         case "Long" :
@@ -318,7 +320,8 @@ public class DatabaseHandler
         JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
         return new Channel( obj.get( "cName" ).getAsString(),
                             obj.get( "cId" ).getAsInt(),
-                            new ArrayList<FieldMapping>() );
+                            // FIXME
+                            new FieldMapping( new ArrayList<DetailedField>(), "String" ) );
     }
 
     private ChartData statsItemToChartData(String raw)

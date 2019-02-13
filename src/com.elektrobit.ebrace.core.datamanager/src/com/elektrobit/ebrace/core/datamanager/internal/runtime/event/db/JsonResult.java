@@ -14,8 +14,8 @@ import com.google.gson.JsonObject;
 public class JsonResult
 {
 
-    private final static String EVT_TIMESTAMP_KEY = "eTimestamp";
-    private final static String EVT_VALUE_KEY = "eValue";
+    private final static String EVT_TIMESTAMP_KEY = "timestamp";
+    private final static String EVT_VALUE_KEY = "value";
 
     public static long toTimestamp(JsonObject obj)
     {
