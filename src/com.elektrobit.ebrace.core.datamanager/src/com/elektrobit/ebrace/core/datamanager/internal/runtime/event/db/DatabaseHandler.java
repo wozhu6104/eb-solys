@@ -237,16 +237,6 @@ public class DatabaseHandler
         return -1;
     }
 
-    private long microToMilli(long micro)
-    {
-        return micro / 1000;
-    }
-
-    private long milliToMicro(long milli)
-    {
-        return milli * 1000;
-    }
-
     // For the charts
     public LineChartData createLineChartData(List<RuntimeEventChannel<?>> channels, long startTimestamp,
             long endTimestamp, boolean dataAsBars, Long aggregationTime, boolean aggregateForStackedMode)
@@ -261,7 +251,7 @@ public class DatabaseHandler
                 List<ChartData> events = access
                         .getStatisticOverTime( this.channels.get( c.getName() ).storage,
                                                getChannelId( c.getName() ),
-                                               (int)microToMilli( aggregationTime ) )
+                                               aggregationTime.intValue() )
                         .stream().map( e -> statsItemToChartData( e ) ).collect( Collectors.toList() );
 
                 allEvents.add( events );
@@ -275,8 +265,8 @@ public class DatabaseHandler
                 List<ChartData> events = access
                         .getAllEventsFromChannel( this.channels.get( c.getName() ).storage,
                                                   getChannelId( c.getName() ),
-                                                  microToMilli( startTimestamp ),
-                                                  microToMilli( endTimestamp ) )
+                                                  startTimestamp,
+                                                  endTimestamp )
                         .stream().map( e -> baseEventToChartData( e ) ).collect( Collectors.toList() );
 
                 allEvents.add( events );
@@ -301,8 +291,8 @@ public class DatabaseHandler
             events.addAll( access
                     .getAllEventsFromChannel( this.channels.get( c.getName() ).storage,
                                               getChannelId( c.getName() ),
-                                              microToMilli( start ),
-                                              microToMilli( end ) )
+                                              start,
+                                              end )
                     .stream().map( event -> toRuntimeEvent( event, c ) ).collect( Collectors.toList() ) );
 
         }
@@ -320,19 +310,19 @@ public class DatabaseHandler
     private ChartData statsItemToChartData(String raw)
     {
         JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
-        return new ChartData( obj.get( "timestamp" ).getAsLong(), obj.get( "max_v" ).getAsNumber() );
+        return new ChartData( obj.get( "timestamp" ).getAsLong() / 1000, obj.get( "max_v" ).getAsNumber() );
     }
 
     private ChartData baseEventToChartData(String raw)
     {
         JsonObject obj = gson.fromJson( raw, JsonElement.class ).getAsJsonObject();
-        return new ChartData( JsonResult.toTimestamp( obj ), JsonResult.toNumber( obj ) );
+        return new ChartData( JsonResult.toTimestamp( obj ) / 1000, JsonResult.toNumber( obj ) );
     }
 
     private RuntimeEvent<?> toRuntimeEvent(String rawJson, RuntimeEventChannel<?> channel)
     {
         JsonObject obj = gson.fromJson( rawJson, JsonElement.class ).getAsJsonObject();
-        long timestamp = milliToMicro( JsonResult.toTimestamp( obj ) );
+        long timestamp = JsonResult.toTimestamp( obj );
         RuntimeEvent<?> evt = null;
 
         switch (channel.getUnit().getDataType().getSimpleName())

@@ -233,7 +233,7 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public <T> RuntimeEvent<T> acceptEvent(long timestamp, RuntimeEventChannel<T> channel, ModelElement modelElement,
             T value)
     {
-        dbHandler.manageEvent( timestamp, channel, value );
+        dbHandler.manageEvent( timestamp * 1000, channel, value );
         return runtimeEventAcceptorImpl.acceptEvent( timestamp, channel, modelElement, value );
     }
 
@@ -343,7 +343,7 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
             ModelElement modelElement, T value, String summary)
     {
         // e.g. invoked from log4j - new json
-        dbHandler.manageEvent( timestampUS / 1000, channel, value );
+        dbHandler.manageEvent( timestampUS, channel, value );
         return runtimeEventAcceptorImpl.acceptEventMicros( timestampUS, channel, modelElement, value, summary );
     }
 
@@ -352,7 +352,7 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
             ModelElement modelElement, T value)
     {
         // e.g. invoked from DLT - new json
-        dbHandler.manageEvent( timestampUS / 1000, channel, value );
+        dbHandler.manageEvent( timestampUS, channel, value );
         return runtimeEventAcceptorImpl.acceptEventMicros( timestampUS, channel, modelElement, value );
     }
 
