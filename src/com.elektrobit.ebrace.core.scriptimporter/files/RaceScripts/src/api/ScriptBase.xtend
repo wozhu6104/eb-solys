@@ -12,50 +12,50 @@ class ScriptBase {
 	extension ScriptContext ctx
 
 	/**
-       Initialize Context
-    */
+	 *        Initialize Context
+	 */
 	new(ScriptContext _ctx) {
 		ctx = _ctx
 	}
 
 	/**
-     * SCRIPT API - BASICS
-     */
+	 * SCRIPT API - BASICS
+	 */
 	/**
-     * Gets all channel names
-     */
+	 * Gets all channel names
+	 */
 	def getAllChannelNames() {
 		allChannels.map[name]
 	}
 
 	/**
-       * Gets all channel names, which start with a certain prefix
-       @param prefix Given channel prefix 
-    */
+	 * Gets all channel names, which start with a certain prefix
+	 *        @param prefix Given channel prefix 
+	 */
 	def getChannelNamesByPrefix(String prefix) {
 		allChannelNames.filter[startsWith(prefix)]
 	}
 
 	/**
-       * Gets a certain channel by a given channel name
-       @param channelName Given channel name
-    */
+	 * Gets a certain channel by a given channel name
+	 *        @param channelName Given channel name
+	 */
 	def getChannel(String channelName) {
 		allChannels.filter[name.equals(channelName)].head
 	}
 
 	/**
-       * Gets a list of channels by given channel names
-       @param channelNames Given list of channel names
-       */
+	 * Gets a list of channels by given channel names
+	 *        @param channelNames Given list of channel names
+	 */
 	def getChannels(List<String> channelNames) {
 		allChannels.filter[channelNames.contains(name)].toList
 	}
 
 	/**
-       * Gets a list of channels by a given prefix
-       @param preifx  Given channel prefix
-    */
+	 * Gets a list of channels by a given prefix
+	 *        @param preifx  Given channel prefix
+	 */
 	def getChannelsByPrefix(String prefix) {
 		prefix.channelNamesByPrefix.toList.channels
 	}
@@ -102,33 +102,32 @@ class ScriptBase {
 	 * @return The timemarker
 	 */
 	def getFirstTimemarker(String mname) {
-		allTimemarkers.filter[name.equals(mname)].head 
+		allTimemarkers.filter[name.equals(mname)].head
 	}
 
 	/**
-     * Creates a timemarker based on a given event
-     * @param event The event from which the timemarker is created
-     * @param name The timemarker name
-     * @return A new timemarker
-     */
+	 * Creates a timemarker based on a given event
+	 * @param event The event from which the timemarker is created
+	 * @param name The timemarker name
+	 * @return A new timemarker
+	 */
 	def createTimemarker(RuntimeEvent<?> event, String name) {
 		event.timestamp.createTimemarker(name)
 	}
 
 	/**
-     * SCRIPT API - UTILITY 
-     */
-
+	 * SCRIPT API - UTILITY 
+	 */
 	/**
-     * Filters all events values that matches a certain regular expression
-     */
+	 * Filters all events values that matches a certain regular expression
+	 */
 	def like(Iterable<RuntimeEvent<?>> events, String regex) {
 		events.filter[matchRegex(regex)]
 	}
 
 	/**
-     * Filters checks if an event value matches a certain regular expression
-     */
+	 * Filters checks if an event value matches a certain regular expression
+	 */
 	def matchRegex(RuntimeEvent<?> event, String regex) {
 		event.value.toString.matches(regex)
 	}
@@ -141,78 +140,76 @@ class ScriptBase {
 	}
 
 	/**
-     * Filters checks if an event value starts with a certain prefix
-     */
+	 * Filters checks if an event value starts with a certain prefix
+	 */
 	def matchPrefix(RuntimeEvent<?> event, String starts) {
 		event.value.toString.startsWith(starts)
 	}
 
-	
-	def < (TimebasedObject to1, TimebasedObject to2) {
+	def <(TimebasedObject to1, TimebasedObject to2) {
 		to1.timestamp < to2.timestamp
 	}
 
-	def > (TimebasedObject to1, TimebasedObject to2) {
+	def >(TimebasedObject to1, TimebasedObject to2) {
 		to1.timestamp > to2.timestamp
 	}
 
-	def == (TimebasedObject to1, TimebasedObject to2) {
+	def ==(TimebasedObject to1, TimebasedObject to2) {
 		to1.timestamp == to2.timestamp
 	}
 
-	def <= (TimebasedObject to1, TimebasedObject to2) {
+	def <=(TimebasedObject to1, TimebasedObject to2) {
 		to1.timestamp <= to2.timestamp
 	}
 
-	def >= (TimebasedObject to1, TimebasedObject to2) {
+	def >=(TimebasedObject to1, TimebasedObject to2) {
 		to1.timestamp >= to2.timestamp
 	}
-	
-	def - (TimebasedObject to1, TimebasedObject to2) {
+
+	def -(TimebasedObject to1, TimebasedObject to2) {
 		to1.timestamp - to2.timestamp
-	}	
-	
+	}
+
 	/**
-     * Filters a list of events whose time-stamps are higher than the time-stamp of the given TimebasedObject
-     * @param evts The list of events
-     * @param tm The given TimebasedObject
-     * @return  The filtered events
-     */
+	 * Filters a list of events whose time-stamps are higher than the time-stamp of the given TimebasedObject
+	 * @param evts The list of events
+	 * @param tm The given TimebasedObject
+	 * @return  The filtered events
+	 */
 	def after(List<RuntimeEvent<?>> evts, TimebasedObject t) {
 		evts.filter[it >= t]
 	}
-	
 
 	/**
-     * Filter all events between two time TimebasedObjects
-     * @param evts The list of events
-     * @param t1 The first TimebasedObject
-     * @param t2 The second TimebasedObject
-     * @return  The filtered events
-    */
+	 * Filter all events between two time TimebasedObjects
+	 * @param evts The list of events
+	 * @param t1 The first TimebasedObject
+	 * @param t2 The second TimebasedObject
+	 * @return  The filtered events
+	 */
 	def between(List<RuntimeEvent<?>> events, TimebasedObject t1, TimebasedObject t2) {
 		events.filter[it >= t1 && it <= t2]
 	}
 
 	/**
-     * Filters a list of events whose time-stamps are lower than the time-stamp of the given TimebasedObject
-     * @param evts The list of events
-     * @param tm The given TimebasedObject
-     * @return  The filtered events
-     */
+	 * Filters a list of events whose time-stamps are lower than the time-stamp of the given TimebasedObject
+	 * @param evts The list of events
+	 * @param tm The given TimebasedObject
+	 * @return  The filtered events
+	 */
 	def before(List<RuntimeEvent<?>> evts, TimebasedObject t) {
 		evts.filter[it <= t]
 	}
 
 	/**
-     * Gets a list of timemarkers by a given prefix
-     * @param preifx  Given timemarker prefix
-     * @return A list of timemarkers
-     */
+	 * Gets a list of timemarkers by a given prefix
+	 * @param preifx  Given timemarker prefix
+	 * @return A list of timemarkers
+	 */
 	def getTimemarkersByPrefix(String prefix) {
 		allTimemarkers.filter[name.startsWith(prefix)]
 	}
-	
+
 	/**
 	 * Get a timemarker by a given name
 	 * @param mname The timemarker name
@@ -221,7 +218,7 @@ class ScriptBase {
 	def getTimemarkers(String mname) {
 		allTimemarkers.filter[name.equals(mname)]
 	}
-	
+
 	/**
 	 * Shows Plant UML string in a HTML View. 
 	 * Note: Content of HTML view is overridden without warning. 
@@ -231,51 +228,66 @@ class ScriptBase {
 	 */
 	def showPlantUmlInHtmlViewSVG(String plantUmlText, String htmlViewName) {
 		var pathToSVG = htmlViewName.toLowerCase
-		pathToSVG = pathToSVG.replaceAll("\\s","")
+		pathToSVG = pathToSVG.replaceAll("\\s", "")
 		pathToSVG += "-plantuml.svg"
-		
+
 		new File(pathToSVG).deleteOnExit()
-		
-		plantUmlText.plantUmlToSVG(pathToSVG)		
-		
+
+		plantUmlText.plantUmlToSVG(pathToSVG)
+
 		val htmlView = createOrGetHtmlView(htmlViewName)
-		htmlView.content = 
-		'''
+		htmlView.content = '''
 			<html><object data="«pathToSVG»" type="image/svg+xml"/></html>
 		'''
 	}
-	
+
 	def showPlantUmlInHtmlView(String plantUmlText, String htmlViewName) {
 		var pathToPNG = htmlViewName.toLowerCase
-		pathToPNG = pathToPNG.replaceAll("\\s","")
+		pathToPNG = pathToPNG.replaceAll("\\s", "")
 		pathToPNG += "-plantuml.png"
-		
+
 		new File(pathToPNG).deleteOnExit()
-		
-		plantUmlText.plantUmlToPNG(pathToPNG)		
-		
+
+		plantUmlText.plantUmlToPNG(pathToPNG)
+
 		val htmlView = createOrGetHtmlView(htmlViewName)
-		htmlView.content = 
-		'''
-			<html><object data="«pathToPNG»" type="image/png"/></html>
+		htmlView.content = '''
+			<html>
+			<head>
+			       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			       <script type="text/javascript">
+			             function reloadImg() {
+			                    d = new Date();
+			                    $("#imageId").attr("src", "«pathToPNG»?"+d.getTime());           
+			             }
+			       </script>
+			</head>
+			<body>
+			       <img id="imageId" />
+			       <script type="text/javascript">reloadImg()</script>
+			</body>
+			</html>
 		'''
 	}
-	
+
 	/**
-       * This will return a list of lists of runtime events, grouped by time-stamp
-       */
+	 * This will return a list of lists of runtime events, grouped by time-stamp
+	 */
 	def groupByTimestamp(Iterable<RuntimeEvent<?>> runtimeEvents) {
 		val sortedByTimestamp = runtimeEvents.sortBy[timestamp]
 		val List<List<RuntimeEvent<?>>> allList = newArrayList()
 		allList.add(newArrayList());
-		sortedByTimestamp.reduce[p1, p2|allList.last.add(p1)
+		sortedByTimestamp.reduce [ p1, p2 |
+			allList.last.add(p1)
 			if (p1.timestamp != p2.timestamp) {
 				allList.add(newArrayList())
-			} p2]
+			}
+			p2
+		]
 		allList.last.add(sortedByTimestamp.last)
 		allList
 	}
-		
+
 	/**
 	 * Splits a plain list of elements into a list of list of elements (a given number of consecutive elements)
 	 * e.g. [1,2,3,4,5,6], 2 will become [[1,2],[3,4],[5,6]]
@@ -288,14 +300,14 @@ class ScriptBase {
 	 */
 	def <T> List<List<T>> groupByNumber(List<T> elements, int number) {
 		val result = newArrayList()
-		
+
 		var size = elements.size
-		if(elements.size % number != 0) 
+		if (elements.size % number != 0)
 			size -= elements.size % number
-		
-		for(var i = 0; i < size; i += number) {
-			result.add( elements.subList(i , i + number))
-		}		
-	 	result
+
+		for (var i = 0; i < size; i += number) {
+			result.add(elements.subList(i, i + number))
+		}
+		result
 	}
 }
