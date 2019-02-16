@@ -16,6 +16,8 @@ import lombok.Data;
 @Data
 public class JsonEvent
 {
+    private final static Gson gson = new Gson();
+
     private final Long uptime;
     private final JsonChannel channel;
     private final JsonEventValue value;
@@ -25,6 +27,6 @@ public class JsonEvent
     @Override
     public String toString()
     {
-        return new Gson().toJson( this );
+        return gson.toJson( this );
     }
 }
