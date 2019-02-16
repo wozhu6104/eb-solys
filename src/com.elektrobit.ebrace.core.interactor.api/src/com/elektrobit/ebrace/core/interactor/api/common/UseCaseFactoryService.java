@@ -46,6 +46,8 @@ import com.elektrobit.ebrace.core.interactor.api.createresource.CreateResourceIn
 import com.elektrobit.ebrace.core.interactor.api.createresource.DefaultResourceNameNotifyUseCase;
 import com.elektrobit.ebrace.core.interactor.api.datainput.DataInputUseCase;
 import com.elektrobit.ebrace.core.interactor.api.headlessexecutor.HeadlessExecutorInteractionUseCase;
+import com.elektrobit.ebrace.core.interactor.api.liveviewer.LiveViewerHandlerInteractionCallback;
+import com.elektrobit.ebrace.core.interactor.api.liveviewer.LiveViewerHandlerInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.api.loaddatachunk.LoadDataChunkInteractionCallback;
 import com.elektrobit.ebrace.core.interactor.api.loaddatachunk.LoadDataChunkInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.api.loaddatachunk.LoadDataChunkNotifyCallback;
@@ -245,4 +247,7 @@ public interface UseCaseFactoryService
     public RunScriptInteractionUseCase makeRunScriptInteractionUseCase();
 
     public DataInputUseCase makeDataInputUseCase();
+
+    public LiveViewerHandlerInteractionUseCase makeActivateLiveViewerUseCase(
+            LiveViewerHandlerInteractionCallback callback);
 }

@@ -38,7 +38,7 @@ import de.systemticks.ebrace.core.eventhook.registry.api.EventHookRegistry;
 @Component(immediate = true)
 public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEventProvider, ClearChunkDataListener
 {
-    private RuntimeEventAcceptor runtimeEventAcceptorImpl;
+    private RuntimeEventAcceptorImpl runtimeEventAcceptorImpl;
     private ModelElementPool modelElementPool;
     private RuntimeEventChannelManager runtimeEventChannelManager;
     private ChannelListenerNotifier channelListenerNotifier;
@@ -395,6 +395,12 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     public void removeChannelRemovedListener(ChannelRemovedListener listener)
     {
         runtimeEventAcceptorImpl.removeChannelRemovedListener( listener );
+    }
+
+    @Override
+    public void removeEventsFromTo(long startMicros, long endMicros)
+    {
+        runtimeEventAcceptorImpl.removeEventsFromTo( startMicros, endMicros );
     }
 
 }

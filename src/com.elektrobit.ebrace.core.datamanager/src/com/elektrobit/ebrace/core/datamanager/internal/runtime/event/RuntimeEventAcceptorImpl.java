@@ -24,12 +24,9 @@ import org.apache.log4j.Logger;
 import com.elektrobit.ebrace.common.checks.RangeCheckUtils;
 import com.elektrobit.ebrace.common.memory.MemoryObserver;
 import com.elektrobit.ebrace.common.profiling.PerformanceUtils;
-import com.elektrobit.ebrace.common.utils.GenericOSGIServiceTracker;
 import com.elektrobit.ebrace.core.datamanager.api.channels.ChannelListenerNotifier;
 import com.elektrobit.ebrace.core.datamanager.api.channels.RuntimeEventChannelManager;
 import com.elektrobit.ebrace.core.datamanager.internal.runtime.event.api.RuntimeEventNotifier;
-import com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences;
-import com.elektrobit.ebrace.core.preferences.listener.AnalysisTimespanChangedListener;
 import com.elektrobit.ebsolys.core.targetdata.api.ModelElement;
 import com.elektrobit.ebsolys.core.targetdata.api.ModelElementPool;
 import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext;
@@ -52,67 +49,6 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
     private final static Logger LOG = Logger.getLogger( RuntimeEventAcceptorImpl.class );
     private final static int EVENT_DELETE_PORTION = 50000;
 
-    private final GenericOSGIServiceTracker<AnalysisTimespanPreferences> analysisTimespanPreferences = new GenericOSGIServiceTracker<AnalysisTimespanPreferences>( AnalysisTimespanPreferences.class,
-                                                                                                                                                                   new AnalysisTimespanPreferences()
-                                                                                                                                                                   {
-
-                                                                                                                                                                       @Override
-                                                                                                                                                                       public long getFullTimespanStart()
-                                                                                                                                                                       {
-                                                                                                                                                                           return 1;
-                                                                                                                                                                       }
-
-                                                                                                                                                                       @Override
-                                                                                                                                                                       public long getFullTimespanEnd()
-                                                                                                                                                                       {
-                                                                                                                                                                           return 60000000;
-                                                                                                                                                                       }
-
-                                                                                                                                                                       @Override
-                                                                                                                                                                       public long getAnalysisTimespanStart()
-                                                                                                                                                                       {
-                                                                                                                                                                           return 1;
-                                                                                                                                                                       }
-
-                                                                                                                                                                       @Override
-                                                                                                                                                                       public long getAnalysisTimespanEnd()
-                                                                                                                                                                       {
-                                                                                                                                                                           return 60000000;
-                                                                                                                                                                       }
-
-                                                                                                                                                                       @Override
-                                                                                                                                                                       public long getAnalysisTimespanLength()
-                                                                                                                                                                       {
-                                                                                                                                                                           return 60000000;
-                                                                                                                                                                       }
-
-                                                                                                                                                                       @Override
-                                                                                                                                                                       public void addTimespanPreferencesChangedListener(
-                                                                                                                                                                               AnalysisTimespanChangedListener analysisTimespanChangedListenerToAdd)
-                                                                                                                                                                       {
-                                                                                                                                                                       }
-
-                                                                                                                                                                       @Override
-                                                                                                                                                                       public void removeTimespanPreferencesChangedListener(
-                                                                                                                                                                               AnalysisTimespanChangedListener analysisTimespanChangedListenerToRemove)
-                                                                                                                                                                       {
-                                                                                                                                                                       }
-
-                                                                                                                                                                       @Override
-                                                                                                                                                                       public void setAnalysisTimespanEnd(
-                                                                                                                                                                               long newValue,
-                                                                                                                                                                               ANALYSIS_TIMESPAN_CHANGE_REASON reason)
-                                                                                                                                                                       {
-                                                                                                                                                                       }
-
-                                                                                                                                                                       @Override
-                                                                                                                                                                       public void setAnalysisTimespanLength(
-                                                                                                                                                                               long analysisTimespanInMillis)
-                                                                                                                                                                       {
-                                                                                                                                                                       }
-
-                                                                                                                                                                   } );
-
     private final List<RuntimeEvent<?>> runtimeEvents = Collections
             .synchronizedList( new ArrayList<RuntimeEvent<?>>() );
 
@@ -127,8 +63,6 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
     private final ChannelListenerNotifier channelListenerNotifier;
     private final List<ChannelRemovedListener> channelRemovedListeners;
     private final EventHookRegistry eventhookRegistry;
-
-    private long lastRemoveOutdatedEvents = System.currentTimeMillis();
 
     public RuntimeEventAcceptorImpl(RuntimeEventChannelManager runtimeEventChannelManager,
             ModelElementPool modelElementPool, RuntimeEventNotifier runtimeEventNotifier,
@@ -212,7 +146,7 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
 
         runtimeEvents.add( newRuntimeEvent );
         noteIfSortBrokenByLastInsert();
-        removeOutdatedEvents();
+        removeEventsIfMemoryFull();
         runtimeEventNotifier.notifyAboutNewEvent( newRuntimeEvent );
         stateID++;
 
@@ -220,41 +154,6 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
         eventhookRegistry.callFor( newRuntimeEvent );
 
         return newRuntimeEvent;
-    }
-
-    private void removeOutdatedEvents()
-    {
-        long now = System.currentTimeMillis();
-        long timeSinceLAstRemoveOutdatedCall = now - lastRemoveOutdatedEvents;
-        long analysisTimespanLengthMicros = analysisTimespanPreferences.getService().getAnalysisTimespanLength();
-        long analysisTimespanLengthMillis = analysisTimespanLengthMicros / 1000;
-
-        if (timeSinceLAstRemoveOutdatedCall > analysisTimespanLengthMillis)
-        {
-            if (sortNeeded)
-            {
-                sortEvents();
-            }
-            boolean mustDelete = true;
-            int index = 0;
-            while ((runtimeEvents.get( index )
-                    .getTimestamp()) < (runtimeEvents.get( runtimeEvents.size() - 1 ).getTimestamp()
-                            - analysisTimespanLengthMicros))
-            {
-                index++;
-                if (index >= runtimeEvents.size() - 1)
-                {
-                    mustDelete = false;
-                    break;
-                }
-            }
-            if (mustDelete)
-            {
-                runtimeEvents.subList( 0, index ).clear();
-                LOG.info( "Removing " + index + " outdated events." );
-            }
-            lastRemoveOutdatedEvents = System.currentTimeMillis();
-        }
     }
 
     @Override
@@ -779,6 +678,47 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
     public void removeChannelRemovedListener(ChannelRemovedListener listener)
     {
         channelRemovedListeners.remove( listener );
+    }
+
+    @Override
+    public void removeEventsFromTo(long startMicros, long endMicros)
+    {
+        if (startMicros < endMicros)
+        {
+            if (sortNeeded)
+            {
+                sortEvents();
+            }
+
+            boolean mustDelete = true;
+            int startIndex = 0;
+            while ((runtimeEvents.get( startIndex ).getTimestamp()) < startMicros)
+            {
+                startIndex++;
+                if (startIndex >= runtimeEvents.size() - 1)
+                {
+                    mustDelete = false;
+                    break;
+                }
+            }
+            int endIndex = startIndex;
+            while ((runtimeEvents.get( endIndex ).getTimestamp()) < endMicros)
+            {
+                endIndex++;
+                if (endIndex == runtimeEvents.size() - 1)
+                {
+                    break;
+                }
+            }
+
+            if (mustDelete && (endIndex > startIndex))
+            {
+                runtimeEvents.subList( startIndex, endIndex ).clear();
+                LOG.info( "Removing " + (endIndex - startIndex) + " outdated events." );
+            }
+
+        }
+
     }
 
 }

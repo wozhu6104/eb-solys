@@ -260,4 +260,6 @@ public interface RuntimeEventAcceptor extends RuntimeEventProvider
     public void addChannelRemovedListener(ChannelRemovedListener listener);
 
     public void removeChannelRemovedListener(ChannelRemovedListener listener);
+
+    public void removeEventsFromTo(long startMicros, long endMicros);
 }

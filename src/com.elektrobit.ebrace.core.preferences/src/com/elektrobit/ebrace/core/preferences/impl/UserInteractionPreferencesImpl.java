@@ -9,6 +9,9 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.core.preferences.impl;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.osgi.service.component.annotations.Component;
 
 import com.elektrobit.ebrace.common.utils.OSGIWhiteBoardPatternCaller;
@@ -20,11 +23,8 @@ import com.elektrobit.ebsolys.core.targetdata.api.reset.ResetListener;
 @Component
 public class UserInteractionPreferencesImpl implements UserInteractionPreferences, ResetListener
 {
+    private final List<UserInteractionPreferencesListener> listeners = new CopyOnWriteArrayList<>();
     private boolean isLiveMode = true;
-
-    public UserInteractionPreferencesImpl()
-    {
-    }
 
     @Override
     public boolean isLiveMode()
@@ -41,6 +41,9 @@ public class UserInteractionPreferencesImpl implements UserInteractionPreference
 
     private void notifyRunningStateChangedListeners(final boolean isRunning)
     {
+        listeners.stream().forEach( l -> l.onIsLiveModeChanged( isRunning ) );
+
+        // FIXME: Remove old mechanism
         new OSGIWhiteBoardPatternCaller<UserInteractionPreferencesListener>( UserInteractionPreferencesListener.class )
                 .callOSGIService( new OSGIWhiteBoardPatternCommand<UserInteractionPreferencesListener>()
                 {
@@ -56,5 +59,17 @@ public class UserInteractionPreferencesImpl implements UserInteractionPreference
     public void onReset()
     {
         setIsLiveMode( true );
+    }
+
+    @Override
+    public void addUserInteractionPreferencesListener(UserInteractionPreferencesListener listener)
+    {
+        listeners.add( listener );
+    }
+
+    @Override
+    public void removeUserInteractionPreferencesListener(UserInteractionPreferencesListener listener)
+    {
+        listeners.remove( listener );
     }
 }

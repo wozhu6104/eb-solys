@@ -62,6 +62,8 @@ import com.elektrobit.ebrace.core.interactor.api.createresource.CreateResourceIn
 import com.elektrobit.ebrace.core.interactor.api.createresource.DefaultResourceNameNotifyUseCase;
 import com.elektrobit.ebrace.core.interactor.api.datainput.DataInputUseCase;
 import com.elektrobit.ebrace.core.interactor.api.headlessexecutor.HeadlessExecutorInteractionUseCase;
+import com.elektrobit.ebrace.core.interactor.api.liveviewer.LiveViewerHandlerInteractionCallback;
+import com.elektrobit.ebrace.core.interactor.api.liveviewer.LiveViewerHandlerInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.api.loaddatachunk.LoadDataChunkInteractionCallback;
 import com.elektrobit.ebrace.core.interactor.api.loaddatachunk.LoadDataChunkInteractionUseCase;
 import com.elektrobit.ebrace.core.interactor.api.loaddatachunk.LoadDataChunkNotifyCallback;
@@ -145,6 +147,7 @@ import com.elektrobit.ebrace.core.interactor.createResource.CreateResourceIntera
 import com.elektrobit.ebrace.core.interactor.createResource.DefaultResourceNameNotifyUseCaseImpl;
 import com.elektrobit.ebrace.core.interactor.datainput.DataInputUseCaseImpl;
 import com.elektrobit.ebrace.core.interactor.headlessexecutor.HeadlessExecutorInteractionUseCaseImpl;
+import com.elektrobit.ebrace.core.interactor.liveviewer.LiveViewerHandlerInteractionUseCaseImpl;
 import com.elektrobit.ebrace.core.interactor.loaddatachunk.LoadDataChunkInteractionUseCaseImpl;
 import com.elektrobit.ebrace.core.interactor.loaddatachunk.LoadDataChunkNotifyUseCaseImpl;
 import com.elektrobit.ebrace.core.interactor.loaddatachunk.SystemCPUValuesNotifyUseCaseImpl;
@@ -985,5 +988,16 @@ public class UseCaseFactoryServiceImpl implements UseCaseFactoryService
     public DataInputUseCase makeDataInputUseCase()
     {
         return new DataInputUseCaseImpl( dataStream );
+    }
+
+    @Override
+    public LiveViewerHandlerInteractionUseCase makeActivateLiveViewerUseCase(
+            LiveViewerHandlerInteractionCallback callback)
+    {
+        return new LiveViewerHandlerInteractionUseCaseImpl( callback,
+                                                            analysisTimespanPreferences,
+                                                            runtimeEventAcceptor,
+                                                            userInteractionPreferences,
+                                                            timeMarkerManager );
     }
 }

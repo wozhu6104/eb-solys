@@ -383,4 +383,10 @@ public class TimeMarkerManagerImpl implements TimeMarkerManager, TimeMarkerChang
             }
         } );
     }
+
+    @Override
+    public void removeTimeMarkers(Set<TimeMarker> timeMarkersToRemove)
+    {
+        timeMarkersToRemove.stream().forEach( timeMarker -> removeTimeMarker( timeMarker ) );
+    }
 }

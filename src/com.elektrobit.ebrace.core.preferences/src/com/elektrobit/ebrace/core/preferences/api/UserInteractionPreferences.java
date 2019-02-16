@@ -9,9 +9,15 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.core.preferences.api;
 
+import com.elektrobit.ebrace.core.preferences.listener.UserInteractionPreferencesListener;
+
 public interface UserInteractionPreferences
 {
     public void setIsLiveMode(boolean running);
 
     public boolean isLiveMode();
+
+    public void addUserInteractionPreferencesListener(UserInteractionPreferencesListener listener);
+
+    public void removeUserInteractionPreferencesListener(UserInteractionPreferencesListener listener);
 }

@@ -56,6 +56,7 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor
         setPlatformIcons( configurer );
 
         toggleBetaFeatures( configurer, commandLineParser.hasArg( "-beta" ) );
+        UseCaseFactoryInstance.get().makeActivateLiveViewerUseCase( null ).activateLiveViewer();
     }
 
     private void setPlatformIcons(IWorkbenchConfigurer configurer)

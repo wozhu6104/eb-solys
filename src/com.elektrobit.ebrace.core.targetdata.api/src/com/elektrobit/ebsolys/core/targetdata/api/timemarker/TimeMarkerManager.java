@@ -9,6 +9,7 @@
  ******************************************************************************/
 package com.elektrobit.ebsolys.core.targetdata.api.timemarker;
 
+import java.util.Set;
 import java.util.SortedSet;
 
 public interface TimeMarkerManager
@@ -32,6 +33,8 @@ public interface TimeMarkerManager
     void setCurrentSelectedTimeMarker(TimeMarker currentSelectedTimeMarker);
 
     void setCurrentSelectedTimeMarker(TimeMarker currentSelectedTimeMarker, boolean updateAnalysisTimespan);
+
+    void removeTimeMarkers(Set<TimeMarker> timeMarkersToRemove);
 
     void removeAllTimeMarkers();
 
