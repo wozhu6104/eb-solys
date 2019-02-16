@@ -92,6 +92,8 @@ public class CommonFilteredTable
     private Object elementToJumpTo = null;
     private final GenericListenerCaller<SearchModeChangedListener> searchModeListeners = new GenericListenerCaller<SearchModeChangedListener>();
 
+    private TableVirtualContentProvider tableVirtualContentProvider;
+
     public CommonFilteredTable(Composite parent)
     {
         this( parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION | SWT.VIRTUAL );
@@ -178,14 +180,18 @@ public class CommonFilteredTable
         table.getParent().setLayout( tableColumnLayout );
         table.setHeaderVisible( true );
         table.setLinesVisible( true );
-        IContentProvider contentProvider = new ArrayContentProvider();
 
         if (virtualTableViewer)
         {
+            tableVirtualContentProvider = new TableVirtualContentProvider( tableViewer );
+            tableViewer.setContentProvider( tableVirtualContentProvider );
             tableViewer.setUseHashlookup( true );
         }
-
-        tableViewer.setContentProvider( contentProvider );
+        else
+        {
+            IContentProvider contentProvider = new ArrayContentProvider();
+            tableViewer.setContentProvider( contentProvider );
+        }
 
     }
 
@@ -553,10 +559,21 @@ public class CommonFilteredTable
         return (table.getBounds().height - table.getHeaderHeight()) / table.getItemHeight();
     }
 
+    @SuppressWarnings("unchecked")
     public void centerElement(Object element)
     {
-        @SuppressWarnings("unchecked")
-        List<Object> input = (List<Object>)getViewer().getInput();
+
+        List<?> input;
+
+        if (virtualTableViewer)
+        {
+            input = tableVirtualContentProvider.getInput();
+        }
+        else
+        {
+            input = (List<Object>)getViewer().getInput();
+        }
+
         if (input == null || element == null)
         {
             return;
@@ -585,7 +602,14 @@ public class CommonFilteredTable
         if (!isDisposed())
         {
             List<?> filterResultList = filterResultData.getItemsToBeDisplayed();
-            tableViewer.setInput( filterResultList );
+            if (virtualTableViewer)
+            {
+                tableVirtualContentProvider.onNewInput( filterResultList );
+            }
+            else
+            {
+                tableViewer.setInput( filterResultList );
+            }
             tableViewer.setItemCount( filterResultList.size() );
             if (isFilterSearchModeEnabled)
             {
@@ -610,7 +634,14 @@ public class CommonFilteredTable
 
     public void setInput(List<Object> inputList)
     {
-        tableViewer.setInput( inputList );
+        if (virtualTableViewer)
+        {
+            tableVirtualContentProvider.onNewInput( inputList );
+        }
+        else
+        {
+            tableViewer.setInput( inputList );
+        }
         tableViewer.setItemCount( inputList.size() );
         if (isNotScrollLocked() && isTableNotEmpty())
         {
