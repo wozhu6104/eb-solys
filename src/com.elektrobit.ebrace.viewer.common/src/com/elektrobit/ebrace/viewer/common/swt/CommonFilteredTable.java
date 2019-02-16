@@ -592,7 +592,12 @@ public class CommonFilteredTable
     private void centerIndex(int index)
     {
         int itemsInHalfPage = numberOfVisibleItems() / 2;
-        getViewer().getTable().setTopIndex( index - itemsInHalfPage );
+        int topIndex = index - itemsInHalfPage;
+        if (topIndex < 0)
+        {
+            topIndex = 0;
+        }
+        getViewer().getTable().setTopIndex( topIndex );
         getViewer().refresh();
     }
 
