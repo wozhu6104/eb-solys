@@ -260,7 +260,7 @@ public class ChartDataNotifyUseCaseImpl
                     }
                     isExecutionScheduled = false;
                 }
-            }, 500 );
+            }, 2000 );
         }
     }
 
