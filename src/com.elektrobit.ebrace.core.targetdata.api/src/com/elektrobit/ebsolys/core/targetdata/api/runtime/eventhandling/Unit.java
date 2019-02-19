@@ -9,6 +9,8 @@
  ******************************************************************************/
 package com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
+
 public interface Unit<T>
 {
     public static Unit<Double> PERCENT = new UnitImpl<Double>( "Percent", Double.class );
@@ -17,6 +19,7 @@ public interface Unit<T>
     public static Unit<String> TEXT = new UnitImpl<String>( "Text", String.class );
     public static Unit<Boolean> BOOLEAN = new UnitImpl<Boolean>( "Boolean", Boolean.class );
     public static Unit<STimeSegment> TIMESEGMENT = new UnitImpl<STimeSegment>( "TimeSegment", STimeSegment.class );
+    public static Unit<JsonEvent> JSON = new UnitImpl<JsonEvent>( "JsonEvent", JsonEvent.class );
 
     public static <E> Unit<E> createCustomUnit(String name, Class<E> dataType)
     {

@@ -123,7 +123,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         timeSegmentAcceptor.add( channel, startEvent, endEvent );
     }
 
-
     private void handleEventCreation(JsonEvent event, ComRelation relation)
     {
         handleChannelCreation( event );
@@ -151,7 +150,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
                                                     runtimeEventAcceptor
                                                             .getRuntimeEventChannel( event.getChannel().getName() ),
                                                     relation,
-                                                    event.toString(),
+                                                    event,
                                                     (String)event.getValue().getSummary() );
         }
     }
@@ -168,7 +167,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
             if (details != null)
             {
                 runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
-                                                                     Unit.TEXT,
+                                                                     Unit.JSON,
                                                                      event.getChannel().getDescription(),
                                                                      details.getAsJsonObject().entrySet().stream()
                                                                              .map( entry -> entry.getKey() )
@@ -190,7 +189,6 @@ public class JsonToEvent implements NodeAgent<TreeNode>
         }
 
     }
-
 
     private ComRelation processStructuredEvent(JsonEventEdge edge)
     {

@@ -5,6 +5,7 @@
    </service>
    <reference bind="bind" interface="com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor" unbind="unbind"/>
    <reference bind="bindDltChannelFromLogInfoCreator" interface="com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator" name="DltChannelFromLogInfoCreator" unbind="unbindDltChannelFromLogInfoCreator"/>
+   <reference bind="bindJsonEventHandler" interface="com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler" name="JsonEventHandler" unbind="unbindJsonEventHandler"/>
    <reference bind="bindProtocolMessageDispatcher" interface="com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher" name="ProtocolMessageDispatcher" unbind="unbindProtocolMessageDispatcher"/>
    <reference bind="bindTimeMarkerManager" interface="com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager" name="TimeMarkerManager" unbind="unbindTimeMarkerManager"/>
    <reference bind="bindTimestampProvider" interface="com.elektrobit.ebrace.chronograph.api.TimestampProvider" name="TimestampProvider" unbind="unbindTimestampProvider"/>

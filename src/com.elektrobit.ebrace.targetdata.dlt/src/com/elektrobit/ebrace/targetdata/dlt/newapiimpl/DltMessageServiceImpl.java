@@ -305,7 +305,9 @@ public class DltMessageServiceImpl implements MessageReader<DltMessage>, DltMess
                 {
                     DltLogInfoType dltLogInfoType = new DltLogInfoType( DltLogInfoType.ResponseCode
                             .get( responseCode[0] ), logInfoTypeBytes, true );
-                    dltChannelFromLogInfoCreator.createChannelsForMessage( dltLogInfoType );
+                    //FIXME rage_linux_live_demo_dlt_json_api
+                    //Does we need the code around?
+                    // dltChannelFromLogInfoCreator.createChannelsForMessage( dltLogInfoType );
                 }
                 catch (Exception e)
                 {

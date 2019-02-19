@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import com.elektrobit.ebrace.chronograph.api.TimestampProvider;
 import com.elektrobit.ebrace.core.importerregistry.api.AbstractImporter;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.targetadapter.communicator.api.BytesFromStreamReader;
 import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 import com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher;
@@ -31,6 +32,7 @@ public abstract class DltAbstractImporter extends AbstractImporter
     protected TimeMarkerManager timeMarkerManager;
     protected ProtocolMessageDispatcher protocolMessageDispatcher;
     protected RuntimeEventAcceptor runtimeEventAcceptor;
+    protected JsonEventHandler jsonEventHandler;
 
     private File dltFile;
 
@@ -46,7 +48,8 @@ public abstract class DltAbstractImporter extends AbstractImporter
                                                                         timestampProvider,
                                                                         timeMarkerManager,
                                                                         protocolMessageDispatcher,
-                                                                        runtimeEventAcceptor );
+                                                                        runtimeEventAcceptor,
+                                                                        jsonEventHandler );
 
         BufferedInputStream inputStream = new BufferedInputStream( new FileInputStream( file ) );
 

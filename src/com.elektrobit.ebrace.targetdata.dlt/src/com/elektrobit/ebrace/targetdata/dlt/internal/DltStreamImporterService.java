@@ -14,6 +14,7 @@ import org.osgi.service.component.annotations.Reference;
 
 import com.elektrobit.ebrace.chronograph.api.TimestampProvider;
 import com.elektrobit.ebrace.core.importerregistry.api.Importer;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 import com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher;
 import com.elektrobit.ebrace.targetdata.dlt.internal.connection.DltChannelFromLogInfoCreator;
@@ -86,6 +87,17 @@ public class DltStreamImporterService extends DltAbstractImporter
     public void unbind(RuntimeEventAcceptor runtimeEventAcceptor)
     {
         this.runtimeEventAcceptor = null;
+    }
+
+    @Reference
+    public void bindJsonEventHandler(JsonEventHandler jsonEventHandler)
+    {
+        this.jsonEventHandler = jsonEventHandler;
+    }
+
+    public void unbindJsonEventHandler(JsonEventHandler jsonEventHandler)
+    {
+        this.jsonEventHandler = null;
     }
 
     @Override

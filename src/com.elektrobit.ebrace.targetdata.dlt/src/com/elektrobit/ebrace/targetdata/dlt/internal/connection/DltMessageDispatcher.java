@@ -16,6 +16,7 @@ import org.osgi.service.component.annotations.Reference;
 import com.elektrobit.ebrace.chronograph.api.TimestampProvider;
 import com.elektrobit.ebrace.core.interactor.api.resources.model.connection.ConnectionModel;
 import com.elektrobit.ebrace.core.interactor.api.resources.model.connection.ConnectionType;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 import com.elektrobit.ebrace.targetadapter.communicator.services.MessageDispatcher;
 import com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher;
@@ -35,6 +36,7 @@ public class DltMessageDispatcher implements MessageDispatcher
     private RuntimeEventAcceptor runtimeEventAcceptor;
     private DltMessageProcessor dltMessageProcessor;
     private DltChannelFromLogInfoCreator dltChannelFromLogInfoCreator;
+    private JsonEventHandler jsonEventHandler;
 
     @Activate
     public void activate()
@@ -44,7 +46,8 @@ public class DltMessageDispatcher implements MessageDispatcher
                                                        timestampProvider,
                                                        timeMarkerManager,
                                                        protocolMessageDispatcher,
-                                                       runtimeEventAcceptor );
+                                                       runtimeEventAcceptor,
+                                                       jsonEventHandler );
     }
 
     @Override
@@ -118,5 +121,16 @@ public class DltMessageDispatcher implements MessageDispatcher
     public void unbind(RuntimeEventAcceptor runtimeEventAcceptor)
     {
         this.runtimeEventAcceptor = null;
+    }
+
+    @Reference
+    public void bindJsonEventHandler(JsonEventHandler jsonEventHandler)
+    {
+        this.jsonEventHandler = jsonEventHandler;
+    }
+
+    public void unbindJsonEventHandler(JsonEventHandler jsonEventHandler)
+    {
+        this.jsonEventHandler = null;
     }
 }

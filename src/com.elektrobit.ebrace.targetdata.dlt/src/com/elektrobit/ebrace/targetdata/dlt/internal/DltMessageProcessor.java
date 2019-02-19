@@ -12,6 +12,7 @@ package com.elektrobit.ebrace.targetdata.dlt.internal;
 import java.util.List;
 
 import com.elektrobit.ebrace.chronograph.api.TimestampProvider;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher;
 import com.elektrobit.ebrace.targetdata.dlt.api.Measurement;
 import com.elektrobit.ebrace.targetdata.dlt.api.ProcCpuEntry;
@@ -19,7 +20,7 @@ import com.elektrobit.ebrace.targetdata.dlt.api.ProcMemEntry;
 import com.elektrobit.ebrace.targetdata.dlt.internal.dbusmsgtoprotomsg.DbusMsgToProtoMsg;
 import com.elektrobit.ebrace.targetdata.dlt.internal.procfsparser.DltProcPayloadParser;
 import com.elektrobit.ebrace.targetdata.dlt.internal.runtimeEventCreator.DltRuntimeEventCreator;
-import com.elektrobit.ebrace.targetdata.dlt.internal.runtimeEventCreator.DltRuntimeEventCreatorImpl;
+import com.elektrobit.ebrace.targetdata.dlt.internal.runtimeEventCreator.DltRuntimeEventCreatorSimpleImpl;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventTag;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager;
@@ -32,12 +33,10 @@ public class DltMessageProcessor
 
     public DltMessageProcessor(String filename, long targetLength, TimestampProvider timestampProvider,
             TimeMarkerManager timeMarkerManager, ProtocolMessageDispatcher protocolMessageDispatcher,
-            RuntimeEventAcceptor runtimeEventAcceptor)
+            RuntimeEventAcceptor runtimeEventAcceptor, JsonEventHandler jsonEventHandler)
     {
         DltSegmentedNetworkMessage.clear();
-        runtimeEventCreator = new DltRuntimeEventCreatorImpl( timestampProvider,
-                                                              runtimeEventAcceptor,
-                                                              timeMarkerManager );
+        runtimeEventCreator = new DltRuntimeEventCreatorSimpleImpl( timestampProvider, jsonEventHandler );
         procParser = new DltProcPayloadParser();
         dbusParser = new DbusMsgToProtoMsg( timestampProvider, protocolMessageDispatcher, filename );
     }
