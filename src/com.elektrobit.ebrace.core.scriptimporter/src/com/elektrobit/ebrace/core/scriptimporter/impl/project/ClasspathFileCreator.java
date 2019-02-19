@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import org.apache.commons.lang.SystemUtils;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -38,9 +39,10 @@ public class ClasspathFileCreator
                                                             System.lineSeparator()
                                                                     + "<classpathentry kind=\"con\" path=\""
                                                                     + getJVMPath() + "\"/>" + System.lineSeparator() );
-        classpathTemplate = classpathTemplate.replaceFirst( "%XTEND_CONTAINER%",
-                                                            "<classpathentry kind=\"con\" path=\"org.eclipse.xtend.XTEND_CONTAINER\"/>"
-                                                                    + System.lineSeparator() );
+        classpathTemplate = classpathTemplate
+                .replaceFirst( "%XTEND_CONTAINER%",
+                               "<classpathentry kind=\"con\" path=\"org.eclipse.xtend.XTEND_CONTAINER\"/>"
+                                       + System.lineSeparator() );
 
         String libs = "";
 
@@ -106,7 +108,7 @@ public class ClasspathFileCreator
         }
         else
         {
-            if (plainPath.startsWith( "/" ))
+            if (SystemUtils.IS_OS_WINDOWS && plainPath.startsWith( "/" ))
             {
                 plainPath = plainPath.replaceFirst( "/", "" );
             }
