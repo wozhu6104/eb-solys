@@ -250,4 +250,10 @@ public class GenericDecodedNode implements DecodedNode
         return true;
     }
 
+    @Override
+    public String toString()
+    {
+        return "GenericDecodedNode [name=" + name + ", value=" + value + "]";
+    }
+
 }
