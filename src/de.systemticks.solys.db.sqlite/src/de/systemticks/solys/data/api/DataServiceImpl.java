@@ -50,4 +50,16 @@ public class DataServiceImpl implements DataServiceInterface.Iface {
 		return access.getAllChannels();
 	}
 
+	@Override
+	public List<String> getEventsBySQL(String storage, int channelId, String query) throws TException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getEventsStartingFromId(String storage, int channelId, int eventId, List<String> details)
+			throws TException {
+		return access.getAllEventsFromChannel(storage, channelId, eventId, details);
+	}
+
 }

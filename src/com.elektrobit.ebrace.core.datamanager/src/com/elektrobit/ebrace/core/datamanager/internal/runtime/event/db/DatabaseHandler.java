@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,7 @@ public class DatabaseHandler
     private final static String DB_NAME = ":memory:";
     private final Gson gson;
     private DataServiceHost service;
+    private final ExecutorService threadPool;
 
     public DatabaseHandler(DataStorageAccess access)
     {
@@ -54,6 +56,7 @@ public class DatabaseHandler
         globalEventId = 0;
         fileMode = true;
         gson = new Gson();
+        threadPool = Executors.newCachedThreadPool();
     }
 
     public void init()
@@ -177,7 +180,7 @@ public class DatabaseHandler
                 else
                 {
                     // FIXME - to be removed, when incoming json is already compliant
-                    GenericJsonEvent event = toGenericJson( value.toString() );
+                    GenericJsonEvent event = toGenericJson( value.toString().replaceAll( "\\\\u\\d{4}", "" ) );
                     event.setEventId( globalEventId );
                     event.setChannelId( dbChannel.id );
                     anyEvents.add( event );
@@ -185,10 +188,18 @@ public class DatabaseHandler
 
                 if (anyEvents.size() == BULK_IMPORT_SIZE)
                 {
-                    long t1 = System.currentTimeMillis();
-                    access.bulkImportAnyBaseEvents( anyEvents );
-                    long t2 = System.currentTimeMillis();
-                    System.out.println( "Bulk import : " + (t2 - t1) + " msec" );
+                    List<GenericJsonEvent> copy = anyEvents.stream().collect( Collectors.toList() );
+                    threadPool.execute( new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            long t1 = System.currentTimeMillis();
+                            access.bulkImportAnyBaseEvents( copy );
+                            long t2 = System.currentTimeMillis();
+                            System.out.println( "Bulk import : " + (t2 - t1) + " msec" );
+                        }
+                    } );
                     anyEvents.clear();
                 }
 
@@ -198,12 +209,14 @@ public class DatabaseHandler
 
     private GenericJsonEvent toGenericJson(String origJson)
     {
+        // return gson.fromJson( origJson, GenericJsonEvent.class );
+
         JsonEvent srcJson = gson.fromJson( origJson, JsonEvent.class );
         GenericJsonEvent targetJson = new GenericJsonEvent();
 
         targetJson.setTimestamp( srcJson.getUptime() );
         targetJson.setChannel( srcJson.getChannel() );
-        targetJson.setValue( srcJson.getValue().getSummary() );
+        targetJson.setValue( "" /* srcJson.getValue().getSummary() */ );
         targetJson.setDetails( (JsonObject)srcJson.getValue().getDetails() );
 
         return targetJson;

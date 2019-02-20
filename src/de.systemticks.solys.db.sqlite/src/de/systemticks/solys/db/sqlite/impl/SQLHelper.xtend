@@ -136,16 +136,15 @@ class SQLHelper {
 		'''
 	}
 
-	def static createAllEventsFromChannel(String origin, int channelId, long from, long to, List<String> keySet) 
+	def static createAllEventsFromChannel(String origin, int channelId, int fromEventId, List<String> keySet) 
 	{
 		val table = buildTableName(origin, channelId)
 		val detailKeys = keySet.map['d'+toFirstUpper].join(', ')
 		
 		'''
-		SELECT «table».eId, «table».eTimestamp, «table».eValue, channels.cId, channels.cName, «detailKeys»
+		SELECT «table».eId AS eventId, «table».eTimestamp AS timestamp, «table».eValue AS value, channels.cId AS channelId, channels.cName AS channel, «detailKeys»
 		FROM «table», channels 
-		WHERE channels.cId = «channelId» «timestampFilter(table, from, to)»
-		ORDER BY «table».eTimestamp
+		WHERE channels.cId = «channelId» AND «table».eId > «fromEventId» LIMIT 100
 		'''
 	}
 

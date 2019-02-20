@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class GenericJsonEvent {
 
+	private final static Gson gson = new Gson();
+	
 	Long timestamp;
 	String channel;
 	Integer channelId;
@@ -19,7 +21,7 @@ public class GenericJsonEvent {
     @Override
     public String toString()
     {
-        return new Gson().toJson( this );
+        return gson.toJson( this );
     }
 	
 }

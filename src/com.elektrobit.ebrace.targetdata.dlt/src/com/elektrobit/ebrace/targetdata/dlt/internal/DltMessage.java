@@ -112,7 +112,7 @@ public class DltMessage implements OutgoingMessage
         value.addProperty( "logLevel", StringHelper.extractLast( extendedHeader.getMessageTypeInfo(), "_" ) );
         JsonObject payloadObj = constructPayload();
         value.add( "payload", payloadObj );
-        return new JsonEventValue( filterUnicodeWhitespaces( payloadObj ), value );
+        return new JsonEventValue( "", value );
     }
 
     private JsonObject constructPayload()
@@ -122,16 +122,17 @@ public class DltMessage implements OutgoingMessage
         for (String param : payload)
         {
 
-            payloadObject.addProperty( "" + i++, param );
+            payloadObject.addProperty( "" + i++, filterUnicodeWhitespaces( param ) );
         }
         return payloadObject;
     }
 
-    private String filterUnicodeWhitespaces(JsonObject jsonObject)
+    private String filterUnicodeWhitespaces(String orig)
     {
-        return jsonObject.toString().replaceAll( "\\\\u\\d{4}", "" );
+        return orig.replaceAll( "\\\\u\\d{4}", "" );
     }
 
+    // TODO To be changed when new json format is introduced
     public String toJson()
     {
         JsonEventValue value = constructJsonEventValue();

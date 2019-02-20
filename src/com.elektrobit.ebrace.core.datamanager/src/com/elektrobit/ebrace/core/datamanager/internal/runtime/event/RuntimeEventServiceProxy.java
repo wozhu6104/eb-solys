@@ -353,7 +353,8 @@ public class RuntimeEventServiceProxy implements RuntimeEventAcceptor, RuntimeEv
     {
         // e.g. invoked from DLT - new json
         dbHandler.manageEvent( timestampUS, channel, value );
-        return runtimeEventAcceptorImpl.acceptEventMicros( timestampUS, channel, modelElement, value );
+        return null;
+        // return runtimeEventAcceptorImpl.acceptEventMicros( timestampUS, channel, modelElement, value );
     }
 
     @Override

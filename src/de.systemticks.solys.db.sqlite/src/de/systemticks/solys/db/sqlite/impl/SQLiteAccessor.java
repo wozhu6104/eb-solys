@@ -151,19 +151,38 @@ public class SQLiteAccessor implements DataStorageAccess {
 		return true;
 	}
 
-	private List<String> getJsonResultFromQuery(CharSequence query) {
-		List<String> result = new ArrayList<String>();
-		
-		System.out.println("DB Query: "+query);
+//	private List<String> getJsonResultFromQuery(CharSequence query) {
+//		List<String> result = new ArrayList<String>();
+//		
+//		System.out.println("DB Query: "+query);
+//
+//		Statement stmt;
+//		try {
+//			stmt = connection.createStatement();
+//			stmt.setFetchSize(100);
+//
+//			ResultSet rs = stmt.executeQuery(query.toString());
+//
+//			result = resultSetToJson(rs);
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return result;
+//	}
+
+	private ResultSet getResultSetFromQuery(CharSequence query) {
+
+		System.out.println("DB Query: " + query);
 
 		Statement stmt;
+		ResultSet result = null;
 		try {
 			stmt = connection.createStatement();
 			stmt.setFetchSize(100);
 
-			ResultSet rs = stmt.executeQuery(query.toString());
-
-			result = resultSetToJson(rs);
+			result = stmt.executeQuery(query.toString());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -175,22 +194,30 @@ public class SQLiteAccessor implements DataStorageAccess {
 	@Override
 	public List<String> getAllEventsFromChannel(String storage, int channelId, long fromTimestamp, long toTimestamp) {
 
-		return getJsonResultFromQuery(
-				SQLHelper.createAllEventsFromChannel(storage, channelId, fromTimestamp, toTimestamp));
+		return resultSetToEventAsJsonList(getResultSetFromQuery(
+				SQLHelper.createAllEventsFromChannel(storage, channelId, fromTimestamp, toTimestamp)));
+
+	}
+
+	@Override
+	public List<String> getAllEventsFromChannel(String storage, int channeldId, int eventId, List<String> details) {
+
+		return resultSetToEventAsJsonList(
+				getResultSetFromQuery(SQLHelper.createAllEventsFromChannel(storage, channeldId, eventId, details)));
 
 	}
 
 	@Override
 	public List<String> getStatisticOverTime(String storage, int cId, int interval) {
 
-		return getJsonResultFromQuery(SQLHelper.createStatistics(storage, cId, interval));
+		return resultSetToJson(getResultSetFromQuery(SQLHelper.createStatistics(storage, cId, interval)));
 
 	}
 
 	@Override
 	public List<String> getAllChannels() {
-		
-		return getJsonResultFromQuery(SQLHelper.createAllChannels());
+
+		return resultSetToJson(getResultSetFromQuery(SQLHelper.createAllChannels()));
 	}
 
 	@Override
@@ -255,5 +282,61 @@ public class SQLiteAccessor implements DataStorageAccess {
 		return jsonResultList;
 	}
 
-}
+	private List<String> resultSetToEventAsJsonList(ResultSet rs) {
+		List<String> jsonResultList = new ArrayList<String>();
 
+		try {
+			ResultSetMetaData meta = rs.getMetaData();
+			int cols = meta.getColumnCount();
+			String[] colNames = new String[cols];
+			int[] colTypes = new int[cols];
+			for (int i = 0; i < cols; i++) {
+				colNames[i] = meta.getColumnLabel(i + 1);
+				colTypes[i] = meta.getColumnType(i + 1);
+			}
+			while (rs.next()) {
+				JsonObject root = new JsonObject();
+				JsonObject details = new JsonObject();
+				boolean hasDetails = false;
+				for (int i = 0; i < cols; i++) {
+					String property = colNames[i];
+					JsonObject current = root;
+					if (property.startsWith("d"))
+					{
+						char c[] = property.substring(1).toCharArray();
+						c[0] = Character.toLowerCase(c[0]);
+						property = new String(c);
+						current  = details;
+						hasDetails = true;
+					}
+
+					switch (colTypes[i]) {
+					case Types.INTEGER:
+					case Types.REAL:
+					case Types.FLOAT:
+					case Types.BIGINT:
+						current.addProperty(property, (Number) rs.getObject(i + 1));
+						break;
+					case Types.VARCHAR:
+						current.addProperty(property, (String) rs.getObject(i + 1));
+						break;
+					default:
+						break;
+					}
+
+				}
+				// add the details sub-tree only, in case at least one detail is available
+				if(hasDetails)
+				{
+					root.add("details", details);					
+				}
+				jsonResultList.add(gson.toJson(root));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return jsonResultList;
+	}
+
+}

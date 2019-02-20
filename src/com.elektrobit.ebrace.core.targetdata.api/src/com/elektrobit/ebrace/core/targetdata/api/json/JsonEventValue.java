@@ -17,12 +17,14 @@ import lombok.Data;
 @Data
 public class JsonEventValue
 {
+    private final static Gson gson = new Gson();
+
     private final Object summary;
     private final JsonElement details;
 
     @Override
     public String toString()
     {
-        return new Gson().toJson( this );
+        return gson.toJson( this );
     }
 }

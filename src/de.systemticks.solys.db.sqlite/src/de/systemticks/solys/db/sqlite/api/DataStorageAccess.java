@@ -24,6 +24,8 @@ public interface DataStorageAccess {
 
 	public List<String> getAllEventsFromChannel(String storage, int channeldId, long fromTimestamp, long toTimestamp);
 
+	public List<String> getAllEventsFromChannel(String storage, int channeldId, int eventId, List<String> details);
+
 	public List<String> getStatisticOverTime(String storage, int cId, int interval);
 	
 	// Legacy

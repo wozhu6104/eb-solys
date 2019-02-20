@@ -9,8 +9,6 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.core.targetdata.api.json;
 
-import com.google.gson.Gson;
-
 import lombok.Data;
 
 @Data
@@ -25,6 +23,25 @@ public class JsonEvent
     @Override
     public String toString()
     {
-        return new Gson().toJson( this );
+        StringBuffer buf = new StringBuffer( "{" );
+        buf.append( "\"uptime\" : " ).append( uptime ).append( "," );
+        buf.append( "\"channel\" : \"" ).append( channel ).append( "\"," );
+        buf.append( "\"value\" : " ).append( value.toString() ).append( "," );
+        buf.append( "\"duration\" : " ).append( duration ).append( "}" );
+
+        return buf.toString();
+
+        // return toGenericJson();
     }
+
+    // private String toGenericJson()
+    // {
+    // StringBuffer buf = new StringBuffer( "{" );
+    // buf.append( "\"timestamp\" : " ).append( uptime ).append( "," );
+    // buf.append( "\"channel\" : \"" ).append( channel ).append( "\"," );
+    // buf.append( "\"value\" : " ).append( "\"\"" ).append( "," );
+    // buf.append( "\"details\" : " ).append( value.getDetails().toString() ).append( "}" );
+    //
+    // return buf.toString();
+    // }
 }
