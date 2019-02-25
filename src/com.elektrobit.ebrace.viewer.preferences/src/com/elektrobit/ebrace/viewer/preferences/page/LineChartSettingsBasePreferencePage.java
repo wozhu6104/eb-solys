@@ -40,6 +40,7 @@ public abstract class LineChartSettingsBasePreferencePage extends PropertyPage i
     private Button yScaleDynamicButton;
     private Button yScaleSemiDynamicButton;
     private Button yScaleFixButton;
+    private Button showOverviewChartButton;
     private MinMaxFieldEditor yAxisPreferencesMinMax;
 
     private LineChartModelSettings lineChartModelSettings;
@@ -68,7 +69,14 @@ public abstract class LineChartSettingsBasePreferencePage extends PropertyPage i
         loadLineChartTypeSettings();
         loadLineChartRepresentationSettings();
         loadYAxisScaleModeSettings();
+        loadOverviewChartSettings();
         loadYaxisMinMaxSettings();
+    }
+
+    private void loadOverviewChartSettings()
+    {
+        boolean showOverviewChart = lineChartModelSettings.isShowOverviewChart();
+        showOverviewChartButton.setSelection( showOverviewChart );
     }
 
     private void loadLineChartTypeSettings()
@@ -245,6 +253,12 @@ public abstract class LineChartSettingsBasePreferencePage extends PropertyPage i
         yScaleFixButton.setText( ChartPreferencesConstants.LINE_CHART_PRESENTATION_Y_AXIS_FIX );
         yScaleFixButton.setLayoutData( data );
 
+        data = new GridData();
+        data.horizontalSpan = 2;
+        showOverviewChartButton = new Button( yAxisScaleTypeComposite, SWT.CHECK );
+        showOverviewChartButton.setText( "Show Overview Chart in Analysis Mode" );
+        showOverviewChartButton.setLayoutData( data );
+
         yAxisPreferencesMinMax = new MinMaxFieldEditor( yAxisScaleTypeComposite, "Y-axis min: ", "Y-axis max: " );
         yAxisPreferencesMinMax.setPage( this );
         yAxisPreferencesMinMax.setErrorMessage( MESSAGE_FOR_MINMAX_ERROR );
@@ -287,6 +301,7 @@ public abstract class LineChartSettingsBasePreferencePage extends PropertyPage i
             lineChartModelSettings.setLineChartYaxisScaleMode( LineChartYaxisScaleMode.FIXED );
         }
 
+        lineChartModelSettings.setShowOverviewChart( showOverviewChartButton.getSelection() );
         lineChartModelSettings.setYAxisMinValue( yAxisPreferencesMinMax.getMinValue() );
         lineChartModelSettings.setYAxisMaxValue( yAxisPreferencesMinMax.getMaxValue() );
     }

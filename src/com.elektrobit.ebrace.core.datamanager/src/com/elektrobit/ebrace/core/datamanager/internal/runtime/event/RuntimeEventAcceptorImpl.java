@@ -681,7 +681,7 @@ public class RuntimeEventAcceptorImpl implements RuntimeEventAcceptor, RuntimeEv
     }
 
     @Override
-    public void removeEventsFromTo(long startMicros, long endMicros)
+    public synchronized void removeEventsFromTo(long startMicros, long endMicros)
     {
         if (startMicros < endMicros)
         {
