@@ -140,10 +140,21 @@ public abstract class BaseChartComposite extends Composite
 
     public void switchChartComposite(boolean liveChart)
     {
-        setupLiveChartCompositeIfNeeded();
-        disposeAnalysisChartComposite();
-        liveChartComposite.repaint();
-        setChartCompositeLayoutTopControl( liveChartComposite.getChartComposite() );
+        if (liveChart || !modelToDisplay.getLineChartModelSettings().isShowOverviewChart())
+        {
+            setupLiveChartCompositeIfNeeded();
+            disposeAnalysisChartComposite();
+            liveChartComposite.repaint();
+            setChartCompositeLayoutTopControl( liveChartComposite.getChartComposite() );
+        }
+        else
+        {
+            setupAnalysisChartCompositeIfNeeded();
+            disposeLiveChartComposite();
+            analysisChartComposite.recreateCharts();
+            setChartCompositeLayoutTopControl( analysisChartComposite.getChartComposite() );
+        }
+
     }
 
     private void disposeLiveChartComposite()

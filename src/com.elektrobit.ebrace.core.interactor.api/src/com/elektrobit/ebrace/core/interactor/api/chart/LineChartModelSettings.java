@@ -32,6 +32,8 @@ public class LineChartModelSettings
     private LineChartRepresentation lineChartRepresentation;
     private LineChartYaxisScaleMode lineChartYaxisScaleMode;
 
+    private boolean showOverviewChart;
+
     private int yAxisMinValue;
     private int yAxisMaxValue;
 
@@ -40,6 +42,7 @@ public class LineChartModelSettings
         lineChartType = LineChartType.BAR_CHART;
         lineChartRepresentation = LineChartRepresentation.LINE_ONLY;
         lineChartYaxisScaleMode = LineChartYaxisScaleMode.DYNAMIC;
+        showOverviewChart = false;
         yAxisMinValue = 0;
         yAxisMaxValue = 100;
     }

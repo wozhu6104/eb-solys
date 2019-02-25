@@ -9,7 +9,7 @@
  ******************************************************************************/
 package test.com.elektrobit.ebrace.core.preferences;
 
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -96,6 +96,7 @@ public class PreferencesServiceImplTest
         LineChartModelSettings settings = new LineChartModelSettings( LineChartType.LINE_CHART,
                                                                       LineChartRepresentation.FILLED,
                                                                       LineChartYaxisScaleMode.FIXED,
+                                                                      true,
                                                                       0,
                                                                       10 );
 
@@ -119,6 +120,7 @@ public class PreferencesServiceImplTest
         LineChartModelSettings settings = new LineChartModelSettings( LineChartType.LINE_CHART,
                                                                       LineChartRepresentation.FILLED,
                                                                       LineChartYaxisScaleMode.FIXED,
+                                                                      true,
                                                                       0,
                                                                       10 );
         verifyNoMoreInteractions( mockedPreferencesListener );
