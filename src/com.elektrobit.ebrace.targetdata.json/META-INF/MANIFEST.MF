@@ -14,11 +14,13 @@ Require-Bundle: org.eclipse.core.runtime,
  com.google.gson;bundle-version="2.1.0",
  com.elektrobit.ebrace.common,
  org.projectlombok.lombok,
- de.systemticks.ebrace.core.eventhook;bundle-version="1.0.0"
+ de.systemticks.ebrace.core.eventhook;bundle-version="1.0.0",
+ com.elektrobit.ebrace.decoder.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Eclipse-ExtensibleAPI: true
 Import-Package: com.elektrobit.ebrace.core.importerregistry.api
 Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.impl.importer.json.JsonService.xml,
  OSGI-INF/com.elektrobit.ebrace.targetdata.impl.importer.json.JsonEventHandlerImpl.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.impl.adapter.json.JsonAPIAdapterFactory.xml
+ OSGI-INF/com.elektrobit.ebrace.targetdata.impl.adapter.json.JsonAPIAdapterFactory.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.impl.decoder.json.JsonEventDecoderImpl.xml

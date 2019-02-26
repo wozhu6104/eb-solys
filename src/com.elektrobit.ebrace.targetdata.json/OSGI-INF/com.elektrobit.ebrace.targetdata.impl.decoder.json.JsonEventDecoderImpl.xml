@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="com.elektrobit.ebrace.targetdata.impl.decoder.json.JsonEventDecoderImpl">
+   <property name="type" value="com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent"/>
+   <service>
+      <provide interface="com.elektrobit.ebsolys.decoder.common.services.DecoderService"/>
+   </service>
+   <implementation class="com.elektrobit.ebrace.targetdata.impl.decoder.json.JsonEventDecoderImpl"/>
+</scr:component>
