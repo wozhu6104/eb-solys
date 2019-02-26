@@ -344,11 +344,12 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
         colorColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.COLOR_COLUMN_WIDTH.getWidth() );
         valueColumns.stream().forEach( current -> {
             TableColumn currentColumn = current.getColumn();
-            long width = currentColumn.getText().toLowerCase().equals( "value" )
-                    ? widthProvider.getValueColumnWidth()
-                    : widthProvider.getCustomColumnWidth();
-            currentColumn.setWidth( (int)width );
+            currentColumn.setWidth( (int)widthProvider.getCustomColumnWidth() );
         } );
+
+        // Overwrite last column with special size (former Value column)
+        TableViewerColumn lastColumn = valueColumns.stream().reduce( (head, tail) -> tail ).get();
+        lastColumn.getColumn().setWidth( (int)widthProvider.getValueColumnWidth() );
 
         channelNameColumn.getColumn().setWidth( (int)widthProvider.getChannelColumnWidth() );
         filteredTable.getViewer().getTable().setRedraw( true );
@@ -436,8 +437,6 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
         channelsWithoutDuplicates.stream().filter( columnName -> !columnName.equals( "Value" ) )
                 .forEach( columnName -> addAdditionalValueColumn( columnName ) );
 
-        // "Value" column should be rightmost before the channel column
-        addAdditionalValueColumn( "Value" );
     }
 
     private void addAdditionalValueColumn(String columnName)

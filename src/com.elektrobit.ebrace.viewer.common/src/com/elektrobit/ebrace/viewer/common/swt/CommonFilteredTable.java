@@ -160,7 +160,19 @@ public class CommonFilteredTable
         }
         else
         {
-            tableViewer = new TableViewer( tableComposite, style );
+            tableViewer = new TableViewer( tableComposite, style )
+            {
+                @Override
+                public void setItemCount(int count)
+                {
+                    if (count == 0)
+                    {
+                        unmapAllElements();
+                        doSetItemCount( count );
+                    }
+                    super.setItemCount( count );
+                }
+            };
             table = tableViewer.getTable();
         }
     }

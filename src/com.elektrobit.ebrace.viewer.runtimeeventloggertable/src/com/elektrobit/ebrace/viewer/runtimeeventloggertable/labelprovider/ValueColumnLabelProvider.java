@@ -25,6 +25,7 @@ import com.elektrobit.ebrace.core.interactor.api.resources.model.table.TableMode
 import com.elektrobit.ebrace.core.interactor.api.table.Position;
 import com.elektrobit.ebrace.core.interactor.api.table.RowFormatter;
 import com.elektrobit.ebrace.core.interactor.api.tableinput.TableData;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.viewer.common.swt.SearchNextPreviousProvider;
 import com.elektrobit.ebrace.viewer.common.util.ColorPreferences;
 import com.elektrobit.ebrace.viewer.common.util.SearchHighlighterUtil;
@@ -32,6 +33,7 @@ import com.elektrobit.ebrace.viewer.runtimeeventloggertable.util.TableCellBackgr
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarker;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager;
+import com.google.gson.JsonElement;
 
 // referenced by https://infohub.automotive.elektrobit.com/display/EBRACEINTEB/Custom+table+columns+through+JSON+event+value
 
@@ -140,6 +142,20 @@ public class ValueColumnLabelProvider extends StyledCellLabelProvider implements
                     if (JsonHelper.isJson( valueAsString ))
                     {
                         result = new SimpleJsonPath( valueAsString ).stringValueOf( "value.details." + columnName );
+                    }
+                }
+                else if (event.getValue() instanceof JsonEvent)
+                {
+                    JsonEvent e = (JsonEvent)event.getValue();
+                    JsonElement details = e.getValue().getDetails();
+                    JsonElement resultElement = details.getAsJsonObject().get( columnName );
+                    if (resultElement.isJsonPrimitive())
+                    {
+                        result = resultElement.getAsString();
+                    }
+                    else
+                    {
+                        result = resultElement.toString();
                     }
                 }
             }
