@@ -176,15 +176,15 @@ public class JsonToEvent implements NodeAgent<TreeNode>
             else
             {
 
-                String unitDescription = summary.getClass().getSimpleName();
+                Unit<?> unit = Unit.JSON;
                 if (event.getChannel().getUnitDescription() != null)
                 {
+                    String unitDescription = summary.getClass().getSimpleName();
                     unitDescription = event.getChannel().getUnitDescription();
+                    unit = Unit.createCustomUnit( unitDescription, summary.getClass() );
                 }
-                runtimeEventAcceptor.createOrGetRuntimeEventChannel( channelName,
-                                                                     Unit.createCustomUnit( unitDescription,
-                                                                                            summary.getClass() ),
-                                                                     event.getChannel().getDescription() );
+                runtimeEventAcceptor
+                        .createOrGetRuntimeEventChannel( channelName, unit, event.getChannel().getDescription() );
             }
         }
 

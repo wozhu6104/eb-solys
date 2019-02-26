@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -348,8 +349,11 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
         } );
 
         // Overwrite last column with special size (former Value column)
-        TableViewerColumn lastColumn = valueColumns.stream().reduce( (head, tail) -> tail ).get();
-        lastColumn.getColumn().setWidth( (int)widthProvider.getValueColumnWidth() );
+        Optional<TableViewerColumn> lastColumn = valueColumns.stream().reduce( (head, tail) -> tail );
+        if (lastColumn.isPresent())
+        {
+            lastColumn.get().getColumn().setWidth( (int)widthProvider.getValueColumnWidth() );
+        }
 
         channelNameColumn.getColumn().setWidth( (int)widthProvider.getChannelColumnWidth() );
         filteredTable.getViewer().getTable().setRedraw( true );
@@ -436,6 +440,11 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
 
         channelsWithoutDuplicates.stream().filter( columnName -> !columnName.equals( "Value" ) )
                 .forEach( columnName -> addAdditionalValueColumn( columnName ) );
+
+        if (getModel().getChannels().stream().filter( c -> c.getValueColumnNames().isEmpty() ).findFirst().isPresent())
+        {
+            addAdditionalValueColumn( "Value" );
+        }
 
     }
 

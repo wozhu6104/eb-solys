@@ -34,6 +34,7 @@ import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeE
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarker;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarkerManager;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 // referenced by https://infohub.automotive.elektrobit.com/display/EBRACEINTEB/Custom+table+columns+through+JSON+event+value
 
@@ -148,14 +149,25 @@ public class ValueColumnLabelProvider extends StyledCellLabelProvider implements
                 {
                     JsonEvent e = (JsonEvent)event.getValue();
                     JsonElement details = e.getValue().getDetails();
-                    JsonElement resultElement = details.getAsJsonObject().get( columnName );
-                    if (resultElement.isJsonPrimitive())
+                    if (details != null)
                     {
-                        result = resultElement.getAsString();
+                        JsonObject asJsonObject = details.getAsJsonObject();
+                        JsonElement resultElement = asJsonObject.get( columnName );
+                        if (resultElement != null)
+                        {
+                            if (resultElement.isJsonPrimitive())
+                            {
+                                result = resultElement.getAsString();
+                            }
+                            else
+                            {
+                                result = resultElement.toString();
+                            }
+                        }
                     }
-                    else
+                    else if (columnName.equals( "Value" ))
                     {
-                        result = resultElement.toString();
+                        result = e.getValue().getSummary().toString();
                     }
                 }
             }
