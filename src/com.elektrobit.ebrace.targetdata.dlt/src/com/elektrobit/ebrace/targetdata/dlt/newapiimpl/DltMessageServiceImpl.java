@@ -24,7 +24,6 @@ import com.elektrobit.ebrace.targetadapter.communicator.api.BytesFromStreamReade
 import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 import com.elektrobit.ebrace.targetdata.dlt.internal.BytesFromStreamReaderImpl;
 import com.elektrobit.ebrace.targetdata.dlt.internal.DltExtendedHeader;
-import com.elektrobit.ebrace.targetdata.dlt.internal.DltLogInfoType;
 import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessage;
 import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessageParseException;
 import com.elektrobit.ebrace.targetdata.dlt.internal.DltMessageWithStorageHeaderParser;
@@ -301,19 +300,7 @@ public class DltMessageServiceImpl implements MessageReader<DltMessage>, DltMess
             {
                 byte[] logInfoTypeBytes = bytesReader.readNBytes( lengthOfPayload );
                 lengthOfPayload = 0;
-                try
-                {
-                    DltLogInfoType dltLogInfoType = new DltLogInfoType( DltLogInfoType.ResponseCode
-                            .get( responseCode[0] ), logInfoTypeBytes, true );
-                    //FIXME rage_linux_live_demo_dlt_json_api
-                    //Does we need the code around?
-                    // dltChannelFromLogInfoCreator.createChannelsForMessage( dltLogInfoType );
-                }
-                catch (Exception e)
-                {
-                    log.warn( "Couldn't parse Get_LogInfo message." );
-                }
-
+                result += " " + HexStringHelper.toHexString( logInfoTypeBytes );
             }
         }
         else if (serviceId[0] == 0x04)
