@@ -57,7 +57,7 @@ public class SysMonCpupHook implements RegExToChannelEventHook
     @Override
     public void onEvent(RuntimeEvent<?> event)
     {
-        if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.cpup" ))
+        if (event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.mon.cpup" ) || event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.sina.sinc" ) )
         {
             JsonEvent oldEvent = gson.fromJson( event.getValue().toString(), JsonEvent.class );
             String summaryString = oldEvent.getValue().getDetails().getAsJsonObject().get( "payload" ).getAsJsonObject()
