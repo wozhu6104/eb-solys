@@ -91,6 +91,8 @@ public class InstCommHook implements RegExToChannelEventHook
                                 {
                                     String payload = matcher.group( "payload" );
                                     payload = payload.replaceFirst( "interface", "interfaceName" );
+                                    payload = payload.replaceFirst( "payload\\\":", "payload\\\":\\\"" );
+                                    payload = payload.replaceFirst( "}", "\\\"}" );
                                     DCCStateJson dccStateJson = gson.fromJson( payload, DCCStateJson.class );
 
                                     DCCStatePayload dccState = new DCCStatePayload( dccStateJson.getInterfaceName(),
@@ -129,7 +131,8 @@ public class InstCommHook implements RegExToChannelEventHook
 
                     private String concatValues(List<DecodedNode> children)
                     {
-                        return children.stream().map( n -> n.getValue().trim() ).reduce( (x, y) -> x + y ).get();
+                        return children.stream().map( n -> n.getValue().trim() ).skip( 1 ).reduce( (x, y) -> x + y )
+                                .get();
                     }
                 } );
 
