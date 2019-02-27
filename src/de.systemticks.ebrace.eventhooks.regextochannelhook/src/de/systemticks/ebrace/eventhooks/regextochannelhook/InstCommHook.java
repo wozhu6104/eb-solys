@@ -27,6 +27,7 @@ import com.elektrobit.ebsolys.core.targetdata.api.decoder.DecodedRuntimeEvent;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
 import com.elektrobit.ebsolys.decoder.common.api.DecoderServiceManager;
 import com.elektrobit.ebsolys.decoder.common.services.DecoderServiceManagerImpl;
+import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
 import de.systemticks.ebrace.core.eventhook.registry.api.EventHook;
@@ -39,11 +40,12 @@ public class InstCommHook implements RegExToChannelEventHook
     // private final String expression = "CPU usage in interval : (?<cpu>\\d+.\\d+)% iowait: (?<iowait>\\d+)% cpu since
     // boot : (?<cpuboot>\\d+.\\d+)% Total thread cpu load : (?<cputhread>\\d+.\\d+)%";
     // private final String expression = "(?<source>.*)->(?<dest>.*)\\|(?<type>[REQ|RES])\\|(?<payload>.*)";
-    private final String expression = "(?<source>([A-Za-z]|[0-9]|[\\.])+)->(?<dest>([A-Za-z]|[0-9]|[\\.])+)\\|(?<type>(REQ|RES)+)\\|(?<payload>.*)";
+    private final String expression = "(?<source>([A-Za-z]|[0-9]|[\\.]|[_\\-])+)->(?<dest>([A-Za-z]|[0-9]|[\\.]|[_\\-])+)\\|(?<type>(REQ|RES)+)\\|(?<payload>.*)";
     private final Pattern pattern;
     private Matcher matcher;
     private final JsonParser parser = new JsonParser();
     private DecoderServiceManager decoderService;
+    private static Gson gson = new Gson();
 
     public InstCommHook()
     {
@@ -68,7 +70,7 @@ public class InstCommHook implements RegExToChannelEventHook
                 || event.getRuntimeEventChannel().getName().toLowerCase().contains( "trace.dlt.log.dcc.vcso" ))
         {
 
-            if (event.getSummary().contains( "AraComSomeIpBindingServerManager" ))
+            if (event.getSummary().contains( "DCCState" ))
             {
                 DecodedRuntimeEvent decode = DecoderServiceManagerImpl.getInstance().getDecoderServiceForEvent( event )
                         .decode( event );
@@ -84,13 +86,16 @@ public class InstCommHook implements RegExToChannelEventHook
                             String completePayload = concatValues( node.getChildren() );
                             if (completePayload != null)
                             {
-                                completePayload = completePayload.replace( "361_1", "APP1" ).replace( "362_1", "APP2" )
-                                        .replace( "ARA:COM", "ARACOM" );
-
                                 matcher = pattern.matcher( completePayload );
                                 if (matcher.find())
                                 {
                                     String payload = matcher.group( "payload" );
+                                    payload = payload.replaceFirst( "interface", "interfaceName" );
+                                    DCCStateJson dccStateJson = gson.fromJson( payload, DCCStateJson.class );
+
+                                    DCCStatePayload dccState = new DCCStatePayload( dccStateJson.getInterfaceName(),
+                                                                                    dccStateJson.getPayload() );
+
                                     String rawType = matcher.group( "type" );
                                     String type = "request";
                                     String summary = "->";
@@ -100,7 +105,11 @@ public class InstCommHook implements RegExToChannelEventHook
                                         summary = "<-";
                                     }
 
-                                    summary += " " + payload.replaceAll( "\"", "" );
+                                    summary += " " + "{\"interface\":" + dccState.getInterfaceName() + ",\"state\":"
+                                            + dccState.getDCCState() + ",\"driverVelocity\":"
+                                            + dccState.getDriverVelocity() + ",\"robotVelocity\":"
+                                            + dccState.getRobotVelocity() + ",\"targetVelocity\":"
+                                            + dccState.getTargetVelocity() + "}";
 
                                     JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
                                                                         new JsonChannel( "com.someip", "", null ),
@@ -120,8 +129,7 @@ public class InstCommHook implements RegExToChannelEventHook
 
                     private String concatValues(List<DecodedNode> children)
                     {
-                        return children.stream().map( n -> n.getValue().trim() ).skip( 1 ).reduce( (x, y) -> x + y )
-                                .get();
+                        return children.stream().map( n -> n.getValue().trim() ).reduce( (x, y) -> x + y ).get();
                     }
                 } );
 
