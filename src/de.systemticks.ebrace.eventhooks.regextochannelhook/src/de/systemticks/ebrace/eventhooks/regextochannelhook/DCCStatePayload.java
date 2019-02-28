@@ -40,6 +40,11 @@ public class DCCStatePayload
     {
         String[] hexBytes = payload.split( "," );
 
+        for (int i = 0; i < hexBytes.length; i++)
+        {
+            hexBytes[i] = hexBytes[i].trim();
+        }
+
         int dccStateId = HexStringHelper.convertHexIDToUInt8( hexBytes[hexBytes.length - 25] );
         switch (dccStateId)
         {
