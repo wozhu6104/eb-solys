@@ -18,6 +18,11 @@
             id="com.elektrobit.ebrace.ui.ecl.preferences.script.ScriptSettingsPreferencePage"
             name="Script Folder">
       </page>
+      <page
+            class="com.elektrobit.ebrace.ui.ecl.preferences.script.ScriptDebuggingSettingsPreferencePage"
+            id="com.elektrobit.ebrace.ui.ecl.preferences.script.ScriptDebuggingSettingsPreferencePage"
+            name="Script Debugging">
+      </page>
    </extension>
 
 </plugin>

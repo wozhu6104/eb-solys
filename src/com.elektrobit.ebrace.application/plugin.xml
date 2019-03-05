@@ -228,6 +228,7 @@
          splashId="com.elektrobit.ebrace.application.splashHandlers.extensible">
    </splashHandlerProductBinding>
 </extension>
+
 <extension
          point="org.eclipse.ui.activities">
       <activity
@@ -311,6 +312,7 @@
       </activityPatternBinding>
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.search.*"> 
    </activityPatternBinding>
+   <!-- DEBUG-ENABLE
    <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.debug.ui/org.eclipse.debug.internal.ui.importexport.breakpoints.WizardImportBreakpoints"/>
    <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.import.launchconfigurations"/>
    <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.debug.ui/org.eclipse.debug.internal.ui.importexport.breakpoints.WizardExportBreakpoints"/>
@@ -319,8 +321,10 @@
    <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.MemoryView"/>
    <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.ModuleView"/>
    <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.RegisterView"/>
-   <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.*"/>
    <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.debug.*"/>
+   -->
+   <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.*"/>
+
       
 
    
@@ -382,7 +386,9 @@
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.ui/org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.ui/org.eclipse.jdt.ui.actions.NewTypeDropDown"/>
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.ui/openType"/>
+<!-- DEBUG-ENABLE
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.ui/org.eclipse.jdt.ui.edit.text.java.gotoBreadcrumb"/>
+-->
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.ui/org.eclipse.jdt.ui.commands.showElementInPackageView"/>
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.ui/org.eclipse.jdt.ui.commands.showElementInTypeHierarchyView"/>
 
@@ -392,9 +398,10 @@
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.junit/org.eclipse.jdt.junit.wizards.NewTestCaseCreationWizard"/>
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.junit/org.eclipse.jdt.junit.wizards.NewTestSuiteCreationWizard"/>
 
-
+<!-- DEBUG-ENABLE
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.debug.ui/org.eclipse.jdt.debug.ui.snippetEditor.NewSnippetFileCreationWizard"/>
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.jdt.debug.ui/org.eclipse.jdt.debug.ui.DisplayView"/>
+-->
 
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.pde.ds.ui.*"/>
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.pde.ua.ui.*"/>
@@ -439,12 +446,13 @@
 <activityPatternBinding
       activityId="disable.contributions"
       pattern="com.elektrobit.ebrace.application.activityPatternBinding2">
-</activityPatternBinding>xamples.*"/>
+</activityPatternBinding>
 <activityPatternBinding activityId="disable.contributions" pattern="org.eclipse.xtext.xtext.ui.examples.*"/>
 
 
 
       </extension>
+
 <extension
       id="product_application"
       point="org.eclipse.core.runtime.products">
