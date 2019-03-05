@@ -109,7 +109,7 @@ public class ScriptDebuggingSettingsPreferencePage extends PreferencePage implem
     {
         Label description = new Label( parentComposite, SWT.NONE );
         description
-                .setText( "Active script debugging has potential performance impacts for the whole application. \nWe recommend to activate it only for writting scripts and deactivate it when data analysis is done." );
+                .setText( "EB SOLYS SCRIPT DEBUGGING (EXPERIMENTAL)\n\nActive script debugging has potential performance impacts for the whole application. \nWe recommend to activate it only for writting scripts and deactivate it when data analysis is done." );
         GridData descriptionLabelData = new GridData( GridData.FILL_HORIZONTAL );
         descriptionLabelData.horizontalSpan = 2;
         description.setLayoutData( descriptionLabelData );
