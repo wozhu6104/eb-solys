@@ -24,5 +24,49 @@
             name="Script Debugging">
       </page>
    </extension>
+   <extension
+         point="org.eclipse.ui.activities">
+      <activityPatternBinding
+            activityId="com.elektrobit.ebrace.application.scriptdebugging"
+            isEqualityPattern="true"
+            pattern="org.eclipse.jdt.launching/org.eclipse.jdt.launching.remoteJavaApplication">
+      </activityPatternBinding>
+   <activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.debug.ui/org.eclipse.debug.internal.ui.importexport.breakpoints.WizardImportBreakpoints"/>
+   <activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.import.launchconfigurations"/>
+   <activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.debug.ui/org.eclipse.debug.internal.ui.importexport.breakpoints.WizardExportBreakpoints"/>
+   <activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.export.launchconfigurations"/>
+   <activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.DebugPreferencePage"/>
+   <activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.MemoryView"/>
+   <activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.DebugPerspective"/>
+   
+   <activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.ModuleView"/>
+   <activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.debug.ui/org.eclipse.debug.ui.RegisterView"/>
+   <activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.debug.*"/>
+
+	<activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.jdt.debug.ui/org.eclipse.jdt.debug.ui.snippetEditor.NewSnippetFileCreationWizard"/>
+	<activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.jdt.debug.ui/org.eclipse.jdt.debug.ui.DisplayView"/>
+
+<activity
+      id="com.elektrobit.ebrace.application.scriptdebugging"
+      name="Script Debugging">
+   <enabledWhen>
+      <test
+            forcePluginActivation="true"
+            property="com.elektrobit.ebrace.application.scriptdebugging.isDebuggingActive"
+            value="isDebuggingActive">
+      </test>
+   </enabledWhen>
+</activity>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+       <propertyTester
+         class="com.elektrobit.ebrace.ui.ecl.preferences.script.ScriptDebuggingPropertyTester"
+         id="com.elektrobit.ebrace.application.scriptdebugging"
+         namespace="com.elektrobit.ebrace.application.scriptdebugging"
+         properties="isDebuggingActive"
+         type="java.lang.Object">
+   </propertyTester>
+   </extension>
 
 </plugin>

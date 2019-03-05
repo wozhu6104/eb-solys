@@ -37,9 +37,6 @@ import com.elektrobit.ebrace.common.utils.FileHelper;
 public class ScriptDebuggingSettingsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage
 {
 
-    private static final String START_TAG = "#GENERATED-REMOTE-DEBUG-OPTION-START";
-    private static final String DEBUG_OPTION_PARAM = "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005";
-    private static final String END_TAG = "#GENERATED-REMOTE-DEBUG-OPTION-START";
     private Composite parentComposite;
     private boolean debuggingActive = false;
     private Button button;
@@ -61,30 +58,7 @@ public class ScriptDebuggingSettingsPreferencePage extends PreferencePage implem
     @Override
     public void init(IWorkbench workbench)
     {
-        debuggingActive = isDebugOptionInIni();
-    }
-
-    private boolean isDebugOptionInIni()
-    {
-        try
-        {
-            URL url = new URL( Platform.getInstallLocation().getURL() + "ebsolys.ini" );
-            File ebSolysIni = new File( url.toURI() );
-            if (ebSolysIni.exists())
-            {
-                String ebSolysIniContent = FileHelper.readFileToString( ebSolysIni );
-                if (ebSolysIniContent.contains( START_TAG ))
-                {
-                    return true;
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return false;
+        debuggingActive = ScriptDebuggingHelper.isDebugOptionInIni();
     }
 
     @Override
@@ -127,7 +101,7 @@ public class ScriptDebuggingSettingsPreferencePage extends PreferencePage implem
             Label devModeWarning = new Label( parentComposite, SWT.NONE );
             devModeWarning
                     .setText( "Warning:\nIt looks like you're started EB solys from eclipse.\nTo enable script debugging please add following line to vmargs of your product configuration:\n"
-                            + DEBUG_OPTION_PARAM );
+                            + ScriptDebuggingHelper.DEBUG_OPTION_PARAM );
         }
     }
 
@@ -151,16 +125,15 @@ public class ScriptDebuggingSettingsPreferencePage extends PreferencePage implem
     @Override
     public boolean performOk()
     {
-        if (!isDebugOptionInIni() && button.getSelection() == true)
+        if (!ScriptDebuggingHelper.isDebugOptionInIni() && button.getSelection() == true)
         {
             addDebugOptionAndRestart();
         }
-        else if (isDebugOptionInIni() && button.getSelection() == false)
+        else if (ScriptDebuggingHelper.isDebugOptionInIni() && button.getSelection() == false)
         {
             removeDebugOptionAndRestart();
         }
 
-        System.out.println( "performOk" );
         return true;
     }
 
@@ -180,12 +153,12 @@ public class ScriptDebuggingSettingsPreferencePage extends PreferencePage implem
             if (ebSolysIni.exists())
             {
                 String ebSolysIniContent = FileHelper.readFileToString( ebSolysIni );
-                if (!ebSolysIniContent.contains( START_TAG ))
+                if (!ebSolysIniContent.contains( ScriptDebuggingHelper.START_TAG ))
                 {
                     BufferedWriter bufferedWriter = new BufferedWriter( new FileWriter( ebSolysIni, true ) );
-                    bufferedWriter.append( "\n" + START_TAG + "\n" );
-                    bufferedWriter.append( DEBUG_OPTION_PARAM + "\n" );
-                    bufferedWriter.append( END_TAG + "\n" );
+                    bufferedWriter.append( "\n" + ScriptDebuggingHelper.START_TAG + "\n" );
+                    bufferedWriter.append( ScriptDebuggingHelper.DEBUG_OPTION_PARAM + "\n" );
+                    bufferedWriter.append( ScriptDebuggingHelper.END_TAG + "\n" );
                     bufferedWriter.close();
                 }
             }
@@ -223,12 +196,13 @@ public class ScriptDebuggingSettingsPreferencePage extends PreferencePage implem
             if (ebSolysIni.exists())
             {
                 String ebSolysIniContent = FileHelper.readFileToString( ebSolysIni );
-                if (ebSolysIniContent.contains( START_TAG ))
+                if (ebSolysIniContent.contains( ScriptDebuggingHelper.START_TAG ))
                 {
 
-                    String ebSolysIniContentNew = ebSolysIniContent.replaceFirst( START_TAG, "" );
-                    ebSolysIniContentNew = ebSolysIniContentNew.replaceFirst( DEBUG_OPTION_PARAM, "" );
-                    ebSolysIniContentNew = ebSolysIniContentNew.replaceFirst( END_TAG, "" );
+                    String ebSolysIniContentNew = ebSolysIniContent.replaceFirst( ScriptDebuggingHelper.START_TAG, "" );
+                    ebSolysIniContentNew = ebSolysIniContentNew.replaceFirst( ScriptDebuggingHelper.DEBUG_OPTION_PARAM,
+                                                                              "" );
+                    ebSolysIniContentNew = ebSolysIniContentNew.replaceFirst( ScriptDebuggingHelper.END_TAG, "" );
                     BufferedWriter bufferedWriter = new BufferedWriter( new FileWriter( ebSolysIni, false ) );
                     bufferedWriter.append( ebSolysIniContentNew );
                     bufferedWriter.close();
