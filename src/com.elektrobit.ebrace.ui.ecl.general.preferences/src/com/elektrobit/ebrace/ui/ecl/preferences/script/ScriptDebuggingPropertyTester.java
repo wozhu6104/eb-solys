@@ -18,7 +18,7 @@ public class ScriptDebuggingPropertyTester extends PropertyTester
 
     public ScriptDebuggingPropertyTester()
     {
-         debugOptionInIni = ScriptDebuggingHelper.isDebugOptionInIni();
+        debugOptionInIni = ScriptDebuggingHelper.isDebugOptionInIni();
     }
 
     @Override

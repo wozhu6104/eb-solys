@@ -153,12 +153,10 @@ public class ScriptDebuggingSettingsPreferencePage extends PreferencePage implem
             if (ebSolysIni.exists())
             {
                 String ebSolysIniContent = FileHelper.readFileToString( ebSolysIni );
-                if (!ebSolysIniContent.contains( ScriptDebuggingHelper.START_TAG ))
+                if (!ebSolysIniContent.contains( ScriptDebuggingHelper.DEBUG_OPTION_PARAM ))
                 {
                     BufferedWriter bufferedWriter = new BufferedWriter( new FileWriter( ebSolysIni, true ) );
-                    bufferedWriter.append( "\n" + ScriptDebuggingHelper.START_TAG + "\n" );
-                    bufferedWriter.append( ScriptDebuggingHelper.DEBUG_OPTION_PARAM + "\n" );
-                    bufferedWriter.append( ScriptDebuggingHelper.END_TAG + "\n" );
+                    bufferedWriter.append( "\n" + ScriptDebuggingHelper.DEBUG_OPTION_PARAM + "\n" );
                     bufferedWriter.close();
                 }
             }
@@ -196,13 +194,11 @@ public class ScriptDebuggingSettingsPreferencePage extends PreferencePage implem
             if (ebSolysIni.exists())
             {
                 String ebSolysIniContent = FileHelper.readFileToString( ebSolysIni );
-                if (ebSolysIniContent.contains( ScriptDebuggingHelper.START_TAG ))
+                if (ebSolysIniContent.contains( ScriptDebuggingHelper.DEBUG_OPTION_PARAM ))
                 {
 
-                    String ebSolysIniContentNew = ebSolysIniContent.replaceFirst( ScriptDebuggingHelper.START_TAG, "" );
-                    ebSolysIniContentNew = ebSolysIniContentNew.replaceFirst( ScriptDebuggingHelper.DEBUG_OPTION_PARAM,
-                                                                              "" );
-                    ebSolysIniContentNew = ebSolysIniContentNew.replaceFirst( ScriptDebuggingHelper.END_TAG, "" );
+                    String ebSolysIniContentNew = ebSolysIniContent
+                            .replaceFirst( ScriptDebuggingHelper.DEBUG_OPTION_PARAM, "" );
                     BufferedWriter bufferedWriter = new BufferedWriter( new FileWriter( ebSolysIni, false ) );
                     bufferedWriter.append( ebSolysIniContentNew );
                     bufferedWriter.close();

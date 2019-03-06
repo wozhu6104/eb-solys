@@ -9,39 +9,19 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.ui.ecl.preferences.script;
 
-import java.io.File;
-import java.net.URL;
-
-import org.eclipse.core.runtime.Platform;
-
-import com.elektrobit.ebrace.common.utils.FileHelper;
+import java.lang.management.ManagementFactory;
+import java.util.List;
 
 public class ScriptDebuggingHelper
 {
-    static final String START_TAG = "#GENERATED-REMOTE-DEBUG-OPTION-START";
     static final String DEBUG_OPTION_PARAM = "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005";
-    static final String END_TAG = "#GENERATED-REMOTE-DEBUG-OPTION-START";
+
+    private static List<String> VMARGS = ManagementFactory.getRuntimeMXBean().getInputArguments();
+    private static boolean DEBUG_PARAM_AVAILABLE = VMARGS.stream().filter( arg -> arg.equals( DEBUG_OPTION_PARAM ) )
+            .count() >= 1;
 
     public static boolean isDebugOptionInIni()
     {
-        try
-        {
-            URL url = new URL( Platform.getInstallLocation().getURL() + "ebsolys.ini" );
-            File ebSolysIni = new File( url.toURI() );
-            if (ebSolysIni.exists())
-            {
-                String ebSolysIniContent = FileHelper.readFileToString( ebSolysIni );
-                if (ebSolysIniContent.contains( START_TAG ))
-                {
-                    return true;
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        return false;
+        return DEBUG_PARAM_AVAILABLE;
     }
 }

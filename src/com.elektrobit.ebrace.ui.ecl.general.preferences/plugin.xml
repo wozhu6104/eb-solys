@@ -45,6 +45,11 @@
 
 	<activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.jdt.debug.ui/org.eclipse.jdt.debug.ui.snippetEditor.NewSnippetFileCreationWizard"/>
 	<activityPatternBinding activityId="com.elektrobit.ebrace.application.scriptdebugging" pattern="org.eclipse.jdt.debug.ui/org.eclipse.jdt.debug.ui.DisplayView"/>
+ <activityPatternBinding
+       activityId="com.elektrobit.ebrace.application.scriptdebugging"
+       isEqualityPattern="false"
+       pattern="org.eclipse.ui.ide/org.eclipse.ui.views.TaskList">
+ </activityPatternBinding>
 
 <activity
       id="com.elektrobit.ebrace.application.scriptdebugging"
@@ -67,6 +72,19 @@
          properties="isDebuggingActive"
          type="java.lang.Object">
    </propertyTester>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.debug.ui.DebugPerspective">
+         <view
+               id="com.elektrobit.ebrace.viewer.resourceExplorer"
+               minimized="false"
+               ratio="0.2"
+               relationship="left"
+               relative="org.eclipse.ui.editorss">
+         </view>
+      </perspectiveExtension>
    </extension>
 
 </plugin>
