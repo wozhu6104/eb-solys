@@ -165,6 +165,7 @@ public class ScriptProjectBuilderServiceImpl
 
         if (!changedClassFiles.isEmpty() && !compiledClassFiles().isEmpty())
         {
+        	closeRemoteDebuggingConnection();
             List<ScriptData> scriptNames = jarExporter.exportAllScriptsToJar();
             notifyListener( scriptNames );
         }
