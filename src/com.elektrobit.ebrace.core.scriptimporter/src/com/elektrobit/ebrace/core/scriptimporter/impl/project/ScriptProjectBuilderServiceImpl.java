@@ -213,7 +213,7 @@ public class ScriptProjectBuilderServiceImpl
     {
         try
         {
-            if (launch != null)
+            if (launch != null && launch.canTerminate())
             {
                 launch.terminate();
             }
