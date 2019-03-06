@@ -64,7 +64,6 @@ public class ScriptDebuggingSettingsPreferencePage extends PreferencePage implem
     @Override
     protected Control createContents(Composite parent)
     {
-        System.out.println( "createContents" );
         createParentComposite( parent );
         createPageContent();
         return parentComposite;
