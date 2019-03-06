@@ -126,7 +126,7 @@ public class ScriptProjectBuilderServiceImpl
 
         jarExporter = JarExporterFactory.create( preferencesService.getScriptFolderPath() );
 
-        scriptProjectImporter.importProject();
+        importProject = scriptProjectImporter.importProject();
         activateScriptExportingAfterBuild();
     }
 
