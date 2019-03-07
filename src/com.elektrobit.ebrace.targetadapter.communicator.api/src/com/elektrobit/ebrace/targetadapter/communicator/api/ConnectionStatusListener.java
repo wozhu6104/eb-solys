@@ -15,9 +15,11 @@ import com.elektrobit.ebrace.core.interactor.api.resources.model.connection.Conn
 
 public interface ConnectionStatusListener
 {
-    public void onTargetDisconnected(ConnectionModel disconnected, Set<ConnectionModel> activeConnections);
+    public void onTargetDisconnected(ConnectionModel connectionInfo, Set<ConnectionModel> activeConnections);
 
-    public void onTargetConnecting(ConnectionModel connecting, Set<ConnectionModel> activeConnections);
+    public void onTargetConnecting(ConnectionModel connectionInfo, Set<ConnectionModel> activeConnections);
 
-    public void onTargetConnected(ConnectionModel connected, Set<ConnectionModel> activeConnections);
+    public void onTargetConnected(ConnectionModel connectionInfo, Set<ConnectionModel> activeConnections);
+
+    public void onNewDataRateInKB(ConnectionModel connectionInfo, float datarate);
 }

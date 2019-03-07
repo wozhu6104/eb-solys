@@ -150,7 +150,7 @@ public interface UseCaseFactoryService
 
     public CreateResourceInteractionUseCase makeCreateResourceUseCase(CreateResourceInteractionCallback callback);
 
-    public StatusLineTextNotifyUseCase CreateStatusLineTextNotifyUseCase(StatusLineTextNotifyCallback callback);
+    public StatusLineTextNotifyUseCase createStatusLineTextNotifyUseCase(StatusLineTextNotifyCallback callback);
 
     public UserMessageNotifyUseCase makeUserLoggerMessageNotifyUseCase(UserMessageLoggerNotifyCallback callback);
 

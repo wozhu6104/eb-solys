@@ -182,4 +182,9 @@ public class ConnectionModeRunner implements AutomationModeRunner, ScriptExecuti
     public void onTargetConnected(ConnectionModel connected, Set<ConnectionModel> activeConnections)
     {
     }
+
+    @Override
+    public void onNewDataRateInKB(ConnectionModel connectionInfo, float datarate)
+    {
+    }
 }

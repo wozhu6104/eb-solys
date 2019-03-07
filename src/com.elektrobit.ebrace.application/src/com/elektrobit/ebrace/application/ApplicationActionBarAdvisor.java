@@ -11,16 +11,22 @@ package com.elektrobit.ebrace.application;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
+
+import com.elektrobit.ebrace.application.statusline.StatusLineMessage;
+import com.elektrobit.ebrace.core.interactor.api.common.UseCaseFactoryInstance;
+import com.elektrobit.ebrace.core.interactor.api.selectelement.StatusLineTextNotifyUseCase;
 
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor
 {
 
     private IAction savePerspectiveAction;
     private IAction resetPerspectiveAction;
+    private StatusLineTextNotifyUseCase statusLineTextNotifyUseCase;
 
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer)
     {
@@ -40,6 +46,22 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor
     @Override
     protected void fillMenuBar(IMenuManager menuBar)
     {
+    }
+
+    @Override
+    protected void fillStatusLine(IStatusLineManager statusLineManager)
+    {
+        super.fillStatusLine( statusLineManager );
+        StatusLineMessage statusLineMessage = new StatusLineMessage( statusLineManager );
+        statusLineTextNotifyUseCase = UseCaseFactoryInstance.get()
+                .createStatusLineTextNotifyUseCase( statusLineMessage );
+    }
+
+    @Override
+    public void dispose()
+    {
+        statusLineTextNotifyUseCase.unregister();
+        super.dispose();
     }
 
 }

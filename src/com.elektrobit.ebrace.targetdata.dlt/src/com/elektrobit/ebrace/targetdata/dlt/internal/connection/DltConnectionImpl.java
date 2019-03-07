@@ -24,6 +24,7 @@ import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 import com.elektrobit.ebrace.targetadapter.communicator.api.OutgoingMessage;
 import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnection;
 import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnectionDownListener;
+import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.DataRateListener;
 import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.DirectStream;
 import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.ProtoMsgCacheDataAvailableListener;
 import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.ProtocolMessageSendThread;
@@ -35,7 +36,12 @@ import com.elektrobit.ebsolys.core.targetdata.api.adapter.DataSourceContext.SOUR
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class DltConnectionImpl implements TargetConnection, SocketClosedListener, ProtoMsgCacheDataAvailableListener
+public class DltConnectionImpl
+        implements
+            TargetConnection,
+            SocketClosedListener,
+            ProtoMsgCacheDataAvailableListener,
+            DataRateListener
 {
     private Socket targetConnectionSocket;
     private boolean isConnected;
@@ -72,7 +78,7 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
 
         MessageReader<?> messageReader = messageDispatcher.getMessageReader();
 
-        socketStreamCache = new DirectStream( connectionModel, messageReader, cacheFileName, this );
+        socketStreamCache = new DirectStream( messageReader, this );
         sender = new ProtocolMessageSendThread( this );
     }
 
@@ -151,7 +157,6 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
     @Override
     public boolean disconnect()
     {
-        System.out.println( "Disconnecting..." );
         if (isConnected)
         {
             try
@@ -225,10 +230,10 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
                         if (liveMode)
                         {
                             Object msg = socketStreamCache.getNextMsg();
-//                            if (!shallRead)
-//                            {
-//                                return;
-//                            }
+                            // if (!shallRead)
+                            // {
+                            // return;
+                            // }
                             if (msg != null)
                             {
                                 messageDispatcher.forwardMessage( msg, connectionModel, dataSourceContext );
@@ -293,8 +298,8 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
         {
             try
             {
-            	// Wait long enogh that last message can fully read from stream,
-            	// otherwise one message can be lost
+                // Wait long enogh that last message can fully read from stream,
+                // otherwise one message can be lost
                 readThread.join( 5000 );
             }
             catch (InterruptedException e)
@@ -341,5 +346,11 @@ public class DltConnectionImpl implements TargetConnection, SocketClosedListener
         {
             resumeReading.notify();
         }
+    }
+
+    @Override
+    public void onNewDataRate(float datarate)
+    {
+        listener.onNewDataRate( this, datarate );
     }
 }

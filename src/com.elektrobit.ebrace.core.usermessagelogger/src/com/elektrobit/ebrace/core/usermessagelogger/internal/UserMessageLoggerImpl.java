@@ -9,8 +9,8 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.core.usermessagelogger.internal;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -21,7 +21,7 @@ import com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLoggerListene
 @Component
 public class UserMessageLoggerImpl implements UserMessageLogger
 {
-    private final List<UserMessageLoggerListener> listeners = new ArrayList<UserMessageLoggerListener>();
+    private final List<UserMessageLoggerListener> listeners = new CopyOnWriteArrayList<UserMessageLoggerListener>();
 
     @Override
     public synchronized void logUserMessage(UserMessageLoggerTypes type, String message)

@@ -20,12 +20,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
-import com.elektrobit.ebrace.application.statusline.StatusLineMessage;
 import com.elektrobit.ebrace.application.threadprofiling.ThreadCPUProfiler;
 import com.elektrobit.ebrace.core.interactor.api.common.ProVersion;
 import com.elektrobit.ebrace.core.interactor.api.common.UIExecutor;
 import com.elektrobit.ebrace.core.interactor.api.common.UIExecutorIF;
-import com.elektrobit.ebrace.core.interactor.api.common.UseCaseFactoryInstance;
 import com.elektrobit.ebrace.dev.usestatlogsannotationloader.api.UseStatLog;
 import com.elektrobit.ebrace.dev.usestatlogsannotationloader.api.UseStatLogTypes;
 
@@ -51,8 +49,6 @@ public class Application implements IApplication
     @Override
     public Object start(IApplicationContext context) throws Exception
     {
-        StatusLineMessage statusLine = new StatusLineMessage();
-        UseCaseFactoryInstance.get().CreateStatusLineTextNotifyUseCase( statusLine );
 
         if (profLog.isDebugEnabled())
         {

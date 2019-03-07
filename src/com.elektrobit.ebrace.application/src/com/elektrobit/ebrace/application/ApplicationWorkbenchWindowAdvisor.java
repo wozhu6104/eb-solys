@@ -53,7 +53,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor
         {
             if (items[i].getId().equals( "org.eclipse.debug.ui.launch.toolbar" )
                     || items[i].getId().equals( "org.eclipse.debug.ui.main.toolbar" ))
+            {
                 items[i].setVisible( false );
+            }
         }
 
         actionBarConfigurer.getCoolBarManager().update( true );

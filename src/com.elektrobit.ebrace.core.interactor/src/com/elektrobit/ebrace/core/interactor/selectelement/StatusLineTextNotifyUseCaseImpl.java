@@ -10,38 +10,51 @@
 package com.elektrobit.ebrace.core.interactor.selectelement;
 
 import java.util.List;
+import java.util.Set;
 
 import com.elektrobit.ebrace.common.time.format.TimeFormatter;
 import com.elektrobit.ebrace.core.interactor.api.common.UIExecutor;
+import com.elektrobit.ebrace.core.interactor.api.resources.model.connection.ConnectionModel;
 import com.elektrobit.ebrace.core.interactor.api.selectelement.StatusLineTextNotifyCallback;
 import com.elektrobit.ebrace.core.interactor.api.selectelement.StatusLineTextNotifyUseCase;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseExecutor;
 import com.elektrobit.ebrace.core.interactor.common.UseCaseRunnable;
 import com.elektrobit.ebrace.core.preferences.api.PreferencesService;
+import com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionService;
+import com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionStatusListener;
 import com.elektrobit.ebsolys.core.targetdata.api.listener.SelectedElementsChangedListener;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.SelectedElementsService;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.TimebasedObject;
 
-public class StatusLineTextNotifyUseCaseImpl implements StatusLineTextNotifyUseCase, SelectedElementsChangedListener
+public class StatusLineTextNotifyUseCaseImpl
+        implements
+            StatusLineTextNotifyUseCase,
+            SelectedElementsChangedListener,
+            ConnectionStatusListener
 {
 
     private StatusLineTextNotifyCallback statusCallback;
     private final SelectedElementsService selectedElmntService;
     private final PreferencesService preferenceService;
     private final static String DELTA_TIME_INFO = "  Delta Time: ";
+    private final ConnectionService connectionService;
 
     public StatusLineTextNotifyUseCaseImpl(StatusLineTextNotifyCallback callback, SelectedElementsService service,
-            PreferencesService pService)
+            PreferencesService pService, ConnectionService connectionService)
     {
         this.selectedElmntService = service;
-        this.selectedElmntService.register( this );
+        this.connectionService = connectionService;
         this.statusCallback = callback;
         this.preferenceService = pService;
+
+        this.selectedElmntService.register( this );
+        this.connectionService.addConnectionStatusListener( this );
     }
 
     @Override
     public void unregister()
     {
+        this.connectionService.removeConnectionStatusListener( this );
         this.selectedElmntService.unregister( this );
         this.statusCallback = null;
 
@@ -88,6 +101,73 @@ public class StatusLineTextNotifyUseCaseImpl implements StatusLineTextNotifyUseC
                 if (statusCallback != null)
                 {
                     statusCallback.onNewStatus( newStatus );
+                }
+            }
+        } );
+    }
+
+    @Override
+    public void onTargetDisconnected(ConnectionModel connectionInfo, Set<ConnectionModel> activeConnections)
+    {
+        UIExecutor.post( new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (statusCallback != null)
+                {
+                    statusCallback.onNewConnectionInfo( connectionInfo.getName() + ": disconnected" );
+                }
+            }
+        } );
+
+    }
+
+    @Override
+    public void onTargetConnecting(ConnectionModel connectionInfo, Set<ConnectionModel> activeConnections)
+    {
+        UIExecutor.post( new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (statusCallback != null)
+                {
+                    statusCallback.onNewConnectionInfo( connectionInfo.getName() + ": connecting..." );
+                }
+            }
+        } );
+
+    }
+
+    @Override
+    public void onTargetConnected(ConnectionModel connectionInfo, Set<ConnectionModel> activeConnections)
+    {
+        UIExecutor.post( new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (statusCallback != null)
+                {
+                    statusCallback.onNewConnectionInfo( connectionInfo.getName() + ": connected" );
+                }
+            }
+        } );
+
+    }
+
+    @Override
+    public void onNewDataRateInKB(ConnectionModel connectionInfo, float datarate)
+    {
+        UIExecutor.post( new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (statusCallback != null)
+                {
+                    statusCallback.onNewConnectionInfo( connectionInfo.getName() + ": " + datarate + " KB/s" );
                 }
             }
         } );

@@ -12,4 +12,6 @@ package com.elektrobit.ebrace.core.interactor.api.selectelement;
 public interface StatusLineTextNotifyCallback
 {
     public void onNewStatus(String status);
+
+    public void onNewConnectionInfo(String status);
 }

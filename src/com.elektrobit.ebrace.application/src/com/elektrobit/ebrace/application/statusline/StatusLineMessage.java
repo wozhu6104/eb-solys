@@ -9,50 +9,66 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.application.statusline;
 
-import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.IViewSite;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchPartSite;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.jface.action.IStatusLineManager;
+import org.eclipse.jface.action.StatusLineContributionItem;
 
 import com.elektrobit.ebrace.core.interactor.api.selectelement.StatusLineTextNotifyCallback;
 
 public class StatusLineMessage implements StatusLineTextNotifyCallback
 {
 
-    public IActionBars getStatusLine()
+    private static final String CONNECTION_INFO = "connection.info";
+    private static final String USER_INFO = "user.info";
+    private final StatusLineContributionItem connectionInfoItem;
+    private final StatusLineContributionItem userInfoItem;
+    private final IStatusLineManager statusLineManager;
+
+    public StatusLineMessage(IStatusLineManager statusLineManager)
     {
+        this.statusLineManager = statusLineManager;
+        connectionInfoItem = new StatusLineContributionItem( CONNECTION_INFO );
+        connectionInfoItem.setText( "" );
 
-        IWorkbenchWindow win = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-        IWorkbenchPage page = win.getActivePage();
-        IWorkbenchPart part = page.getActivePart();
-        IWorkbenchPartSite site = part.getSite();
-        IActionBars actionBars = null;
+        userInfoItem = new StatusLineContributionItem( USER_INFO );
+        userInfoItem.setText( "" );
 
-        if (site instanceof IEditorSite)
-        {
-            IEditorSite esite = (IEditorSite)site;
-            actionBars = esite.getActionBars();
-            return actionBars;
-        }
-
-        if (site instanceof IViewSite)
-        {
-            IViewSite esite = (IViewSite)site;
-            actionBars = esite.getActionBars();
-            return actionBars;
-        }
-
-        return actionBars;
     }
 
     @Override
     public void onNewStatus(String status)
     {
-        getStatusLine().getStatusLineManager().setMessage( status );
+        if (statusLineManager.find( USER_INFO ) == null)
+        {
+            if (statusLineManager.find( CONNECTION_INFO ) != null)
+            {
+                statusLineManager.insertBefore( CONNECTION_INFO, userInfoItem );
+            }
+            else
+            {
+                statusLineManager.add( userInfoItem );
+            }
+        }
+
+        userInfoItem.setText( status );
+    }
+
+    @Override
+    public void onNewConnectionInfo(String status)
+    {
+
+        if (statusLineManager.find( CONNECTION_INFO ) == null)
+        {
+            if (statusLineManager.find( USER_INFO ) != null)
+            {
+                statusLineManager.insertAfter( USER_INFO, connectionInfoItem );
+            }
+            else
+            {
+                statusLineManager.add( connectionInfoItem );
+            }
+        }
+
+        connectionInfoItem.setText( status );
     }
 
 }

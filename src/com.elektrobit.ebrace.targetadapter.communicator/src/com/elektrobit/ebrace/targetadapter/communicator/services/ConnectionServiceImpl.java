@@ -215,4 +215,12 @@ public class ConnectionServiceImpl
     {
         return everConnected;
     }
+
+    @Override
+    public void onNewDataRate(TargetConnection targetConnection, float datarate)
+    {
+        ConnectionModel connectionInfo = activeConnections.inverse().get( targetConnection );
+        connectionListeners.notifyListeners( (l) -> l.onNewDataRateInKB( connectionInfo, datarate ) );
+    }
+
 }

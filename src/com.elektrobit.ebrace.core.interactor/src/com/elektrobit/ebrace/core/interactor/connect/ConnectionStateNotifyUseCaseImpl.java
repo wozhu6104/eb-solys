@@ -105,4 +105,9 @@ public class ConnectionStateNotifyUseCaseImpl implements ConnectionStateNotifyUs
     {
         return !connectionService.getAllActiveConnections().isEmpty();
     }
+
+    @Override
+    public void onNewDataRateInKB(ConnectionModel connectionInfo, float datarate)
+    {
+    }
 }

@@ -635,12 +635,13 @@ public class UseCaseFactoryServiceImpl implements UseCaseFactoryService
     }
 
     @Override
-    public StatusLineTextNotifyUseCase CreateStatusLineTextNotifyUseCase(StatusLineTextNotifyCallback callback)
+    public StatusLineTextNotifyUseCase createStatusLineTextNotifyUseCase(StatusLineTextNotifyCallback callback)
     {
 
         StatusLineTextNotifyUseCase statsuLine = new StatusLineTextNotifyUseCaseImpl( callback,
                                                                                       selectedElementService,
-                                                                                      preferencesService );
+                                                                                      preferencesService,
+                                                                                      connectionService );
         return statsuLine;
     }
 

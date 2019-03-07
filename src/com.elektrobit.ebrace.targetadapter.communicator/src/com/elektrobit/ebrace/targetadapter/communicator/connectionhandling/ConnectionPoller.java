@@ -96,6 +96,11 @@ public class ConnectionPoller implements ConnectionStatusListener
         this.activeConnections = activeConnections;
     }
 
+    @Override
+    public void onNewDataRateInKB(ConnectionModel connectionInfo, float datarate)
+    {
+    }
+
     private void startPollerThread()
     {
         TimerTask sendTask = new TimerTask()
@@ -191,4 +196,5 @@ public class ConnectionPoller implements ConnectionStatusListener
         builder.setVersionToken( version );
         return builder.build();
     }
+
 }

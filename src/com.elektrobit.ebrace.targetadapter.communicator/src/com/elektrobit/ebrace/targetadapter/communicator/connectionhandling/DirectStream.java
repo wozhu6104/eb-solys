@@ -12,7 +12,6 @@ package com.elektrobit.ebrace.targetadapter.communicator.connectionhandling;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.elektrobit.ebrace.core.interactor.api.resources.model.connection.ConnectionModel;
 import com.elektrobit.ebrace.targetadapter.communicator.api.BytesFromStreamReader;
 import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 
@@ -21,11 +20,14 @@ public class DirectStream implements BytesFromStreamReader
     private InputStream orgInputStream;
     private final MessageReader<?> messageReader;
     private boolean shallRun = false;
+    private int readBytesInInterval = 0;
+    private long lastReadBytesUpdateTimestamp = System.currentTimeMillis();
+    private final DataRateListener listener;
 
-    public DirectStream(ConnectionModel model, MessageReader<?> messageReader, String pathToCachedFile,
-            ProtoMsgCacheDataAvailableListener callback)
+    public DirectStream(MessageReader<?> messageReader, DataRateListener listener)
     {
         this.messageReader = messageReader;
+        this.listener = listener;
     }
 
     public void start(final InputStream orgInputStream)
@@ -49,6 +51,17 @@ public class DirectStream implements BytesFromStreamReader
             try
             {
                 fillBufferCompletely( orgInputStream, content );
+                readBytesInInterval += n;
+                long now = System.currentTimeMillis();
+                long timeOfLastIntervalInMs = now - lastReadBytesUpdateTimestamp;
+                if (timeOfLastIntervalInMs > 1000)
+                {
+                    float lastRate = (readBytesInInterval / 1000) / (timeOfLastIntervalInMs / 1000);
+                    listener.onNewDataRate( lastRate );
+                    lastReadBytesUpdateTimestamp = now;
+                    readBytesInInterval = 0;
+                }
+
             }
             catch (IOException e)
             {
