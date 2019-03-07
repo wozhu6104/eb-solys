@@ -28,7 +28,7 @@ import com.elektrobit.ebrace.targetadapter.communicator.api.ConnectionStatusList
 import com.elektrobit.ebrace.targetadapter.communicator.api.OutgoingMessage;
 import com.elektrobit.ebrace.targetadapter.communicator.api.SendMessageToTargetService;
 import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnection;
-import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnectionDownListener;
+import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnectionListener;
 import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnectionFactory;
 import com.elektrobit.ebsolys.core.targetdata.api.reset.ResetListener;
 import com.google.common.collect.HashBiMap;
@@ -40,7 +40,7 @@ import lombok.extern.log4j.Log4j;
 public class ConnectionServiceImpl
         implements
             ConnectionService,
-            TargetConnectionDownListener,
+            TargetConnectionListener,
             SendMessageToTargetService,
             UserInteractionPreferencesListener,
             ResetListener
@@ -92,7 +92,7 @@ public class ConnectionServiceImpl
             everConnected = true;
             activeConnections.put( connectionModel, newConnection );
             connectionModel.setConnected( true );
-            newConnection.setTargetConnectionDownListener( this );
+            newConnection.addTargetConnectionListener( this );
             notifyConnected( connectionModel );
         }
         else
@@ -134,7 +134,7 @@ public class ConnectionServiceImpl
         ConnectionModel connectionModel = activeConnections.inverse().get( targetConnection );
         connectionModel.setConnected( false );
         activeConnections.remove( connectionModel );
-        targetConnection.unsetTargetConnectionDownListener( this );
+        targetConnection.removeTargetConnectionListener( this );
         notifyDisconnected( connectionModel );
     }
 

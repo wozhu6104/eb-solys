@@ -84,4 +84,9 @@ public class GetAllDltChannelsMessageSenderService implements ConnectionStatusLi
     {
     }
 
+    @Override
+    public void onNewDataRateInKB(ConnectionModel connectionInfo, float datarate)
+    {
+    }
+
 }

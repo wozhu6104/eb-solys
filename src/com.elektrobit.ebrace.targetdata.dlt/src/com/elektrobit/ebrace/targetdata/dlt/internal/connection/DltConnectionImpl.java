@@ -23,7 +23,7 @@ import com.elektrobit.ebrace.core.usermessagelogger.api.UserMessageLogger;
 import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 import com.elektrobit.ebrace.targetadapter.communicator.api.OutgoingMessage;
 import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnection;
-import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnectionDownListener;
+import com.elektrobit.ebrace.targetadapter.communicator.api.TargetConnectionListener;
 import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.DataRateListener;
 import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.DirectStream;
 import com.elektrobit.ebrace.targetadapter.communicator.connectionhandling.ProtoMsgCacheDataAvailableListener;
@@ -62,7 +62,7 @@ public class DltConnectionImpl
     private volatile DBG_STATE debugState = DBG_STATE.NOT_RUNNING;
     private final MessageDispatcher messageDispatcher;
     private final ConnectionType connectionType;
-    private TargetConnectionDownListener listener;
+    private TargetConnectionListener listener;
 
     public DltConnectionImpl(ConnectionType connectionType, ConnectionModel connectionModel,
             UserMessageLogger userMessageLogger)
@@ -108,13 +108,13 @@ public class DltConnectionImpl
     }
 
     @Override
-    public void setTargetConnectionDownListener(TargetConnectionDownListener listener)
+    public void addTargetConnectionListener(TargetConnectionListener listener)
     {
         this.listener = listener;
     }
 
     @Override
-    public void unsetTargetConnectionDownListener(TargetConnectionDownListener listener)
+    public void removeTargetConnectionListener(TargetConnectionListener listener)
     {
         this.listener = null;
     }

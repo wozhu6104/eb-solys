@@ -9,7 +9,7 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.targetadapter.communicator.api;
 
-public interface TargetConnectionDownListener
+public interface TargetConnectionListener
 {
     public void onNewDataRate(TargetConnection targetConnection, float datarate);
 

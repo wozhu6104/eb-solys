@@ -12,9 +12,9 @@ package com.elektrobit.ebrace.targetadapter.communicator.api;
 
 public interface TargetConnection
 {
-    public void setTargetConnectionDownListener(TargetConnectionDownListener listener);
+    public void addTargetConnectionListener(TargetConnectionListener listener);
 
-    public void unsetTargetConnectionDownListener(TargetConnectionDownListener listener);
+    public void removeTargetConnectionListener(TargetConnectionListener listener);
 
     public boolean connect();
 
