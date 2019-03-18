@@ -26,4 +26,4 @@ src/buildroot/**/*
 /**/src-org/**/*
 
 # JQassist
-jqassist/store
+/jqassistant/store/
