@@ -9,6 +9,7 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.targetadapter.communicator.connectionhandling;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -23,11 +24,24 @@ public class DirectStream implements BytesFromStreamReader
     private int readBytesInInterval = 0;
     private long lastReadBytesUpdateTimestamp = System.currentTimeMillis();
     private final DataRateListener listener;
+    private FileOutputStream writer;
 
     public DirectStream(MessageReader<?> messageReader, DataRateListener listener)
     {
         this.messageReader = messageReader;
         this.listener = listener;
+    }
+
+    public void setPathToRecordingFile(String path)
+    {
+        try
+        {
+            writer = new FileOutputStream( path );
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void start(final InputStream orgInputStream)
@@ -66,6 +80,17 @@ public class DirectStream implements BytesFromStreamReader
             catch (IOException e)
             {
                 System.out.println( "Socket closed" );
+            }
+            if (writer != null)
+            {
+                try
+                {
+                    writer.write( content );
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
             }
             return content;
         }
@@ -120,6 +145,16 @@ public class DirectStream implements BytesFromStreamReader
 
     public void stop()
     {
+        if (writer != null)
+        {
+            try
+            {
+                writer.close();
+            }
+            catch (IOException e)
+            {
+            }
+        }
         shallRun = false;
     }
 

@@ -11,6 +11,8 @@ package com.elektrobit.ebrace.targetdata.dlt.internal.connection;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
@@ -71,14 +73,19 @@ public class DltConnectionImpl
         this.connectionModel = connectionModel;
         targetConnectionSocket = null;
 
-        String cacheFileName = "/tmp/stream-cache" + connectionModel.getHost().replace( ":", "_" ) + "-"
-                + connectionModel.getPort() + "." + connectionModel.getConnectionType().getExtension() + ".tmp";
-
         messageDispatcher = getMessageDispatcher( connectionModel );
 
         MessageReader<?> messageReader = messageDispatcher.getMessageReader();
 
         socketStreamCache = new DirectStream( messageReader, this );
+
+        if (connectionModel.isSaveToFile())
+        {
+            socketStreamCache.setPathToRecordingFile( connectionModel.getRecordingsFolder() + "/"
+                    + connectionModel.getRecordingFilePrefix()
+                    + new SimpleDateFormat( "_yyyy-MM-dd_HH-mm-ss-SSS" ).format( new Date() ) + ".dlts" );
+        }
+
         sender = new ProtocolMessageSendThread( this );
     }
 
@@ -227,16 +234,16 @@ public class DltConnectionImpl
 
                     while (shallRead)
                     {
-                        if (liveMode)
+                    	// running continuously when saving to file active
+                        if (liveMode || connectionModel.isSaveToFile())
                         {
                             Object msg = socketStreamCache.getNextMsg();
-                            // if (!shallRead)
-                            // {
-                            // return;
-                            // }
                             if (msg != null)
                             {
-                                messageDispatcher.forwardMessage( msg, connectionModel, dataSourceContext );
+                                if (liveMode)
+                                {
+                                    messageDispatcher.forwardMessage( msg, connectionModel, dataSourceContext );
+                                }
                                 changeStateIfNeeded( DBG_STATE.READ );
                             }
                             else
