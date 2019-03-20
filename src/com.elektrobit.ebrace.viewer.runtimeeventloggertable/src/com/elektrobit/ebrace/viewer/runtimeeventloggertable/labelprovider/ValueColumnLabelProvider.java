@@ -71,7 +71,7 @@ public class ValueColumnLabelProvider extends StyledCellLabelProvider implements
         cell.setBackground( getBackground( element ) );
         cell.setFont( getFont( element ) );
 
-         markSearchOccurences( cell );
+        markSearchOccurences( cell );
     }
 
     private void markSearchOccurences(ViewerCell cell)

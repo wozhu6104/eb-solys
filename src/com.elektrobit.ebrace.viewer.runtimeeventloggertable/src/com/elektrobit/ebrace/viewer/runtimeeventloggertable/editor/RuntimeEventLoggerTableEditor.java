@@ -348,7 +348,7 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
         // analysisColumn.getColumn()
         // .setWidth( TableColumnWidthProvider.FixedColumnWidths.ANALYSIS_TIMESPAN_COLUMN_WIDTH.getWidth() );
         timestampColumn.getColumn().setWidth( (int)(widthProvider.getTimestampColumnWidth()) );
-        tagColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.TAG_COLUMN_WIDTH.getWidth() );
+        // tagColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.TAG_COLUMN_WIDTH.getWidth() );
         // colorColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.COLOR_COLUMN_WIDTH.getWidth() );
         valueColumns.stream().forEach( current -> {
             TableColumn currentColumn = current.getColumn();
@@ -389,7 +389,7 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
     {
         // createAnalysisTimespanColumn();
         createTimstampColumn();
-        createTagColumn();
+        // createTagColumn();
         // createColorColumn();
         createValueColumn();
         createChannelColumn();
@@ -596,7 +596,7 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
     @Override
     public void dispose()
     {
-    	userInteractionPreferences.removeUserInteractionPreferencesListener( this );
+        userInteractionPreferences.removeUserInteractionPreferencesListener( this );
         unregisterDecoderUseCase();
         backgroundColorCreator.dispose();
         unregisterListenersAndServices();
