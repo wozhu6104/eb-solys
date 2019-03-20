@@ -9,6 +9,11 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.application.statusline;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.StatusLineContributionItem;
 
@@ -19,15 +24,12 @@ public class StatusLineMessage implements StatusLineTextNotifyCallback
 
     private static final String CONNECTION_INFO = "connection.info";
     private static final String USER_INFO = "user.info";
-    private final StatusLineContributionItem connectionInfoItem;
     private final StatusLineContributionItem userInfoItem;
     private final IStatusLineManager statusLineManager;
 
     public StatusLineMessage(IStatusLineManager statusLineManager)
     {
         this.statusLineManager = statusLineManager;
-        connectionInfoItem = new StatusLineContributionItem( CONNECTION_INFO );
-        connectionInfoItem.setText( "" );
 
         userInfoItem = new StatusLineContributionItem( USER_INFO );
         userInfoItem.setText( "" );
@@ -39,9 +41,10 @@ public class StatusLineMessage implements StatusLineTextNotifyCallback
     {
         if (statusLineManager.find( USER_INFO ) == null)
         {
-            if (statusLineManager.find( CONNECTION_INFO ) != null)
+            IContributionItem firstConnectionInfoItem = findFirstConnectionInfoItem();
+            if (firstConnectionInfoItem != null)
             {
-                statusLineManager.insertBefore( CONNECTION_INFO, userInfoItem );
+                statusLineManager.insertBefore( firstConnectionInfoItem.getId(), userInfoItem );
             }
             else
             {
@@ -52,23 +55,62 @@ public class StatusLineMessage implements StatusLineTextNotifyCallback
         userInfoItem.setText( status );
     }
 
+    private IContributionItem findFirstConnectionInfoItem()
+    {
+        Optional<IContributionItem> first = Arrays.asList( statusLineManager.getItems() ).stream()
+                .filter( item -> item.getId().startsWith( CONNECTION_INFO ) ).findFirst();
+
+        if (first.isPresent())
+        {
+            return first.get();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     @Override
-    public void onNewConnectionInfo(String status)
+    public void onNewConnectionEstablished(String connectionName)
     {
 
-        if (statusLineManager.find( CONNECTION_INFO ) == null)
+        StatusLineContributionItem connectionInfoItem = findConnectionItem( CONNECTION_INFO + "." + connectionName );
+        if (connectionInfoItem == null)
         {
-            if (statusLineManager.find( USER_INFO ) != null)
-            {
-                statusLineManager.insertAfter( USER_INFO, connectionInfoItem );
-            }
-            else
-            {
-                statusLineManager.add( connectionInfoItem );
-            }
+            connectionInfoItem = new StatusLineContributionItem( CONNECTION_INFO + "." + connectionName );
+            statusLineManager.add( connectionInfoItem );
         }
 
-        connectionInfoItem.setText( status );
+        connectionInfoItem.setText( connectionName + ": connected" );
+    }
+
+    @Override
+    public void onNewConnectionDataRate(String connectionName, float dataRate)
+    {
+        StatusLineContributionItem connectionInfoItem = findConnectionItem( CONNECTION_INFO + "." + connectionName );
+        connectionInfoItem.setText( connectionName + ": " + (dataRate * 8) / 1000 + " MBit/s" );
+    }
+
+    private StatusLineContributionItem findConnectionItem(String connectionName)
+    {
+        List<IContributionItem> asList = Arrays.asList( statusLineManager.getItems() );
+        Optional<IContributionItem> first = asList.stream().filter( item -> item.getId().equals( connectionName ) )
+                .findFirst();
+
+        if (first.isPresent())
+        {
+            return (StatusLineContributionItem)first.get();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    @Override
+    public void onConnectionClosed(String connectionName)
+    {
+        statusLineManager.remove( CONNECTION_INFO + "." + connectionName );
     }
 
 }

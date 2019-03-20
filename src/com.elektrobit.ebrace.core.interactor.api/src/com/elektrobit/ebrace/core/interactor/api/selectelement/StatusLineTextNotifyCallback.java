@@ -13,5 +13,9 @@ public interface StatusLineTextNotifyCallback
 {
     public void onNewStatus(String status);
 
-    public void onNewConnectionInfo(String status);
+    public void onNewConnectionEstablished(String connectionName);
+
+    public void onNewConnectionDataRate(String connectionName, float dataRate);
+
+    public void onConnectionClosed(String connectionName);
 }

@@ -116,7 +116,7 @@ public class StatusLineTextNotifyUseCaseImpl
             {
                 if (statusCallback != null)
                 {
-                    statusCallback.onNewConnectionInfo( connectionInfo.getName() + ": disconnected" );
+                    statusCallback.onConnectionClosed( connectionInfo.getName() );
                 }
             }
         } );
@@ -126,18 +126,6 @@ public class StatusLineTextNotifyUseCaseImpl
     @Override
     public void onTargetConnecting(ConnectionModel connectionInfo, Set<ConnectionModel> activeConnections)
     {
-        UIExecutor.post( new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                if (statusCallback != null)
-                {
-                    statusCallback.onNewConnectionInfo( connectionInfo.getName() + ": connecting..." );
-                }
-            }
-        } );
-
     }
 
     @Override
@@ -150,7 +138,7 @@ public class StatusLineTextNotifyUseCaseImpl
             {
                 if (statusCallback != null)
                 {
-                    statusCallback.onNewConnectionInfo( connectionInfo.getName() + ": connected" );
+                    statusCallback.onNewConnectionEstablished( connectionInfo.getName() );
                 }
             }
         } );
@@ -167,7 +155,7 @@ public class StatusLineTextNotifyUseCaseImpl
             {
                 if (statusCallback != null)
                 {
-                    statusCallback.onNewConnectionInfo( connectionInfo.getName() + ": " + datarate + " KB/s" );
+                    statusCallback.onNewConnectionDataRate( connectionInfo.getName(), datarate );
                 }
             }
         } );
