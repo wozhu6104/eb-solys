@@ -83,6 +83,7 @@ import com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences;
 import com.elektrobit.ebrace.core.preferences.api.AnalysisTimespanPreferences.ANALYSIS_TIMESPAN_CHANGE_REASON;
 import com.elektrobit.ebrace.core.preferences.api.UserInteractionPreferences;
 import com.elektrobit.ebrace.core.preferences.listener.AnalysisTimespanChangedListener;
+import com.elektrobit.ebrace.core.preferences.listener.UserInteractionPreferencesListener;
 import com.elektrobit.ebrace.viewer.common.ImageCreator;
 import com.elektrobit.ebrace.viewer.common.dnd.RuntimeEventTimestampDragSourceAdapter;
 import com.elektrobit.ebrace.viewer.common.dnd.RuntimeeventChannelDropTargetAdapter;
@@ -131,7 +132,8 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
             TableScriptFiltersNotifyCallback,
             SearchModeChangedListener,
             SelectElementsInteractionCallback,
-            AllChannelsNotifyCallback
+            AllChannelsNotifyCallback,
+            UserInteractionPreferencesListener
 {
     private final String TOOLBAR_ID = "com.elektrobit.ebrace.viewer.runtimeeventloggertable.toolbar";
 
@@ -311,6 +313,11 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
 
         filteredTable.registerComboListener( this );
         filteredTable.registerSearchModeListener( this );
+        if (userInteractionPreferences.isLiveMode())
+        {
+            getTable().getVerticalBar().setVisible( false );
+        }
+
     }
 
     private Composite createRulerComposite()
@@ -338,11 +345,11 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
         filteredTable.getViewer().getTable().setRedraw( false );
         TableColumnWidthProvider widthProvider = new TableColumnWidthProvider( tableContainer.getClientArea().width,
                                                                                valueColumns.size() - 1 );
-        analysisColumn.getColumn()
-                .setWidth( TableColumnWidthProvider.FixedColumnWidths.ANALYSIS_TIMESPAN_COLUMN_WIDTH.getWidth() );
+        // analysisColumn.getColumn()
+        // .setWidth( TableColumnWidthProvider.FixedColumnWidths.ANALYSIS_TIMESPAN_COLUMN_WIDTH.getWidth() );
         timestampColumn.getColumn().setWidth( (int)(widthProvider.getTimestampColumnWidth()) );
         tagColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.TAG_COLUMN_WIDTH.getWidth() );
-        colorColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.COLOR_COLUMN_WIDTH.getWidth() );
+        // colorColumn.getColumn().setWidth( TableColumnWidthProvider.FixedColumnWidths.COLOR_COLUMN_WIDTH.getWidth() );
         valueColumns.stream().forEach( current -> {
             TableColumn currentColumn = current.getColumn();
             currentColumn.setWidth( (int)widthProvider.getCustomColumnWidth() );
@@ -380,10 +387,10 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
 
     private void createColumns()
     {
-        createAnalysisTimespanColumn();
+        // createAnalysisTimespanColumn();
         createTimstampColumn();
         createTagColumn();
-        createColorColumn();
+        // createColorColumn();
         createValueColumn();
         createChannelColumn();
     }
@@ -518,6 +525,7 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
         selectElementsInteractionUseCase = UseCaseFactoryInstance.get().makeSelectElementsInteractionUseCase( this );
 
         allChannelsNotifyUseCase = UseCaseFactoryInstance.get().makeAllChannelsNotifyUseCase( this );
+        userInteractionPreferences.addUserInteractionPreferencesListener( this );
     }
 
     private void refreshMessageDecoder()
@@ -588,6 +596,7 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
     @Override
     public void dispose()
     {
+    	userInteractionPreferences.removeUserInteractionPreferencesListener( this );
         unregisterDecoderUseCase();
         backgroundColorCreator.dispose();
         unregisterListenersAndServices();
@@ -739,7 +748,7 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
             valueColumnLabelProviders.stream().forEach( provider -> provider.setTableData( filterResultData ) );
             ruler.onNewData( filterResultData );
             filteredTable.setTableData( filterResultData, jumpToTableEnd );
-            labelProvider.assignColors( (TableModel)getModel() );
+            // labelProvider.assignColors( (TableModel)getModel() );
         }
     }
 
@@ -887,6 +896,20 @@ public class RuntimeEventLoggerTableEditor extends EditorPart
         if (getModel().getChannels().contains( deletedChannel ))
         {
             getModel().setChannels( getModel().getChannels() );
+        }
+
+    }
+
+    @Override
+    public void onIsLiveModeChanged(boolean isLiveMode)
+    {
+        if (isLiveMode)
+        {
+            getTable().getVerticalBar().setVisible( false );
+        }
+        else
+        {
+            getTable().getVerticalBar().setVisible( true );
         }
 
     }

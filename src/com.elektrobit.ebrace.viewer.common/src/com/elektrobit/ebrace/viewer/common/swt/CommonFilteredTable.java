@@ -160,19 +160,7 @@ public class CommonFilteredTable
         }
         else
         {
-            tableViewer = new TableViewer( tableComposite, style )
-            {
-                @Override
-                public void setItemCount(int count)
-                {
-                    if (count == 0)
-                    {
-                        unmapAllElements();
-                        doSetItemCount( count );
-                    }
-                    super.setItemCount( count );
-                }
-            };
+            tableViewer = new TableViewer( tableComposite, style );
             table = tableViewer.getTable();
         }
     }
@@ -637,6 +625,13 @@ public class CommonFilteredTable
             if (isNotScrollLocked() && isTableNotEmpty() && jumpToTableEnd)
             {
                 showLatestTableItem();
+            }
+            // Update viewer in virtual mode,
+            // because if setItemCount size is not changing
+            // viewer will not be updated
+            if (virtualTableViewer)
+            {
+                tableViewer.refresh();
             }
             searchFieldComposite.layout();
         }

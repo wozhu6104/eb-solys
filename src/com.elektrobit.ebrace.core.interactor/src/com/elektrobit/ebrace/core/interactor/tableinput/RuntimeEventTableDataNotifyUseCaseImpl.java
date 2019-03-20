@@ -152,10 +152,10 @@ public class RuntimeEventTableDataNotifyUseCaseImpl
         {
             return;
         }
-        if (plannedRunnable != null)
+        RuntimeEventTableDataWorker runnableCopy = plannedRunnable;
+        if (runnableCopy != null)
         {
             runnableRunning = true;
-            RuntimeEventTableDataWorker runnableCopy = plannedRunnable;
             plannedRunnable = null;
             UseCaseExecutor
                     .schedule( new UseCaseRunnable( "RuntimeEventTableDataNotifyUseCase.postWaitingRunnableIfAny",
@@ -203,7 +203,14 @@ public class RuntimeEventTableDataNotifyUseCaseImpl
         List<RuntimeEvent<?>> events = runtimeEventProvider
                 .getRuntimeEventForTimeStampIntervalForChannels( timespanStart, timespanEnd, channels );
 
-        return events;
+        if (userInteractionPreferences.isLiveMode() && events.size() > 100)
+        {
+            return events.subList( events.size() - 100, events.size() );
+        }
+        else
+        {
+            return events;
+        }
     }
 
     private TableData applySearchOrFilter(List<RuntimeEvent<?>> collectedTableItems, String searchText,

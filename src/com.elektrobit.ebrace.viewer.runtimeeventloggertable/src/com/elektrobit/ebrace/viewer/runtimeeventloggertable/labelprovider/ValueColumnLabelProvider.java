@@ -65,14 +65,13 @@ public class ValueColumnLabelProvider extends StyledCellLabelProvider implements
     @Override
     public void update(ViewerCell cell)
     {
-        super.update( cell );
 
         Object element = cell.getElement();
         cell.setText( getText( element ) );
         cell.setBackground( getBackground( element ) );
         cell.setFont( getFont( element ) );
 
-        markSearchOccurences( cell );
+         markSearchOccurences( cell );
     }
 
     private void markSearchOccurences(ViewerCell cell)
