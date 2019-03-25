@@ -112,6 +112,20 @@
       <description></description>
     </setupTask>
     <setupTask
+        xsi:type="setup.p2:P2Task"
+        id="EASE"
+        label="EASE Scripting">
+      <requirement
+          name="org.eclipse.ease.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.ease.ui.feature.feature.group"/>
+      <requirement
+          name="org.eclipse.ease.lang.jvm.feature.feature.group"/>
+      <repository
+          url="http://download.eclipse.org/ease/update/release"/>
+      <description></description>
+    </setupTask>
+    <setupTask
         xsi:type="setup:CompoundTask"
         name="Preferences">
       <setupTask
@@ -246,10 +260,9 @@
       </workingSet>
     </setupTask>
     <setupTask
-	    xsi:type="setup:CompoundTask"
-	    filter="(osgi.os=linux)"
-	    name="OnlyLinux"
-	    >
+        xsi:type="setup:CompoundTask"
+        filter="(osgi.os=linux)"
+        name="OnlyLinux">
       <setupTask
           xsi:type="setup:EclipseIniTask"
           id="gtk2"
