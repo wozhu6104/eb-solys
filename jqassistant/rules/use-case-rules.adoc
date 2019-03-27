@@ -1,0 +1,72 @@
+[[use-case-rules:UseCaseConcept]]
+.All interfaces which implement the *BaseUseCase* interface are treated as Use Case Interfaces.
+[source,cypher,role=concept]
+----
+MATCH
+  (uc:Java:Interface) -[:IMPLEMENTS]-> (i:Java:Interface {name: 'BaseUseCase'})
+SET
+  uc:UseCase
+RETURN
+  uc AS UseCase
+----
+
+[[use-case-rules:UseCaseNamingConstraint]]
+.Use Case Interfaces have a naming conventions. The interfaces should have a prefix *Interaction* or *Notify*.
+[source,cypher,role=constraint,requiresConcepts="use-case-rules:UseCaseConcept"]
+----
+MATCH
+  (u:UseCase)
+WHERE NOT
+  u.name =~ ".*(Interaction|Notify)UseCase"
+RETURN
+  u AS UseCaseWithWrongNaming
+----
+
+
+[[use-case-rules:UseCaseImplNamingConstraint]]
+.Use Case Implementations have naming conventions. The classes should have a prefix *Interaction* or *Notify*.
+[source,cypher,role=constraint,requiresConcepts="use-case-rules:UseCaseConcept"]
+----
+MATCH
+  (c:Java:Class) -[:IMPLEMENTS]-> (u:UseCase)
+WHERE NOT
+  c.name =~ ".*(Interaction|Notify)UseCaseImpl"
+RETURN
+  c AS UseCaseImplWithWrongNaming
+----
+
+[[use-case-rules:UseCaseConstructingConstraint]]
+.Use Cases can only be constructed by the Factory *UseCaseFactoryServiceImpl* or by a *Test*
+[source,cypher,role=constraint,requiresConcepts="use-case-rules:UseCaseConcept"]
+----
+MATCH
+  (creator:Java:Class) -[:DECLARES]-> (m:Method) -[:INVOKES]-> (c:Constructor) <-[:DECLARES]- (impl:Java:Class) -[:IMPLEMENTS]-> (u:UseCase)
+WHERE NOT
+  (creator.name ENDS WITH 'Test' OR creator.name = 'UseCaseFactoryServiceImpl')
+RETURN
+  creator AS UseCaseCreator
+----
+
+[[basic-rules:NotImplemented]]
+.Checks for interfaces in the project, which have no concrete implementation
+[source,cypher,role=constraint]
+----
+MATCH
+  (i:Java:Interface) -[:DECLARES]-> (m:Method {visibility: 'public'})
+WHERE NOT
+  (:Type)-[:IMPLEMENTS]->(i)
+RETURN
+  i.fqn, count(m) as methods
+ORDER BY
+  methods DESC
+----
+
+[[basic-rules:BasicGroup]]
+.Checking general constraints.
+[role=group,includesConstraints="basic-rules:NotImplemented"]
+== Basic Checks
+
+[[use-case-rules:UseCaseGroup]]
+.Checking constraints regarding the Use Case paradigm
+[role=group,includesConstraints="use-case-rules:UseCaseNamingConstraint, use-case-rules:UseCaseImplNamingConstraint, use-case-rules:UseCaseConstructingConstraint"]
+== Use Case Checks

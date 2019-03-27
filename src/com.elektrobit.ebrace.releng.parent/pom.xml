@@ -26,13 +26,19 @@
 				  <goals>
 					<goal>scan</goal>
 					<goal>analyze</goal>
+					<goal>report</goal>
 				  </goals>
 				  <configuration>
+					<groups>
+						<group>basic-rules:BasicGroup</group>
+						<group>use-case-rules:UseCaseGroup</group>
+					</groups>
 					<warnOnSeverity>INFO</warnOnSeverity>
-					<failOnSeverity>MAJOR</failOnSeverity>
+					<failOnSeverity>CRITICAL</failOnSeverity>
 					<store>
 						<uri>file:../../jqassistant/store</uri>
 					</store>
+					<rulesDirectory>../../jqassistant/rules</rulesDirectory>
 					<useExecutionRootAsProjectRoot>true</useExecutionRootAsProjectRoot>					
 				  </configuration>
 				</execution>
