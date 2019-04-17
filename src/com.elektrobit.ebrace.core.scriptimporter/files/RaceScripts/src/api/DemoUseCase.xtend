@@ -38,7 +38,7 @@ class DemoUseCase
 	def createChartForProcessActivity() {
 		val timeSegmentChannels = newArrayList
 		activeProcessChannels.forEach[
-			val processName = name.split("\\.").get(2)
+			val processName = name.split("\\.").get(4)
 			val timeSegmentChannel = createOrGetTimeSegmentChannel("activity." + processName, "")
 			events.tokenizeAboveThreshold(ACTIVITY_THRESHOLD).forEach[
 				timeSegmentChannel.add(it.head, it.last)
@@ -78,7 +78,7 @@ class DemoUseCase
 	 */
 	def createSomeMarkers() {
 		getChannel("demo-solys-data.bin.trace.dbus.sessionbus").events.filter[(value as ProtoMessageValue).summary.contains("StartGuidance")].forEach[
-			if(decode.getFirstValue("type").equals("DBUS_MSG_TYPE_METHOD_CALL")) {
+			if(decode.getFirstValue("Message Type").equals("Request")) {
 				createTimemarker(timestamp, "START_GUIDANCE")
 			}
 		] 
