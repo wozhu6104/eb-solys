@@ -56,7 +56,7 @@ MATCH
 WHERE NOT
   (:Type)-[:IMPLEMENTS]->(i)
 RETURN
-  i.fqn, count(m) as methods
+  i.fqn as Interface, count(m) as NumberOfMethods
 ORDER BY
   methods DESC
 ----
