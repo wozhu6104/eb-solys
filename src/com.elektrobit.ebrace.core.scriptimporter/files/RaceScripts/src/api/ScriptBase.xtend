@@ -257,7 +257,21 @@ class ScriptBase {
 		val htmlView = createOrGetHtmlView(htmlViewName)
 		htmlView.content = 
 		'''
-			<html><object data="«pathToPNG»" type="image/png"/></html>
+		<html>
+		<head>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<script type="text/javascript">
+				function reloadImg() {
+					d = new Date();
+					$("#imageId").attr("src", "«pathToPNG»?"+d.getTime());		
+				}
+			</script>
+		</head>
+		<body>
+			<img id="imageId" />
+			<script type="text/javascript">reloadImg()</script>
+		</body>
+		</html>
 		'''
 	}
 	
