@@ -3,8 +3,6 @@ target "EB solys"
 location "http://download.eclipse.org/releases/neon" {
 	org.eclipse.equinox.executable.feature.group
 	org.eclipse.rcp.feature.group
-	org.eclipse.emf.ecore.feature.group
-	org.eclipse.emf.common.feature.group
 	org.eclipse.equinox.p2.core.feature.feature.group
 	org.junit
 	org.eclipse.zest.feature.group
@@ -15,6 +13,8 @@ location "http://download.eclipse.org/releases/neon" {
 }
 
 location "http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases" {
+	org.eclipse.emf.ecore.feature.group [2.16.0,2.17.0)
+	org.eclipse.emf.common.feature.group[2.16.0,2.17.0)
 	org.eclipse.xtend.sdk.feature.group [2.15.0,2.16.0)
 	org.eclipse.xtext.runtime.feature.group [2.15.0,2.16.0)
 	org.eclipse.xtext.sdk.feature.group [2.15.0,2.16.0)
@@ -95,7 +95,7 @@ location "http://download.eclipse.org/tools/cdt/releases/9.2" {
 
 }
 location "https://ftp.fau.de/eclipse/linuxtools/update/" {
-	org.eclipse.linuxtools.dataviewers.feature.feature.group [7.1.0,7.2.0)
+	org.eclipse.linuxtools.dataviewers.feature.feature.group [7.3.0,7.3.1)
 	org.swtchart
 }
 //Tracecompass END
