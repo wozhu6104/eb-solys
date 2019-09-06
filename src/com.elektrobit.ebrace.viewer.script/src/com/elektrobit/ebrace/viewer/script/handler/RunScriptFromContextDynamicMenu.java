@@ -54,7 +54,7 @@ import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarker;
 
 public class RunScriptFromContextDynamicMenu extends ContributionItem
 {
-    private static final String MENU_TEXT_RUN_SCRIPT = "Run Script";
+    private static final String MENU_TEXT_RUN_SCRIPT = "More";
     private final GenericOSGIServiceTracker<ResourcesModelManager> resourceManagerTracker = new GenericOSGIServiceTracker<ResourcesModelManager>( ResourcesModelManager.class );
     private final ResourceManager resourceManager = new LocalResourceManager( JFaceResources.getResources() );
     private final RunScriptInteractionUseCase runScriptUseCase = UseCaseFactoryInstance.get()
