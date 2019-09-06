@@ -28,7 +28,8 @@ Require-Bundle: org.eclipse.ui,
  com.elektrobit.ebrace.core.interactor.api;bundle-version="1.0.0",
  com.elektrobit.ebrace.resources.api,
  com.elektrobit.ebrace.dev.usestatlogsannotationloader,
- com.elektrobit.ebrace.core.racescriptexecutor.api;bundle-version="1.0.0"
+ com.elektrobit.ebrace.core.racescriptexecutor.api;bundle-version="1.0.0",
+ com.google.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: com.elektrobit.ebrace.viewer.runtimeeventloggertable.editor,

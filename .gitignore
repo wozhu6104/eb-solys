@@ -27,3 +27,13 @@ src/buildroot/**/*
 
 # JQassist
 /jqassistant/store/
+
+# Unneeded Eclipse product files
+src/com.elektrobit.ebrace.releng.ui.ecl.product/icons/embedded.png
+src/com.elektrobit.ebrace.releng.ui.ecl.product/icons/af.png
+src/com.elektrobit.ebrace.releng.ui.ecl.product/icons/enterprise.png
+src/com.elektrobit.ebrace.releng.ui.ecl.product/icons/languages.png
+src/com.elektrobit.ebrace.releng.ui.ecl.product/icons/rcp.png
+src/com.elektrobit.ebrace.releng.ui.ecl.product/splash.bmp
+src/com.elektrobit.ebrace.releng.ui.ecl.product/schema/splashExtension.exsd
+src/com.elektrobit.ebrace.releng.ui.ecl.product/com/elektrobit/ebrace/application/splashHandlers

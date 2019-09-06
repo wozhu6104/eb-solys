@@ -33,7 +33,8 @@ Require-Bundle: com.elektrobit.ebrace.core.targetdata.api,
  org.apache.commons.io,
  com.elektrobit.ebrace.core.scriptannotation,
  com.elektrobit.ebrace.core.systemmodel,
- com.google.gson;bundle-version="2.1.0"
+ com.google.gson;bundle-version="2.1.0",
+ com.google.collect
 Bundle-ActivationPolicy: lazy
 Eclipse-ExtensibleAPI: true
 Export-Package: com.elektrobit.ebrace.app.racescriptexecutor.impl.service
