@@ -37,6 +37,10 @@
             id="com.elektrobit.ebrace.viewer.channelsview.createEventMapFromChannels"
             name="Show In Snapshot [PRO]">
       </command>
+      <command
+            id="com.elektrobit.ebrace.viewer.channelsview.copyToScript"
+            name="Copy for usage in script">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -51,6 +55,10 @@
       <handler
             class="com.elektrobit.ebrace.viewer.channelsview.handler.CreateNewEventMapFromSelectedChannelsHandler"
             commandId="com.elektrobit.ebrace.viewer.channelsview.createEventMapFromChannels">
+      </handler>
+      <handler
+            class="com.elektrobit.ebrace.viewer.channelsview.handler.CopyToScriptHandler"
+            commandId="com.elektrobit.ebrace.viewer.channelsview.copyToScript">
       </handler>
    </extension>
    <extension
@@ -100,6 +108,10 @@
          </command>
          <command
                commandId="com.elektrobit.ebrace.viewer.channelsview.createEventMapFromChannels"
+               style="push">
+         </command>
+         <command
+               commandId="com.elektrobit.ebrace.viewer.channelsview.copyToScript"
                style="push">
          </command>
       </menuContribution>
