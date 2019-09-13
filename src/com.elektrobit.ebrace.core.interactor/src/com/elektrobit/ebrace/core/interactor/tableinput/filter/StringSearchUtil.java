@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import com.elektrobit.ebrace.core.interactor.api.table.Position;
 
@@ -21,12 +22,19 @@ public class StringSearchUtil
     public static List<Position> getPositionsOfString(String text, String searchWord)
     {
         List<Position> positionList = new ArrayList<Position>();
-        Pattern p = Pattern.compile( searchWord, Pattern.LITERAL );
-        Matcher m = p.matcher( text.toLowerCase() );
-        while (m.find())
+        try
         {
-            Position position = new Position( m.start(), searchWord.length() );
-            positionList.add( position );
+            Pattern p = Pattern.compile( searchWord, 0 );
+            Matcher m = p.matcher( text.toLowerCase() );
+            while (m.find())
+            {
+                Position position = new Position( m.start(), m.end() - m.start() );
+                positionList.add( position );
+            }
+        }
+        catch (PatternSyntaxException e)
+        {
+            System.out.println( e.getMessage() );
         }
         return positionList;
     }
@@ -36,7 +44,9 @@ public class StringSearchUtil
         for (String word : excludedFilteredWords)
         {
             if (text.contains( word ))
+            {
                 return true;
+            }
         }
         return false;
     }
