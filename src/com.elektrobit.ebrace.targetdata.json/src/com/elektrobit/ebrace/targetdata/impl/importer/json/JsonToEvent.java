@@ -84,7 +84,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
     public void handle(JsonEvent event)
     {
         ComRelation comRelation = handleComRelationCreation( event );
-        if (event.getDuration() != null)
+        if (event.getDuration() != null && event.getDuration() > 0)
         {
             handleTimeSegmentEventCreation( event, comRelation );
         }
@@ -179,8 +179,7 @@ public class JsonToEvent implements NodeAgent<TreeNode>
             runtimeEventAcceptor.acceptEventMicros( event.getUptime(),
                                                     runtimeEventAcceptor.getRuntimeEventChannel( event.getChannel() ),
                                                     relation,
-                                                    event.toString(),
-                                                    (String)event.getValue().getSummary() );
+                                                    event.toString() );
         }
     }
 

@@ -1,5 +1,6 @@
 package api
 
+import com.elektrobit.ebsolys.core.targetdata.api.decoder.DecodedNode
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.TimebasedObject
 import com.elektrobit.ebsolys.script.external.ScriptContext
@@ -220,6 +221,57 @@ class ScriptBase {
 	 */
 	def getTimemarkers(String mname) {
 		allTimemarkers.filter[name.equals(mname)]
+	}
+	
+	/**
+	 * Retrieve the decoded node from a runtime event by a given json path expression
+	 * No wild-card or filter expressions are supported for now.
+	 * Only full path names with array indices are supported
+	 * If you need the value of the node, you need to call extract('$.').value
+	 * @param event The given runtime event
+	 * @param path The json path expression, e.g. '$.a.b.c' or '$.a[1].b.c[0]' 
+	 * 
+	 */
+	def extract(RuntimeEvent<?> event, String path)
+	{
+		val p = path.replaceAll('\\[\\s*(\\d+)\\s*\\]', '\\.\\<$1\\>')
+		
+		if(path.startsWith('$.'))
+		{
+			event.decode.decodedTree.rootNode.extract(p.substring(2))			
+		}
+		else
+		{
+			event.decode.decodedTree.rootNode.extract(p)						
+		}				
+	}
+
+	def extract(DecodedNode node, String path)
+	{
+		val tokens = path.split('\\.')
+		node.jsonPathResult(tokens.head, tokens.tail)				
+	}
+
+
+	private def DecodedNode jsonPathResult(DecodedNode node, String head, Iterable<String> tail) 
+	{						
+		val nextNode = node.children.filter[name.equals(head)].head
+				
+		if(nextNode !== null)
+		{			
+			if(!tail.empty)
+			{
+				return jsonPathResult(nextNode, tail.head, tail.tail)
+			}
+			else 
+			{
+				return nextNode
+			}	
+		}
+		else 
+		{
+			return null
+		}		
 	}
 	
 	/**
