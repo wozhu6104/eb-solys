@@ -59,24 +59,23 @@ public class AnnotationHelper
                 if (annotation instanceof Execute)
                 {
 
-                    listOfMethods.add( new RaceScriptMethod( method.getName(),
-                                                             ((Execute)annotation).description(),
-                                                             scriptName,
-                                                             method,
-                                                             ((Execute)annotation).restrictedTo() ) );
+                    listOfMethods
+                            .add( new RaceScriptMethod( method.getName(),
+                                                        ((Execute)annotation).description(),
+                                                        scriptName,
+                                                        method ) );
                 }
                 else if (annotation instanceof Filter)
                 {
                     listOfMethods.add( new RaceScriptMethod( method.getName(),
                                                              ((Filter)annotation).description(),
                                                              scriptName,
-                                                             method,
-                                                             ((Execute)annotation).restrictedTo() ) );
+                                                             method ) );
 
                 }
                 else
                 {
-                    listOfMethods.add( new RaceScriptMethod( method.getName(), "", scriptName, method, "" ) );
+                    listOfMethods.add( new RaceScriptMethod( method.getName(), "", scriptName, method ) );
                 }
             }
         }

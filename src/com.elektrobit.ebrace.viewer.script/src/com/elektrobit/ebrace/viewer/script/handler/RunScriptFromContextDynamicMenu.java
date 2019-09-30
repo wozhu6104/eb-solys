@@ -9,6 +9,8 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.viewer.script.handler;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +53,7 @@ import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.ChannelT
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarker;
+import com.elektrobit.ebsolys.script.external.Matches;
 
 public class RunScriptFromContextDynamicMenu extends ContributionItem
 {
@@ -662,7 +665,21 @@ public class RunScriptFromContextDynamicMenu extends ContributionItem
 
     private boolean isApplicableForChannel(RaceScriptMethod method, RuntimeEventChannel<?> selectedChannel)
     {
-        return (method.getRestricted().equals( "" ) || method.getRestricted().equals( selectedChannel.getName() ));
+        String restriction = "";
+
+        if (method.getMethod().getParameterCount() == 1)
+        {
+            Parameter arg = method.getMethod().getParameters()[0];
+            for (Annotation argAnnotation : arg.getAnnotations())
+            {
+                if (argAnnotation instanceof Matches)
+                {
+                    restriction = ((Matches)argAnnotation).name();
+                }
+            }
+        }
+
+        return (restriction.equals( "" ) || restriction.equals( selectedChannel.getName() ));
     }
 
     private List<RaceScriptInfo> getChannelContextScripts()

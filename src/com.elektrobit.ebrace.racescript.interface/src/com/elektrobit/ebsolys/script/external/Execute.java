@@ -46,6 +46,4 @@ public @interface Execute {
 
     String description() default "";
 
-    String restrictedTo() default "";
-
 }

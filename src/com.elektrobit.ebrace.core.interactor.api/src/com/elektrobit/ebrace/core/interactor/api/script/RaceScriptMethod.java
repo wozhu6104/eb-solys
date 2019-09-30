@@ -20,14 +20,11 @@ public class RaceScriptMethod
     private final String description;
     private final String scriptName;
     private final Method method;
-    private final String restricted;
 
     public String getLabelText()
     {
         if (description == null || description.isEmpty())
-        {
             return scriptName + "." + methodName;
-        }
         return description;
     }
 }
