@@ -641,20 +641,28 @@ public class RunScriptFromContextDynamicMenu extends ContributionItem
         {
             for (RaceScriptMethod channelMethod : script.getChannelMethods())
             {
-                menuItem = new MenuItem( menu, SWT.CHECK );
-                menuItem.setText( channelMethod.getLabelText() );
+                if (isApplicableForChannel( channelMethod, selectedChannel ))
+                {
+                    menuItem = new MenuItem( menu, SWT.CHECK );
+                    menuItem.setText( channelMethod.getLabelText() );
 
-                ImageDescriptor icon = ViewerScriptPlugin.getDefault().getImageDescriptor( "icons/script.gif" );
-                menuItem.setImage( icon.createImage() );
-                menuItem.addSelectionListener( getChannelMethodSelectionListener( script,
-                                                                                  channelMethod.getMethodName(),
-                                                                                  selectedChannel ) );
+                    ImageDescriptor icon = ViewerScriptPlugin.getDefault().getImageDescriptor( "icons/script.gif" );
+                    menuItem.setImage( icon.createImage() );
+                    menuItem.addSelectionListener( getChannelMethodSelectionListener( script,
+                                                                                      channelMethod.getMethodName(),
+                                                                                      selectedChannel ) );
+                }
             }
         }
         else
         {
             createScriptRunningMenuItem( menu, script );
         }
+    }
+
+    private boolean isApplicableForChannel(RaceScriptMethod method, RuntimeEventChannel<?> selectedChannel)
+    {
+        return (method.getRestricted().equals( "" ) || method.getRestricted().equals( selectedChannel.getName() ));
     }
 
     private List<RaceScriptInfo> getChannelContextScripts()

@@ -35,11 +35,10 @@ public class ScriptMethodFinderTest
     @Before
     public void setup()
     {
-        scriptMethodFinder = new GlobalScriptRunPart( mock( ScriptExecutorService.class ),
-                                                           new ScriptMethodFinder() );
+        scriptMethodFinder = new GlobalScriptRunPart( mock( ScriptExecutorService.class ), new ScriptMethodFinder() );
         scriptInfo = mock( RaceScriptInfo.class );
-        scriptMethodExecute = new RaceScriptMethod( "execute", "", "HelloWorld", null );
-        scriptMethodDummy = new RaceScriptMethod( "dummy", "", "HelloWorld", null );
+        scriptMethodExecute = new RaceScriptMethod( "execute", "", "HelloWorld", null, "" );
+        scriptMethodDummy = new RaceScriptMethod( "dummy", "", "HelloWorld", null, "" );
         when( scriptInfo.getGlobalMethods() ).thenReturn( Arrays.asList( scriptMethodDummy, scriptMethodExecute ) );
     }
 

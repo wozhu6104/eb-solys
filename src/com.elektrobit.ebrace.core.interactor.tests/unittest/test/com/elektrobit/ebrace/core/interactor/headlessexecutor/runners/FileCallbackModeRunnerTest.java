@@ -74,7 +74,7 @@ public class FileCallbackModeRunnerTest
     {
         when( genericScriptRunner.paramsOk( script, methodName ) ).thenReturn( false );
         when( script.getCallbackMethods() )
-                .thenReturn( Arrays.asList( new RaceScriptMethod( methodName, "noDescription", "Script", null ) ) );
+                .thenReturn( Arrays.asList( new RaceScriptMethod( methodName, "noDescription", "Script", null, "" ) ) );
 
         assertFalse( "Expecting params not ok, if genericScriptRunner params not ok.",
                      fileCallbackModeRunner.paramsOk( "", script, methodName ) );
@@ -85,7 +85,7 @@ public class FileCallbackModeRunnerTest
     {
         when( genericScriptRunner.paramsOk( script, methodName ) ).thenReturn( true );
         when( script.getCallbackMethods() )
-                .thenReturn( Arrays.asList( new RaceScriptMethod( methodName, "noDescription", "Script", null ) ) );
+                .thenReturn( Arrays.asList( new RaceScriptMethod( methodName, "noDescription", "Script", null, "" ) ) );
 
         assertTrue( "Expecting params ok, if callback methods exists and genericScriptRunner params ok.",
                     fileCallbackModeRunner.paramsOk( "", script, methodName ) );

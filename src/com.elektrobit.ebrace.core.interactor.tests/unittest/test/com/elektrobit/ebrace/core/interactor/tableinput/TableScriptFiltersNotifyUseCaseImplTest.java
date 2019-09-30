@@ -46,8 +46,8 @@ public class TableScriptFiltersNotifyUseCaseImplTest extends UseCaseBaseTest imp
         mockedResourcesModelManager = mock( ResourcesModelManager.class );
 
         RaceScriptMethod[] methodsArray = new RaceScriptMethod[]{
-                new RaceScriptMethod( "methodOne", "", SCRIPT_ONE_NAME, null ),
-                new RaceScriptMethod( "methodTwo", "", SCRIPT_ONE_NAME, null )};
+                new RaceScriptMethod( "methodOne", "", SCRIPT_ONE_NAME, null, "" ),
+                new RaceScriptMethod( "methodTwo", "", SCRIPT_ONE_NAME, null, "" )};
 
         List<RaceScriptResourceModel> scriptModelList = new ArrayList<>();
         scriptModelList.add( createScriptModelWithMethods( Arrays.asList( methodsArray ) ) );
@@ -82,7 +82,7 @@ public class TableScriptFiltersNotifyUseCaseImplTest extends UseCaseBaseTest imp
     public void testUpdateWithNewScript() throws Exception
     {
         RaceScriptMethod[] script2Methods = new RaceScriptMethod[]{
-                new RaceScriptMethod( "methodThree", "", "scriptThree", null )};
+                new RaceScriptMethod( "methodThree", "", "scriptThree", null, "" )};
         RaceScript mockedScript2 = mock( RaceScript.class );
         when( mockedScript2.getFilterMethods() ).thenReturn( Arrays.asList( script2Methods ) );
         when( mockedScript2.getName() ).thenReturn( "scriptThree" );
@@ -106,8 +106,8 @@ public class TableScriptFiltersNotifyUseCaseImplTest extends UseCaseBaseTest imp
     private void postUpdateWithOneChangedMethod()
     {
         RaceScriptMethod[] methodsArray = new RaceScriptMethod[]{
-                new RaceScriptMethod( "methodOne", "", SCRIPT_ONE_NAME, null ),
-                new RaceScriptMethod( "methodTwoNew", "", SCRIPT_ONE_NAME, null )};
+                new RaceScriptMethod( "methodOne", "", SCRIPT_ONE_NAME, null, "" ),
+                new RaceScriptMethod( "methodTwoNew", "", SCRIPT_ONE_NAME, null, "" )};
         when( mockedScript.getFilterMethods() ).thenReturn( Arrays.asList( methodsArray ) );
 
         sutScriptFilterNotifyUseCase.filterMethodsChanged( mockedScript, Arrays.asList( methodsArray ) );
