@@ -28,5 +28,6 @@ Bundle-ActivationPolicy: lazy
 Eclipse-ExtensibleAPI: true
 Import-Package: com.elektrobit.ebrace.core.importerregistry.api
 Service-Component: OSGI-INF/com.elektrobit.ebrace.targetdata.importer.internal.racefile.RaceFileImporterProxy.xml,
- OSGI-INF/com.elektrobit.ebrace.targetdata.importer.internal.NetworkDataImporter.xml
+ OSGI-INF/com.elektrobit.ebrace.targetdata.importer.internal.NetworkDataImporter.xml,
+ OSGI-INF/com.elektrobit.ebrace.targetdata.importer.impl.ansible.AnsibleLogImporterService.xml
 
