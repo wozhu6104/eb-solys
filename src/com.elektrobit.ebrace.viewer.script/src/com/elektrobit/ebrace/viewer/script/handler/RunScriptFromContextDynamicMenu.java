@@ -47,6 +47,7 @@ import com.elektrobit.ebrace.viewer.common.timemarker.views.TimeMarkersView;
 import com.elektrobit.ebrace.viewer.common.view.ITableViewerView;
 import com.elektrobit.ebrace.viewer.script.ViewerScriptPlugin;
 import com.elektrobit.ebrace.viewer.script.util.InjectedParamsDialog;
+import com.elektrobit.ebrace.viewer.script.util.ScriptMethodContextCheck;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.ChannelTreeNode;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
@@ -641,14 +642,17 @@ public class RunScriptFromContextDynamicMenu extends ContributionItem
         {
             for (RaceScriptMethod channelMethod : script.getChannelMethods())
             {
-                menuItem = new MenuItem( menu, SWT.CHECK );
-                menuItem.setText( channelMethod.getLabelText() );
+                if (ScriptMethodContextCheck.isChannelMatching( channelMethod, selectedChannel ))
+                {
+                    menuItem = new MenuItem( menu, SWT.CHECK );
+                    menuItem.setText( channelMethod.getLabelText() );
 
-                ImageDescriptor icon = ViewerScriptPlugin.getDefault().getImageDescriptor( "icons/script.gif" );
-                menuItem.setImage( icon.createImage() );
-                menuItem.addSelectionListener( getChannelMethodSelectionListener( script,
-                                                                                  channelMethod.getMethodName(),
-                                                                                  selectedChannel ) );
+                    ImageDescriptor icon = ViewerScriptPlugin.getDefault().getImageDescriptor( "icons/script.gif" );
+                    menuItem.setImage( icon.createImage() );
+                    menuItem.addSelectionListener( getChannelMethodSelectionListener( script,
+                                                                                      channelMethod.getMethodName(),
+                                                                                      selectedChannel ) );
+                }
             }
         }
         else
