@@ -94,7 +94,8 @@ location "http://download.eclipse.org/tools/cdt/releases/9.2" {
 	org.eclipse.cdt.core.native
 
 }
-location "https://ftp.fau.de/eclipse/linuxtools/update/" {
+
+location "https://ftp.fau.de/eclipse/linuxtools/update-7.3.0/" {
 	org.eclipse.linuxtools.dataviewers.feature.feature.group [7.3.0,7.3.1)
 	org.swtchart
 }
