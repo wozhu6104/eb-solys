@@ -9,8 +9,6 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.viewer.script.handler;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,11 +47,11 @@ import com.elektrobit.ebrace.viewer.common.timemarker.views.TimeMarkersView;
 import com.elektrobit.ebrace.viewer.common.view.ITableViewerView;
 import com.elektrobit.ebrace.viewer.script.ViewerScriptPlugin;
 import com.elektrobit.ebrace.viewer.script.util.InjectedParamsDialog;
+import com.elektrobit.ebrace.viewer.script.util.ScriptMethodContextCheck;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.ChannelTreeNode;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEvent;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel;
 import com.elektrobit.ebsolys.core.targetdata.api.timemarker.TimeMarker;
-import com.elektrobit.ebsolys.script.external.Matches;
 
 public class RunScriptFromContextDynamicMenu extends ContributionItem
 {
@@ -644,7 +642,7 @@ public class RunScriptFromContextDynamicMenu extends ContributionItem
         {
             for (RaceScriptMethod channelMethod : script.getChannelMethods())
             {
-                if (isApplicableForChannel( channelMethod, selectedChannel ))
+                if (ScriptMethodContextCheck.isChannelMatching( channelMethod, selectedChannel ))
                 {
                     menuItem = new MenuItem( menu, SWT.CHECK );
                     menuItem.setText( channelMethod.getLabelText() );
@@ -661,25 +659,6 @@ public class RunScriptFromContextDynamicMenu extends ContributionItem
         {
             createScriptRunningMenuItem( menu, script );
         }
-    }
-
-    private boolean isApplicableForChannel(RaceScriptMethod method, RuntimeEventChannel<?> selectedChannel)
-    {
-        String restriction = "";
-
-        if (method.getMethod().getParameterCount() == 1)
-        {
-            Parameter arg = method.getMethod().getParameters()[0];
-            for (Annotation argAnnotation : arg.getAnnotations())
-            {
-                if (argAnnotation instanceof Matches)
-                {
-                    restriction = ((Matches)argAnnotation).name();
-                }
-            }
-        }
-
-        return (restriction.equals( "" ) || restriction.equals( selectedChannel.getName() ));
     }
 
     private List<RaceScriptInfo> getChannelContextScripts()
