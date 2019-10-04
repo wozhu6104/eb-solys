@@ -10,6 +10,7 @@
 package com.elektrobit.ebrace.targetdata.adapter.log4jtargetadapter.internal;
 
 import com.elektrobit.ebrace.common.utils.JsonHelper;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventEdge;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
@@ -49,7 +50,7 @@ public class Log4jRuntimeEventCreator
                 JsonEventValue value = new JsonEventValue( makeSummaryHeader( eventEdge ) + details.toString(),
                                                            details );
                 JsonEvent evt = new JsonEvent( timestamp.getTimeInMillis()
-                        * 1000, parsedMessage.getLogLevel(), value, null, eventEdge );
+                        * 1000, new JsonChannel( parsedMessage.getLogLevel(), "", "TEXT" ), value, null, eventEdge );
 
                 jsonEventHandler.handle( evt );
             }

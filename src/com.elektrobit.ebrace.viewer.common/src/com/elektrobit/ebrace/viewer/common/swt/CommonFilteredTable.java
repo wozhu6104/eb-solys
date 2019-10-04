@@ -35,7 +35,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -53,7 +52,6 @@ import com.elektrobit.ebrace.viewer.common.constants.ActionIdConstants;
 import com.elektrobit.ebrace.viewer.common.listeners.FilteredTextFieldModifyListener;
 import com.elektrobit.ebrace.viewer.common.listeners.SearchTextComboHandler;
 import com.elektrobit.ebrace.viewer.common.listeners.TableLockState;
-import com.elektrobit.ebrace.viewer.common.util.ScrollbarListener;
 import com.elektrobit.ebrace.viewer.common.util.TableLockMouseWheelListener;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.TimebasedObject;
 
@@ -192,8 +190,6 @@ public class CommonFilteredTable
 
         table.addMouseWheelListener( new TableLockMouseWheelListener( this ) );
 
-        ScrollBar scrollBar = table.getVerticalBar();
-        scrollBar.addSelectionListener( new ScrollbarListener( this ) );
     }
 
     public void onScrollbarSelected()

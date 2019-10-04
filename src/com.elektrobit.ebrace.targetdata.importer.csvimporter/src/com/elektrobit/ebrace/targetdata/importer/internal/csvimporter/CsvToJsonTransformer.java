@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
 import com.elektrobit.ebrace.targetdata.importer.internal.csvimporter.api.Transformer;
@@ -124,12 +125,15 @@ public class CsvToJsonTransformer implements Transformer
 
         JsonEvent event = new JsonEvent( Long
                 .parseLong( resolvePropertyValueFromFields( CsvSpecification.UPTIME_TAG, eventFields ) ),
-                                         resolvePropertyValueFromFields( CsvSpecification.CHANNEL_TAG, eventFields ),
-                                         new JsonEventValue( resolvePropertyValueFromFields( CsvSpecification.SUMMARY_TAG,
-                                                                                             eventFields ),
-                                                             null ),
-                                         0l,
-                                         null );
+                                               new JsonChannel( resolvePropertyValueFromFields( CsvSpecification.CHANNEL_TAG,
+                                                                                                eventFields ),
+                                                                "",
+                                                                null ),
+                                               new JsonEventValue( resolvePropertyValueFromFields( CsvSpecification.SUMMARY_TAG,
+                                                                                                   eventFields ),
+                                                                   null ),
+                                               0l,
+                                               null );
 
         return event;
     }

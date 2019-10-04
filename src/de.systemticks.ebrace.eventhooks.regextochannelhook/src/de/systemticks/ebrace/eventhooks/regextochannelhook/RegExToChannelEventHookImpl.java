@@ -15,6 +15,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import com.elektrobit.ebrace.common.utils.UnitConverter;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventHandler;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
@@ -78,7 +79,9 @@ public class RegExToChannelEventHookImpl implements RegExToChannelEventHook
                 {
                     double perProcessCpuUsage = (100000 * entry.getCpuUsage() / entry.getTimestamp());
                     JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                        "cpu.proc." + entry.getProcName(),
+                                                        new JsonChannel( "cpu.proc." + entry.getProcName(),
+                                                                         "",
+                                                                         "PERCENT" ),
                                                         new JsonEventValue( perProcessCpuUsage, null ),
                                                         null,
                                                         null );
@@ -92,7 +95,9 @@ public class RegExToChannelEventHookImpl implements RegExToChannelEventHook
                 for (ProcMemEntry entry : pidToMeasurement.values())
                 {
                     JsonEvent newEvent = new JsonEvent( event.getTimestamp(),
-                                                        "mem.proc." + entry.getProcName(),
+                                                        new JsonChannel( "mem.proc." + entry.getProcName(),
+                                                                         "",
+                                                                         "KILOBYTE" ),
                                                         new JsonEventValue( UnitConverter
                                                                 .convertBytesToKB( entry.getMemoryUsage() ), null ),
                                                         null,

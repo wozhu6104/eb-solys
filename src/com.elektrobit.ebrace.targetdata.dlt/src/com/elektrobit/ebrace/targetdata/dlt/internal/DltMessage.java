@@ -16,6 +16,7 @@ import java.util.List;
 
 import com.elektrobit.ebrace.common.utils.ByteArrayHelper;
 import com.elektrobit.ebrace.common.utils.StringHelper;
+import com.elektrobit.ebrace.core.targetdata.api.json.JsonChannel;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEvent;
 import com.elektrobit.ebrace.core.targetdata.api.json.JsonEventValue;
 import com.elektrobit.ebrace.targetadapter.communicator.api.OutgoingMessage;
@@ -110,8 +111,9 @@ public class DltMessage implements OutgoingMessage
         value.addProperty( "contextId", extendedHeader.getContextId() );
         value.addProperty( "numArgs", extendedHeader.getNumberOfArguments() );
         value.addProperty( "logLevel", StringHelper.extractLast( extendedHeader.getMessageTypeInfo(), "_" ) );
-        value.add( "payload", constructPayload() );
-        return new JsonEventValue( constructPayload().toString(), value );
+        JsonObject payloadObj = constructPayload();
+        value.add( "payload", payloadObj );
+        return new JsonEventValue( filterUnicodeWhitespaces( payloadObj ), value );
     }
 
     private JsonObject constructPayload()
@@ -126,15 +128,17 @@ public class DltMessage implements OutgoingMessage
         return payloadObject;
     }
 
+    private String filterUnicodeWhitespaces(JsonObject jsonObject)
+    {
+        return jsonObject.toString().replaceAll( "\\\\u\\d{4}", "" );
+    }
+
     public String toJson()
     {
         JsonEventValue value = constructJsonEventValue();
-        JsonEvent event = new JsonEvent( (long)standardHeader.getTimeStamp(),
-                                         "trace.dlt." + extendedHeader.getApplicationId() + "."
-                                                 + extendedHeader.getContextId(),
-                                         value,
-                                         0l,
-                                         null );
+        JsonChannel channel = new JsonChannel( "trace.dlt." + extendedHeader.getApplicationId() + "."
+                + extendedHeader.getContextId(), "", "Text" );
+        JsonEvent event = new JsonEvent( (long)standardHeader.getTimeStamp(), channel, value, 0l, null );
         return event.toString();
     }
 

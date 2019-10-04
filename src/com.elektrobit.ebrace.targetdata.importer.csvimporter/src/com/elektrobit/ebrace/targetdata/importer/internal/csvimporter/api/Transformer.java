@@ -15,5 +15,5 @@ public interface Transformer
 {
     public JsonEvent transformEvent(String input);
 
-    void acquireMetaData(String hint, String path);
+    public void acquireMetaData(String hint, String path);
 }

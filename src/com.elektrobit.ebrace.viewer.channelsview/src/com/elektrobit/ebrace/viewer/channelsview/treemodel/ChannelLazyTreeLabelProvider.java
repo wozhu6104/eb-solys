@@ -12,8 +12,8 @@ package com.elektrobit.ebrace.viewer.channelsview.treemodel;
 import java.util.stream.Collectors;
 
 import org.eclipse.jface.resource.ResourceManager;
-import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -27,7 +27,7 @@ import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeE
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventChannel.CommonParameterNames;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.Unit;
 
-public class ChannelLazyTreeLabelProvider extends CellLabelProvider implements ILabelProvider
+public class ChannelLazyTreeLabelProvider extends StyledCellLabelProvider implements ILabelProvider
 {
     private final CommonParameterNames columnName;
     private ChannelColorUseCase useCase;
@@ -56,6 +56,8 @@ public class ChannelLazyTreeLabelProvider extends CellLabelProvider implements I
 
         Image icon = getIconForNode( node );
         cell.setImage( icon );
+
+        super.update( cell );
     }
 
     public String getLineLabelText(ChannelTreeNode node)

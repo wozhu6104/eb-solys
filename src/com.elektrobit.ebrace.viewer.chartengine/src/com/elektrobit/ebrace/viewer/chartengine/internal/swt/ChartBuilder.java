@@ -25,6 +25,7 @@ import org.eclipse.birt.chart.model.attribute.JavaDateFormatSpecifier;
 import org.eclipse.birt.chart.model.attribute.LineAttributes;
 import org.eclipse.birt.chart.model.attribute.TickStyle;
 import org.eclipse.birt.chart.model.attribute.impl.ColorDefinitionImpl;
+import org.eclipse.birt.chart.model.attribute.impl.FontDefinitionImpl;
 import org.eclipse.birt.chart.model.attribute.impl.JavaNumberFormatSpecifierImpl;
 import org.eclipse.birt.chart.model.component.Axis;
 import org.eclipse.birt.chart.model.component.Series;
@@ -216,7 +217,7 @@ public class ChartBuilder<T> implements ChannelColorCallback
         xAxisPrimary.getScale().setShowOutside( false );
         setDataFormatXAxis();
 
-        xAxisPrimary.setInterval( 1 );
+        xAxisPrimary.setInterval( 2 );
         yAxisPrimary = chart.getPrimaryOrthogonalAxis( xAxisPrimary );
         yAxisPrimary.setType( AxisType.LINEAR_LITERAL );
         yAxisPrimary.getMajorGrid().setTickStyle( TickStyle.LEFT_LITERAL );
@@ -245,6 +246,18 @@ public class ChartBuilder<T> implements ChannelColorCallback
             yAxisPrimary.getScale().setAutoExpand( false );
             yAxisPrimary.getScale().setShowOutside( false );
         }
+        yAxisPrimary.getTitle().setVisible( true );
+        yAxisPrimary.getTitle().getCaption().setValue( modelToDisplay.getChannels().get( 0 ).getUnit().getName() );
+        yAxisPrimary.getTitle().getCaption()
+                .setFont( FontDefinitionImpl.create( ChartStyleProcessor.CHART_FONT,
+                                                     ChartStyleProcessor.FONT_SIZE + 2,
+                                                     true,
+                                                     false,
+                                                     false,
+                                                     false,
+                                                     false,
+                                                     90,
+                                                     null ) );
     }
 
     private ChartWithAxes createChart()
@@ -303,9 +316,8 @@ public class ChartBuilder<T> implements ChannelColorCallback
 
         if (!isStackedChart)
         {
-            displayedMinMax = ChartAxisMinMaxGenerator.computeYaxisMinMax( chartData.getMinValue(),
-                                                                           chartData.getMaxValue(),
-                                                                           modelToDisplay );
+            displayedMinMax = ChartAxisMinMaxGenerator
+                    .computeYaxisMinMax( chartData.getMinValue(), chartData.getMaxValue(), modelToDisplay );
         }
         else
         {

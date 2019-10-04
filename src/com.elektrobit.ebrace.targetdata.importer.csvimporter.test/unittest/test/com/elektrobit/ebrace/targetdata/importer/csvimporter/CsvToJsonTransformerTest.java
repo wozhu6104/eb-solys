@@ -25,7 +25,7 @@ public class CsvToJsonTransformerTest
     public void transform()
     {
         String input = "1234,12.0,numeric channel";
-        String output = "{\"uptime\":1234,\"channel\":\"numeric channel\",\"value\":{\"summary\":\"12.0\"},\"duration\":0}";
+        String output = "{\"uptime\":1234,\"channel\":{\"name\":\"numeric channel\",\"description\":\"\"},\"value\":{\"summary\":\"12.0\"},\"duration\":0}";
         CsvToJsonTransformer transformer = new CsvToJsonTransformer();
         transformer.acquireMetaData( null, "." );
 
@@ -36,7 +36,7 @@ public class CsvToJsonTransformerTest
     public void transformWithHint()
     {
         String input = "1234;12.0";
-        String output = "{\"uptime\":1234,\"channel\":\"trace.csv\",\"value\":{\"summary\":\"12.0\"},\"duration\":0}";
+        String output = "{\"uptime\":1234,\"channel\":{\"name\":\"trace.csv\",\"description\":\"\"},\"value\":{\"summary\":\"12.0\"},\"duration\":0}";
         CsvToJsonTransformer transformer = new CsvToJsonTransformer();
         transformer.acquireMetaData( "timestamp;value", FileHelper.getBundleRootFolderOfClass( getClass() ) );
 
