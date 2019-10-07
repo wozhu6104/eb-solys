@@ -173,6 +173,34 @@ class ScriptBase {
 		to1.timestamp - to2.timestamp
 	}	
 	
+	def toBool(String str) {
+		Boolean.parseBoolean(str.trim).booleanValue
+	}
+
+	def toByte(String str) {
+		Byte.parseByte(str.trim).byteValue
+	}
+	
+	def toShort(String str) {
+		Short.parseShort(str.trim).shortValue
+	}
+	
+	def toInt(String str) {
+		Integer.parseInt(str.trim).intValue
+	}
+	
+	def toLong(String str) {
+		Long.parseLong(str.trim).longValue
+	}
+	
+	def toFloat(String str) {
+		Float.parseFloat(str.trim).floatValue
+	}
+	
+	def toDouble(String str) {
+		Double.parseDouble(str.trim).doubleValue
+	}	
+	
 	/**
      * Filters a list of events whose time-stamps are higher than the time-stamp of the given TimebasedObject
      * @param evts The list of events
