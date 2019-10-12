@@ -123,6 +123,7 @@
 		<module>../com.elektrobit.ebrace.core.systemmodel</module>
 		
 		<module>../org.eclipse.tracecompass.common.core</module>
+		<module>../org.eclipse.tracecompass.tmf.ui</module>
 		<module>../com.elektrobit.ebrace.core.datainput</module>
 		<module>../com.elektrobit.ebsolys.userdoc</module>
 		<module>../de.systemticks.ebrace.core.eventhook</module>

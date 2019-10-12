@@ -78,6 +78,7 @@ public class TimelineViewPresentationProvider
         this.timeGraphViewer = timeGraphViewer;
         this.composite = composite;
         this.graphTopPaddingForTimemarkers = graphTopPaddingForTimemarkers;
+        this.timeGraphViewer.getTimeGraphControl().setGraphTopPadding( graphTopPaddingForTimemarkers );
         this.nameSpaceWidth = nameSpaceWidth;
         resManager = new LocalResourceManager( JFaceResources.getResources(), composite );
         composite.addDisposeListener( this );
