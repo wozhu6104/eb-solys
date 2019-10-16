@@ -19,10 +19,11 @@ public class JsonEventValue
 {
     private final Object summary;
     private final JsonElement details;
+    private final static Gson gson = new Gson();
 
     @Override
     public String toString()
     {
-        return new Gson().toJson( this );
+        return gson.toJson( this );
     }
 }
