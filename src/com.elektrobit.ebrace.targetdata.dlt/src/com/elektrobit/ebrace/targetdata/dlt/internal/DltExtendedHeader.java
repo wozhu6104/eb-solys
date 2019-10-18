@@ -182,7 +182,7 @@ public class DltExtendedHeader
                 {
                     return "UNDEFINED_LOG_LEVEL_INFO";
                 }
-                return logInfo.get( idx );
+                return logInfo.get( info );
             case DLT_TYPE_APP_TRACE :
                 if (idx < 0 || idx >= appTraceInfo.size())
                 {

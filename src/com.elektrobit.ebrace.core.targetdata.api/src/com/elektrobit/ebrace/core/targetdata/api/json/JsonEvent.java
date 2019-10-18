@@ -21,10 +21,11 @@ public class JsonEvent
     private final JsonEventValue value;
     private final Long duration;
     private final JsonEventEdge edge;
+    private final static Gson gson = new Gson();
 
     @Override
     public String toString()
     {
-        return new Gson().toJson( this );
+        return gson.toJson( this );
     }
 }
