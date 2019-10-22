@@ -9,11 +9,9 @@
  ******************************************************************************/
 package com.elektrobit.ebrace.targetdata.dlt.internal;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -283,27 +281,8 @@ public class DltPayload
         inputStringName = bytesReader.readNBytes( inputStringLength );
         remainingLength -= inputStringLength;
 
-        if ((inputStringName[inputStringLength - 1]) == STRING_TERMINATION)
-        {
-            remainingLength -= inputStringLength;
-            return new String( inputStringName );
-        }
-        else
-        {
-            // same handling as dlt-receive: assume string has at least stringLength bytes: if that is not the case
-            // look for the string terminator
-            // starting with stringLength+1
+        return new String( inputStringName );
 
-            ByteArrayOutputStream out = new ByteArrayOutputStream( inputStringLength );
-
-            for (byte value; remainingLength > 0 && (value = bytesReader.readNBytes( 1 )[0]) != STRING_TERMINATION;)
-            {
-                remainingLength -= 1;
-                out.write( value );
-            }
-
-            return new String( inputStringName ) + new String( out.toByteArray(), StandardCharsets.UTF_8 );
-        }
     }
 
 }

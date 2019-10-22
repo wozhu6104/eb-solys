@@ -74,7 +74,8 @@ public abstract class DltAbstractImporter extends AbstractImporter
 
         inputStream.close();
 
-        executor.shutdown();
+        // TODO Check if this is the correct way to stop all running parsing threads
+        executor.shutdownNow();
     }
 
     private byte[] nextMessageAsByteArray(BufferedInputStream inputStream) throws IOException
