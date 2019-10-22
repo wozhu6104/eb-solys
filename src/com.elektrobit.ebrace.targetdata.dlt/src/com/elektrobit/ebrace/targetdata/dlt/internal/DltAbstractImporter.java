@@ -13,10 +13,12 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.elektrobit.ebrace.chronograph.api.TimestampProvider;
 import com.elektrobit.ebrace.core.importerregistry.api.AbstractImporter;
-import com.elektrobit.ebrace.targetadapter.communicator.api.BytesFromStreamReader;
 import com.elektrobit.ebrace.targetadapter.communicator.api.MessageReader;
 import com.elektrobit.ebrace.targetadapter.communicator.services.ProtocolMessageDispatcher;
 import com.elektrobit.ebsolys.core.targetdata.api.runtime.eventhandling.RuntimeEventAcceptor;
@@ -50,28 +52,59 @@ public abstract class DltAbstractImporter extends AbstractImporter
 
         BufferedInputStream inputStream = new BufferedInputStream( new FileInputStream( file ) );
 
-        BytesFromStreamReader bytesFromStreamReader = new BytesFromStreamReaderImpl( inputStream );
-
         MessageReader<DltMessage> parser = getMessageParser();
 
-        DltMessage dltMsg = null;
+        int count = 0;
+
+        ExecutorService executor = Executors.newFixedThreadPool( 20 );
+
         do
         {
-            try
-            {
-                dltMsg = parser.readNextMessage( bytesFromStreamReader );
-                messageProcessor.processMessage( dltMsg );
+            byte[] msgBuffer = nextMessageAsByteArray( inputStream );
 
-                postProgress( fileLength, inputStream );
-            }
-            catch (DltMessageParseException ex)
-            {
-                log.debug( "Failed to parse dlt message" + ex.getMessage() );
-            }
+            postProgress( fileLength, inputStream );
+
+            executor.execute( new DltMessageReaderRunnable( messageProcessor, parser, msgBuffer ) );
+
+            count++;
         }
         while (!isImportCanceled() && inputStream.available() > 0);
 
+        System.out.println( "DLT Messages : " + count );
+
         inputStream.close();
+
+        executor.shutdown();
+    }
+
+    private byte[] nextMessageAsByteArray(BufferedInputStream inputStream) throws IOException
+    {
+        final int STORAGE_HEADER_SIZE = 16;
+        final int STANDARD_HEADER_SIZE = 4;
+        final int BUFFER_SIZE = 2048;
+
+        int bufLen = 0;
+        int len = 0;
+
+        byte[] dltMessageBuffer = new byte[BUFFER_SIZE];
+
+        // read storage header
+        inputStream.read( dltMessageBuffer, bufLen, STORAGE_HEADER_SIZE );
+        String s = new String( dltMessageBuffer, 0, 3 );
+        if (!s.equals( "DLT" ))
+        {
+            System.out.println( "Storage header not found" );
+        }
+        bufLen += STORAGE_HEADER_SIZE;
+
+        // read standard header
+        inputStream.read( dltMessageBuffer, bufLen, STANDARD_HEADER_SIZE );
+        bufLen += STANDARD_HEADER_SIZE;
+        len = (((dltMessageBuffer[bufLen - 2] & 0xff) << 8) | (dltMessageBuffer[bufLen - 1] & 0xff));
+
+        inputStream.read( dltMessageBuffer, bufLen, len - STANDARD_HEADER_SIZE );
+
+        return Arrays.copyOf( dltMessageBuffer, bufLen + len - STANDARD_HEADER_SIZE );
     }
 
     protected abstract MessageReader<DltMessage> getMessageParser();
