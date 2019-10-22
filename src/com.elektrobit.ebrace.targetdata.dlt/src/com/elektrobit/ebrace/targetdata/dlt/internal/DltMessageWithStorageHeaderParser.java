@@ -32,7 +32,7 @@ public class DltMessageWithStorageHeaderParser implements MessageReader<DltMessa
     }
 
     @Override
-    public DltMessage readNextMessage(BytesFromStreamReader bytesReader)
+    public synchronized DltMessage readNextMessage(BytesFromStreamReader bytesReader)
     {
         try
         {

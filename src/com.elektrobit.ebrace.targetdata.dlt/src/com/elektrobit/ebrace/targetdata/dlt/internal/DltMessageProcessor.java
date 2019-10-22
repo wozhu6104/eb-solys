@@ -42,7 +42,7 @@ public class DltMessageProcessor
         dbusParser = new DbusMsgToProtoMsg( timestampProvider, protocolMessageDispatcher, filename );
     }
 
-    public void processMessage(DltMessage dltMsg)
+    public synchronized void processMessage(DltMessage dltMsg)
     {
         if (dltMsg != null)
         {
